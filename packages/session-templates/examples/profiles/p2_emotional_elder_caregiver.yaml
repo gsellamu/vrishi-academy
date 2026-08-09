@@ -1,0 +1,9 @@
+first_name: Rosa
+sex: female
+age_band: elder
+occupation_class: caregiving
+suggestibility: {physical_pct: 30, emotional_pct: 70}
+relationship_type: emotional_rel
+referral_doc_id: REF-2026-0142
+vars: {referrer: "Dr. Patel"}
+vak: kinesthetic

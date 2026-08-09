@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vrishi.ai/schemas/session_plan.v1.json",
+  "title": "VRishi Session Plan (Kappasinian v1)",
+  "type": "object",
+  "required": ["id", "lane", "presenting_issue", "critical_mind", "pillar_plan", "stages", "suggestions", "homework"],
+  "properties": {
+    "id": {"type": "string"},
+    "lane": {"enum": ["vocational", "avocational", "referral_health"]},
+    "referral_required": {"type": "boolean"},
+    "presenting_issue": {"type": "string"},
+    "critical_mind": {
+      "type": "object",
+      "required": ["problem", "why", "what_changes", "how"],
+      "properties": {
+        "problem": {"type": "string"},
+        "why": {"type": "string"},
+        "what_changes": {"type": "string"},
+        "how": {"type": "string"}
+      }
+    },
+    "pillar_plan": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+    "thinking_ahead": {"type": "array", "items": {"type": "string"}},
+    "stages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["stage", "block"],
+        "properties": {
+          "stage": {"type": "string"},
+          "block": {},
+          "minutes": {"type": "number"},
+          "params": {"type": "object"}
+        }
+      }
+    },
+    "suggestions": {
+      "type": "object",
+      "required": ["literal", "inferred"],
+      "properties": {
+        "literal":  {"type": "array", "minItems": 3, "items": {"type": "string"}},
+        "inferred": {"type": "array", "minItems": 3, "items": {"type": "string"}},
+        "venting_dream": {"type": "string"}
+      }
+    },
+    "homework": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "contraindications": {"type": "array", "items": {"type": "string"}},
+    "documentation_fields": {"type": "array", "items": {"type": "string"}}
+  }
+}

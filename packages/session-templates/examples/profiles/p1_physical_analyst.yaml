@@ -1,0 +1,8 @@
+first_name: Marcus
+sex: male
+age_band: adult
+occupation_class: analytical
+suggestibility: {physical_pct: 72, emotional_pct: 28}
+relationship_type: physical_rel
+vars: {sport: tennis}
+vak: visual

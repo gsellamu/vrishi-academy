@@ -1,0 +1,50 @@
+id: referral_health.pain_comfort_adjunct.v1
+lane: referral_health
+referral_required: true
+referral_gate:
+  requires: "written referral from the client's licensed CA physician (or other authorized licensee) on file BEFORE booking"
+  scope_note: "adjunctive comfort and relaxation support under medical supervision; the licensee directs care — this is not diagnosis or treatment"
+presenting_issue: "greater day-to-day comfort and ease alongside the care plan directed by {referrer}"
+critical_mind:
+  problem: "discomfort has trained the body into bracing and the mind into constant monitoring, which amplifies the signal"
+  why: "the subconscious treats every signal as a fresh alarm, so attention and tension turn the volume up"
+  what_changes: "the body unlearns bracing; attention widens; the signal is acknowledged and then turned down like a dial"
+  how: "in hypnosis we practice the comfort-dial and soft-body response so the nervous system rehearses ease, supporting the medical plan"
+pillar_plan:
+  - "The medical team leads; this work adds a comfort skill, not a replacement — reinforce out loud"
+  - "The dial metaphor introduced and rehearsed cognitively before induction"
+  - "A safe-comfort scene chosen by {name} during intake"
+thinking_ahead:
+  - "Confirm current medical guidance verbatim in intake notes; suggestions never contradict it"
+  - "Agree the client reports any new or changed symptoms to {referrer} first"
+stages:
+  - {stage: presenting_issue, block: intake, minutes: 10}
+  - {stage: pre_talk, block: pre_talk, minutes: 3}
+  - {stage: suggestibility, block: suggestibility_test, minutes: 5}
+  - {stage: theory_of_mind, block: theory_of_mind, minutes: 5}
+  - {stage: questionnaire, block: questionnaire, minutes: 5}
+  - {stage: induction, block: induction_arm_raising, minutes: 10}
+  - {stage: deepening, block: [deepener, progressive_relaxation], minutes: 5}
+  - {stage: suggestions, block: suggestions, minutes: 5}
+  - {stage: phs, block: [phs_rehypnosis, count_out, phs_verify], minutes: 5}
+  - {stage: homework, block: homework}
+suggestions:
+  literal:
+    - "Picture a comfort dial from ten down to zero. Take hold of it now and turn it down one full number — and feel the body soften as it drops."
+    - "Wherever attention finds tension, the next exhale releases it — jaw, shoulders, belly, soft."
+    - "New or unusual signals get reported to {referrer}; familiar signals get the dial."
+    - "Each practice makes the dial easier to find and faster to turn."
+  inferred:
+    - "You might imagine comfort as a warmth that spreads a little further each time you rest like this."
+    - "Perhaps the sensation can move to arm's length for a while — noticed, respected, and quieter."
+    - "And you may find the body remembering how to rest around a signal instead of gripping it."
+    - "It can be reassuring to know your medical team leads the way, while this skill of ease travels with you."
+  venting_dream: "In sleep, the body can continue this softening on its own, so rest becomes deeper and mornings easier."
+homework:
+  - "Twice daily, five minutes: self-guided comfort-dial practice in the chosen scene."
+  - "Keep the comfort log (0–10, morning and evening) and bring it — the log is shared with {referrer} on request."
+contraindications:
+  - "No active written referral → do not book (platform booking gate blocks)"
+  - "New, worsening, or unexplained symptoms → pause hypnosis work, direct to {referrer} immediately"
+  - "Never suggest reduction or change of medication or medical care — outside scope"
+documentation_fields: [referral_doc_id, referrer, medical_guidance_summary, keywords, suggestibility_scores, comfort_log_baseline, phs_status, homework_assigned]

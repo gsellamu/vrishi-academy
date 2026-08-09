@@ -1,0 +1,62 @@
+# nlp_lexicon.yaml - phrases the prosody enricher analog-marks in rendered sessions.
+# All original wording. Extend freely; longest match wins; max 3 marks per phrase per stage.
+
+embedded_commands:
+  - deep sleep
+  - let go
+  - drift down
+  - relax now
+  - go deeper
+  - going deeper
+  - feel comfortable
+  - feel that comfort
+  - close your eyes
+  - eyes open
+  - wide awake
+  - trust yourself
+  - calm and relaxed
+  - lighter and lighter
+  - rising now
+  - settle in
+
+presuppositions:
+  - as you begin to
+  - when you notice
+  - the moment you
+  - each time you
+  - while your body
+  - before you realize
+  - as soon as you feel
+
+pace_lead_connectors:
+  - and
+  - as
+  - so that
+  - which means
+  - because
+
+# --- Grounded in HMI NLP 1 & 2 workbooks (201-2 / 201-3, Tabbanella) ---
+# Predicates table (NLP 2). Used for VAK weaving + counts in the e11 plan meta.
+vak_predicates:
+  visual:      [see, look, view, appear, show, dawn, reveal, envision, illuminate, imagine, clear, foggy, focused, crystal, picture]
+  auditory:    [hear, listen, sounds, harmonize, tune in, tune out, be all ears, rings a bell, silence, be heard, resonate, deaf, mellifluous, question]
+  kinesthetic: [feel, touch, grasp, get hold of, slip, catch, tap into, make contact, throw, turn, hard, unfeeling, concrete, get a handle]
+  auditory_digital: [makes sense, process, understand, decide, consider]
+
+# Rapport process (NLP 1): match & mirror -> pace -> lead. 7% words / 38% tonality / 55% body.
+pace_statements:
+  - you can hear the sound of my voice
+  - you are sitting in that chair
+  - you can feel where your hands are resting
+  - your breath is moving in its own rhythm
+lead_connectors:
+  - and that means
+  - which allows
+  - and as that happens
+  - so you can begin to
+
+# Sensory acuity checklist (NLP 2) - for personas/grader, not audio.
+sensory_acuity: [skin color light-dark, skin tonus shiny-matte, breathing rate fast-slow, breathing location high-low, lower lip lines, eye focus, pupil dilation]
+
+# Eye patterns (NLP 2), facing the client: VC up-right(theirs left), VR up-left, AC lateral-right, AR lateral-left, K down-right, AD down-left.
+eye_patterns: [VC visual constructed, VR visual remembered, AC auditory constructed, AR auditory remembered, K kinesthetic, AD self-talk]

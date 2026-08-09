@@ -1,0 +1,8 @@
+first_name: Anya
+sex: female
+age_band: child
+occupation_class: student
+suggestibility: {physical_pct: 50, emotional_pct: 50}
+guardian_consent: true
+guardian_present: true
+vars: {sport: soccer}

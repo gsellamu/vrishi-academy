@@ -1,0 +1,218 @@
+{#- VRishi block library v1.1 — PSR-aligned. Original wording throughout.
+    p=profile ctx, s=session plan.
+    <mark name="await_*"/> = ideomotor checkpoint (live: practitioner waits for nod;
+    XR/auto: gesture-detect or fixed pause). <mark name="cue_snap"/> = snap/audio cue slot. -#}
+{%- macro brk(t) -%}<break time="{{ t }}"/>{%- endmacro -%}
+{%- macro await(name) -%}<mark name="await_{{ name }}"/>{{ brk('4s') }}{%- endmacro -%}
+{%- macro snap() -%}<mark name="cue_snap"/>{%- endmacro -%}
+
+{%- macro deep_sleep(level='strong') -%}{{ snap() }}<emphasis level="{{ level }}">Deep sleep.</emphasis>{%- endmacro -%}
+
+{%- macro phs_short(p) -%}
+<p>And from now on, whenever we are working together for the purpose of hypnosis, and with your permission, the words <emphasis level="strong">deep sleep</emphasis> bring you back to this state quickly, calmly, and deeply, and the body relaxes. {{ brk('1200ms') }}</p>
+{%- endmacro -%}
+
+{%- macro pre_talk(p, s) -%}
+<mark name="stage_pre_talk"/>
+<p>You made it here today. {{ brk('400ms') }}You are sitting comfortably. {{ brk('400ms') }}You can hear my voice clearly. {{ brk('500ms') }}And that means the part of you that wants this change is already at work. {{ brk('700ms') }}</p>
+<p>So before we begin, here is what hypnosis actually is. {{ brk('500ms') }}
+It is a natural state — you drift in and out of it every day, in movies, in daydreams, on familiar drives. {{ brk('600ms') }}
+It is a narrow, comfortable focus that lets the protective filter of the mind relax, so a negative pattern can be exchanged for a positive one. {{ brk('700ms') }}
+When I say the words deep sleep, that is a cue for this relaxed state — not actual sleep. {{ brk('500ms') }}
+You stay aware the whole time, you hear everything, you cannot get stuck, and you would never do or say anything you wouldn't do wide awake. It is not a truth serum. {{ brk('800ms') }}
+If your mind wanders, that is normal — it will return to my voice on its own. {{ brk('600ms') }}
+Some people feel light and tingly, some feel pleasantly heavy, some simply feel calm. Whatever you experience is right for you. {{ brk('700ms') }}
+And you may even wonder whether you are hypnotized — that wondering is usually the sign that you are.</p>
+<p>This is a do-with process, not a do-to process — your participation and imagination are the engine. {{ brk('600ms') }}
+The reason you are here is {{ s.presenting_issue }}, and hypnosis lets us work with the subconscious directly, so the change you have been forcing becomes far easier. {{ brk('700ms') }}
+I will run a few tests today to learn how your mind takes in information. You cannot pass or fail them — so no helping, no hindering — they simply tell me how to work in your exact style. {{ brk('600ms') }}
+Any questions before we start? {{ await('questions') }}
+Good — then today we begin building the new associations that carry you to your goal.</p>
+{%- endmacro -%}
+
+{%- macro theory_of_mind(p, s) -%}
+<mark name="stage_tom"/>
+<p>Let me show you how the mind is organized, because it explains exactly why this works. {{ brk('600ms') }}
+At the base sits the primitive area — pure survival instinct — with two settings: fight, which pushes through stress, and flight, the urge to withdraw and escape it. {{ brk('800ms') }}
+From birth to about age eight, the mind accepts nearly everything as true. That is when the programming forms — some of it positive, some negative — and those experiences become the known associations: what we believe, what feels familiar. {{ brk('900ms') }}
+Those associations make up the subconscious mind — about eighty-eight percent of your mental power. {{ brk('700ms') }}
+As we grow, a filter forms above it — the critical mind — whose whole job is to protect the known, even when the known is the problem. {{ brk('700ms') }}
+And on top, the conscious mind: logic, reasoning, decisions, willpower — the willpower that never quite works when you need it — only about twelve percent of the power.</p>
+<p>So here is what has been happening with {{ s.presenting_issue }}. {{ brk('500ms') }}
+The decision to change starts in the conscious mind, travels down, hits the critical filter, and gets checked against the old programming. {{ brk('600ms') }}
+The programming resists, the filter blocks the change, and the same pattern runs again — {{ s.critical_mind.why }} {{ brk('800ms') }}
+Hypnosis takes that same intention and moves it past the filter, straight to the subconscious, where we install the new pattern with positive suggestion: {{ s.critical_mind.how }} {{ brk('700ms') }}
+I will work with the eighty-eight percent. You work with the twelve. Together, that is one hundred percent. {{ brk('600ms') }}
+That makes sense, doesn't it? {{ await('tom_yes') }}
+And the way we begin is by testing your suggestibility.</p>
+{%- endmacro -%}
+
+{%- macro suggestibility_questions(p) -%}
+<mark name="stage_sugg_questions"/>
+<p>Keep the eyes closed and just answer naturally. {{ brk('500ms') }}
+Have you ever walked or talked in your sleep? {{ await('q1') }}
+Have you ever woken in the night feeling unable to move or speak for a moment? {{ await('q2') }}
+After an argument, do you replay what you could have said? {{ await('q3') }}
+If you think of biting into a sour lemon, does your mouth water? {{ await('q4') }}
+Can you picture things clearly in your mind? {{ await('q5') }}</p>
+{%- endmacro -%}
+
+{%- macro induction_arm_raising(p) -%}
+<mark name="stage_induction"/>
+<p>Sit upright, feet flat on the floor, and rest your {{ p.vars.get('induction_arm','left') }} arm on the table. {{ brk('600ms') }}
+Look at that arm now, from the elbow to the fingertips — take a good picture of it — and close your eyes. {{ brk('900ms') }}
+See that arm and hand in your mind, and when you can remember exactly what they look like, nod your head. {{ await('visualize_arm') }}</p>
+{{ suggestibility_questions(p) }}
+<mark name="stage_physio"/>
+<p>Now, as you begin to enter hypnosis, your body will show a series of changes. I will notice them before you do — when you become aware of each one, just nod and let me know. {{ brk('800ms') }}
+First, the breathing tends to grow deeper as the body takes in more oxygen. When you notice your breathing deepening, nod your head. {{ await('breath') }}
+The lips, mouth, and throat may feel a little dry, with an urge to swallow. Completely natural — when you notice it, nod. {{ await('swallow') }}
+And notice the eyes now — that faint fluttering of the eyes beneath the lids. {{ brk('700ms') }}
+That is the first stage of hypnosis.</p>
+<mark name="stage_conversion"/>
+{% if p.mode == 'literal' -%}
+<p>Bring your attention to the elbow pressing into the table, down the forearm, into the wrist, the hand, the fingertips. {{ brk('700ms') }}
+That hand is becoming light. {{ brk('400ms') }}Very light. {{ brk('400ms') }}<emphasis level="strong">Lighter and lighter</emphasis> — light as a feather, and then lighter than that. {{ brk('800ms') }}
+And whether the lifting begins in the fingers first, or in the wrist, either way it rises. {{ brk('700ms') }}
+Small pulling and jerking motions are starting in the hand. {{ brk('700ms') }}
+At the same time, the other hand grows heavier against your leg, your feet press into the floor, your back rests against the chair. {{ brk('800ms') }}
+Each breath makes the light hand lighter and the heavy hand heavier — when you feel that difference in weight, nod your head. {{ await('weight_diff') }}
+The hand is lifting now — rising — pivoting at the elbow, the palm turning inward — lifting, rising, twisting, turning, upward and inward, the hand drawn to the face. {{ brk('1200ms') }}</p>
+{%- else -%}
+<p>Let your attention drift to the elbow resting comfortably on the table, down through the forearm, into the wrist, the hand, the fingertips. {{ brk('700ms') }}
+And you might imagine that hand becoming lighter — as if many powerful helium balloons were tied around the wrist — light as a feather, and then even lighter. {{ brk('900ms') }}
+As you allow that, you may notice little pulling or tugging motions beginning — you are creating that sensation, and that gives you a greater sense of control. {{ brk('900ms') }}
+And at the same time you can feel the other hand a little heavier on your leg, the feet against the floor, the rhythm of your breath — and when you notice the light hand and the heavy hand feeling different, you can nod. {{ await('weight_diff') }}
+And it becomes a floating feeling — a tendency to <emphasis level="strong">lift with each breath</emphasis> — rising now, pivoting, the palm turning gently inward — and I wonder whether it feels more like the hand being drawn to the face, or the face to the hand, or both drawn together. I will let you decide. {{ brk('1200ms') }}</p>
+{%- endif %}
+<p>And when the hand comes all the way in to touch the face — the moment you make skin contact — nod your head, and you will reach your peak of suggestibility and enter the hypnotic sleep. {{ await('skin_contact') }}
+{{ deep_sleep() }} {{ brk('1500ms') }}</p>
+{{ phs_short(p) }}
+{%- endmacro -%}
+
+{%- macro count_5_0(p) -%}
+<mark name="stage_count_5_0"/>
+<p>Gently let the hand come back down to rest. {{ brk('800ms') }}
+Now a count from five down to zero, and each count carries you deeper. {{ brk('700ms') }}
+Five — going down now, deeper into hypnosis. {{ brk('800ms') }}
+Four — the body releasing, relaxing, letting go. {{ brk('800ms') }}
+Three — an emotional calmness. {{ brk('800ms') }}
+Two — the mind relaxing now. {{ brk('800ms') }}
+One — deeper and deeper. {{ brk('800ms') }}
+And zero — {{ deep_sleep() }} {{ brk('1200ms') }}</p>
+{{ phs_short(p) }}
+{%- endmacro -%}
+
+{%- macro deepener_reactional(p) -%}
+<mark name="stage_reactional"/>
+<p>In a moment — not yet — I will ask you to open your eyes and fix them on a point above you, and when I say deep sleep, they close again and you go twice as deep. {{ brk('900ms') }}
+Open your eyes. {{ brk('2s') }}And — {{ deep_sleep() }} Twice as deep. {{ brk('1200ms') }}
+Open your eyes. {{ brk('2s') }}And — {{ deep_sleep() }} {{ brk('1200ms') }}
+Open your eyes. {{ brk('2s') }}And — {{ deep_sleep() }} Twice as deep. {{ brk('1200ms') }}
+One more time — open your eyes. {{ brk('2s') }}And — {{ deep_sleep() }} {{ brk('1500ms') }}</p>
+{{ phs_short(p) }}
+{%- endmacro -%}
+
+{%- macro deepener_heavy_light(p) -%}
+<mark name="stage_heavy_light"/>
+<p>Open your eyes and stretch both arms out in front of you at shoulder height. {{ brk('800ms') }}
+One palm faces up. The other hand turns sideways, thumb pointing to the ceiling. {{ brk('700ms') }}
+Close your eyes. {{ brk('600ms') }}
+On the open palm I am placing a heavy book — feel its weight pressing that arm down. {{ brk('900ms') }}
+And around the upright thumb I am tying many powerful helium balloons, pulling that arm upward. {{ brk('900ms') }}
+One arm pressed down, the other drawn up — let the arms respond. {{ brk('3s') }}
+Good. Release both ideas, let the arms float gently down to your lap — and {{ deep_sleep() }} {{ brk('1500ms') }}</p>
+{{ phs_short(p) }}
+{%- endmacro -%}
+
+{%- macro deepener(p) -%}
+<mark name="stage_deepener"/>
+{% set style = p.deepener_style %}
+{% if style == 'slide' -%}
+<p>Imagine the gentlest playground slide, with {{ p.count_from }} soft pillows waiting at the bottom. {{ brk('700ms') }}
+{% for n in range(p.count_from, 0, -1) %}{{ n }} — sliding down, easy and safe. {{ brk('800ms') }}{% endfor %}
+And you land in the pillows, twice as relaxed.</p>
+{%- elif style == 'garden_path' -%}
+<p>Picture a level garden path with {{ p.count_from }} smooth stepping stones, each one carrying you deeper into calm. {{ brk('800ms') }}
+{% for n in range(p.count_from, 0, -1) %}{{ n }} — a soft, steady step, deeper down. {{ brk('900ms') }}{% endfor %}
+At the last stone you settle onto a comfortable bench, twice as deep.</p>
+{%- else -%}
+<p>Before you is a staircase of {{ p.count_from }} steps, each step taking you twice as deep. {{ brk('800ms') }}
+{% for n in range(p.count_from, 0, -1) %}{{ n }} — deeper down. {{ brk('900ms') }}{% endfor %}
+At the bottom — {{ deep_sleep('moderate') }}</p>
+{%- endif %} {{ brk('1500ms') }}
+{%- endmacro -%}
+
+{%- macro progressive_relaxation(p) -%}
+<mark name="stage_prog_relax"/>
+{% set vak_lines = {
+  'visual': 'You can see, in the mind\'s eye, a soft light of calm resting at the crown of the head',
+  'auditory': 'you can hear how quiet and even the breath is becoming',
+  'kinesthetic': 'and you can feel the first wave of softening begin'
+} %}
+{% set vak_order = {'visual': ['visual','auditory','kinesthetic'], 'auditory': ['auditory','kinesthetic','visual'], 'kinesthetic': ['kinesthetic','visual','auditory']}.get(p.vak, ['visual','auditory','kinesthetic']) %}
+<p>Rest back now, feeling the rhythm of your breath, giving yourself permission to let me guide you. {{ brk('900ms') }}
+{{ vak_lines[vak_order[0]] }}, {{ brk('500ms') }}{{ vak_lines[vak_order[1]] }}, {{ brk('500ms') }}{{ vak_lines[vak_order[2]] }}. {{ brk('900ms') }}
+Bring your attention to the top of the head, and let a wave of relaxation wash down over the scalp, {{ brk('400ms') }}the forehead, {{ brk('400ms') }}the temples, {{ brk('400ms') }}the eyelids and cheeks, loosening the jaw. {{ brk('800ms') }}
+Any outside sounds are only the everyday sounds of life — they cannot distract you; they simply send you deeper. {{ brk('900ms') }}
+The calm flows through the neck and shoulders, softening them, {{ brk('600ms') }}down the upper arms, the elbows, the forearms, releasing the wrists, the hands, all the way to the fingertips. {{ brk('900ms') }}
+Into the chest now, opening, letting go of anything that no longer serves you, {{ brk('600ms') }}down through the center, the belly unwinding. {{ brk('800ms') }}
+The breathing deep, gentle, rhythmic — that drowsy, daydream feeling taking over — letting go, drifting down. {{ brk('900ms') }}
+Through the hips, {{ brk('500ms') }}down the thighs, the large muscles and the small, {{ brk('500ms') }}the knees, the shins, the calves, {{ brk('600ms') }}the ankles, the heels, the arches, every toe loose to the very tips. {{ brk('1000ms') }}
+And now a count from five to zero, each count deeper still — five, letting go — four — three — two — one — zero — {{ deep_sleep() }} {{ brk('1200ms') }}</p>
+{{ phs_short(p) }}
+{%- endmacro -%}
+
+{%- macro suggestions(p, s) -%}
+<mark name="stage_suggestions"/>
+{% set lines = s.suggestions.inferred if p.mode == 'inferred' else s.suggestions.literal %}
+{% if p.mode == 'blended' %}{% set lines = s.suggestions.inferred[:2] + s.suggestions.literal[2:] %}{% endif %}
+<p>And in this deep, receptive state, your subconscious accepts what serves you. {{ brk('900ms') }}
+{% for line in lines %}{{ line | pers(p) }} {{ brk('1100ms') }}
+{% endfor %}</p>
+<p>Now see it. {{ brk('500ms') }}
+Picture {{ p.anchor }} — and within that scene, watch yourself living the change — {{ s.critical_mind.what_changes | pers(p) }} {{ brk('1200ms') }}
+Like {{ p.metaphor }}. {{ brk('900ms') }}
+And feel it — {{ brk('400ms') }}let the body register how this new pattern feels: {{ p.payoff_frame }} {{ brk('1200ms') }}
+There is no rush — it is unfolding now, naturally, automatically, with each breath. {{ brk('800ms') }}
+And whether you notice the first change tonight, or sometime tomorrow, or in a quiet moment you did not expect — the change is already underway, and you can <emphasis level="moderate">trust yourself now</emphasis>. {{ brk('900ms') }}
+You are not becoming someone new. You are remembering who you have always been. {{ brk('1200ms') }}</p>
+{% if s.suggestions.venting_dream %}<p>{{ s.suggestions.venting_dream }} {{ brk('900ms') }}</p>{% endif %}
+{%- endmacro -%}
+
+{%- macro count_out(p) -%}
+<mark name="stage_emerge"/>
+<p>It is time now to come back up, calm and refreshed. I will count from zero to five, and with each number you grow more alert, more awake, with a positive sense of well-being. {{ brk('900ms') }}
+Zero — we close the door to the subconscious, sealing out every negative. {{ brk('700ms') }}
+One — slowly and calmly coming up. {{ brk('700ms') }}
+Two — physically aware, mentally alert. {{ brk('700ms') }}
+Three — coming up higher now. {{ brk('700ms') }}
+Four — the eyes beginning to open, and — {{ brk('600ms') }}
+Five — <emphasis level="strong">eyes open, wide awake.</emphasis> {{ brk('600ms') }}
+One two three four five — eyes open, wide awake.</p>
+{%- endmacro -%}
+
+{%- macro finger_spread_conversion(p, verify=false) -%}
+<mark name="stage_finger_spread"/>
+<p>{% if verify %}Before we finish, one quick check. {% endif %}Sit with your feet flat and rest your hands on your legs. {{ brk('600ms') }}
+Raise one arm, bend it at the elbow, and hold the palm about ten inches in front of your face, fingers straight, just above eye level. {{ brk('900ms') }}
+Stare at the middle finger. Take a deep breath — and on the exhale, the fingers begin to separate. {{ brk('900ms') }}
+Separating — wider and wider, further and further apart. {{ brk('900ms') }}
+Separating — wider and wider, further and further apart. {{ brk('900ms') }}
+Separating — wider and wider, further and further apart. {{ brk('1000ms') }}
+And as the fingers keep separating — tell me, is it the hand, or the arm, that is starting to pull in toward your face? {{ await('hand_or_arm') }}
+Good. The {{ '{limb}' }} keeps pulling in closer and closer as the fingers separate — and when you notice your breathing getting deeper, taking in more oxygen, nod and let me know. {{ await('fs_breath') }}
+When the eyelids start to blink and grow heavy, nod — and the more they blink, the heavier they become, and the heavier they become, the more they blink — so heavy now they would much rather stay closed. {{ await('fs_eyes') }}
+Closer and closer with every breath — and when the hand comes all the way in to touch the face, nod — the moment you make skin contact, the eyes close, and you reach your peak and enter the hypnotic sleep. {{ await('fs_contact') }}
+{{ deep_sleep() }} {{ brk('1500ms') }}
+{% if verify %}Perfect. {{ brk('500ms') }}And now — one two three four five — eyes open, wide awake.{% endif %}</p>
+{%- endmacro -%}
+
+{%- macro homework(p, s) -%}
+<mark name="stage_homework"/>
+<p>Before next session: {{ brk('400ms') }}
+{% for h in s.homework %}{{ h | pers(p) }} {{ brk('600ms') }}
+{% endfor %}
+Picture next week for a moment — you, walking in, telling me the first win. {{ brk('600ms') }}
+Same time next week, and notice what changes in the meantime.</p>
+{%- endmacro -%}

@@ -1,0 +1,12 @@
+# Fictional archetype (constraint C3) - not based on any real person.
+id: maya
+name: Maya
+archetype: analytical professional, first-time client, curious but guarded
+ep_mode: physical/literal (72% physical)
+issue: presentation anxiety before quarterly reviews
+question_default: "Yes... I've done that."
+limb_answer: "The hand. Definitely the hand pulling in."
+pretalk_question: "Just one - I stay in control the whole time, right?"
+await_answers:
+  q4: "*mouth waters slightly* ...yes, actually."
+  tom_yes: "That makes sense - the filter part especially."

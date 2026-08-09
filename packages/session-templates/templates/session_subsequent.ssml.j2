@@ -1,0 +1,13 @@
+{%- import '_blocks/blocks.ssml.j2' as b -%}
+<speak>
+<prosody rate="{{ p.rate }}" pitch="-2%" volume="{{ p.volume }}">
+<mark name="stage_review"/>
+<p>Let's begin with the week. What did you notice — what changed, what stayed the same? <mark name="await_review"/><break time="4s"/></p>
+{{ b.finger_spread_conversion(p) }}
+{{ b.deepener(p) }}
+{{ b.progressive_relaxation(p) }}
+{{ b.suggestions(p, s) }}
+{{ b.count_out(p) }}
+{{ b.homework(p, s) }}
+</prosody>
+</speak>

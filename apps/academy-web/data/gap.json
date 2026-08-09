@@ -1,0 +1,8 @@
+{
+  "asOf": "2026-08-08",
+  "hardStop": "2026-12-10",
+  "contacts":    { "done": 0,  "need": 24,  "unit": "sessions" },
+  "conferences": { "done": 3,  "need": 24,  "unit": "conferences" },
+  "electives":   { "done": 57, "need": 135, "unit": "hours (S2)" },
+  "workshops":   { "done": 15, "need": 24,  "unit": "total S1+S2" }
+}

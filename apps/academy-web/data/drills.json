@@ -1,0 +1,596 @@
+{
+  "presets": [
+    {
+      "id": "first55",
+      "label": "55-min first session (Step 0 -> out)",
+      "minutes": 55,
+      "focus": "first_session"
+    },
+    {
+      "id": "psr15",
+      "label": "15-min PSR warm-up",
+      "minutes": 15,
+      "focus": "psr_core"
+    },
+    {
+      "id": "tom5",
+      "label": "5-min ToM recital",
+      "minutes": 5,
+      "focus": "tom"
+    },
+    {
+      "id": "full25",
+      "label": "25-min PSR full walk",
+      "minutes": 25,
+      "focus": "psr_full"
+    },
+    {
+      "id": "mock50",
+      "label": "50-min mock PSR (graded)",
+      "minutes": 50,
+      "focus": "psr_full"
+    },
+    {
+      "id": "moreno34",
+      "label": "34-min Moreno blueprint shadow",
+      "minutes": 34,
+      "focus": "moreno_blueprint"
+    },
+    {
+      "id": "kappas22",
+      "label": "22-min Kappas vintage shadow",
+      "minutes": 22,
+      "focus": "kappas_vintage"
+    },
+    {
+      "id": "var2e30",
+      "label": "Variation 2 - Emotional lane (30m)",
+      "minutes": 30,
+      "focus": "var2_emotional"
+    },
+    {
+      "id": "var2p30",
+      "label": "Variation 2 - Physical lane (30m)",
+      "minutes": 30,
+      "focus": "var2_physical"
+    }
+  ],
+  "sequences": {
+    "psr_full": [
+      "pretalk",
+      "tom",
+      "armraise",
+      "count50",
+      "reactional",
+      "heavylight",
+      "progrelax",
+      "suggestions",
+      "countout",
+      "fingerspread"
+    ],
+    "psr_core": [
+      "tom",
+      "armraise",
+      "count50",
+      "reactional",
+      "countout",
+      "fingerspread"
+    ],
+    "first_session": [
+      "intake",
+      "settle",
+      "pretalk",
+      "tom",
+      "armraise",
+      "count50",
+      "reactional",
+      "heavylight",
+      "progrelax",
+      "staircase",
+      "suggestions",
+      "countout",
+      "fingerspread",
+      "homework"
+    ],
+    "moreno_blueprint": [
+      "pretalk",
+      "tom",
+      "armraise",
+      "reactional",
+      "progrelax",
+      "staircase",
+      "suggestions",
+      "countout"
+    ],
+    "kappas_vintage": [
+      "pretalk",
+      "armraise",
+      "progrelax",
+      "staircase",
+      "suggestions",
+      "countout"
+    ],
+    "var2_emotional": [
+      "armraise",
+      "count50",
+      "reactional",
+      "heavylight",
+      "progrelax",
+      "staircase",
+      "suggestions",
+      "countout",
+      "fingerspread"
+    ],
+    "var2_physical": [
+      "armraise",
+      "handforehead",
+      "count50",
+      "armrigidity",
+      "progrelax",
+      "staircase",
+      "suggestions",
+      "countout",
+      "fingerspread"
+    ]
+  },
+  "drills": [
+    {
+      "id": "intake",
+      "name": "Step 0a: Welcome, Intake & Goal Plan",
+      "weight": 5,
+      "min": 4,
+      "prompter": [
+        "Pre-session already done: forms returned BEFORE booking; warm cover letter referenced their goal.",
+        "Warm greeting; a touch of light humor - watch the shoulders drop.",
+        "Open-ended first: 'Tell me when this all started...' - let them reveal their frame.",
+        "L.O.V.E. - Listen, Observe, Verify, Empathize. Their words, their filter, not yours.",
+        "Anchor realizations with closed-ended questions: 'So that means... yes?'",
+        "History + phone-preview recap: ~10-15 minutes total on the presenting issue.",
+        "Articulate their issue back to them clearly - credibility, rapport, belief.",
+        "Define the goal: 'What does success look like in daily life?' - concrete, observable.",
+        "Co-create the plan: today's session + the arc (open-ended or a session-count game plan).",
+        "Well-formed outcome quick-check: positive, see-hear-feel evidence, first step, ecology.",
+        "Build the pillars: each new understanding is a support column for the suggestions to come.",
+        "Capture the critical-mind 4: what's the problem, why it persists, what changes, how we change it.",
+        "Thinking ahead: seed the calm anchor scene NOW (special place, best-delivery memory) for later use.",
+        "Note keywords verbatim for the record and for suggestion wording."
+      ],
+      "check": [
+        "Opened with rapport (greeting + light humor landed)",
+        "Open-ended elicitation before any closed questions",
+        "At least two realizations anchored with closed-ended questions",
+        "Reflected their issue back in their own keywords",
+        "Goal defined in concrete, observable terms",
+        "Plan co-created with the client (session + arc)",
+        "Critical-mind 4 captured in notes",
+        "Anchor scene seeded for later stages"
+      ]
+    },
+    {
+      "id": "settle",
+      "name": "Step 0b: Comfort & Settle",
+      "weight": 1,
+      "min": 1,
+      "prompter": [
+        "Environment check: chair right, water offered, temperature fine, phone silenced.",
+        "Normalize nerves about 'this weird thing called hypnosis' - most people wonder; that's normal.",
+        "One more light-humor beat - shoulders down, a smile, maybe a small laugh.",
+        "Posture preview: feet flat, hands resting - nothing to do yet, just settle.",
+        "Hold the axis all session: Physicals need to FEEL hypnosis; Emotionals need to feel UNDERSTOOD.",
+        "One easy breath together.",
+        "Transition line: 'Before we begin, let me tell you what hypnosis actually is...' -> Step 1."
+      ],
+      "check": [
+        "Environment/comfort checked out loud",
+        "Nerves normalized without over-talking",
+        "E/P axis consciously held (feel it vs feel understood)",
+        "Client visibly settled (shoulders, breath, smile)",
+        "Clean bridge into the pre-induction talk"
+      ]
+    },
+    {
+      "id": "pretalk",
+      "name": "Pre-Induction Talk",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Hypnosis is a natural, everyday state (movies, daydreams, falling in love) - narrow focus that relaxes the filter so negatives can become positives.",
+        "Deep sleep = cue words, not sleep. Aware throughout - maybe hyper-aware - you hear the room, stay in control, can't get stuck.",
+        "Not a truth serum; nothing you wouldn't do or say wide awake.",
+        "Suggestions serve YOUR stated conscious goals - nothing else.",
+        "Mind may wander - the subconscious knows when to return to my voice.",
+        "Light, heavy, tingly, or simply calm - whatever you feel is right for you.",
+        "Wondering if you're hypnotized is usually the sign you are.",
+        "Do-WITH process, not do-to. Your imagination and participation are the engine.",
+        "Link to their goal; today we start building the new associations.",
+        "Testing shows me how you take information in - can't pass or fail, so don't help, don't hinder.",
+        "Authority + hope: they ARE suggestible; this will work for them.",
+        "Ask for questions - if none: 'Good, because some people think...' and clear the top myths anyway.",
+        "Close forward: most people leave the first session feeling better already - the change has begun."
+      ],
+      "check": [
+        "Dispelled myths (sleep, control, stuck, truth serum)",
+        "Set expectations (aware, wandering, sensations vary)",
+        "Framed do-with + participation",
+        "Linked hypnosis to the client's stated goal",
+        "Framed testing as no-pass/no-fail",
+        "Used the 'Good, because some people think...' follow-up or answered questions fully",
+        "Closed with the change-has-begun expectation"
+      ]
+    },
+    {
+      "id": "tom",
+      "name": "Theory of Mind",
+      "weight": 3,
+      "min": 2,
+      "prompter": [
+        "Primitive area at the base - survival. Fight = pushing through daily stress; Flight = withdrawing, escaping, taking time out.",
+        "60,000+ message units a day pour in (mind, body, environment) - overload is the doorway we'll use.",
+        "Ages 0-8: everything accepted as absolute truth; programming forms, positive and negative.",
+        "Everyday example pair: foods we love vs refuse, affection vs punishment - knowns we believe are true.",
+        "Those known associations = subconscious, about 88 percent of mind power.",
+        "Critical mind above - a filter and protector of the knowns.",
+        "Conscious mind on top - logic, reasoning, decisions, analysis, and willpower ('the one that quits when you need it') - about 12 percent.",
+        "Their change-attempt: thought travels down, filter checks the old programming, resists, blocks - same pattern repeats.",
+        "Hypnosis walks that same thought past the filter - a door opens, direct access - positive suggestion installs the new pattern.",
+        "I work the 88, you work the 12 - together 100.",
+        "Bridge: and the way we begin is by testing your suggestibility."
+      ],
+      "check": [
+        "All zones named in order (primitive, 0-8, subconscious 88, critical filter, conscious 12)",
+        "Client's actual issue slotted into the flow",
+        "Blocked-change loop explained with the filter resisting",
+        "Hypnosis-bypass explanation landed",
+        "88/12 partnership close delivered",
+        "Bridged into suggestibility testing",
+        "Fight vs flight defined in daily-life terms"
+      ]
+    },
+    {
+      "id": "armraise",
+      "name": "Arm-Raising Induction",
+      "weight": 6,
+      "min": 4,
+      "prompter": [
+        "Setup: upright, feet flat, arm and hand ON the table - note WHICH arm and word everything to match. Glasses off, no gum.",
+        "Capture the arm: look elbow-to-fingertips, close eyes, hold the picture - nod when it's clear.",
+        "Suggestibility questions with direct eye contact (sleep-walk/talk, waking unable to move, replaying arguments, lemon-mouth, visualize?, imagine?) - weight the last two.",
+        "Frame: 'I will notice the changes before you do - when YOU notice, nod yes.'",
+        "Physio nods: breathing deepens (more oxygen)... lips-throat-mouth dry, urge to swallow (natural, normal)... eye flutter = first stage.",
+        "Conversion: elbow pressing comfortably, down the forearm, wrist, fingertips - lighter and lighter, feather, then lighter still; small pulling or jerking twitches are the start - name them.",
+        "Misdirection interleave: other hand heavier against the leg, feet pressing the floor, back on chair, rhythm of breath - 4th NOD when they feel the weight difference.",
+        "Ownership frame: 'you're creating that sensation' - their skill, not yours.",
+        "E-clients: allowing, tendency, permission, you choose, peaceful, safe, greater sense of control. P-clients: direct - it IS lifting.",
+        "Inference boost: many powerful balloons tied around that wrist - floating.",
+        "Movement -> directive: lifting, rising, twisting, turning, palm and fingertips inward, upward and inward; head-to-hand or hand-to-head - let them choose; bicep tightening.",
+        "Repeat the weave until the hand is about six inches from the face.",
+        "'The moment you make skin contact, nod - peak of suggestibility, hypnotic sleep.' Contact + nod -> SNAP -> Deep Sleep.",
+        "PHS anatomy, immediately: cue words + for the purpose of hypnosis + WITH YOUR PERMISSION + quickly, calmly, deeply + the body relaxes."
+      ],
+      "check": [
+        "Arm noted (left/right) and wording matched throughout",
+        "Visualize-the-arm capture with nod",
+        "Questions asked with direct eye contact; last two weighted",
+        "I-notice-first frame set before physio talk",
+        "All FOUR nods elicited (breath, swallow, flutter, weight difference)",
+        "Misdirection interleaved at least twice with ownership framing",
+        "Language matched to E/P mode; escalated only after movement",
+        "Six-inch threshold respected before the contact line",
+        "Skin contact -> snap -> deep sleep executed",
+        "PHS delivered with permission + purpose limiters"
+      ]
+    },
+    {
+      "id": "count50",
+      "name": "5-to-0 Deepening Count",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Hand gently back down to rest.",
+        "Frame: each count carries you deeper.",
+        "5 going down... 4 physical release... 3 emotional calm...",
+        "2 mental relaxing... 1 deeper and deeper...",
+        "0 -> SNAP -> Deep Sleep.",
+        "Repeat the PHS."
+      ],
+      "check": [
+        "Each number carried its distinct meaning (physical / emotional / mental)",
+        "Pace slow and even",
+        "Snap + deep sleep on zero",
+        "PHS repeated"
+      ]
+    },
+    {
+      "id": "reactional",
+      "name": "Reactional Deepener",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "If using a recliner: move the client there now, before deepening begins.",
+        "Frame it first: in a moment, not yet - eyes open and stare at a spot on the ceiling on my cue, close on deep sleep, twice as deep.",
+        "Open your eyes... (wait - it can take seconds).",
+        "And - Deep Sleep (snap) - twice as deep.",
+        "Cycle four times total.",
+        "Repeat the PHS."
+      ],
+      "check": [
+        "Pre-framed before the first cycle",
+        "Waited for the eyes each time",
+        "Four full cycles",
+        "Snap on every deep sleep",
+        "PHS repeated"
+      ]
+    },
+    {
+      "id": "heavylight",
+      "name": "Heavy/Light Deepener",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Context: this version deepens an existing state (variants double as test or secondary induction).",
+        "Arms out at shoulder height - demonstrate with your own arms.",
+        "One palm up; other hand sideways, thumb to ceiling. Eyes close.",
+        "Heavy book on the open palm pressing down.",
+        "Many powerful balloons tied to the thumb pulling up.",
+        "Let the arms respond - watch a few moments.",
+        "Release both ideas, arms gently to the lap - Deep Sleep.",
+        "Repeat the PHS."
+      ],
+      "check": [
+        "Demonstrated the arm positions yourself",
+        "Direction (down) and inference (up) both delivered",
+        "Allowed silent response time",
+        "Clean release + deep sleep",
+        "PHS repeated"
+      ]
+    },
+    {
+      "id": "progrelax",
+      "name": "Progressive Relaxation",
+      "weight": 4,
+      "min": 3,
+      "prompter": [
+        "Recording note: this is usually where the client recording starts.",
+        "Permission frame: rhythm of breath, letting me guide you.",
+        "Top of head down: scalp, forehead, temples, eyelids, cheeks, jaw.",
+        "Outside-sounds reframe: everyday sounds send you deeper.",
+        "Neck, shoulders soften; arms to fingertips.",
+        "Chest opens, releases what no longer serves; solar plexus and belly unwind.",
+        "Breathing deep, gentle, rhythmic - drowsy daydream feeling.",
+        "Hips and pelvis release; thighs large-to-small muscles, knees, shins, calves.",
+        "Ankles, heels, arches, every toe - maybe tingling.",
+        "Terminal count 5 to 0 - zero -> SNAP -> Deep Sleep.",
+        "Repeat the PHS."
+      ],
+      "check": [
+        "Head-to-toe order unbroken",
+        "Outside-sounds reframe included",
+        "Trance pacing held (slow, even, no rushing)",
+        "Terminal 5-0 with snap",
+        "PHS repeated"
+      ]
+    },
+    {
+      "id": "staircase",
+      "name": "Staircase Deepener",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Place them at the top of a beautiful staircase - ten steps down (their scene, not yours).",
+        "Each step down doubles the relaxation - describe texture, light, handrail.",
+        "Count the steps down slowly, weaving deeper-with-every-step.",
+        "Adaptations: elder -> gentle garden path instead of stairs; child -> playground slide with a 3-count.",
+        "At the bottom: a place of complete comfort - Deep Sleep.",
+        "Repeat the PHS if first session."
+      ],
+      "check": [
+        "Scene matched to the client (stairs / path / slide)",
+        "Step count paced with deepening language",
+        "Sensory detail present (not bare counting)",
+        "Bottom anchored to comfort + deep sleep",
+        "PHS repeated (first session)"
+      ]
+    },
+    {
+      "id": "suggestions",
+      "name": "Suggestions (Literal + Inferred)",
+      "weight": 3,
+      "min": 2,
+      "prompter": [
+        "Deliver at least one INFERRED line: imagine / picture / consider / you may find...",
+        "Deliver at least one LITERAL line: you are... each day you...",
+        "Say it -> See it (their scene) -> Feel it (body registers).",
+        "Keep a memorized pair per issue (confidence: belonging-in-the-room inferred / each-day-stronger literal).",
+        "Permissive coda: no rush - unfolding naturally, with each breath.",
+        "Optional: venting-dream suggestions here if dream therapy is part of the plan.",
+        "Identity close: not becoming someone new - remembering who you've always been."
+      ],
+      "check": [
+        "Clean inferred example delivered",
+        "Clean literal example delivered",
+        "Say-See-Feel arc complete",
+        "Lines traced to the client's goal (not generic)",
+        "Unhurried delivery"
+      ]
+    },
+    {
+      "id": "countout",
+      "name": "Count Out of Hypnosis",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Frame: reversing the count, more alert with each number, positive well-being.",
+        "0 - close the door to the subconscious, sealing out negatives.",
+        "1 - slowly and calmly coming up. 2 - physically aware, mentally alert.",
+        "3 - coming up higher. 4 - eyes beginning to open, and -",
+        "5 - EYES OPEN, WIDE AWAKE.",
+        "Rapid repeat: 1-2-3-4-5 eyes open wide awake."
+      ],
+      "check": [
+        "Door-close line on zero",
+        "Each count distinct and energizing",
+        "Energy lifted toward five",
+        "Rapid 1-5 repeat delivered"
+      ]
+    },
+    {
+      "id": "fingerspread",
+      "name": "Finger-Spread Conversion (+ PHS verify)",
+      "weight": 3,
+      "min": 2,
+      "prompter": [
+        "Feet flat, hands on legs. Glasses off, gum out.",
+        "Palm 10 inches from face, fingers straight, above eye level. Stare at the middle finger.",
+        "Deep breath - on the exhale the fingers begin to separate.",
+        "Separating, wider and wider (repeat 3-8 times).",
+        "Ask: hand or arm pulling inward? (E/P read - wait for the answer.)",
+        "Physio talk: breathing deepens - nod. Eyelids blink and grow heavy - nod; blink-heavy loop.",
+        "Closer with every breath - skin contact + nod -> eyes close -> peak -> Deep Sleep.",
+        "As PHS verify: this proves the deep-sleep cue is installed; then count out."
+      ],
+      "check": [
+        "Setup complete (distance, height, middle finger)",
+        "Separation lines repeated with rhythm",
+        "Hand-vs-arm question asked and answer used",
+        "Both physio nods elicited (breath, eyelids)",
+        "Contact -> deep sleep clean",
+        "Used as PHS verification with count-out after"
+      ]
+    },
+    {
+      "id": "homework",
+      "name": "Homework & Close",
+      "weight": 1,
+      "min": 1,
+      "prompter": [
+        "Back in the chair, eyes bright - recap one win from today out loud.",
+        "Assign the week: one small observable action tied to the goal.",
+        "Dream journal by the bed if using dream therapy - jot on waking.",
+        "Set expectation: changes may be subtle first - notice, don't force.",
+        "Book the next session before they leave.",
+        "End with hope: the process has already begun."
+      ],
+      "check": [
+        "Win recapped in the client's words",
+        "Homework specific, small, observable",
+        "Next session booked",
+        "Closed with genuine hope, not hurry"
+      ]
+    },
+    {
+      "id": "handforehead",
+      "name": "Hand-to-Forehead Challenge",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Use right after arm-raising, while the hand still rests at the forehead.",
+        "Unity image: hand and head as one piece of solid, beautiful marble.",
+        "Connected, comfortable, strong - the pressing feeling grows.",
+        "Challenge (paternal tone): you may try to pull the hand away - the more you try, the stronger it presses.",
+        "Let them try briefly; the failure deepens conviction.",
+        "Release the idea, hand gently to the lap - Deep Sleep.",
+        "Repeat the PHS."
+      ],
+      "check": [
+        "Timed off the arm-raise (hand already at forehead)",
+        "Unity image built before any challenge",
+        "Challenge voiced in a firmer, paternal tone",
+        "Try-and-fail loop kept brief and safe",
+        "Clean release + deep sleep + PHS"
+      ]
+    },
+    {
+      "id": "armrigidity",
+      "name": "Arm Rigidity Challenge",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Arm straight out, make a fist.",
+        "Picture all the body's tension flowing into that arm.",
+        "Tighter and tighter, stiffer and stiffer as it floods in.",
+        "Steel bar from shoulder to wrist.",
+        "Count 5 to 0 building stiffness - at 0: the more you try to bend it, the stiffer it becomes.",
+        "Brief try; then release all tension, arm soft to the lap - Deep Sleep.",
+        "Repeat the PHS."
+      ],
+      "check": [
+        "Fist + full-arm extension set first",
+        "Tension-transfer image before the count",
+        "5-to-0 stiffness count delivered",
+        "Try-to-bend paradox line landed",
+        "Full release verified (arm soft) + deep sleep + PHS"
+      ]
+    },
+    {
+      "id": "eyefascination",
+      "name": "Eye Fascination (Secondary Induction)",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Pick a spot on the ceiling - eyes looking up a bit, resting on that point.",
+        "Keep focusing without moving the eyes; wandering-and-returning is fine.",
+        "Match your speech to their breathing rhythm.",
+        "Bring awareness to the muscles around the eyes... the eyelids... what they feel like.",
+        "Heaviness builds; blinking increases; the blink-heavy loop.",
+        "Eyes prefer to close... closing... - Deep Sleep and deepen from there."
+      ],
+      "check": [
+        "Spot placed above natural eye level",
+        "Breathing pace matched before deepening language",
+        "Eyelid-muscle awareness built gradually",
+        "Blink-heavy loop used (not rushed to close)",
+        "Close converted to deep sleep + deepener"
+      ]
+    },
+    {
+      "id": "nlp_rapport",
+      "name": "NLP: Rapport, Pace & Lead",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Communication split: 7 percent words, 38 tonality, 55 body - work all three channels.",
+        "Match and mirror: posture, gesture size, breathing rhythm, tempo of speech.",
+        "Pace with truisms they can verify: my voice, the chair, the hands resting, the breath.",
+        "Then lead with a connector: and that means... which allows... so you can begin to...",
+        "Read sensory acuity live: skin tone, breathing rate and location, lower lip, eye focus, pupils.",
+        "VAK match: feed back their predicate system (see/look - hear/listen - feel/touch - or 'makes sense').",
+        "Resistance = lack of rapport, not a resistant client - flex the approach, not the person.",
+        "Map is not the territory: their words through THEIR filter; calibrate on behavior."
+      ],
+      "check": [
+        "Mirrored at least two body-language channels",
+        "Three verifiable pacing statements before any lead",
+        "Lead delivered on a connector, accepted without resistance",
+        "Predicates matched to their favored system",
+        "One acuity shift noticed and used out loud",
+        "Reframed any resistance as a rapport signal to yourself"
+      ]
+    },
+    {
+      "id": "nlp_outcome",
+      "name": "NLP: Well-Formed Outcome",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Open: how is it possible they don't have it yet?",
+        "State it positive: what specifically do they WANT (not what they don't).",
+        "Sensory evidence: what will they see, hear, and feel when they have it?",
+        "Present tense, as-if-now; future-pace a dated scene.",
+        "Present situation (associated) vs outcome scene (dissociated first).",
+        "First step: if nothing else mattered, the very next action?",
+        "Self-initiated and self-maintained - are they in charge of the result?",
+        "Context: where, when, with whom - any drawbacks there?",
+        "Resources: have they or anyone they know done this before?",
+        "Ecology: good for them, for others, for the wider system?"
+      ],
+      "check": [
+        "Outcome stated in the positive",
+        "See-hear-feel evidence captured",
+        "First step named and concrete",
+        "Self-maintained ownership confirmed",
+        "Context and drawbacks explored",
+        "Ecology question asked"
+      ]
+    }
+  ]
+}

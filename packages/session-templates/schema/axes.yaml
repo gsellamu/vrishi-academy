@@ -1,0 +1,46 @@
+# VRishi template axes v1.0 — every rendered script is a point in this space.
+# Renderer resolves axes → lexicon + branch selections inside _blocks.
+
+sex:                       # client's; drives pronouns + example framing only (not TTS voice)
+  male:   {subj: he,  obj: him,  poss: his}
+  female: {subj: she, obj: her,  poss: hers}
+
+age_band:
+  child:                   # <13; requires guardian_present + guardian consent; assent from child
+    rate: "92%"
+    lexicon: playful       # simple words, game-frames, short counts (3→0)
+    max_hypnotic_min: 12
+    swaps: {staircase: slide, deep_sleep_cue: "sleepy-calm"}
+  teen:                    # 13–17; guardian consent; standard structure, age-neutral imagery
+    rate: "96%"
+    lexicon: neutral
+  adult:
+    rate: "100%"
+    lexicon: standard
+  elder:
+    rate: "85%"           # slower pacing, +2dB volume floor
+    lexicon: standard
+    swaps: {staircase: garden_path, arm_rigidity: skip}   # mobility/fall-imagery safe
+
+occupation_class:          # imagery + anchor lexicons for personalization slots
+  analytical:  {anchor: "a clear, ordered desk at first light", metaphor: "a system settling into a steady state"}
+  creative:    {anchor: "a studio filled with warm, even light", metaphor: "a canvas accepting each intended stroke"}
+  physical_trades: {anchor: "tools laid out exactly where they belong", metaphor: "a level line, true and steady"}
+  caregiving:  {anchor: "a calm room where everyone is at ease", metaphor: "steady hands that steady others"}
+  leadership:  {anchor: "a quiet moment before the room fills", metaphor: "a compass that holds its heading"}
+  student:     {anchor: "a fresh page and a sharpened pencil", metaphor: "knowledge filing itself onto the right shelf"}
+
+suggestibility:            # physical_pct + emotional_pct = 100 (Panorama grid scoring)
+  literal:    {when: "physical_pct >= 60", style: direct, needs: "to feel hypnosis (body phenomena convincers)"}
+  inferred:   {when: "emotional_pct >= 60", style: permissive, needs: "to feel understood (rapport, imagery)"}
+  blended:    {when: "40 < physical_pct < 60", style: "open inferred, convert literal at deepening"}
+
+relationship_type:         # E&P sexuality; framing of motivation/payoff lines ONLY when issue-relevant
+  physical_rel:  {frame: "the quick, solid satisfaction of a visible win, and momentum you can act on today."}
+  emotional_rel: {frame: "a deep, private steadiness, and the quiet certainty that this change lasts."}
+  cross_modifier: "P-sexual & emotional_pct>40 → +10 physical_sx; E-sexual & physical_pct>40 → +10 emotional_sx"
+
+issue_lane:
+  vocational:      {referral_required: false}
+  avocational:     {referral_required: false}
+  referral_health: {referral_required: true, gate: "written referral from licensed CA practitioner on file BEFORE booking"}

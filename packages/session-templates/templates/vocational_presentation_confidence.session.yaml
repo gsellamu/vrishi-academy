@@ -1,0 +1,45 @@
+id: vocational.presentation_confidence.v1
+lane: vocational
+referral_required: false
+presenting_issue: "confidence and composure when presenting and speaking to groups"
+critical_mind:
+  problem: "the body rehearses alarm before and during presentations, even when the material is mastered"
+  why: "the subconscious long ago tagged group attention as a threat, so the filter keeps replaying that old protection"
+  what_changes: "group attention becomes familiar, workable territory, and preparation converts into steady delivery."
+  how: "we relax the filter in hypnosis and install the calm-competent pattern, then you rehearse it daily so it becomes the default"
+pillar_plan:
+  - "Preparation is already proven — {name} knows the material; only the alarm response is outdated"
+  - "Attention is neutral energy an audience hands the speaker to use"
+  - "A calm anchor scene established conversationally before induction"
+thinking_ahead:
+  - "Elicit the client's own best-delivery memory in stage 1 and reuse it verbatim as imagery in stage 8"
+  - "Pre-frame the breath-cue anchor cognitively so the hypnotic anchor lands on prepared ground"
+stages:
+  - {stage: presenting_issue, block: intake, minutes: 10}
+  - {stage: pre_talk, block: pre_talk, minutes: 3}
+  - {stage: suggestibility, block: suggestibility_test, minutes: 5}
+  - {stage: theory_of_mind, block: theory_of_mind, minutes: 5}
+  - {stage: questionnaire, block: questionnaire, minutes: 5}
+  - {stage: induction, block: induction_arm_raising, minutes: 10}
+  - {stage: deepening, block: [deepener, progressive_relaxation], minutes: 5}
+  - {stage: suggestions, block: suggestions, minutes: 5}
+  - {stage: phs, block: [phs_rehypnosis, count_out, phs_verify], minutes: 5}
+  - {stage: homework, block: homework}
+suggestions:
+  literal:
+    - "When {name} stands before a group, the shoulders drop, the breath slows, and the voice comes out level and strong."
+    - "One slow breath before the first word switches the body to calm — every single time."
+    - "Eyes on the audience feel exactly like eyes on a colleague — ordinary, manageable, safe."
+    - "Mistakes are corrected in stride; the voice stays even and the message continues."
+  inferred:
+    - "You may begin to notice, in the moments before speaking, a settling — as if the room has already made space for you."
+    - "Perhaps the attention of a group can start to feel like sunlight on a path you have walked many times."
+    - "And you might find the first sentence arriving on its own, carried by a breath that has already slowed."
+    - "It can be interesting to discover how naturally a pause feels like poise rather than a gap."
+  venting_dream: "Tonight and in the nights ahead, your dreams may quietly sort and release any leftover tension about speaking, so mornings arrive lighter."
+homework:
+  - "Twice daily, one minute: the slow-breath cue plus a vivid replay of the calm-delivery scene."
+  - "Deliver one low-stakes spoken moment each day — a toast, a stand-up update, a question in a meeting — and log it."
+contraindications:
+  - "Panic symptoms with medical red flags → advise medical evaluation; stay in self-improvement scope"
+documentation_fields: [keywords, suggestibility_scores, anchor_scene, phs_status, homework_assigned]

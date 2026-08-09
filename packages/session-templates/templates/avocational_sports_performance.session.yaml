@@ -1,0 +1,45 @@
+id: avocational.sports_performance.v1
+lane: avocational
+referral_required: false
+presenting_issue: "consistent focus and composure in {sport} performance"
+critical_mind:
+  problem: "skill built in practice breaks up under performance pressure — the mind narrates instead of executing"
+  why: "the subconscious linked being watched or keeping score with threat, so it interrupts trained movement with conscious checking"
+  what_changes: "trained movement runs uninterrupted; scoreboard and spectators become background signal, not commands"
+  how: "in hypnosis we hand execution back to the subconscious where the training lives, and anchor a single reset cue for live play"
+pillar_plan:
+  - "The training is stored and reliable — {name} has done the repetitions"
+  - "Pressure is attention; attention is fuel"
+  - "A single physical reset cue (exhale + grip check) pre-agreed cognitively"
+thinking_ahead:
+  - "Have the client describe one flawless rep in sensory detail during intake; reuse it as the stage-8 scene"
+  - "Agree on the reset cue before induction so the hypnotic anchor attaches to a rehearsed action"
+stages:
+  - {stage: presenting_issue, block: intake, minutes: 10}
+  - {stage: pre_talk, block: pre_talk, minutes: 3}
+  - {stage: suggestibility, block: suggestibility_test, minutes: 5}
+  - {stage: theory_of_mind, block: theory_of_mind, minutes: 5}
+  - {stage: questionnaire, block: questionnaire, minutes: 5}
+  - {stage: induction, block: induction_arm_raising, minutes: 10}
+  - {stage: deepening, block: [deepener, progressive_relaxation], minutes: 5}
+  - {stage: suggestions, block: suggestions, minutes: 5}
+  - {stage: phs, block: [phs_rehypnosis, count_out, phs_verify], minutes: 5}
+  - {stage: homework, block: homework}
+suggestions:
+  literal:
+    - "The moment play begins, thinking steps back and training takes over — the body knows the move and runs it clean."
+    - "The exhale-and-grip reset clears the last point completely; the next point starts at zero."
+    - "Crowd noise and score fade to background; the target stays sharp and near."
+    - "{name} finishes every rep the way it was trained — smooth, complete, committed."
+  inferred:
+    - "You might notice how, once play begins, the body seems to remember everything for you."
+    - "Perhaps between points a single easy breath can feel like wiping a slate perfectly clean."
+    - "And it can be pleasant to discover the crowd blurring into something like wind — present, harmless, even lifting."
+    - "You may find the finish of each movement arriving whole, as if it had been waiting."
+  venting_dream: "In the nights ahead your dreams can replay clean execution, filing it deeper, releasing any residue of pressure."
+homework:
+  - "Nightly, three minutes: eyes-closed replay of the flawless rep, ending with the reset cue."
+  - "Use the reset cue after every point or attempt in practice this week, no exceptions; log misses without judgment."
+contraindications:
+  - "Undisclosed injury or pain masking is out of scope — refer to physician; hypnosis is not used to override pain signals in the avocational lane"
+documentation_fields: [keywords, suggestibility_scores, reset_cue, phs_status, homework_assigned]

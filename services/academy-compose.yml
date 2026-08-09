@@ -1,0 +1,88 @@
+# VRishi Academy service overlay — joins the EXISTING shared infra network.
+# Usage (P0, once service code lands):
+#   docker compose -f academy-compose.yml --profile p0 up -d
+# Prereq: the common stack is up (jeeth.ai/infrastructure/docker/infra-stack-compose.yml)
+#
+# HOST PORTS: 8600-8605 for academy services, 3070 for academy-web dev.
+# Chosen after a full census of 123 occupied host ports across the docker infra compose
+# PLUS both app-layer start scripts (Jeeth-AI-Start-All-Services.ps1 registers 8001-8500
+# clusters incl. KnowledgeFactory 8201-8212; VRishiHypno script adds 3001/8021/8036/806x/8138/8235/8380).
+# 8600-8605 and 3070 verified absent from all three sources on 2026-08-08.
+
+name: vrishi-academy
+
+networks:
+  jeethhypno-shared-network:
+    external: true
+
+x-academy-env: &academy-env
+  ACADEMY_DB_URL: postgresql://academy:${ACADEMY_DB_PASSWORD:?set in .env}@jeethhypno-pgbouncer:6432/academy
+  REDIS_URL: redis://jeethhypno-redis:6379/3
+  MINIO_ENDPOINT: http://jeethhypno-minio:9000
+  MINIO_BUCKET: academy-takes
+  OLLAMA_URL: http://jeethhypno-ollama:11434
+  LIVEKIT_URL: ws://jeethhypno-livekit:7880
+
+services:
+  academy-orchestrator:
+    build:
+      context: ..
+      dockerfile: services/academy-orchestrator/Dockerfile
+    container_name: academy-orchestrator
+    environment:
+      <<: *academy-env
+      PERSONA_URL: http://academy-persona:8000
+      CORS_ORIGINS: http://localhost:3070
+    ports: ["8600:8000"]
+    networks: [jeethhypno-shared-network]
+    profiles: ["p0"]
+    restart: unless-stopped
+
+  persona-svc:
+    build:
+      context: ..
+      dockerfile: services/persona-svc/Dockerfile
+    container_name: academy-persona
+    environment:
+      <<: *academy-env
+      OLLAMA_DEFAULT_MODEL: ${OLLAMA_DEFAULT_MODEL:-gemma3:4b}
+    ports: ["8601:8000"]
+    networks: [jeethhypno-shared-network]
+    profiles: ["p0"]
+    restart: unless-stopped
+
+  asr-svc:
+    build: ./asr-svc
+    container_name: academy-asr
+    environment: *academy-env
+    ports: ["8602:8000"]
+    networks: [jeethhypno-shared-network]
+    profiles: ["p0"]
+    restart: unless-stopped
+
+  tts-svc:
+    build: ./tts-svc
+    container_name: academy-tts
+    environment: *academy-env
+    ports: ["8603:8000"]
+    networks: [jeethhypno-shared-network]
+    profiles: ["p0"]
+    restart: unless-stopped
+
+  grader-svc:
+    build: ./grader-svc
+    container_name: academy-grader
+    environment: *academy-env
+    ports: ["8604:8000"]
+    networks: [jeethhypno-shared-network]
+    profiles: ["p0"]
+    restart: unless-stopped
+
+  progress-svc:
+    build: ./progress-svc
+    container_name: academy-progress
+    environment: *academy-env
+    ports: ["8605:8000"]
+    networks: [jeethhypno-shared-network]
+    profiles: ["p0"]
+    restart: unless-stopped

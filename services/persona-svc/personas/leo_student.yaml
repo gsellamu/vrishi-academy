@@ -1,0 +1,12 @@
+# Fictional archetype (constraint C3) - not based on any real person.
+id: leo
+name: Leo
+archetype: warm, imaginative adult amateur athlete, emotionally expressive
+ep_mode: emotional/inferred (68% emotional)
+issue: freezing during tennis match points
+question_default: "Mmm... sometimes, yeah."
+limb_answer: "It feels more like the whole arm... drifting in."
+pretalk_question: "No questions... this already feels calming."
+await_answers:
+  q3: "All the time. I replay everything."
+  weight_diff: "*soft nod* ...they feel completely different now."
