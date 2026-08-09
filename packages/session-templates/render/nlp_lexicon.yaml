@@ -1,6 +1,10 @@
 # nlp_lexicon.yaml - phrases the prosody enricher analog-marks in rendered sessions.
 # All original wording. Extend freely; longest match wins; max 3 marks per phrase per stage.
+# Grounded in HMI NLP 1 & 2 workbooks (201-2 / 201-3, Tabbanella).
 
+# --- EMBEDDED COMMANDS (analog-marked with emphasis; voice drops, slows) ---
+# These are imperatives disguised within longer sentences.
+# Delivery: lower pitch, slight pause before/after, increased certainty.
 embedded_commands:
   - deep sleep
   - let go
@@ -18,7 +22,29 @@ embedded_commands:
   - lighter and lighter
   - rising now
   - settle in
+  - release now
+  - allow yourself
+  - breathe deeply
+  - completely relaxed
+  - rest now
+  - growing stronger
+  - becoming clear
+  - feel that change
+  - notice the difference
+  - open to change
+  - accept this
+  - remember this feeling
+  - sleep deeply
+  - deeper and deeper
+  - twice as deep
+  - letting go
+  - drifting down
+  - feel the calm
+  - entering hypnosis
 
+# --- PRESUPPOSITIONS (linguistic: assume the change is occurring) ---
+# NLP 1 p.11: "convenient assumptions about the world."
+# Delivery: smooth flow, no pause, stated as fact.
 presuppositions:
   - as you begin to
   - when you notice
@@ -27,36 +53,165 @@ presuppositions:
   - while your body
   - before you realize
   - as soon as you feel
+  - after you notice
+  - while you continue to
+  - sooner or later
+  - you might already notice
+  - you may begin to wonder
+  - even before you realize
+  - how quickly you can
+  - you don't have to
+  - naturally and easily
+  - the deeper you go
+  - as that happens
+  - when the change begins
+  - whether you notice it now or later
+  - you already know how to
+  - the part of you that
+  - without even trying
+  - I wonder if you've noticed
 
-pace_lead_connectors:
-  - and
-  - as
-  - so that
-  - which means
-  - because
-
-# --- Grounded in HMI NLP 1 & 2 workbooks (201-2 / 201-3, Tabbanella) ---
-# Predicates table (NLP 2). Used for VAK weaving + counts in the e11 plan meta.
-vak_predicates:
-  visual:      [see, look, view, appear, show, dawn, reveal, envision, illuminate, imagine, clear, foggy, focused, crystal, picture]
-  auditory:    [hear, listen, sounds, harmonize, tune in, tune out, be all ears, rings a bell, silence, be heard, resonate, deaf, mellifluous, question]
-  kinesthetic: [feel, touch, grasp, get hold of, slip, catch, tap into, make contact, throw, turn, hard, unfeeling, concrete, get a handle]
-  auditory_digital: [makes sense, process, understand, decide, consider]
-
-# Rapport process (NLP 1): match & mirror -> pace -> lead. 7% words / 38% tonality / 55% body.
+# --- PACE STATEMENTS (match current experience = 7/38/55 truth) ---
+# NLP 1 p.12: "Rapport is established by Matching and Mirroring... Pacing..."
+# Must be verifiably true NOW for the client. 3 truisms → 1 lead.
 pace_statements:
   - you can hear the sound of my voice
   - you are sitting in that chair
   - you can feel where your hands are resting
   - your breath is moving in its own rhythm
+  - you are here today
+  - you made it here
+  - the air is touching your skin
+  - your feet are on the floor
+  - you can feel the weight of your hands
+  - you are breathing
+  - you can hear the sounds around you
+  - you are listening
+
+# --- LEAD CONNECTORS (bridge from pacing truth → therapeutic suggestion) ---
+# NLP 1 p.12: "...and then Pacing and Leading them to achieve a desired outcome."
 lead_connectors:
   - and that means
   - which allows
   - and as that happens
   - so you can begin to
+  - and the more you
+  - which means
+  - and that allows
+  - so that
+  - and because of that
+  - and as you do
 
-# Sensory acuity checklist (NLP 2) - for personas/grader, not audio.
+# --- TAG QUESTIONS (yes-anchors that bypass critical filter) ---
+# NLP 1 p.12: rapport via agreement. ToM uses these for yes-sets.
+# Delivery: rising intonation, brief pause after.
+tag_questions:
+  - doesn't it
+  - isn't that right
+  - can you not
+  - haven't you
+  - makes sense
+  - that makes sense
+  - isn't it
+  - wouldn't you agree
+  - do you see
+  - can you feel that
+
+# --- DOUBLE BINDS / ALTERNATIVES (illusion of choice; both lead to trance) ---
+# Milton Erickson via NLP 1. Used in conversion + suggestions.
+# Delivery: equal emphasis on both options, slight pause between.
+double_binds:
+  - whether tonight or tomorrow
+  - the hand or the arm
+  - sooner or later
+  - now or in a moment
+  - tonight, or sometime tomorrow, or in a quiet moment
+  - whether the lifting begins in the fingers first, or in the wrist
+  - whether you notice it consciously or unconsciously
+  - you can do it quickly or slowly
+
+# --- MILTON MODEL (indirect suggestion patterns from Erickson/Bandler) ---
+# NLP 1 p.5: Bandler studied "Hypnotherapist Milton Erickson, who mastered
+# the art of using indirect suggestions and metaphors."
+# Delivery: softer, wondering tone, slightly slower.
+milton_model:
+  - I wonder if you
+  - you might notice
+  - perhaps you can
+  - some people find that
+  - it's possible that
+  - you may find yourself
+  - one can
+  - a person might
+  - you don't need to
+  - you can allow
+  - imagine
+  - there's no need to
+
+# --- Grounded in HMI NLP 1 & 2 workbooks (201-2 / 201-3, Tabbanella) ---
+# Predicates table (NLP 2 p.8). Used for VAK weaving + counts in e11 plan meta.
+vak_predicates:
+  visual:      [see, look, view, appear, show, dawn, reveal, envision, illuminate, imagine, clear, foggy, focused, crystal, picture, bright, dim, colorful, hazy, watch, observe, glimpse, notice, perspective]
+  auditory:    [hear, listen, sounds, harmonize, tune in, tune out, be all ears, rings a bell, silence, be heard, resonate, deaf, mellifluous, question, loud, quiet, rhythm, tone, echo, click]
+  kinesthetic: [feel, touch, grasp, get hold of, slip, catch, tap into, make contact, throw, turn, hard, unfeeling, concrete, get a handle, warm, cool, pressure, weight, heavy, light, smooth, rough, soft, firm, solid, flowing, floating, sinking, grip, hold, release, settle, rest, relax, comfortable, cozy]
+  auditory_digital: [makes sense, process, understand, decide, consider, think, know, learn, realize, figure out, logic, reason]
+
+# Rapport process (NLP 1 p.12): match & mirror → pace → lead. 7% words / 38% tonality / 55% body.
+# NLP 1 p.9: "7% of what we communicate is the result of the words...93% is all non-verbal!"
+rapport_model:
+  words_pct: 7
+  tonality_pct: 38
+  body_pct: 55
+  process: [match, mirror, pace, lead]
+
+# NLP Communication Model (NLP 1 p.5): External Event → Delete/Distort/Generalize → I/R → State → Behavior
+filters: [deletion, distortion, generalization]
+filter_elements: [language, beliefs, values, decisions, meta_programs, memories]
+
+# 13 Presuppositions of NLP (NLP 1 p.11) — RESPECT UR-WORLD mnemonic
+# These are philosophical, not linguistic. Used by grader to assess therapist mindset.
+nlp_presuppositions:
+  - Respect for the other person's model of the world
+  - Behavior and change evaluated in context and Ecology
+  - Resistance is a Sign of lack of rapport
+  - People are not their behaviors
+  - Everyone doing best with available resources
+  - Calibrate on behavior
+  - The map is not the Territory
+  - You are in charge of your mind and results
+  - People have all Resources they need
+  - All procedures increase Wholeness
+  - Only feedback, no failure
+  - Meaning of communication is the Response you get
+  - Law of Requisite Variety (most flexibility controls system)
+
+# 5 Principles for Success (NLP 2 p.4)
+five_principles: [know your outcome, take action, sensory acuity, behavioral flexibility, physiology and psychology of excellence]
+
+# 10 Keys to Achievable Outcome (NLP 2 p.5)
+achievable_outcome_keys:
+  - clearly specify outcome (see/feel/hear)
+  - state in positive
+  - specify present situation
+  - get first step
+  - specify evidence procedure
+  - congruently desirable
+  - self-initiated and self-maintained
+  - appropriately contextualized
+  - identify resources needed
+  - ecological check
+
+# Sensory acuity checklist (NLP 2 p.6) - for personas/grader, not audio.
 sensory_acuity: [skin color light-dark, skin tonus shiny-matte, breathing rate fast-slow, breathing location high-low, lower lip lines, eye focus, pupil dilation]
 
-# Eye patterns (NLP 2), facing the client: VC up-right(theirs left), VR up-left, AC lateral-right, AR lateral-left, K down-right, AD down-left.
-eye_patterns: [VC visual constructed, VR visual remembered, AC auditory constructed, AR auditory remembered, K kinesthetic, AD self-talk]
+# Eye patterns (NLP 2 p.9-10), facing the client.
+eye_patterns:
+  VC: visual constructed (up-right theirs left)
+  VR: visual remembered (up-left theirs right)
+  AC: auditory constructed (lateral-right)
+  AR: auditory remembered (lateral-left)
+  K: kinesthetic (down-right)
+  AD: self-talk (down-left)
+
+# Strategies (NLP 2 p.11): Elicitation → Utilization → Change → Installation
+strategy_steps: [elicitation, utilization, change, installation]

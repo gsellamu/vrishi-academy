@@ -172,7 +172,7 @@ def enrich(ssml_in: str, ep_type: str, lexicon: dict, vak: str | None = None) ->
         el_text = ssml_to_elevenlabs(wrapped)
         if el_text:
             plan.append({
-                "endpoint": "http://localhost:8136/api/v1/hypnotic-tts",
+                "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
                 "body": {
                     "text": el_text,
                     "zone": zone,
