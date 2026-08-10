@@ -60,18 +60,35 @@ academy.ps1 (CLI)
     .env                        secrets (auto-loaded by scripts)
     academy-orchestrator/       [BUILT] marks->turns state machine, WS driver
     persona-svc/                [BUILT] fictional client avatars, Ollama + fallback
-    asr-svc/                    [NOT BUILT]
-    tts-svc/                    [NOT BUILT]
-    grader-svc/                 [NOT BUILT]
-    progress-svc/               [NOT BUILT]
+    academy_shared/             [BUILT] OOP service layer: config (fail-fast secrets), database (SSL-configurable),
+                                         cache, coaching, events, audit, health, logging,
+                                         middleware (security headers, body size limit, request ID, timing),
+                                         service_factory (conditional Swagger, tightened CORS), auth (no hardcoded secrets)
+    academy-user-svc/           [BUILT] auth, users, rate limit, lockout. :8602. OOP DI. Security-hardened.
+    academy-progress-svc/       [BUILT] drills, sessions, gap, analytics, AI coaching. :8603. OOP DI. Rate-limited AI, parameterized SQL.
+    academy-grader-svc/         [BUILT] rubric grading (AI + manual), grade history. :8604. OOP DI. Rate-limited AI.
+    academy-content-svc/        [NOT BUILT] P2 future
+    db/001_schema.sql           [APPLIED] 10 tables, 3 views, triggers
+    db/002_grader_schema.sql    [APPLIED] rubrics, rubric_dimensions, grades, grade_dimensions + seed
 ```
 
 ## Current state and what to do next
-1. **E2E test orchestrator + persona-svc** -- both boot and health-check; full WS walk not yet run.
-2. **Build `/studio` page** -- React client: profile/plan/persona picker, WS transcript, spacebar advance, persona reply bubbles, stage chip, nod counter, done summary.
-3. **`academy.ps1 db-init`** then **`academy.ps1 backend`** -- first docker compose build.
-4. Rotate ElevenLabs key (compromised at `AI_Pipeline_Code/services/tts_service.py:482`), paste into `services/.env`.
-5. Verify `:8136/docs` route matches `/api/v1/hypnotic-tts`.
+1. **Backend hardened to FAANG + Healthcare level** -- All 3 services (user/progress/grader) security-audited and hardened:
+   - No hardcoded secrets in source code (fail-fast at startup, insecure-default detection)
+   - OWASP security headers (X-Content-Type-Options, X-Frame-Options, CSP-adjacent, HSTS behind TLS)
+   - Request body size limit (1 MB default, 413 on violation)
+   - Rate limiting on all AI endpoints (10 req/min/user)
+   - SQL injection eliminated (parameterized INTERVAL queries)
+   - JWT error messages sanitized (no internal detail leaking)
+   - DB SSL configurable via DB_SSL env var
+   - Swagger/OpenAPI auto-disabled in production (ACADEMY_ENV=production)
+   - CORS tightened (explicit methods/headers instead of wildcards)
+   - Compose: JWT_SECRET_KEY required (no default fallback)
+2. **AWS deployment next** -- ECS task definitions, ALB, ECR, Terraform/IaC, SSL certs.
+3. **vrishihypno.com integration** -- DNS, load balancer, API gateway.
+4. **Build `/studio` page** -- Wire auth + progress + grading APIs, WS role-play console (awaiting Claude Design handoff).
+5. **Wire academy-web to auth** -- Replace localStorage with API-backed persistence.
+6. Rotate ElevenLabs key (compromised at `AI_Pipeline_Code/services/tts_service.py:482`), paste into `services/.env`.
 
 ## Hard rules
 - `encoding="utf-8"` on EVERY Python file read/write (Windows cp1252 default breaks em-dashes).

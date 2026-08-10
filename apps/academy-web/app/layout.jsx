@@ -34,6 +34,9 @@ export default function RootLayout({ children }) {
             <Link href="/studio" className="navlink" style={{ color: "var(--iris)" }}>
               <span className="ord">◉</span>Session Studio
             </Link>
+            <Link href="/immersive" className="navlink" style={{ color: "var(--amber)" }}>
+              <span className="ord">◈</span>Immersive Session
+            </Link>
             <Link href="/dojo" className="gapchip" aria-label={`Real progress ${pct} percent`}>
               <span className="gaplabel">Real gap to CHt</span>
               <span className="gapbar"><span style={{ width: `${pct}%` }} /></span>

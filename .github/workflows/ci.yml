@@ -1,0 +1,136 @@
+# VRishi Academy CI Pipeline
+# Runs on every PR and push to main (when backend code changes)
+# Lints, import-tests, and builds Docker images for all 3 services
+
+name: Academy CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "services/**"
+      - "packages/**"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "services/**"
+      - "packages/**"
+
+concurrency:
+  group: academy-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  # ================================================================
+  # Lint + Import Check
+  # ================================================================
+  lint:
+    name: Lint & Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: services/academy-user-svc/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          pip install ruff
+          pip install -r services/academy-user-svc/requirements.txt
+
+      - name: Ruff lint (shared layer + services)
+        run: ruff check services/academy_shared/ services/academy-user-svc/ services/academy-progress-svc/ services/academy-grader-svc/
+
+      - name: Import check — all 3 services
+        env:
+          ACADEMY_DB_URL: "postgresql://ci:ci@localhost/ci"
+          JWT_SECRET_KEY: "ci-pipeline-test-key-not-real"
+          ACADEMY_INVITE_CODE: "ci-test"
+        run: |
+          cd services
+          python -c "
+          import sys, importlib.util
+          sys.path.insert(0, '.')
+          for name, path in [
+              ('user', 'academy-user-svc/main.py'),
+              ('progress', 'academy-progress-svc/main.py'),
+              ('grader', 'academy-grader-svc/main.py'),
+          ]:
+              spec = importlib.util.spec_from_file_location(name, path)
+              mod = importlib.util.module_from_spec(spec)
+              spec.loader.exec_module(mod)
+              routes = len(mod.app.routes)
+              print('{}: {} routes OK'.format(name, routes))
+              assert routes > 5, '{} has too few routes'.format(name)
+          print('All services validated')
+          "
+
+  # ================================================================
+  # Build Docker Images (validates Dockerfiles compile)
+  # ================================================================
+  build:
+    name: "Build: ${{ matrix.service }}"
+    runs-on: ubuntu-latest
+    needs: lint
+    strategy:
+      fail-fast: false
+      matrix:
+        service:
+          - academy-user-svc
+          - academy-progress-svc
+          - academy-grader-svc
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: services/${{ matrix.service }}/Dockerfile
+          push: false
+          tags: vrishi-academy/${{ matrix.service }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ================================================================
+  # SQL Schema Validation
+  # ================================================================
+  schema-check:
+    name: Schema Validation
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: academy
+          POSTGRES_PASSWORD: ci-test
+          POSTGRES_DB: academy
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply schema
+        run: |
+          for f in services/db/001_schema.sql services/db/002_grader_schema.sql; do
+            if [ -f "$f" ]; then
+              echo "Applying $f"
+              PGPASSWORD=ci-test psql -h localhost -U academy -d academy -f "$f"
+            fi
+          done
+        env:
+          PGPASSWORD: ci-test

@@ -1,29 +1,35 @@
 # VRishi Academy service overlay — joins the EXISTING shared infra network.
-# Usage (P0, once service code lands):
-#   docker compose -f academy-compose.yml --profile p0 up -d
+# Usage:
+#   docker compose -f academy-compose.yml --profile p0 up -d --build  # core (orch + persona)
+#   docker compose -f academy-compose.yml --profile p1 up -d --build  # + auth + progress
+#   docker compose -f academy-compose.yml --profile p2 up -d --build  # + grader
+#   docker compose -f academy-compose.yml --profile p3 up -d --build  # + content (future)
 # Prereq: the common stack is up (jeeth.ai/infrastructure/docker/infra-stack-compose.yml)
 #
 # HOST PORTS: 8600-8605 for academy services, 3070 for academy-web dev.
-# Chosen after a full census of 123 occupied host ports across the docker infra compose
-# PLUS both app-layer start scripts (Jeeth-AI-Start-All-Services.ps1 registers 8001-8500
-# clusters incl. KnowledgeFactory 8201-8212; VRishiHypno script adds 3001/8021/8036/806x/8138/8235/8380).
-# 8600-8605 and 3070 verified absent from all three sources on 2026-08-08.
 
 name: vrishi-academy
 
 networks:
-  jeethhypno-shared-network:
+  jeethhypno-shared-network-global:
     external: true
 
 x-academy-env: &academy-env
-  ACADEMY_DB_URL: postgresql://academy:${ACADEMY_DB_PASSWORD:?set in .env}@jeethhypno-pgbouncer:6432/academy
+  ACADEMY_DB_URL: postgresql://academy:${ACADEMY_DB_PASSWORD:?set in .env}@jeethhypno-postgres:5432/academy
   REDIS_URL: redis://jeethhypno-redis:6379/3
   MINIO_ENDPOINT: http://jeethhypno-minio:9000
   MINIO_BUCKET: academy-takes
   OLLAMA_URL: http://jeethhypno-ollama:11434
   LIVEKIT_URL: ws://jeethhypno-livekit:7880
+  JWT_SECRET_KEY: ${JWT_SECRET_KEY:?set JWT_SECRET_KEY in .env}
+  JWT_ALGORITHM: HS256
+  ACCESS_TOKEN_MINUTES: "60"
+  REFRESH_TOKEN_DAYS: "7"
+  KAFKA_BOOTSTRAP_SERVERS: jeethhypno-redpanda:9092
+  KAFKA_ENABLED: "${KAFKA_ENABLED:-false}"
 
 services:
+  # ── P0: Core session engine ──────────────────────────────────────────────
   academy-orchestrator:
     build:
       context: ..
@@ -34,7 +40,7 @@ services:
       PERSONA_URL: http://academy-persona:8000
       CORS_ORIGINS: http://localhost:3070
     ports: ["8600:8000"]
-    networks: [jeethhypno-shared-network]
+    networks: [jeethhypno-shared-network-global]
     profiles: ["p0"]
     restart: unless-stopped
 
@@ -47,42 +53,68 @@ services:
       <<: *academy-env
       OLLAMA_DEFAULT_MODEL: ${OLLAMA_DEFAULT_MODEL:-gemma3:4b}
     ports: ["8601:8000"]
-    networks: [jeethhypno-shared-network]
+    networks: [jeethhypno-shared-network-global]
     profiles: ["p0"]
     restart: unless-stopped
 
-  asr-svc:
-    build: ./asr-svc
-    container_name: academy-asr
-    environment: *academy-env
+  # ── P1: Auth + Persistence ──────────────────────────────────────────────
+  academy-user-svc:
+    build:
+      context: ..
+      dockerfile: services/academy-user-svc/Dockerfile
+    container_name: academy-user
+    environment:
+      <<: *academy-env
+      CORS_ORIGINS: http://localhost:3070
+      ACADEMY_INVITE_CODE: ${ACADEMY_INVITE_CODE:?set ACADEMY_INVITE_CODE in .env}
+      ACADEMY_OPEN_REGISTRATION: "${ACADEMY_OPEN_REGISTRATION:-false}"
+      MAX_LOGIN_ATTEMPTS: "5"
+      LOCKOUT_MINUTES: "15"
     ports: ["8602:8000"]
-    networks: [jeethhypno-shared-network]
+    networks: [jeethhypno-shared-network-global]
     profiles: ["p1"]
     restart: unless-stopped
+    depends_on: []
 
-  tts-svc:
-    build: ./tts-svc
-    container_name: academy-tts
-    environment: *academy-env
-    ports: ["8603:8000"]
-    networks: [jeethhypno-shared-network]
-    profiles: ["p1"]
-    restart: unless-stopped
-
-  grader-svc:
-    build: ./grader-svc
-    container_name: academy-grader
-    environment: *academy-env
-    ports: ["8604:8000"]
-    networks: [jeethhypno-shared-network]
-    profiles: ["p1"]
-    restart: unless-stopped
-
-  progress-svc:
-    build: ./progress-svc
+  academy-progress-svc:
+    build:
+      context: ..
+      dockerfile: services/academy-progress-svc/Dockerfile
     container_name: academy-progress
-    environment: *academy-env
-    ports: ["8605:8000"]
-    networks: [jeethhypno-shared-network]
+    environment:
+      <<: *academy-env
+      CORS_ORIGINS: http://localhost:3070
+      COACH_MODEL: ${OLLAMA_DEFAULT_MODEL:-gemma3:4b}
+    ports: ["8603:8000"]
+    networks: [jeethhypno-shared-network-global]
     profiles: ["p1"]
+    restart: unless-stopped
+    depends_on: []
+
+  # ── P2: Grading ────────────────────────────────────────────────────────
+  academy-grader-svc:
+    build:
+      context: ..
+      dockerfile: services/academy-grader-svc/Dockerfile
+    container_name: academy-grader
+    environment:
+      <<: *academy-env
+      CORS_ORIGINS: http://localhost:3070
+      COACH_MODEL: ${OLLAMA_DEFAULT_MODEL:-gemma3:4b}
+    ports: ["8604:8000"]
+    networks: [jeethhypno-shared-network-global]
+    profiles: ["p2"]
+    restart: unless-stopped
+
+  # ── P3: Content (future) ────────────────────────────────────────────────
+  academy-content-svc:
+    build:
+      context: ..
+      dockerfile: services/academy-content-svc/Dockerfile
+    container_name: academy-content
+    environment:
+      <<: *academy-env
+    ports: ["8605:8000"]
+    networks: [jeethhypno-shared-network-global]
+    profiles: ["p3"]
     restart: unless-stopped

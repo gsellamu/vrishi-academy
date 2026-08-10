@@ -24,7 +24,7 @@
 
 param(
     [Parameter(Position = 0)]
-    [ValidateSet("setup","infra","db-init","render","web","backend","all","test","gap","status","endpoints","stop","help")]
+    [ValidateSet("setup","infra","db-init","db-migrate","render","web","backend","all","test","gap","status","endpoints","stop","help")]
     [string]$Mode = "help",
     [switch]$DebugMode
 )
@@ -158,6 +158,30 @@ function Invoke-DbInit {
     }
     Write-Warn "If pgbouncer does not use wildcard/auth_query, add 'academy' to its [databases] and reload."
     Write-Warn "Persist ACADEMY_DB_PASSWORD in your shell profile or services\.env (gitignored) for 'backend' mode."
+    Write-Host ""
+    Write-Host "  Next: run '.\academy.ps1 db-migrate' to create tables" -ForegroundColor Gray
+}
+
+function Invoke-DbMigrate {
+    Write-Header "DB-MIGRATE - apply schema to academy database"
+    $schemaFile = Join-Path $AcademyRoot "services\db\001_schema.sql"
+    if (-not (Test-Path $schemaFile)) { Write-ErrorMsg "Missing schema: $schemaFile"; return }
+
+    $pw = $env:ACADEMY_DB_PASSWORD
+    if (-not $pw) { Write-ErrorMsg "ACADEMY_DB_PASSWORD not set (check services\.env)"; return }
+
+    Write-Step "Applying 001_schema.sql to academy database"
+    $sql = Get-Content -Raw $schemaFile
+    docker exec -i jeethhypno-postgres psql -U academy -d academy -v ON_ERROR_STOP=1 -c "$sql"
+    if ($LASTEXITCODE -ne 0) {
+        Write-ErrorMsg "Schema migration failed"
+        return
+    }
+    Write-Success "Schema applied successfully"
+
+    Write-Step "Verifying tables"
+    $tables = docker exec jeethhypno-postgres psql -U academy -d academy -tAc "SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename"
+    Write-Host "  Tables: $tables" -ForegroundColor Gray
 }
 
 function Invoke-Render {
@@ -223,6 +247,7 @@ function Show-Help {
     Write-Host "  .\academy.ps1 setup       Prereqs + npm install + renderer deps"
     Write-Host "  .\academy.ps1 infra       Shared-infra preflight"
     Write-Host "  .\academy.ps1 db-init     Create academy role + db (idempotent)"
+    Write-Host "  .\academy.ps1 db-migrate  Apply schema (tables, indexes, views)"
     Write-Host "  .\academy.ps1 render      Smoke-render the 3 example sessions"
     Write-Host "  .\academy.ps1 web         Start web app (:$WebPort)"
     Write-Host "  .\academy.ps1 backend     Start P0 overlay (8600-8605; skips until built)"
@@ -233,7 +258,7 @@ function Show-Help {
     Write-Host "  .\academy.ps1 endpoints   All URLs"
     Write-Host "  .\academy.ps1 stop        Stop web + overlay"
     Write-Host ""
-    Write-Host "  Typical first run:  setup -> infra -> db-init -> web" -ForegroundColor Gray
+    Write-Host "  Typical first run:  setup -> infra -> db-init -> db-migrate -> web" -ForegroundColor Gray
     Write-Host "  Weekly rhythm:      gap -> web (check /dojo) -> practice" -ForegroundColor Gray
 }
 
@@ -244,6 +269,7 @@ switch ($Mode) {
     "setup"     { Invoke-Setup }
     "infra"     { Invoke-Starter @("-InfraCheck") }
     "db-init"   { Invoke-DbInit }
+    "db-migrate" { Invoke-DbMigrate }
     "render"    { $null = Invoke-Render }
     "web"       { Invoke-Starter @("-Frontend") }
     "backend"   { Invoke-Starter @("-Backend") }
