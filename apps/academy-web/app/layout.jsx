@@ -40,6 +40,9 @@ export default function RootLayout({ children }) {
             <Link href="/zoom-room" className="navlink" style={{ color: "var(--ok)" }}>
               <span className="ord">&#9713;</span>Zoom Room
             </Link>
+            <Link href="/zoom-room/copilot" className="navlink" style={{ color: "var(--ok)", paddingLeft: 28 }}>
+              <span className="ord">&#9672;</span>AI Co-Pilot
+            </Link>
             <Link href="/dojo" className="gapchip" aria-label={`Real progress ${pct} percent`}>
               <span className="gaplabel">Real gap to CHt</span>
               <span className="gapbar"><span style={{ width: `${pct}%` }} /></span>

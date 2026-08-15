@@ -106,14 +106,21 @@ services:
     profiles: ["p2"]
     restart: unless-stopped
 
-  # ── P3: Content (future) ────────────────────────────────────────────────
-  academy-content-svc:
+  # ── P3: Zoom Co-Pilot ──────────────────────────────────────────────────
+  zoom-copilot-svc:
     build:
       context: ..
-      dockerfile: services/academy-content-svc/Dockerfile
-    container_name: academy-content
+      dockerfile: services/zoom-copilot-svc/Dockerfile
+    container_name: academy-zoom-copilot
     environment:
       <<: *academy-env
+      CORS_ORIGINS: http://localhost:3070
+      COACH_MODEL: ${OLLAMA_DEFAULT_MODEL:-gemma3:4b}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin}
+      MINIO_BUCKET_ZOOM: zoom-room-photos
+      BODY_MAX_BYTES: "10485760"
     ports: ["8605:8000"]
     networks: [jeethhypno-shared-network-global]
     profiles: ["p3"]
