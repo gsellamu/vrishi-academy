@@ -16,7 +16,7 @@ import httpx
 log = logging.getLogger(__name__)
 
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
-VISION_MODEL = os.getenv("VISION_MODEL", "claude-sonnet-4-5-20250514")
+VISION_MODEL = os.getenv("VISION_MODEL", "claude-haiku-4-5-20251001")
 VISION_TIMEOUT = float(os.getenv("VISION_TIMEOUT", "30"))
 
 VISION_PROMPT = """\

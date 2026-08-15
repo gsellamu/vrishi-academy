@@ -93,6 +93,8 @@ const EQUIPMENT = [
 
 /* ======================================================== PHOTO UPLOAD == */
 function PhotoUpload({ photos, setPhotos, analyzing, onAnalyze }) {
+  const fileRefs = useRef([]);
+
   async function handleFile(index, file) {
     if (!file) return;
     if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) return;
@@ -103,6 +105,24 @@ function PhotoUpload({ photos, setPhotos, analyzing, onAnalyze }) {
     setPhotos(next);
   }
 
+  function removePhoto(index, e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const next = [...photos];
+    next[index] = null;
+    setPhotos(next);
+    if (fileRefs.current[index]) fileRefs.current[index].value = "";
+  }
+
+  function replacePhoto(index, e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (fileRefs.current[index]) {
+      fileRefs.current[index].value = "";
+      fileRefs.current[index].click();
+    }
+  }
+
   const hasPhotos = photos.some(Boolean);
 
   return (
@@ -111,18 +131,23 @@ function PhotoUpload({ photos, setPhotos, analyzing, onAnalyze }) {
       <p className="note">Upload up to 5 photos from different angles. JPEG, PNG, or WebP, max 10 MB each.</p>
       <div className="zrc-slots">
         {PHOTO_SLOTS.map((slot, i) => (
-          <label key={slot} className={`zrc-slot ${photos[i] ? "zrc-slot--filled" : ""}`}>
+          <div key={slot} className={`zrc-slot ${photos[i] ? "zrc-slot--filled" : ""}`}>
             <input type="file" accept="image/jpeg,image/png,image/webp" hidden
+              ref={(el) => (fileRefs.current[i] = el)}
               onChange={(e) => handleFile(i, e.target.files?.[0])} />
             {photos[i] ? (
-              <img src={photos[i].preview} alt={slot} />
+              <>
+                <img src={photos[i].preview} alt={slot} onClick={(e) => replacePhoto(i, e)} title="Click to replace" />
+                <button className="zrc-slot__remove" onClick={(e) => removePhoto(i, e)} title="Remove photo">&times;</button>
+                <span className="zrc-slot__replace" onClick={(e) => replacePhoto(i, e)}>Replace</span>
+              </>
             ) : (
-              <div className="zrc-slot__empty">
+              <div className="zrc-slot__empty" onClick={() => fileRefs.current[i]?.click()}>
                 <span className="zrc-slot__icon">+</span>
                 <span className="zrc-slot__label">{slot}</span>
               </div>
             )}
-          </label>
+          </div>
         ))}
       </div>
       {hasPhotos && (
