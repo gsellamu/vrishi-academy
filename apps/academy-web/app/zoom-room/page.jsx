@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 /* ================================================================== DATA == */
 
@@ -451,6 +452,16 @@ export default function ZoomRoom() {
         Playbook, Cookbook, and Runbook for building, approving, and operating
         your professional Zoom Room for HMI hypnotherapy sessions.
       </p>
+
+      <div className="zr-nav-links">
+        <Link href="/zoom-room/copilot" className="zr-nav-link zr-nav-link--primary">
+          <span className="zr-nav-link__icon">&#9672;</span>
+          <div>
+            <div className="zr-nav-link__title">AI Co-Pilot</div>
+            <div className="zr-nav-link__desc">Upload photos for AI analysis &amp; 2D room planner</div>
+          </div>
+        </Link>
+      </div>
 
       {/* Tab bar */}
       <div className="zr-tabs" role="tablist">

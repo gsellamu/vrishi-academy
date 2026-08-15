@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState, useCallback } from "react";
+import Link from "next/link";
 
 /* ================================================================ CONFIG == */
 const API = process.env.NEXT_PUBLIC_COPILOT_API || "http://localhost:8605";
@@ -465,6 +466,7 @@ export default function CopilotPage() {
 
   return (
     <article className="zoom-room">
+      <Link href="/zoom-room" className="zr-back-link">&larr; Zoom Room Guide</Link>
       <span className="eyebrow">AI Co-Pilot</span>
       <h1>Zoom Room Analyzer</h1>
       <p className="note">
