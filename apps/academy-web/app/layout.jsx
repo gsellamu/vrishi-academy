@@ -37,6 +37,9 @@ export default function RootLayout({ children }) {
             <Link href="/immersive" className="navlink" style={{ color: "var(--amber)" }}>
               <span className="ord">◈</span>Immersive Session
             </Link>
+            <Link href="/zoom-room" className="navlink" style={{ color: "var(--ok)" }}>
+              <span className="ord">&#9713;</span>Zoom Room
+            </Link>
             <Link href="/dojo" className="gapchip" aria-label={`Real progress ${pct} percent`}>
               <span className="gaplabel">Real gap to CHt</span>
               <span className="gapbar"><span style={{ width: `${pct}%` }} /></span>
