@@ -1,7 +1,8 @@
 """AI vision analysis for Zoom Room photos.
 
-Uses Claude API (claude-sonnet-4-5-20250514) for photo analysis with structured
-JSON output. Falls back to a canned assessment when API key is unavailable.
+Uses Claude API for photo analysis with structured JSON output.
+Falls back to a canned assessment when API key is unavailable.
+Prompt grounded in HMI standards (Kappas review + Carr AHA workbook + Carr video class).
 """
 from __future__ import annotations
 import base64
@@ -20,63 +21,124 @@ VISION_MODEL = os.getenv("VISION_MODEL", "claude-haiku-4-5-20251001")
 VISION_TIMEOUT = float(os.getenv("VISION_TIMEOUT", "30"))
 
 VISION_PROMPT = """\
-You are an HMI-certified Zoom Room assessment specialist for hypnotherapy sessions.
+You are an HMI Zoom Room reviewer applying the standards used by George Kappas and
+Tricia Carr (AHA) when approving student Zoom rooms at the Hypnosis Motivation
+Institute. The room must look like a professional therapy office -- "broadcast
+standard" -- because that is what clients are programmed to expect from television.
+The Zoom room IS your virtual therapy office and your first professional impression.
 
-Analyze this photo of a room intended for Zoom-based hypnotherapy sessions.
-Score each category from A (excellent) to F (unacceptable):
+Analyze this photo and score each category from A (excellent) to F (unacceptable):
 
-LIGHTING:
-- A: Even, soft key light from front; no shadows; neutral 4000-5000K color
-- B: Good lighting with minor shadows or slight color cast
-- C: Adequate but uneven; some harsh shadows or backlight
-- D: Poor lighting; strong backlight, overhead-only, or dark areas
-- F: Unacceptable; silhouetted, extreme shadows, or no lighting control
+CAMERA_ANGLE (most critical -- Kappas: "I never, ever want to see your ceiling"):
+- A: Camera slightly ABOVE eye line angled down (Carr standard), centered in frame,
+     medium to medium-close-up framing (chest/shoulders up), minimal headroom (just
+     a touch above head), NO ceiling visible, HD 16:9 aspect ratio, landscape
+     orientation. Subject leaning slightly forward (engaged posture).
+- B: Eye level but slightly off-center, or a touch too much headroom.
+- C: Noticeable angle issues but face fully visible; ceiling partially showing.
+- D: Laptop-on-desk angle (looking up at chin/nose -- Carr: "avoid angling the
+     camera so that it sees your chin or neck"), ceiling clearly visible, or user
+     is far off-center. Portrait orientation or 4:3 ratio.
+- F: Profile view, extreme angle, face partially cut off, extreme close-up
+     (face only), or ceiling dominates.
 
-BACKGROUND:
-- A: Clean, professional; neutral wall or curated bookshelf; certificates visible
-- B: Clean but slightly busy; acceptable for sessions
-- C: Some distracting elements; needs cleanup
-- D: Cluttered, personal items visible, or inappropriate items
-- F: Unprofessional; messy, distracting, or potentially triggering content
+LIGHTING (Kappas: "soft contour lighting, a little dramatic but very soft"):
+- A: Even, soft key light from front or 45 degrees; contour lighting that sculpts
+     the face without harsh shadows; warm natural tones (Carr: "gold is usually
+     very flattering, like beautiful morning light"). Ring light or softbox visible
+     (if glasses worn, ring light far enough to avoid ring reflection in lenses).
+     Bonus: patio floodlight or lamp behind/beside subject adding depth and drama
+     (Carr trick: "creates depth, looks like a whole other room behind you").
+     No silhouette. If glasses worn, no glare on lenses.
+- B: Good soft lighting with minor shadows or slight color cast.
+- C: Adequate but uneven; some harsh shadows or slight backlight from window.
+     Plain white wall with no lighting design (Carr: "a missed opportunity").
+- D: Strong backlight (window behind = silhouette), overhead-only fluorescent,
+     or dark areas. Blown-out appearance from direct sunlight.
+- F: Silhouetted, extreme shadows, or no lighting control at all.
 
-CAMERA_ANGLE:
-- A: Eye level, centered, head-and-shoulders framing, space above head
-- B: Slightly off-center or slightly above/below eye level
-- C: Noticeable angle issues but face fully visible
-- D: Laptop-on-desk angle (looking up nose) or too far away
-- F: Unusable angle; profile view, extreme angle, or face partially cut off
+BACKGROUND (Kappas: "therapist office looking -- that's what we're going for"):
+- A: Professional therapy office look -- curated bookshelf, certificates/diplomas
+     hung LOW (at seated eye level ~4 feet, NOT standing height). Colors that
+     reflect personality and specialization (Kappas: "reflects who you are").
+     Shot depth considered: shallow shot curated cleanly, or deep shot with
+     ENTIRE visible area well staged (Carr: "stage the whole shot depth").
+     Corner of room can lend engaging depth illusion (Carr: lamp behind you in
+     the corner "makes it look like a whole other room"). Plants, tasteful art,
+     creative elements that "overtly and subliminally communicate expertise."
+- B: Clean and professional but missing certificates or slightly busy.
+- C: Some distracting elements; pictures hung at standing height (too high for
+     Zoom frame); plain white wall (missed opportunity); needs staging.
+- D: Cluttered, personal items (mail, shoes, toys), bare walls, or inappropriate items.
+     Domestic disorder visible ("domestic blinders" -- Carr).
+- F: Unprofessional; messy, virtual green-screen background (Carr: "not advisable,
+     usually kitschy and distracting"), or potentially triggering content.
 
-AUDIO_ENVIRONMENT (visual assessment of room acoustics):
-- A: Soft furnishings, curtains, carpet; external mic visible; quiet indicators
-- B: Some soft surfaces; reasonable acoustic environment
-- C: Mixed; some hard surfaces but manageable
-- D: Hard walls, tile floor, no soft furnishings; echo likely
-- F: Bathroom, kitchen, or highly reverberant space
+AUDIO_ENVIRONMENT (visual assessment -- Carr: "audio quality is even MORE important
+than visual quality"; "think of sound like water splashing off hard surfaces"):
+- A: External USB condenser microphone visible JUST OUT OF CAMERA FRAME or on a
+     low-profile stand (Kappas: "I don't want the podcaster look" -- mic should NOT
+     dominate the shot). Soft furnishings, curtains, carpet/rug to absorb flutter
+     echo. Heavy curtain or blanket IN FRONT of subject (behind monitor/camera) to
+     catch sound bouncing off the wall behind them (Carr: "sound goes past you, hits
+     the wall, bounces back into mic"). Acoustic treatment panels visible (bonus).
+     Headphones/earbuds for monitoring and privacy. Wired ethernet cable visible
+     (bonus -- stable connection for uninterrupted sessions).
+- B: Some soft surfaces; external mic visible but room has hard surfaces.
+- C: Mixed hard/soft surfaces; no external mic visible; internal laptop mic likely.
+- D: Hard walls, tile floor, no soft furnishings; echo likely. No external mic.
+     No sound treatment (heavy curtain or panels) visible.
+- F: Bathroom, kitchen, or highly reverberant space.
 
-PRIVACY:
-- A: Enclosed room, no windows visible to outside, door closed
-- B: Windows with blinds/curtains closed; door visible but closeable
-- C: Some privacy concerns but addressable
-- D: Open space, visible windows without coverings, shared space
-- F: Public area, no privacy possible
+PRIVACY (clinical requirement):
+- A: Enclosed room with door closed (or "Do Not Disturb" sign), no uncovered
+     windows facing neighbors, headphones/earbuds to prevent audio bleed into room.
+     Free of family/pet/co-worker traffic. Professional and contained.
+- B: Windows with blinds/curtains closed; door visible but closeable.
+- C: Some privacy concerns but addressable (open blinds, no headphones).
+- D: Open space, visible windows without coverings, shared or public area.
+- F: Public area, no privacy possible, household members visible/audible.
+
+HMI-SPECIFIC CHECKLIST (note any of these in issues):
+- Ceiling visible? CRITICAL -- tilt camera down or raise seating. "Never, ever."
+- Camera below eye line (chin/nose visible in foreground)? CRITICAL -- raise camera.
+- Not centered in frame? WARNING -- move camera or chair to center.
+- Portrait orientation on phone/tablet? WARNING -- switch to landscape (16:9).
+- Certificates/diplomas too high? SUGGESTION -- lower to ~4 feet for Zoom frame.
+- Plain white wall background? SUGGESTION -- add staging elements for authority.
+- Too much headroom? WARNING -- zoom in or move closer to fill frame.
+- Extreme close-up (face only)? WARNING -- pull back to medium/medium-close-up.
+- Leaning away from camera? SUGGESTION -- lean slightly forward for engagement.
+- No external microphone visible? WARNING -- $100 USB condenser mic recommended.
+- Mic too prominent in frame (podcaster look)? SUGGESTION -- move mic just out of
+  camera range or use low-profile stand (Kappas preference).
+- No headphones/earbuds? SUGGESTION -- needed for client audio privacy.
+- Glasses glare from lighting? SUGGESTION -- move ring light farther away or
+  reposition to eliminate ring reflection; try softbox instead.
+- No sound absorption in FRONT (behind camera)? SUGGESTION -- hang heavy curtain
+  or blanket behind your monitor to catch bounced sound.
+- Virtual background? WARNING -- not advisable for clinical sessions.
+- Domestic clutter visible? WARNING -- scan shot and stash non-professional items.
+- No depth lighting? SUGGESTION -- add lamp or floodlight behind/beside you for
+  depth and visual interest (inexpensive patio floodlight works well).
 
 For each category scored below A, provide an issue with:
 - category: the category name
-- severity: "critical" (must fix before sessions) | "warning" (should fix) | "suggestion" (nice to have)
+- severity: "critical" (must fix before approval) | "warning" (should fix) | "suggestion" (nice to have)
 - description: specific problem observed in the photo
-- fix: actionable step to resolve it
+- fix: actionable step to resolve it (be specific and budget-conscious)
 
 Also estimate room dimensions if visible (width_m, depth_m, height_m).
 
 Respond with ONLY valid JSON in this exact format:
 {
-  "scores": {"lighting": "B", "background": "A", "camera_angle": "C", "audio_environment": "B", "privacy": "A"},
+  "scores": {"camera_angle": "B", "lighting": "A", "background": "A", "audio_environment": "B", "privacy": "A"},
   "issues": [
-    {"category": "camera_angle", "severity": "critical", "description": "...", "fix": "..."}
+    {"category": "camera_angle", "severity": "warning", "description": "...", "fix": "..."}
   ],
   "overall_grade": "B",
   "room_estimate": {"width_m": 3.5, "depth_m": 4.0, "height_m": 2.7},
-  "observations": "Brief summary of what you see in the photo."
+  "observations": "Brief summary of strengths and what needs improvement."
 }
 """
 
