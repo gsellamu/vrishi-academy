@@ -45,7 +45,7 @@ from academy_shared.database import DatabasePool
 from academy_shared.cache import CacheService
 from academy_shared.audit import AuditService
 from academy_shared.coaching import CoachingEngine
-from academy_shared.auth import require_auth, TokenPayload, get_client_ip
+from academy_shared.auth import require_auth, optional_auth, TokenPayload, get_client_ip
 
 from fastapi import Depends, HTTPException, Request, UploadFile, File, Form
 from pydantic import BaseModel, Field
@@ -136,12 +136,13 @@ async def analyze_room(
     request: Request,
     photos: list[UploadFile] = File(..., description="Room photos (max 5, JPEG/PNG/WebP)"),
     notes: str = Form(""),
-    auth: TokenPayload = Depends(require_auth),
+    auth: TokenPayload | None = Depends(optional_auth),
     db: DatabasePool = Depends(get_db),
     cache: CacheService = Depends(get_cache),
     audit: AuditService = Depends(get_audit),
 ):
-    await _rate_limit(cache, "ai:analyze:{}".format(auth.user_id))
+    user_id = auth.user_id if auth else get_client_ip(request)
+    await _rate_limit(cache, "ai:analyze:{}".format(user_id))
 
     if len(photos) > MAX_PHOTOS:
         raise HTTPException(422, "Maximum {} photos allowed".format(MAX_PHOTOS))
@@ -160,46 +161,48 @@ async def analyze_room(
     # Run AI analysis
     result = await analyze_photos(photo_data)
 
-    # Create analysis record
-    analysis_row = await db.fetchrow(
-        """INSERT INTO zoom_analyses (user_id, scores, issues, overall_grade, notes, photo_count, room_dimensions)
-           VALUES ($1, $2, $3, $4, $5, $6, $7)
-           RETURNING id, created_at""",
-        auth.user_id,
-        json.dumps(result.scores),
-        json.dumps(result.issues),
-        result.overall_grade,
-        notes or None,
-        len(photo_data),
-        json.dumps(result.room_estimate) if result.room_estimate else None,
-    )
-    analysis_id = str(analysis_row["id"])
+    analysis_id = uuid.uuid4().hex
+    created_at = None
 
-    # Upload photos to MinIO
-    minio_keys = []
-    try:
-        mc = _get_minio()
-        for content, content_type, photo_type in photo_data:
-            key = "analyses/{}/{}-{}.{}".format(
-                analysis_id, photo_type, uuid.uuid4().hex[:8],
-                "jpg" if "jpeg" in content_type else content_type.split("/")[-1],
-            )
-            mc.put_object(MINIO_BUCKET, key, BytesIO(content), len(content), content_type)
-            minio_keys.append(key)
+    # Persist to DB only when authenticated
+    if auth:
+        analysis_row = await db.fetchrow(
+            """INSERT INTO zoom_analyses (user_id, scores, issues, overall_grade, notes, photo_count, room_dimensions)
+               VALUES ($1, $2, $3, $4, $5, $6, $7)
+               RETURNING id, created_at""",
+            auth.user_id,
+            json.dumps(result.scores),
+            json.dumps(result.issues),
+            result.overall_grade,
+            notes or None,
+            len(photo_data),
+            json.dumps(result.room_estimate) if result.room_estimate else None,
+        )
+        analysis_id = str(analysis_row["id"])
+        created_at = analysis_row["created_at"]
 
-            await db.execute(
-                """INSERT INTO zoom_photos (analysis_id, minio_key, photo_type)
-                   VALUES ($1, $2, $3)""",
-                analysis_row["id"], key, photo_type,
-            )
-    except Exception as e:
-        log.warning("MinIO upload failed (analysis saved without photos): %s", e)
+        # Upload photos to MinIO
+        try:
+            mc = _get_minio()
+            for content, content_type, photo_type in photo_data:
+                key = "analyses/{}/{}-{}.{}".format(
+                    analysis_id, photo_type, uuid.uuid4().hex[:8],
+                    "jpg" if "jpeg" in content_type else content_type.split("/")[-1],
+                )
+                mc.put_object(MINIO_BUCKET, key, BytesIO(content), len(content), content_type)
+                await db.execute(
+                    """INSERT INTO zoom_photos (analysis_id, minio_key, photo_type)
+                       VALUES ($1, $2, $3)""",
+                    analysis_row["id"], key, photo_type,
+                )
+        except Exception as e:
+            log.warning("MinIO upload failed (analysis saved without photos): %s", e)
 
-    await audit.log(
-        auth.user_id, "zoom_analyze", "analyses/{}".format(analysis_id),
-        {"photo_count": len(photo_data), "grade": result.overall_grade, "source": result.source},
-        get_client_ip(request),
-    )
+        await audit.log(
+            auth.user_id, "zoom_analyze", "analyses/{}".format(analysis_id),
+            {"photo_count": len(photo_data), "grade": result.overall_grade, "source": result.source},
+            get_client_ip(request),
+        )
 
     return {
         "id": analysis_id,
@@ -213,7 +216,7 @@ async def analyze_room(
         "latency_ms": result.latency_ms,
         "source": result.source,
         "advisory": True,
-        "created_at": analysis_row["created_at"].isoformat(),
+        "created_at": created_at.isoformat() if created_at else None,
     }
 
 
@@ -695,7 +698,7 @@ def _check_min_distance(placements):
 @app.post("/validate")
 async def validate_layout(
     req: ValidateRequest,
-    auth: TokenPayload = Depends(require_auth),
+    auth: TokenPayload | None = Depends(optional_auth),
 ):
     results = []
     pass_count = 0

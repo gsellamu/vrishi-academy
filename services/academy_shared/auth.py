@@ -96,6 +96,22 @@ async def require_auth(
     return TokenPayload(sub=claims["sub"], role=claims.get("role", "student"), token_type="access")
 
 
+async def optional_auth(
+    request: Request,
+    creds: HTTPAuthorizationCredentials | None = Depends(bearer),
+) -> TokenPayload | None:
+    """Returns TokenPayload if valid token present, None otherwise (no 401)."""
+    if not creds:
+        return None
+    try:
+        claims = decode_token(creds.credentials)
+        if claims.get("type") != "access":
+            return None
+        return TokenPayload(sub=claims["sub"], role=claims.get("role", "student"), token_type="access")
+    except Exception:
+        return None
+
+
 async def require_admin(auth: TokenPayload = Depends(require_auth)) -> TokenPayload:
     if auth.role != "admin":
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Admin access required")

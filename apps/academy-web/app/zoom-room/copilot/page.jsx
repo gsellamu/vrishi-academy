@@ -7,6 +7,73 @@ const API = process.env.NEXT_PUBLIC_COPILOT_API || "http://localhost:8605";
 const MAX_PHOTOS = 5;
 const PHOTO_SLOTS = ["front", "left", "right", "behind", "overhead"];
 const GRADE_COLORS = { A: "#4ade80", B: "#a3e635", C: "#f59e0b", D: "#f97316", F: "#ef4444" };
+const LS_KEY = "zoomCopilot:state";
+const IDB_NAME = "zoomCopilotPhotos";
+const IDB_STORE = "photos";
+
+/* ============================================================= STORAGE == */
+function loadLS() {
+  try { const r = localStorage.getItem(LS_KEY); return r ? JSON.parse(r) : {}; }
+  catch { return {}; }
+}
+function saveLS(data) {
+  localStorage.setItem(LS_KEY, JSON.stringify(data));
+}
+
+function openIDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(IDB_NAME, 1);
+    req.onupgradeneeded = () => { req.result.createObjectStore(IDB_STORE); };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function savePhotosIDB(photos) {
+  const db = await openIDB();
+  const tx = db.transaction(IDB_STORE, "readwrite");
+  const store = tx.objectStore(IDB_STORE);
+  for (let i = 0; i < 5; i++) {
+    if (photos[i]) {
+      store.put({ data: photos[i].dataUrl, type: photos[i].file?.type || "image/jpeg" }, "photo_" + i);
+    } else {
+      store.delete("photo_" + i);
+    }
+  }
+  return new Promise((resolve, reject) => { tx.oncomplete = resolve; tx.onerror = reject; });
+}
+
+async function loadPhotosIDB() {
+  try {
+    const db = await openIDB();
+    const tx = db.transaction(IDB_STORE, "readonly");
+    const store = tx.objectStore(IDB_STORE);
+    const result = Array(5).fill(null);
+    const promises = [];
+    for (let i = 0; i < 5; i++) {
+      promises.push(new Promise((resolve) => {
+        const req = store.get("photo_" + i);
+        req.onsuccess = () => {
+          if (req.result) {
+            result[i] = { preview: req.result.data, dataUrl: req.result.data, restored: true };
+          }
+          resolve();
+        };
+        req.onerror = () => resolve();
+      }));
+    }
+    await Promise.all(promises);
+    return result;
+  } catch { return Array(5).fill(null); }
+}
+
+function fileToDataUrl(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.readAsDataURL(file);
+  });
+}
 
 /* ============================================================ EQUIPMENT == */
 const EQUIPMENT = [
@@ -26,12 +93,13 @@ const EQUIPMENT = [
 
 /* ======================================================== PHOTO UPLOAD == */
 function PhotoUpload({ photos, setPhotos, analyzing, onAnalyze }) {
-  function handleFile(index, file) {
+  async function handleFile(index, file) {
     if (!file) return;
     if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) return;
     if (file.size > 10 * 1024 * 1024) return;
+    const dataUrl = await fileToDataUrl(file);
     const next = [...photos];
-    next[index] = { file, preview: URL.createObjectURL(file) };
+    next[index] = { file, preview: dataUrl, dataUrl };
     setPhotos(next);
   }
 
@@ -67,7 +135,7 @@ function PhotoUpload({ photos, setPhotos, analyzing, onAnalyze }) {
 }
 
 /* ======================================================== SCORE CARD == */
-function ScoreCard({ scores, overall, observations }) {
+function ScoreCard({ scores = {}, overall, observations }) {
   const categories = {
     lighting: "Lighting",
     background: "Background",
@@ -386,22 +454,55 @@ function RoomCanvas({ room, placements, setPlacements }) {
 }
 
 /* ============================================================== PAGE == */
+const DEFAULT_PLACEMENTS = [
+  { equipment_id: "desk_standard", x: 2.0, y: 2.8, rotation: 0 },
+  { equipment_id: "chair_office", x: 2.0, y: 2.2, rotation: 0 },
+  { equipment_id: "monitor_24", x: 2.0, y: 3.0, rotation: 0 },
+  { equipment_id: "webcam_hd", x: 2.0, y: 3.1, rotation: 0 },
+  { equipment_id: "ringlight_18", x: 2.0, y: 3.3, rotation: 0 },
+  { equipment_id: "mic_usb", x: 2.3, y: 2.6, rotation: 0 },
+];
+
 export default function CopilotPage() {
+  const [loaded, setLoaded] = useState(false);
   const [photos, setPhotos] = useState(Array(5).fill(null));
   const [analyzing, setAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState(null);
   const [chatHistory, setChatHistory] = useState([]);
   const [tab, setTab] = useState("upload"); // upload | results | planner
   const [room, setRoom] = useState({ width_m: 4.0, depth_m: 3.5, height_m: 2.7 });
-  const [placements, setPlacements] = useState([
-    { equipment_id: "desk_standard", x: 2.0, y: 2.8, rotation: 0 },
-    { equipment_id: "chair_office", x: 2.0, y: 2.2, rotation: 0 },
-    { equipment_id: "monitor_24", x: 2.0, y: 3.0, rotation: 0 },
-    { equipment_id: "webcam_hd", x: 2.0, y: 3.1, rotation: 0 },
-    { equipment_id: "ringlight_18", x: 2.0, y: 3.3, rotation: 0 },
-    { equipment_id: "mic_usb", x: 2.3, y: 2.6, rotation: 0 },
-  ]);
+  const [placements, setPlacements] = useState(DEFAULT_PLACEMENTS);
   const [validation, setValidation] = useState(null);
+
+  // Load persisted state on mount
+  useEffect(() => {
+    (async () => {
+      try {
+        const saved = loadLS();
+        if (saved.room) setRoom(saved.room);
+        if (saved.placements) setPlacements(saved.placements);
+        if (saved.analysis) setAnalysis(saved.analysis);
+        if (saved.chatHistory) setChatHistory(saved.chatHistory);
+        if (saved.tab) setTab(saved.tab);
+
+        const restored = await loadPhotosIDB();
+        if (restored.some(Boolean)) setPhotos(restored);
+      } catch { /* first visit, use defaults */ }
+      setLoaded(true);
+    })();
+  }, []);
+
+  // Save JSON state to localStorage on change
+  useEffect(() => {
+    if (!loaded) return;
+    saveLS({ room, placements, analysis, chatHistory, tab });
+  }, [loaded, room, placements, analysis, chatHistory, tab]);
+
+  // Save photos to IndexedDB on change
+  useEffect(() => {
+    if (!loaded) return;
+    savePhotosIDB(photos).catch(() => {});
+  }, [loaded, photos]);
 
   async function handleAnalyze() {
     const files = photos.filter(Boolean);
@@ -410,7 +511,16 @@ export default function CopilotPage() {
 
     try {
       const form = new FormData();
-      files.forEach((p) => form.append("photos", p.file));
+      for (const p of files) {
+        if (p.file) {
+          form.append("photos", p.file);
+        } else if (p.dataUrl) {
+          // Restored from IDB -- convert dataUrl back to Blob
+          const resp = await fetch(p.dataUrl);
+          const blob = await resp.blob();
+          form.append("photos", blob, "restored.jpg");
+        }
+      }
       form.append("notes", "");
 
       const resp = await fetch(API + "/analyze", { method: "POST", body: form });
@@ -458,11 +568,28 @@ export default function CopilotPage() {
     }
   }
 
+  function handleClearAll() {
+    setPhotos(Array(5).fill(null));
+    setAnalysis(null);
+    setChatHistory([]);
+    setRoom({ width_m: 4.0, depth_m: 3.5, height_m: 2.7 });
+    setPlacements(DEFAULT_PLACEMENTS);
+    setValidation(null);
+    setTab("upload");
+    try { localStorage.removeItem(LS_KEY); } catch {}
+    openIDB().then((db) => {
+      const tx = db.transaction(IDB_STORE, "readwrite");
+      tx.objectStore(IDB_STORE).clear();
+    }).catch(() => {});
+  }
+
   const TABS = [
     { id: "upload", label: "Upload" },
     { id: "results", label: "Results" },
     { id: "planner", label: "Room Planner" },
   ];
+
+  if (!loaded) return <article className="zoom-room"><p>Loading...</p></article>;
 
   return (
     <article className="zoom-room">
@@ -474,14 +601,20 @@ export default function CopilotPage() {
         to design your optimal Zoom Room layout.
       </p>
 
-      <div className="zr-tabs" role="tablist">
-        {TABS.map((t) => (
-          <button key={t.id} role="tab" aria-selected={tab === t.id}
-            className={`zr-tab ${tab === t.id ? "zr-tab--active" : ""}`}
-            onClick={() => setTab(t.id)}>
-            {t.label}
-          </button>
-        ))}
+      <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+        <div className="zr-tabs" role="tablist" style={{ flex: 1 }}>
+          {TABS.map((t) => (
+            <button key={t.id} role="tab" aria-selected={tab === t.id}
+              className={`zr-tab ${tab === t.id ? "zr-tab--active" : ""}`}
+              onClick={() => setTab(t.id)}>
+              {t.label}
+            </button>
+          ))}
+        </div>
+        <button onClick={handleClearAll} className="chip"
+          style={{ fontSize: 11, opacity: 0.7 }}>
+          Reset All
+        </button>
       </div>
 
       {tab === "upload" && (
