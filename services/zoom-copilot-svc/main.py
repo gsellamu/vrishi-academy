@@ -82,6 +82,8 @@ async def _rate_limit(
     cache: CacheService, key: str,
     window: int = 60, max_hits: int = AI_RATE_LIMIT_MAX,
 ):
+    if not cache.available:
+        log.warning("Rate limiting degraded: Redis unavailable for key %s", key)
     hits = await cache.incr("rl:{}".format(key), window)
     if hits > max_hits:
         raise HTTPException(429, "Too many requests. Try again later.")
@@ -319,28 +321,32 @@ Analysis context:
 async def chat(
     req: ChatRequest,
     request: Request,
-    auth: TokenPayload = Depends(require_auth),
+    auth: TokenPayload | None = Depends(optional_auth),
     db: DatabasePool = Depends(get_db),
     cache: CacheService = Depends(get_cache),
     coach: CoachingEngine = Depends(get_coach),
     audit: AuditService = Depends(get_audit),
 ):
-    await _rate_limit(cache, "ai:chat:{}".format(auth.user_id))
+    user_id = auth.user_id if auth else get_client_ip(request)
+    await _rate_limit(cache, "ai:chat:{}".format(user_id))
 
     # Load analysis context
     analysis = await db.fetchrow(
-        "SELECT * FROM zoom_analyses WHERE id = $1 AND user_id = $2",
-        req.analysis_id, auth.user_id,
+        "SELECT * FROM zoom_analyses WHERE id = $1",
+        req.analysis_id,
     )
     if not analysis:
         raise HTTPException(404, "Analysis not found")
 
-    # Load chat history
-    history = await db.fetch(
-        """SELECT role, content FROM zoom_copilot_chats
-           WHERE analysis_id = $1 ORDER BY created_at""",
-        analysis["id"],
-    )
+    # Load chat history (only for authenticated users with persisted data)
+    history = []
+    if auth:
+        history_rows = await db.fetch(
+            """SELECT role, content FROM zoom_copilot_chats
+               WHERE analysis_id = $1 ORDER BY created_at""",
+            analysis["id"],
+        )
+        history = [{"role": h["role"], "content": h["content"]} for h in history_rows]
 
     # Build context
     scores = json.loads(analysis["scores"]) if analysis["scores"] else {}
@@ -362,20 +368,20 @@ async def chat(
 
     reply = result.text
 
-    # Save chat messages
-    await db.execute(
-        "INSERT INTO zoom_copilot_chats (analysis_id, user_id, role, content) VALUES ($1, $2, 'user', $3)",
-        analysis["id"], auth.user_id, req.message,
-    )
-    await db.execute(
-        "INSERT INTO zoom_copilot_chats (analysis_id, user_id, role, content) VALUES ($1, $2, 'assistant', $3)",
-        analysis["id"], auth.user_id, reply,
-    )
-
-    await audit.log(
-        auth.user_id, "zoom_chat", "analyses/{}".format(req.analysis_id),
-        None, get_client_ip(request),
-    )
+    # Persist chat messages only when authenticated
+    if auth:
+        await db.execute(
+            "INSERT INTO zoom_copilot_chats (analysis_id, user_id, role, content) VALUES ($1, $2, 'user', $3)",
+            analysis["id"], auth.user_id, req.message,
+        )
+        await db.execute(
+            "INSERT INTO zoom_copilot_chats (analysis_id, user_id, role, content) VALUES ($1, $2, 'assistant', $3)",
+            analysis["id"], auth.user_id, reply,
+        )
+        await audit.log(
+            auth.user_id, "zoom_chat", "analyses/{}".format(req.analysis_id),
+            None, get_client_ip(request),
+        )
 
     return {
         "reply": reply,

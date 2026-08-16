@@ -65,10 +65,10 @@ export default function Dojo() {
 
       <div className="rhythm">
         <span className="rl">Weekly rhythm</span>
-        <span className="rp"><b>3</b> contacts</span>
-        <span className="rp"><b>2–3</b> conferences</span>
-        <span className="rp"><b>8</b> elective hrs</span>
-        <span className="rp"><b>1</b> workshop</span>
+        <span className="rp"><b>{Math.max(1, Math.ceil((gap.contacts.need - gap.contacts.done) / Math.max(1, Math.ceil(days / 7))))}</b> contacts</span>
+        <span className="rp"><b>{Math.max(1, Math.ceil((gap.conferences.need - gap.conferences.done) / Math.max(1, Math.ceil(days / 7))))}</b> conferences</span>
+        <span className="rp"><b>{Math.max(1, Math.ceil((gap.electives.need - gap.electives.done) / Math.max(1, Math.ceil(days / 7))))}</b> elective hrs</span>
+        <span className="rp"><b>{Math.max(1, Math.ceil((gap.workshops.need - gap.workshops.done) / Math.max(1, Math.ceil(days / 7))))}</b> workshop</span>
       </div>
 
       <p className="note" style={{ marginTop: 26 }}>

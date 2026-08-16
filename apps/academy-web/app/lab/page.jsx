@@ -31,7 +31,7 @@ function buildPlan(minutes, focus) {
   }
   let shortfall = minutes - plan.reduce((s, p) => s + p.mins, 0);
   const byWeight = [...plan].sort((a, b) => DRILLS[b.id].weight - DRILLS[a.id].weight);
-  for (let i = 0; shortfall > 0; i = (i + 1) % byWeight.length) { byWeight[i].mins += 1; shortfall -= 1; }
+  for (let i = 0; shortfall > 0 && byWeight.length > 0; i = (i + 1) % byWeight.length) { byWeight[i].mins += 1; shortfall -= 1; }
   return plan;
 }
 function loadHistory() { try { return JSON.parse(localStorage.getItem("lab:attempts") || "[]"); } catch { return []; } }
@@ -129,9 +129,9 @@ export default function Lab() {
           <h1 style={{ margin: "8px 0 0" }}>Practice <em>Lab</em></h1>
         </div>
         <div className="seg">
-          <button className={phase === "plan" ? "on" : ""} onClick={() => setPhase("plan")}>Plan</button>
-          <button className={phase === "run" ? "on" : ""} onClick={() => plan.length && setPhase("run")}>Run</button>
-          <button className={phase === "debrief" ? "on" : ""} onClick={() => plan.length && setPhase("debrief")}>Debrief</button>
+          <button type="button" className={phase === "plan" ? "on" : ""} onClick={() => setPhase("plan")}>Plan</button>
+          <button type="button" className={phase === "run" ? "on" : ""} onClick={() => plan.length && setPhase("run")}>Run</button>
+          <button type="button" className={phase === "debrief" ? "on" : ""} onClick={() => plan.length && setPhase("debrief")}>Debrief</button>
         </div>
       </div>
 
@@ -178,10 +178,10 @@ export default function Lab() {
                 <button className={mode === "literal" ? "on" : ""} onClick={() => setMode("literal")}>Physical</button>
               </div>
             </div>
-            <button className="primary" onClick={() => start()}>Build plan &amp; start →</button>
+            <button type="button" className="primary" onClick={() => start()}>Build plan &amp; start →</button>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: 18, alignItems: "start" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(200px,300px)", gap: 18, alignItems: "start" }}>
             <div className="panel" style={{ padding: 18 }}>
               <div style={{ font: "560 14px var(--body)", color: "var(--amber)", marginBottom: 10 }}>Recent runs</div>
               {history.length === 0 && <p className="note" style={{ margin: 0 }}>No runs yet — your first debrief lands here.</p>}
@@ -229,9 +229,9 @@ export default function Lab() {
           </div>
 
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-            <button className="chip" onClick={() => setRunning(!running)}>{running ? "Pause" : "Resume"}</button>
-            <button className="primary" onClick={nextStep}>{step + 1 < plan.length ? "Next drill" : "Finish → debrief"}</button>
-            <button className="ghost" onClick={() => { setRunning(false); setPhase("plan"); }}>Abandon</button>
+            <button type="button" className="chip" onClick={() => setRunning(!running)}>{running ? "Pause" : "Resume"}</button>
+            <button type="button" className="primary" onClick={nextStep}>{step + 1 < plan.length ? "Next drill" : "Finish → debrief"}</button>
+            <button type="button" className="ghost" onClick={() => { setRunning(false); setPhase("plan"); }}>Abandon</button>
           </div>
           <p className="note">Plan: {plan.map((p, i) => `${i === step ? "▸ " : ""}${p.name} ${p.mins}m`).join("  ·  ")}</p>
         </div>
@@ -286,8 +286,8 @@ export default function Lab() {
           </div>
 
           <div style={{ display: "flex", gap: 12 }}>
-            <button className="primary" onClick={saveAttempt}>Save run</button>
-            <button className="chip" onClick={() => start(plan)}>Re-run same plan</button>
+            <button type="button" className="primary" onClick={saveAttempt}>Save run</button>
+            <button type="button" className="chip" onClick={() => start(plan)}>Re-run same plan</button>
           </div>
         </div>
       )}

@@ -101,6 +101,7 @@ h1 em { font-style:normal; color:var(--amber); }
 }
 .primary:hover { filter:brightness(1.08); transform:translateY(-2px); }
 .primary:active { transform:translateY(0); }
+.primary:disabled, .chip:disabled, .ghost:disabled, .checkchip:disabled, .seg button:disabled { opacity:0.45; cursor:not-allowed; pointer-events:none; }
 .chip {
   background:var(--panel); color:var(--ink); border:1px solid var(--line-2); border-radius:var(--r-pill);
   padding:9px 16px; font:500 13.5px var(--body); cursor:pointer; transition:border-color .18s var(--ease), color .18s var(--ease);
@@ -146,6 +147,7 @@ h1 em { font-style:normal; color:var(--amber); }
 .turns { text-align:right; } .turns b { font-family:var(--mono); font-size:16px; color:var(--ink); font-weight:400; } .turns span { display:block; font-size:10.5px; color:var(--mist); text-transform:uppercase; letter-spacing:.08em; }
 
 .tsel { flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; padding:18px; display:flex; flex-direction:column; gap:12px; }
+.tsel, .rsel { scrollbar-width:thin; scrollbar-color:var(--line-2) transparent; }
 .tsel::-webkit-scrollbar, .rsel::-webkit-scrollbar { width:8px; }
 .tsel::-webkit-scrollbar-thumb, .rsel::-webkit-scrollbar-thumb { background:var(--line-2); border-radius:8px; }
 

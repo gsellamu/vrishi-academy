@@ -106,7 +106,7 @@ export default function AssistantDock() {
   // ── voice in (ASR) ──────────────────────────────────────────────────────────
   function toggleMic() {
     const SR = typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition);
-    if (!SR) { alert('Voice input needs a Chromium browser, or wire the server ASR endpoint.'); return; }
+    if (!SR) { setMessages((m) => [...m, { role: 'assistant', text: 'Voice input needs a Chromium-based browser (Chrome, Edge, Brave). You can type instead, or wire the server ASR endpoint.', id: 'sr' + Date.now() }]); return; }
     if (listening) { try { recRef.current.stop(); } catch {} return; }
     const rec = new SR();
     rec.lang = 'en-US'; rec.interimResults = true; rec.continuous = false;

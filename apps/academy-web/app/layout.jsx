@@ -8,6 +8,12 @@ import MobileNav from "./components/MobileNav";
 export const metadata = {
   title: "VRishi Academy",
   description: "Kappasinian practice studio — plan, drill, role-play, grade",
+  icons: { icon: "/favicon.ico" },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }) {

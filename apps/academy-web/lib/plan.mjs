@@ -13,7 +13,14 @@ export function getPlanPages() {
   });
 }
 
+function sanitize(html) {
+  return html
+    .replace(/<script[\s>][\s\S]*?<\/script>/gi, "")
+    .replace(/<iframe[\s>][\s\S]*?<\/iframe>/gi, "")
+    .replace(/\son\w+\s*=/gi, " data-removed=");
+}
+
 export function getPlanPage(slug) {
   const p = getPlanPages().find((x) => x.slug === slug);
-  return p ? { ...p, html: marked.parse(p.body) } : null;
+  return p ? { ...p, html: sanitize(marked.parse(p.body)) } : null;
 }

@@ -167,8 +167,8 @@ export default function Studio() {
         </div>
         {phase !== "idle" && (
           <div className="seg">
-            <button className={phase === "running" ? "on" : ""} onClick={() => phase === "done" && start()}>Live</button>
-            <button className={phase === "done" ? "on" : ""} onClick={() => phase === "running" && setPhase("done")}>Debrief</button>
+            <button type="button" className={phase === "running" ? "on" : ""} onClick={() => phase === "done" && start()}>Live</button>
+            <button type="button" className={phase === "done" ? "on" : ""} onClick={() => phase === "running" && setPhase("done")}>Debrief</button>
           </div>
         )}
       </div>
@@ -207,7 +207,7 @@ export default function Studio() {
             </div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <button className="primary" onClick={start}>Begin Session →</button>
+            <button type="button" className="primary" onClick={start}>Begin Session →</button>
             <span className="note" style={{ margin: 0 }}>Advance with <span className="kbd">Space</span> once live.</span>
           </div>
           {err && <p style={{ color: "var(--red)", fontFamily: "var(--mono)", fontSize: 13 }}>{err}</p>}
@@ -250,9 +250,9 @@ export default function Studio() {
             </div>
 
             <div className="studio-bar">
-              <button className="primary" onClick={next}>Next</button>
+              <button type="button" className="primary" onClick={next}>Next</button>
               <span className="hint">or press <span className="kbd">Space</span> to advance</span>
-              <button className="ghost" style={{ marginLeft: "auto" }} onClick={reset}>End session</button>
+              <button type="button" className="ghost" style={{ marginLeft: "auto" }} onClick={reset}>End session</button>
             </div>
           </section>
 
@@ -307,8 +307,8 @@ export default function Studio() {
             <div className="stat"><div className="n" style={{ color: "var(--iris)" }}>{nods}</div><div className="l">Nods</div></div>
           </div>
           <div style={{ display: "flex", gap: 12, padding: "20px 28px", borderTop: "1px solid var(--line)", background: "var(--panel-2)" }}>
-            <button className="primary" onClick={start}>Run Again</button>
-            <button className="chip" onClick={reset}>New Session</button>
+            <button type="button" className="primary" onClick={start}>Run Again</button>
+            <button type="button" className="chip" onClick={reset}>New Session</button>
           </div>
         </div>
       )}

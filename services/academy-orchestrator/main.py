@@ -45,10 +45,58 @@ SESSION_MAX_AGE = int(os.getenv("SESSION_MAX_AGE", "7200"))  # 2h TTL
 SESSION_MAX_COUNT = int(os.getenv("SESSION_MAX_COUNT", "100"))
 
 app = FastAPI(title="academy-orchestrator", version="0.2.0")
+
+# ── Security middleware (same stack as P1/P2/P3 services) ─────────────────
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import JSONResponse
+
+BODY_MAX_BYTES = int(os.getenv("BODY_MAX_BYTES", "1048576"))  # 1 MB
+
+class _RequestIDMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        import uuid as _uuid
+        rid = request.headers.get("x-request-id") or _uuid.uuid4().hex[:16]
+        request.state.request_id = rid
+        response = await call_next(request)
+        response.headers["X-Request-ID"] = rid
+        return response
+
+class _SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-XSS-Protection"] = "0"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=(), payment=()"
+        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        if request.headers.get("x-forwarded-proto") == "https":
+            response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        return response
+
+class _BodySizeLimitMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        cl = request.headers.get("content-length")
+        if cl and int(cl) > BODY_MAX_BYTES:
+            return JSONResponse({"detail": "Request body too large"}, status_code=413)
+        return await call_next(request)
+
+class _TimingMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        start = time.monotonic()
+        response = await call_next(request)
+        response.headers["X-Response-Time"] = str(int((time.monotonic() - start) * 1000))
+        return response
+
+app.add_middleware(_TimingMiddleware)
+app.add_middleware(_SecurityHeadersMiddleware)
+app.add_middleware(_RequestIDMiddleware)
+app.add_middleware(_BodySizeLimitMiddleware)
 app.add_middleware(CORSMiddleware, allow_origins=CORS, allow_credentials=True,
                    allow_methods=["GET", "POST", "OPTIONS"],
                    allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
-                   expose_headers=["X-Request-ID"])
+                   expose_headers=["X-Request-ID", "X-Response-Time"])
 
 # ---------- Prosody engine (inline from prosody.py, avoids subprocess) ----------
 EP_VOICE_PARAMS = {
