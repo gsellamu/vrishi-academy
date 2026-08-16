@@ -35,7 +35,7 @@ CORS = os.getenv("CORS_ORIGINS", "http://localhost:3070").split(",")
 
 # ── Assistant chat (Claude proxy — key stays server-side) ─────────────────
 ANTHROPIC_KEY = os.getenv("ANTHROPIC_API_KEY", "")
-ASSISTANT_MODEL = os.getenv("ASSISTANT_MODEL", "claude-sonnet-4-20250514")
+ASSISTANT_MODEL = os.getenv("ASSISTANT_MODEL", "claude-sonnet-4-6")
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 _chat_rate: dict[str, list[float]] = {}
 CHAT_RATE_LIMIT = int(os.getenv("CHAT_RATE_LIMIT", "10"))
