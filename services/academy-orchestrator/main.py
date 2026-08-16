@@ -24,7 +24,7 @@ from typing import Any
 
 import httpx
 import yaml
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -32,6 +32,14 @@ TEMPLATE_DIR = Path(os.getenv("SESSION_TEMPLATE_DIR", "/app/packages/session-tem
 PERSONA_URL = os.getenv("PERSONA_URL", "http://academy-persona:8000")
 TTS_URL = os.getenv("TTS_URL", "http://localhost:8136")
 CORS = os.getenv("CORS_ORIGINS", "http://localhost:3070").split(",")
+
+# ── Assistant chat (Claude proxy — key stays server-side) ─────────────────
+ANTHROPIC_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+ASSISTANT_MODEL = os.getenv("ASSISTANT_MODEL", "claude-sonnet-4-20250514")
+ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
+_chat_rate: dict[str, list[float]] = {}
+CHAT_RATE_LIMIT = int(os.getenv("CHAT_RATE_LIMIT", "10"))
+CHAT_RATE_WINDOW = int(os.getenv("CHAT_RATE_WINDOW", "60"))
 
 app = FastAPI(title="academy-orchestrator", version="0.2.0")
 app.add_middleware(CORSMiddleware, allow_origins=CORS, allow_credentials=True,
@@ -300,6 +308,73 @@ async def tts_health():
             return {"ok": r.status_code == 200, "tts_url": TTS_URL}
     except Exception:
         return {"ok": False, "tts_url": TTS_URL}
+
+
+class AssistantChatRequest(BaseModel):
+    context: str = "Portal"
+    system: str = ""
+    messages: list[dict] = []
+
+
+@app.post("/assistant/chat")
+async def assistant_chat(req: AssistantChatRequest, request: Request):
+    """Claude proxy for the AssistantDock. Keeps the API key server-side."""
+    if not ANTHROPIC_KEY:
+        raise HTTPException(503, "ANTHROPIC_API_KEY not configured")
+
+    # Per-IP rate limit
+    ip = request.client.host if request.client else "unknown"
+    now = time.time()
+    hits = _chat_rate.setdefault(ip, [])
+    hits[:] = [t for t in hits if now - t < CHAT_RATE_WINDOW]
+    if len(hits) >= CHAT_RATE_LIMIT:
+        raise HTTPException(429, "Rate limit exceeded")
+    hits.append(now)
+
+    # Sanitize messages: only role + content, enforce valid roles
+    clean = []
+    for m in req.messages:
+        role = m.get("role", "user")
+        if role not in ("user", "assistant"):
+            role = "user"
+        content = str(m.get("content", ""))[:4000]
+        if content:
+            clean.append({"role": role, "content": content})
+    if not clean:
+        raise HTTPException(400, "No messages provided")
+
+    payload = {
+        "model": ASSISTANT_MODEL,
+        "max_tokens": 512,
+        "system": (req.system or "You are a clinical hypnotherapy assistant.")[:2000],
+        "messages": clean,
+    }
+
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as cli:
+            r = await cli.post(ANTHROPIC_URL, json=payload, headers={
+                "x-api-key": ANTHROPIC_KEY,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            })
+            r.raise_for_status()
+            data = r.json()
+            text = "".join(
+                b.get("text", "") for b in data.get("content", [])
+                if b.get("type") == "text"
+            )
+            return {"text": text.strip() or "No response from the model."}
+    except httpx.HTTPStatusError as e:
+        status = e.response.status_code
+        if status == 401:
+            raise HTTPException(502, "Claude API: invalid API key")
+        if status == 429:
+            raise HTTPException(429, "Claude API rate limit — try again shortly")
+        raise HTTPException(502, f"Claude API error: {status}")
+    except httpx.ConnectError:
+        raise HTTPException(503, "Cannot reach Claude API")
+    except Exception as e:
+        raise HTTPException(502, f"Assistant error: {type(e).__name__}")
 
 
 @app.get("/health")
