@@ -24,6 +24,7 @@ const ROUTE_CONTEXT = {
   '/safety': 'Safety & Ethics', '/logbook': 'Logbook', '/persona-builder': 'Persona Builder',
   '/client-preview': 'Client Preview', '/public-media': 'Public Media',
   '/resources': 'Resources', '/blog': "VRishi's Blog", '/support': 'Support', '/review': 'Persona Review',
+  '/dojo': 'Dojo', '/zoom-room': 'Zoom Room', '/zoom-room/copilot': 'AI Co-Pilot', '/immersive': 'Immersive',
 };
 
 // first-session arc — the guidebook read-aloud sections (mirror of the DC)
@@ -71,7 +72,7 @@ export default function AssistantDock() {
   // ── voice out ─────────────────────────────────────────────────────────────
   function stopSpeak() {
     try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch {}
-    if (audioRef.current) { try { audioRef.current.pause(); } catch {} audioRef.current = null; }
+    if (audioRef.current) { try { audioRef.current.pause(); URL.revokeObjectURL(audioRef.current.src); } catch {} audioRef.current = null; }
   }
   async function speak(text, id) {
     if (speakingId === id) { stopSpeak(); setSpeakingId(null); return; }

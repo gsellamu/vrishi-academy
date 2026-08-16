@@ -358,9 +358,9 @@ async def chat(
     messages.append({"role": "user", "content": req.message})
 
     # Call Ollama (via CoachingEngine's underlying HTTP call)
-    result = await coach._call_llm(messages, max_tokens=500)
+    result = await coach.chat(messages, max_tokens=500)
 
-    reply = result.text if result else "I'm unable to process your question right now. Please try again later."
+    reply = result.text
 
     # Save chat messages
     await db.execute(

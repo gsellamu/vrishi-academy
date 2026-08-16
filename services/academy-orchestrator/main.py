@@ -41,9 +41,14 @@ _chat_rate: dict[str, list[float]] = {}
 CHAT_RATE_LIMIT = int(os.getenv("CHAT_RATE_LIMIT", "10"))
 CHAT_RATE_WINDOW = int(os.getenv("CHAT_RATE_WINDOW", "60"))
 
+SESSION_MAX_AGE = int(os.getenv("SESSION_MAX_AGE", "7200"))  # 2h TTL
+SESSION_MAX_COUNT = int(os.getenv("SESSION_MAX_COUNT", "100"))
+
 app = FastAPI(title="academy-orchestrator", version="0.2.0")
 app.add_middleware(CORSMiddleware, allow_origins=CORS, allow_credentials=True,
-                   allow_methods=["*"], allow_headers=["*"])
+                   allow_methods=["GET", "POST", "OPTIONS"],
+                   allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
+                   expose_headers=["X-Request-ID"])
 
 # ---------- Prosody engine (inline from prosody.py, avoids subprocess) ----------
 EP_VOICE_PARAMS = {
@@ -158,6 +163,23 @@ def detect_nlp(text: str, vak: str | None = None) -> list[dict]:
     return deduped
 
 SESSIONS: dict[str, dict[str, Any]] = {}
+
+
+def _evict_sessions():
+    """Remove expired sessions and enforce max count."""
+    now = time.time()
+    expired = [sid for sid, s in SESSIONS.items() if now - s.get("started", 0) > SESSION_MAX_AGE]
+    for sid in expired:
+        del SESSIONS[sid]
+    # Evict oldest if still over limit
+    while len(SESSIONS) > SESSION_MAX_COUNT:
+        oldest = min(SESSIONS, key=lambda k: SESSIONS[k].get("started", 0))
+        del SESSIONS[oldest]
+    # Also clean stale rate-limit entries
+    stale_ips = [ip for ip, hits in _chat_rate.items() if not hits or now - hits[-1] > CHAT_RATE_WINDOW * 10]
+    for ip in stale_ips:
+        del _chat_rate[ip]
+
 
 PROFILES = {
     "p1": "examples/profiles/p1_physical_analyst.yaml",
@@ -385,6 +407,7 @@ def health():
 
 @app.post("/sessions")
 def create_session(req: CreateSession):
+    _evict_sessions()
     if req.profile not in PROFILES or req.plan not in PLANS:
         raise HTTPException(400, "unknown profile or plan")
     profile_data = load_profile(req.profile)

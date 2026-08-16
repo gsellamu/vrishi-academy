@@ -56,6 +56,8 @@ export default function Studio() {
   const busyRef = useRef(false);
   const tRef = useRef(null);
   const rRef = useRef(null);
+  const retryRef = useRef(0);
+  const closedByUserRef = useRef(false);
 
   const push = useCallback((item) => setFeed((f) => [...f, item]), []);
   const pmeta = PERSONAS[persona] || PERSONAS.maya;
@@ -78,25 +80,44 @@ export default function Studio() {
       const m = await r.json();
       setMeta(m); setFeed([]); setStage("pre"); setIdx(0); setNods(0);
       setWaiting(false); setTyping(false); setSec(0); setStats(null);
-      const ws = new WebSocket(`${WS_BASE}/ws/${m.session_id}`);
-      ws.onmessage = (ev) => {
-        const d = JSON.parse(ev.data);
-        if (d.event === "error") { setErr(d.message); return; }
-        const t = d.turn;
-        if (t.type !== "done") setIdx(d.idx);
-        if (t.type === "stage") { setStage(t.name); setWaiting(false); busyRef.current = false; }
-        else if (t.type === "await") { setWaiting(true); setTyping(true); busyRef.current = true; }
-        else if (t.type === "reply") {
-          setWaiting(false); setTyping(false); busyRef.current = false;
-          if (/nod/i.test(t.text)) setNods((n) => n + 1);
-        } else if (t.type === "done") {
-          setStats(t.stats); setPhase("done"); busyRef.current = false; ws.close();
-        } else { busyRef.current = false; }
-        if (t.type !== "done") push(t);
-      };
-      ws.onclose = () => { wsRef.current = null; };
-      ws.onerror = () => setErr("WebSocket error — is the orchestrator running on 8600?");
-      wsRef.current = ws;
+      closedByUserRef.current = false;
+      retryRef.current = 0;
+      function connectWs(sessionId) {
+        const ws = new WebSocket(`${WS_BASE}/ws/${sessionId}`);
+        ws.onopen = () => { retryRef.current = 0; setErr(""); };
+        ws.onmessage = (ev) => {
+          const d = JSON.parse(ev.data);
+          if (d.event === "error") { setErr(d.message); return; }
+          const t = d.turn;
+          if (t.type !== "done") setIdx(d.idx);
+          if (t.type === "stage") { setStage(t.name); setWaiting(false); busyRef.current = false; }
+          else if (t.type === "await") { setWaiting(true); setTyping(true); busyRef.current = true; }
+          else if (t.type === "reply") {
+            setWaiting(false); setTyping(false); busyRef.current = false;
+            if (/nod/i.test(t.text)) setNods((n) => n + 1);
+          } else if (t.type === "done") {
+            closedByUserRef.current = true;
+            setStats(t.stats); setPhase("done"); busyRef.current = false; ws.close();
+          } else { busyRef.current = false; }
+          if (t.type !== "done") push(t);
+        };
+        ws.onclose = () => {
+          wsRef.current = null;
+          if (!closedByUserRef.current && retryRef.current < 3) {
+            const delay = Math.pow(2, retryRef.current) * 1000; // 1s, 2s, 4s
+            retryRef.current += 1;
+            setErr("Reconnecting...");
+            setTimeout(() => connectWs(sessionId), delay);
+          }
+        };
+        ws.onerror = () => {
+          if (retryRef.current >= 3) {
+            setErr("WebSocket error — is the orchestrator running on 8600?");
+          }
+        };
+        wsRef.current = ws;
+      }
+      connectWs(m.session_id);
       setPhase("running");
     } catch (e) { setErr(String(e.message || e)); }
   }, [profile, plan, persona, push]);
@@ -109,6 +130,7 @@ export default function Studio() {
   }, []);
 
   const reset = useCallback(() => {
+    closedByUserRef.current = true;
     wsRef.current?.close(); wsRef.current = null;
     setPhase("idle"); setFeed([]); setMeta(null); setStats(null); setErr("");
   }, []);
@@ -128,7 +150,7 @@ export default function Studio() {
   // autoscroll each column
   useEffect(() => { tRef.current?.scrollTo({ top: tRef.current.scrollHeight, behavior: "smooth" }); }, [feed, waiting]);
   useEffect(() => { rRef.current?.scrollTo({ top: rRef.current.scrollHeight, behavior: "smooth" }); }, [feed, typing]);
-  useEffect(() => () => wsRef.current?.close(), []);
+  useEffect(() => () => { closedByUserRef.current = true; wsRef.current?.close(); }, []);
 
   // split the interleaved feed into therapist (left) and persona (right)
   const left = feed.filter((t) => t.type !== "reply");

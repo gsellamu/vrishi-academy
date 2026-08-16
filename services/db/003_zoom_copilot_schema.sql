@@ -1,10 +1,11 @@
+BEGIN;
 -- 003_zoom_copilot_schema.sql
 -- Zoom Room AI Co-Pilot: analyses, photos, layouts, equipment catalog
 
 -- Room analyses from AI vision
 CREATE TABLE IF NOT EXISTS zoom_analyses (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id     UUID REFERENCES academy_users(id) ON DELETE SET NULL,
+  user_id     UUID REFERENCES users(id) ON DELETE SET NULL,
   room_dimensions JSONB,        -- {width_m, depth_m, height_m}
   scores      JSONB,            -- {video:"B", audio:"C", lighting:"D", background:"A", privacy:"A"}
   issues      JSONB,            -- [{category, severity, description, fix}]
@@ -27,7 +28,7 @@ CREATE TABLE IF NOT EXISTS zoom_photos (
 -- Saved room layouts (2D/3D)
 CREATE TABLE IF NOT EXISTS zoom_layouts (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id     UUID REFERENCES academy_users(id) ON DELETE SET NULL,
+  user_id     UUID REFERENCES users(id) ON DELETE SET NULL,
   analysis_id UUID REFERENCES zoom_analyses(id) ON DELETE SET NULL,
   name        VARCHAR(128) NOT NULL,
   room        JSONB NOT NULL,   -- {width_m, depth_m, height_m}
@@ -55,7 +56,7 @@ CREATE TABLE IF NOT EXISTS zoom_equipment (
 CREATE TABLE IF NOT EXISTS zoom_copilot_chats (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   analysis_id UUID REFERENCES zoom_analyses(id) ON DELETE CASCADE,
-  user_id     UUID REFERENCES academy_users(id) ON DELETE SET NULL,
+  user_id     UUID REFERENCES users(id) ON DELETE SET NULL,
   role        VARCHAR(16) NOT NULL,  -- user | assistant
   content     TEXT NOT NULL,
   created_at  TIMESTAMP DEFAULT now()
@@ -88,3 +89,5 @@ INSERT INTO zoom_equipment (id, name, category, models, dimensions, icon, priori
 ('water_bottle', 'Water Bottle', 'session', '[{"brand":"Various","model":"Insulated","price":15}]', '{"width_cm":8,"depth_cm":8,"height_cm":25}', null, 'essential', 18),
 ('ethernet_cable', 'Ethernet Cable', 'accessory', '[{"brand":"Various","model":"Cat6 50ft","price":15}]', null, null, 'recommended', 19)
 ON CONFLICT (id) DO NOTHING;
+
+COMMIT;

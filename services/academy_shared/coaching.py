@@ -102,6 +102,33 @@ class CoachingEngine:
             r.raise_for_status()
             return r.json().get("message", {}).get("content", "").strip() or None
 
+    async def chat(self, messages: list[dict], max_tokens: int = 300) -> CoachingResult:
+        """Send a pre-built messages list to Ollama and return a CoachingResult."""
+        start = time.monotonic()
+        try:
+            async with httpx.AsyncClient(timeout=self._timeout) as cli:
+                r = await cli.post(
+                    "{}/api/chat".format(self._url),
+                    json={
+                        "model": self._model,
+                        "stream": False,
+                        "messages": messages,
+                        "options": {"num_predict": max_tokens, "temperature": 0.7},
+                    },
+                )
+                r.raise_for_status()
+                text = r.json().get("message", {}).get("content", "").strip()
+                latency = int((time.monotonic() - start) * 1000)
+                if text:
+                    return CoachingResult(text=text, model=self._model, latency_ms=latency, source="ollama")
+        except Exception as exc:
+            log.debug("Ollama chat call failed: %s", exc)
+        latency = int((time.monotonic() - start) * 1000)
+        return CoachingResult(
+            text="I'm unable to process your question right now. Please try again later. (Advisory: consult your mentor.)",
+            model="fallback", latency_ms=latency, source="offline",
+        )
+
     async def coach(self, prompt: str, context_type: str = "general") -> CoachingResult:
         """Send a prompt to the LLM and return a CoachingResult.
 

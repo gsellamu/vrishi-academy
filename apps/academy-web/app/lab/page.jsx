@@ -64,7 +64,12 @@ export default function Lab() {
   useEffect(() => { setHistory(loadHistory()); }, []);
   useEffect(() => {
     if (!running) return;
-    tick.current = setInterval(() => setLeft((s) => Math.max(0, s - 1)), 1000);
+    tick.current = setInterval(() => {
+      setLeft((s) => {
+        if (s <= 1) { clearInterval(tick.current); return 0; }
+        return s - 1;
+      });
+    }, 1000);
     return () => clearInterval(tick.current);
   }, [running]);
 
