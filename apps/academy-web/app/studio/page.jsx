@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const ORCH = process.env.NEXT_PUBLIC_ORCH_URL || "http://localhost:8600";
 const WS_BASE = ORCH.replace(/^http/, "ws");
@@ -14,67 +14,28 @@ const PLANS = [
   { id: "referral", label: "Referral — pain comfort adjunct (gate)" },
   { id: "avocational", label: "Avocational — sports performance" },
 ];
-const PERSONAS = [
-  { id: "maya", label: "Maya — analytical, literal (72% P)" },
-  { id: "leo", label: "Leo — imaginative, inferred (68% E)" },
-];
+// Persona display metadata — feeds the pinned client card.
+const PERSONAS = {
+  maya: { name: "Maya Ellison", initials: "MA", arch: "The Analyst · literal lexicon",
+    issue: "Presentation confidence — vocational goal. Responds to concrete, physical suggestion; resists abstraction.", ep: "72% Physical" },
+  leo: { name: "Leo Marchetti", initials: "LE", arch: "The Dreamer · inferred lexicon",
+    issue: "Sports performance — avocational goal. Rides imagery and metaphor; drifts under over-direct language.", ep: "68% Emotional" },
+};
 
+// Map an orchestrator stage name to its chip color token.
+function stageColor(name = "") {
+  const n = name.toLowerCase();
+  if (n.includes("pre")) return "var(--stage-pre)";
+  if (n.includes("induc")) return "var(--stage-induction)";
+  if (n.includes("deep")) return "var(--stage-deepening)";
+  if (n.includes("therap") || n.includes("suggest")) return "var(--stage-therapy)";
+  if (n.includes("emerg") || n.includes("count") || n.includes("out")) return "var(--stage-emergence)";
+  if (n.includes("post") || n.includes("home")) return "var(--stage-post)";
+  return "var(--stage-pre)";
+}
 const pretty = (s) => (s || "").replace(/_/g, " ");
-
-const TONE_COLORS = {
-  conversational: "#8b85a0",
-  paternal: "#7ea8d4",
-  maternal: "#d49aba",
-  authority: "#d4a44e",
-  theta_hypnotic: "#9b7fd4",
-};
-const TONE_ICONS = {
-  conversational: "💬",
-  paternal: "🛡",
-  maternal: "🌙",
-  authority: "⚡",
-  theta_hypnotic: "🌀",
-};
-
-/** Render line text with NLP highlights inline */
-function NlpText({ text, nlp }) {
-  if (!nlp || nlp.length === 0) return text;
-  const parts = [];
-  let last = 0;
-  for (const n of nlp) {
-    if (n.start > last) parts.push(<span key={`t${last}`}>{text.slice(last, n.start)}</span>);
-    const cls = n.type === "embed" ? "nlp-embed"
-      : n.type === "presup" ? "nlp-presup"
-      : n.type === "vak" ? "nlp-vak"
-      : n.type === "lead" ? "nlp-lead"
-      : n.type === "pace" ? "nlp-pace"
-      : n.type === "tag" ? "nlp-tag"
-      : n.type === "bind" ? "nlp-bind"
-      : n.type === "milton" ? "nlp-milton" : "";
-    parts.push(
-      <span key={`n${n.start}`} className={cls} title={`${n.type}: ${n.phrase}`}>
-        {text.slice(n.start, n.end)}
-      </span>
-    );
-    last = n.end;
-  }
-  if (last < text.length) parts.push(<span key={`t${last}`}>{text.slice(last)}</span>);
-  return parts;
-}
-
-/** Prosody badge for a line */
-function ProsodyBadge({ prosody }) {
-  if (!prosody) return null;
-  const icon = TONE_ICONS[prosody.tonality] || "";
-  const color = TONE_COLORS[prosody.tonality] || "#8b85a0";
-  return (
-    <span className="prosody-badge" style={{ borderColor: color, color }} title={
-      `${prosody.tonality} · rate ${prosody.rate}% · pitch ${prosody.pitch > 0 ? "+" : ""}${prosody.pitch}% · vol ${prosody.volume} · pause x${prosody.pause_mult}`
-    }>
-      {icon} {prosody.rate}%
-    </span>
-  );
-}
+const mmss = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+const RING = 163.4; // 2πr, r=26
 
 export default function Studio() {
   const [phase, setPhase] = useState("idle"); // idle | running | done
@@ -84,92 +45,60 @@ export default function Studio() {
   const [meta, setMeta] = useState(null);
   const [feed, setFeed] = useState([]);
   const [stage, setStage] = useState("pre");
-  const [tonality, setTonality] = useState(null);
   const [idx, setIdx] = useState(0);
   const [nods, setNods] = useState(0);
+  const [waiting, setWaiting] = useState(false); // await checkpoint pending
+  const [typing, setTyping] = useState(false);    // persona composing a reply
+  const [sec, setSec] = useState(0);
   const [stats, setStats] = useState(null);
   const [err, setErr] = useState("");
-  const [showProsody, setShowProsody] = useState(true);
-  const [ttsOk, setTtsOk] = useState(false);
-  const [playingIdx, setPlayingIdx] = useState(null);
   const wsRef = useRef(null);
   const busyRef = useRef(false);
-  const feedRef = useRef(null);
-  const audioRef = useRef(null);
+  const tRef = useRef(null);
+  const rRef = useRef(null);
 
   const push = useCallback((item) => setFeed((f) => [...f, item]), []);
+  const pmeta = PERSONAS[persona] || PERSONAS.maya;
 
-  const playLine = useCallback(async (sessionId, turnIdx) => {
-    if (playingIdx !== null) return;
-    setPlayingIdx(turnIdx);
-    try {
-      const r = await fetch(`${ORCH}/tts`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ session_id: sessionId, turn_idx: turnIdx }),
-      });
-      if (!r.ok) { setPlayingIdx(null); return; }
-      const d = await r.json();
-      if (d.audio_url) {
-        if (audioRef.current) { audioRef.current.pause(); }
-        const a = new Audio(d.audio_url);
-        audioRef.current = a;
-        a.onended = () => setPlayingIdx(null);
-        a.onerror = () => setPlayingIdx(null);
-        a.play();
-      } else { setPlayingIdx(null); }
-    } catch { setPlayingIdx(null); }
-  }, [playingIdx]);
+  // session timer
+  useEffect(() => {
+    if (phase !== "running") return;
+    const t = setInterval(() => setSec((s) => s + 1), 1000);
+    return () => clearInterval(t);
+  }, [phase]);
 
   const start = useCallback(async () => {
     setErr("");
-    // Check TTS availability
-    fetch(`${ORCH}/tts/health`).then(r => r.json()).then(d => setTtsOk(d.ok)).catch(() => setTtsOk(false));
     try {
       const r = await fetch(`${ORCH}/sessions`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ profile, plan, persona, enrich: true }),
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ profile, plan, persona }),
       });
       if (!r.ok) throw new Error((await r.text()).slice(0, 300));
       const m = await r.json();
-      setMeta(m);
-      setFeed([]);
-      setStage("pre");
-      setTonality(null);
-      setIdx(0);
-      setNods(0);
-      setStats(null);
+      setMeta(m); setFeed([]); setStage("pre"); setIdx(0); setNods(0);
+      setWaiting(false); setTyping(false); setSec(0); setStats(null);
       const ws = new WebSocket(`${WS_BASE}/ws/${m.session_id}`);
       ws.onmessage = (ev) => {
         const d = JSON.parse(ev.data);
         if (d.event === "error") { setErr(d.message); return; }
         const t = d.turn;
         if (t.type !== "done") setIdx(d.idx);
-        if (t.type === "stage") {
-          setStage(t.name);
-          if (t.tonality) setTonality(t.tonality);
-          busyRef.current = false;
-        } else if (t.type === "await") {
-          busyRef.current = true;
-        } else if (t.type === "reply") {
-          busyRef.current = false;
+        if (t.type === "stage") { setStage(t.name); setWaiting(false); busyRef.current = false; }
+        else if (t.type === "await") { setWaiting(true); setTyping(true); busyRef.current = true; }
+        else if (t.type === "reply") {
+          setWaiting(false); setTyping(false); busyRef.current = false;
           if (/nod/i.test(t.text)) setNods((n) => n + 1);
         } else if (t.type === "done") {
-          setStats(t.stats);
-          setPhase("done");
-          busyRef.current = false;
-          ws.close();
+          setStats(t.stats); setPhase("done"); busyRef.current = false; ws.close();
         } else { busyRef.current = false; }
-        if (t.type !== "done") push({ ...t, _oidx: d.idx });
+        if (t.type !== "done") push(t);
       };
       ws.onclose = () => { wsRef.current = null; };
       ws.onerror = () => setErr("WebSocket error — is the orchestrator running on 8600?");
       wsRef.current = ws;
       setPhase("running");
-    } catch (e) {
-      setErr(String(e.message || e));
-    }
+    } catch (e) { setErr(String(e.message || e)); }
   }, [profile, plan, persona, push]);
 
   const next = useCallback(() => {
@@ -180,13 +109,8 @@ export default function Studio() {
   }, []);
 
   const reset = useCallback(() => {
-    wsRef.current?.close();
-    wsRef.current = null;
-    setPhase("idle");
-    setFeed([]);
-    setMeta(null);
-    setStats(null);
-    setErr("");
+    wsRef.current?.close(); wsRef.current = null;
+    setPhase("idle"); setFeed([]); setMeta(null); setStats(null); setErr("");
   }, []);
 
   useEffect(() => {
@@ -194,148 +118,179 @@ export default function Studio() {
       if (phase !== "running") return;
       const tag = (e.target?.tagName || "").toLowerCase();
       if (e.code === "Space" && !["input", "select", "textarea", "button"].includes(tag)) {
-        e.preventDefault();
-        next();
+        e.preventDefault(); next();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [phase, next]);
 
-  useEffect(() => {
-    feedRef.current?.scrollTo({ top: feedRef.current.scrollHeight, behavior: "smooth" });
-  }, [feed]);
-
+  // autoscroll each column
+  useEffect(() => { tRef.current?.scrollTo({ top: tRef.current.scrollHeight, behavior: "smooth" }); }, [feed, waiting]);
+  useEffect(() => { rRef.current?.scrollTo({ top: rRef.current.scrollHeight, behavior: "smooth" }); }, [feed, typing]);
   useEffect(() => () => wsRef.current?.close(), []);
 
-  return (
-    <>
-      <p className="eyebrow">Role-play studio</p>
-      <h1>Session <em>Studio</em></h1>
+  // split the interleaved feed into therapist (left) and persona (right)
+  const left = feed.filter((t) => t.type !== "reply");
+  const replies = feed.filter((t) => t.type === "reply");
+  const sc = stageColor(stage);
+  const ringOffset = (RING * (1 - Math.min(sec / 1200, 1))).toFixed(1);
 
-      {phase === "idle" && (
-        <>
-          <p className="note">
-            Pick a client profile, session plan, and persona. The orchestrator renders the full
-            Kappasinian first-session script with <strong>NLP prosody annotations</strong> —
-            embedded commands, presuppositions, VAK predicates, pacing/leading, tag questions,
-            double binds, Milton model patterns, and tonality shifts per stage.
-            Advance with <span className="mono">Space</span> or the Next button.
-          </p>
-          <div className="nlp-legend">
-            <span className="nlp-embed">embedded command</span>
-            <span className="nlp-presup">presupposition</span>
-            <span className="nlp-vak">VAK predicate</span>
-            <span className="nlp-lead">lead connector</span>
-            <span className="nlp-pace">pace statement</span>
-            <span className="nlp-tag">tag question</span>
-            <span className="nlp-bind">double bind</span>
-            <span className="nlp-milton">Milton model</span>
+  return (
+    <article>
+      <div className="studio-head">
+        <div>
+          <span className="eyebrow">Role-play studio</span>
+          <h1 style={{ margin: "8px 0 0" }}>Session <em>Studio</em></h1>
+        </div>
+        {phase !== "idle" && (
+          <div className="seg">
+            <button className={phase === "running" ? "on" : ""} onClick={() => phase === "done" && start()}>Live</button>
+            <button className={phase === "done" ? "on" : ""} onClick={() => phase === "running" && setPhase("done")}>Debrief</button>
           </div>
-          <div className="labform" style={{ marginTop: 18 }}>
-            <label>Profile
+        )}
+      </div>
+
+      {/* ---------- SETUP ---------- */}
+      {phase === "idle" && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 900 }}>
+          <p className="note">
+            Pick a client profile, session plan, and persona. The orchestrator renders the full Kappasinian
+            first-session script, then the persona answers every ideomotor checkpoint. Advance with{" "}
+            <span className="kbd">Space</span> or the Next button once live.
+          </p>
+          <div className="labform" style={{ flexWrap: "wrap" }}>
+            <label style={{ flex: 1, minWidth: 220 }}>Profile
               <select value={profile} onChange={(e) => setProfile(e.target.value)}>
                 {PROFILES.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
               </select>
             </label>
-            <label>Plan
+            <label style={{ flex: 1, minWidth: 220 }}>Plan
               <select value={plan} onChange={(e) => setPlan(e.target.value)}>
                 {PLANS.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
               </select>
             </label>
-            <label>Persona
+            <label style={{ minWidth: 200 }}>Persona
               <select value={persona} onChange={(e) => setPersona(e.target.value)}>
-                {PERSONAS.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
+                <option value="maya">Maya — analytical, literal (72% P)</option>
+                <option value="leo">Leo — imaginative, inferred (68% E)</option>
               </select>
             </label>
-            <button className="primary" onClick={start}>Start session</button>
           </div>
-          {err && <p className="studioerr">{err}</p>}
-        </>
+          <div className="persona" style={{ maxWidth: 900 }}>
+            <div className="top">
+              <div className="avatar">{pmeta.initials}</div>
+              <div><div className="name">{pmeta.name}</div><div className="arch">{pmeta.arch}</div></div>
+              <span className="badge ep" style={{ marginLeft: "auto" }}>{pmeta.ep}</span>
+            </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <button className="primary" onClick={start}>Begin Session →</button>
+            <span className="note" style={{ margin: 0 }}>Advance with <span className="kbd">Space</span> once live.</span>
+          </div>
+          {err && <p style={{ color: "var(--red)", fontFamily: "var(--mono)", fontSize: 13 }}>{err}</p>}
+        </div>
       )}
 
-      {phase !== "idle" && meta && (
-        <>
-          <div className="runhead">
+      {/* ---------- LIVE / DONE ---------- */}
+      {phase !== "idle" && meta && phase !== "done" && (
+        <div className="studio-grid">
+          {/* LEFT — therapist */}
+          <section className="panel studio-left">
+            <div className="head">
+              <div style={{ minWidth: 0 }}>
+                <div className="runmeta">{plan} · {persona} · {meta.turns} turns</div>
+                <div className="stagechip" style={{ "--sc": sc }}><span className="dot" />{pretty(stage)}</div>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, flex: "none" }}>
+                <div className="timerwrap">
+                  <svg width="58" height="58" viewBox="0 0 58 58">
+                    <circle cx="29" cy="29" r="26" fill="none" stroke="var(--line)" strokeWidth="4" />
+                    <circle cx="29" cy="29" r="26" fill="none" stroke="var(--amber)" strokeWidth="4" strokeLinecap="round" strokeDasharray={RING} strokeDashoffset={ringOffset} />
+                  </svg>
+                  <div className="t">{mmss(sec)}</div>
+                </div>
+                <div className="turns"><b>{idx + 1}/{meta.turns}</b><span>turns</span></div>
+              </div>
+            </div>
+
+            <div className="tsel" ref={tRef}>
+              {left.map((t, i) => {
+                if (t.type === "stage")
+                  return <div key={i} className="t-stage" style={{ "--sc": stageColor(t.name) }}><span>{pretty(t.name)}</span></div>;
+                if (t.type === "await")
+                  return <div key={i} className="t-await done"><span>✓ checkpoint · {pretty(t.name)} confirmed</span></div>;
+                if (t.type === "snap")
+                  return <div key={i} className="t-snap"><b>✳ SNAP</b><span>{t.note || "anchor set · transient detected"}</span></div>;
+                return <div key={i} className="t-line"><span className="who">You</span><span className="txt">{t.text}</span></div>;
+              })}
+              {waiting && <div className="t-await"><span className="dot" /><span>waiting for ideomotor response…</span></div>}
+            </div>
+
+            <div className="studio-bar">
+              <button className="primary" onClick={next}>Next</button>
+              <span className="hint">or press <span className="kbd">Space</span> to advance</span>
+              <button className="ghost" style={{ marginLeft: "auto" }} onClick={reset}>End session</button>
+            </div>
+          </section>
+
+          {/* RIGHT — client persona */}
+          <section className="studio-right">
+            <div className="persona">
+              <div className="top">
+                <div className="avatar">{pmeta.initials}</div>
+                <div><div className="name">{pmeta.name}</div><div className="arch">{pmeta.arch}</div></div>
+              </div>
+              <div className="issue">{pmeta.issue}</div>
+              <div className="badges">
+                <span className="badge ep">EP · {pmeta.ep}</span>
+                <span className="badge nods">☺ {nods} nods</span>
+              </div>
+            </div>
+            <div className="rsel" ref={rRef}>
+              {replies.map((t, i) => {
+                const fallback = (t.source || "").startsWith("offline") || (t.source || "") === "fallback";
+                const nod = /nod/i.test(t.text);
+                return (
+                  <div key={i} className="bubble">
+                    <span className="txt">{t.text}</span>
+                    <div className="srcrow">
+                      <span className={`srcdot ${fallback ? "fallback" : "ollama"}`} />
+                      <span className="srclabel">{fallback ? "fallback" : "ollama"}</span>
+                      {nod && <span className="nodtag">· nod</span>}
+                    </div>
+                  </div>
+                );
+              })}
+              {typing && <div className="typing"><span /><span /><span /></div>}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {/* ---------- DONE SUMMARY ---------- */}
+      {phase === "done" && stats && (
+        <div className="summary">
+          <div className="top">
             <div>
-              <div className="runstep">
-                {plan} · {persona} · {meta.turns} turns · {meta.awaits} checkpoints
-                {meta.ep_type && <> · {meta.ep_type}</>}
-                {meta.vak && <> · {meta.vak}</>}
-              </div>
-              <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-                <div className="stagechip">{pretty(stage)}</div>
-                {tonality && (
-                  <span className="tonality-chip" style={{
-                    borderColor: TONE_COLORS[tonality] || "#8b85a0",
-                    color: TONE_COLORS[tonality] || "#8b85a0",
-                  }}>
-                    {TONE_ICONS[tonality] || ""} {tonality}
-                  </span>
-                )}
-              </div>
+              <span className="eyebrow" style={{ color: "var(--ok)" }}>✓ Session complete</span>
+              <h2>{pmeta.name} · {plan} <em>first session</em></h2>
             </div>
-            <div className="studiometrics">
-              <span className="mono">{idx + 1}/{meta.turns}</span>
-              <span className="nodcount" title="ideomotor responses">&#9786; {nods}</span>
-              <label className="prosody-toggle" title="Show/hide prosody cues">
-                <input type="checkbox" checked={showProsody} onChange={() => setShowProsody(!showProsody)} />
-                NLP
-              </label>
-            </div>
+            <div className="stagechip" style={{ "--sc": "var(--stage-post)", marginTop: 0 }}><span className="dot" />post · emerged</div>
           </div>
-
-          <div className="transcript" ref={feedRef}>
-            {feed.map((t, i) => {
-              if (t.type === "stage") return (
-                <div key={i} className="t-stage">
-                  {pretty(t.name)}
-                  {t.tonality && (
-                    <span className="t-stage-tone" style={{ color: TONE_COLORS[t.tonality] }}>
-                      {" "}{TONE_ICONS[t.tonality]} {t.tonality}
-                      {t.phase && <> · {pretty(t.phase)}</>}
-                    </span>
-                  )}
-                </div>
-              );
-              if (t.type === "await") return <div key={i} className="t-await">checkpoint · {pretty(t.name)}</div>;
-              if (t.type === "reply") return (
-                <div key={i} className="t-reply">
-                  <span className="t-who">{t.persona}</span>{t.text}
-                  {t.source?.startsWith("offline") && <span className="t-src"> · offline</span>}
-                </div>
-              );
-              if (t.type === "snap") return <div key={i} className="t-snap">&#10035; snap</div>;
-              // line with prosody + NLP + optional TTS
-              return (
-                <div key={i} className="t-line">
-                  {showProsody && t.prosody && <ProsodyBadge prosody={t.prosody} />}
-                  {ttsOk && meta && t._oidx != null && (
-                    <button className="tts-btn" title="Play audio"
-                      disabled={playingIdx !== null}
-                      onClick={() => playLine(meta.session_id, t._oidx)}>
-                      {playingIdx === t._oidx ? "▶" : "🔊"}
-                    </button>
-                  )}
-                  <NlpText text={t.text} nlp={showProsody ? t.nlp : null} />
-                </div>
-              );
-            })}
-            {phase === "done" && stats && (
-              <div className="t-done">
-                Session complete — {stats.turns} turns · {stats.awaits} checkpoints ·
-                {" "}{Math.floor(stats.duration_s / 60)}m {stats.duration_s % 60}s
-              </div>
-            )}
+          <div className="statrow">
+            <div className="stat"><div className="n" style={{ color: "var(--amber)" }}>{mmss(stats.duration_s ?? sec)}</div><div className="l">Duration</div></div>
+            <div className="stat"><div className="n">{stats.turns ?? meta?.turns}</div><div className="l">Turns</div></div>
+            <div className="stat"><div className="n" style={{ color: "var(--ok)" }}>{stats.awaits ?? 0}/{meta?.awaits ?? stats.awaits ?? 0}</div><div className="l">Checkpoints</div></div>
+            <div className="stat"><div className="n" style={{ color: "var(--iris)" }}>{nods}</div><div className="l">Nods</div></div>
           </div>
-
-          <div className="labrow">
-            {phase === "running" && <button className="primary" onClick={next}>Next (Space)</button>}
-            <button className="chip" onClick={reset}>{phase === "done" ? "New session" : "End & reset"}</button>
+          <div style={{ display: "flex", gap: 12, padding: "20px 28px", borderTop: "1px solid var(--line)", background: "var(--panel-2)" }}>
+            <button className="primary" onClick={start}>Run Again</button>
+            <button className="chip" onClick={reset}>New Session</button>
           </div>
-          {err && <p className="studioerr">{err}</p>}
-        </>
+        </div>
       )}
-    </>
+      {err && phase !== "idle" && <p style={{ color: "var(--red)", fontFamily: "var(--mono)", fontSize: 13, marginTop: 14 }}>{err}</p>}
+    </article>
   );
 }
