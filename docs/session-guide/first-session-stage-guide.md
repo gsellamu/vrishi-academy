@@ -111,19 +111,25 @@ Purpose: convincers + message-unit build. (slowing now; voice settling ↓; WATC
 ---
 
 ## 5. Arm-Raising Conversion (≈8–10 min)
-The heart of the first session. Branch entirely on suggestibility mode. (WATCH the hand continuously; pace your lines to what the arm is actually doing, never ahead of it)
+The primary induction and heart of the first session. Branch entirely on suggestibility mode. (WATCH the hand continuously; pace your lines to what the arm is actually doing, never ahead of it) (full stage-by-stage detail: `arm-raising-playbook.md`)
+
+### 5.0 Mechanics before you start (P3)
+- Guide them into position (you direct, they follow — an early compliance check); working arm and hand ON the table, other hand on the thigh; glasses off, no gum
+- Pre-check the movement: have them raise the hand to the forehead once — you are checking the mechanics AND inferring the arc the hand will travel (quietly rehearses the target)
+- Take away verbal responses now — answers are non-verbal from here (removing speech adds overload → more message units)
+- Last suggestibility question must be "can you visualize?" — if no, downshift to "imagine" or "conceptualize" so no one fails
+- (WATCH the RISE for the E/P tell: a Physical Suggestible's hand rises led by the **wrist**; an Emotional Suggestible's rises straighter **out** from the arm)
 
 ### 5.1 Literal / Physical branch (P-keep; paternal; rhythmic, driving)
-- Attention path: elbow pressing into the table → forearm → wrist → hand → fingertips
-- Direct declarations: the hand IS becoming light — very light — lighter and lighter — light as a feather, then lighter than that (repeat in waves; sync "lighter" to their inhales)
+- Attention path: elbow pressing into the table → forearm → wrist → hand → fingertips (focus the wrist — a specific physical area)
+- Direct declarations from the start: "lift and rise, lighter and lighter" — light as a feather, then lighter than that (repeat in waves; sync "lighter" to their inhales)
 - Announce the pulling/jerking motions as fact (small twitches WILL appear; naming them as they happen is the convincer loop)
 - Misdirection block (handles message-unit overload): the OTHER hand grows heavier against the leg... feet press into the floor... back against the chair (alternate light-hand / heavy-hand / feet / breath — rotation keeps the load high without repetition fatigue)
 - Checkpoint: "when you feel that difference in weight, nod" (WAIT)
-- Escalate once the hand moves: lifting — rising — pivoting at the elbow — palm twisting, turning inward — upward and inward, drawn to the face (rhythmic, almost metronomic; every breath = one increment)
-- Vintage-style additions (from the class recording, useful when the arm is slow):
-  - Bicep cue: "the instant you feel the bicep tighten, nod" (WAIT)
-  - Head-drop: the head grows heavier, small dropping motions as the hand rises — hand and face drawn closer together (head-down + hand-up closes the gap from both ends)
-  - Re-announce dryness/salivation mid-climb (recycles an earlier convincer)
+- Escalate ONLY once the hand actually moves off the surface: "twist and turn" — palm and fingertips inward, upward and inward, drawn to the face (twisting/turning makes it mechanically easier for the hand to reach the forehead; rhythmic, every breath = one increment)
+- Head-to-hand close (P3): suggest the head grows heavy and drops down to meet the rising hand — closing the gap from both ends (WATCH: steer the hand toward the **forehead/brow, NOT the eyes** — avoid fingers poking into the eyes)
+- Bicep cue: "the instant you feel the bicep tighten, nod" (WAIT)
+- Re-announce dryness/salivation mid-climb (recycles an earlier convincer)
 
 ### 5.2 Inferred / Emotional branch (E-swap; maternal; softer, spacious, more pauses)
 - Same attention path, permissive frame: "let your attention drift..." "you might imagine the hand becoming lighter..."
@@ -140,6 +146,14 @@ The heart of the first session. Branch entirely on suggestibility mode. (WATCH t
 ### 5.4 Post-hypnotic suggestion to re-hypnosis — REQUIRED here and after EVERY deepener in a first session
 Full anatomy, never abbreviated:
 - cue words ("deep sleep") + purpose clause ("for the purpose of hypnosis") + consent clause ("and with your permission") + speed/quality triple ("quickly, calmly, and deeply") + somatic tag ("and the physical body relaxes") (measured, formal cadence — this is the contract)
+- Say the peak-"deep sleep" + PHS pair **6–8 times across the first session** (once at the peak, once after each deepener) — this is what makes the second-session "deep sleep" drop them straight back in (Law of Association + Law of Repetition)
+
+### 5.5 The depth ladder (P3) — read the eyes under the lids after the escape
+Name the depth silently; it tells you how far the work can go this session.
+- **Hypnoidal** — eyes up-and-down, quick (REM-like): first depth
+- **Cataleptic** — eyes side-to-side, more fluid, slower: middle depth
+- **Somnambulism** — eyes roll up, whites may show (like a sleeping child): deepest, three stages, each with increasing *post-session* amnesia (Stage 1 ≈ 30%, Stage 2 ≈ 60%, Stage 3 ≈ 80%+)
+- The client is conscious and in control throughout — the amnesia is *afterward*, like fading dream-recall. Everyone can reach somnambulism; a ≈50/50 Somnambulist reaches it most easily. An Emotional Suggestible may be **deep yet report feeling light** (lower ego sensation) — trust the eye signs over their self-report. Go only as deep as the goal needs.
 
 ---
 
@@ -288,4 +302,22 @@ Tests that the re-hypnosis suggestion took; also the default secondary induction
 
 ## Appendix C — PHS Anatomy (memorize as one unit)
 cue words → "for the purpose of hypnosis" → "with your permission" → "quickly, calmly, and deeply" → "and the physical body relaxes"
-Placement: after the first conversion and after EVERY deepener in a first session; the finger-spread in stage 12 is its live test.
+Placement: after the first conversion and after EVERY deepener in a first session; the finger-spread in stage 12 is its live test. Delivered 6–8× total across the first session.
+
+## Appendix D — Laws of Suggestibility (P3)
+Why the repetition, the voice choices, and the challenges work.
+1. **Association** — the client links your voice, the room, and the process to the hypnotic state; "deep sleep" comes to mean that calm (this is what the peak-anchor exploits).
+2. **Repetition** — repeating suggestions within and across sessions strengthens them; repeat the *ways* you hypnotize too (why "deep sleep" + PHS is given 6–8× in session one).
+3. **Delayed action** — strong in Emotional and Intellectual Suggestibles: (a) a goal tied to a future date manifests then (desensitized flight fear pays off on the trip); (b) inference can take a week or two to land — a Physical may recall a dream in 1–2 days, an Emotional in 5–6.
+4. **Dominance** — default maternal/lulling voice, but paternal/dominant is right for challenges and for emphasis words in a suggestion. You are the expert in the room — natural one-upmanship, never domineering.
+5. **Reverse action** — given a two-part suggestion, the client follows the *stronger* part. "You can try to open your eyes, but the harder you try the more they stay shut — you cannot open them": "cannot" beats "try" (deepener + convincer; if they do open, "Good — you passed the test!" and move on). Also re-associates a trigger: get them calm, challenge them to re-create the anxiety, and calm wins — installing calm where the trigger used to fire.
+
+## Appendix E — Deepener refinements (P3)
+- **5→0 countdown** — a good first deepener straight off the conversion.
+- **Reactional** — moving the client to a recliner is itself a longer-form reactional deepener.
+- **Arm rigidity** — if in person and the arm is not actually stiff, do NOT challenge the bend; just release the tension.
+- **Eye fascination** — the key is to remove head movement so the eyes close naturally as the gaze/object lowers (doubles as a secondary induction).
+- **Heavy/Light** — palm-up "heavy bag of sand" (literal) vs thumb-up "helium balloons" (inferential); also a suggestibility test (watch which hand responds more).
+- **Staircase/Path** — check comfort first (finger-raise if safe); higher Physical Suggestible can rock gently as they "go down the stairs."
+- **Focus on breathing / Focus on sounds** — "inhaling relaxation, exhaling tension"; "everyday sounds only send you deeper" (inoculates against room noise).
+- **Progressive relaxation** — usually LAST; seated upright → head-down, reclined → feet-up; P responds to "relax," E to "calm."

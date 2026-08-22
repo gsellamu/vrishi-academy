@@ -35,6 +35,14 @@ function stageColor(name = "") {
 }
 const pretty = (s) => (s || "").replace(/_/g, " ");
 const mmss = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+
+// Practitioner action cues (mark name -> prompter label). Eye Fascination paternal
+// lane emits cue_forehead (touch + snap) and cue_limpness (lift & drop hands).
+const CUE = {
+  snap: { label: "SNAP", note: "anchor set · transient detected" },
+  forehead: { label: "TOUCH FOREHEAD + SNAP", note: "light contact on close, then Deep Sleep" },
+  limpness: { label: "LIFT & DROP HANDS", note: "prove limpness · hands fall dead-weight" },
+};
 const RING = 163.4; // 2πr, r=26
 
 export default function Studio() {
@@ -242,8 +250,10 @@ export default function Studio() {
                   return <div key={i} className="t-stage" style={{ "--sc": stageColor(t.name) }}><span>{pretty(t.name)}</span></div>;
                 if (t.type === "await")
                   return <div key={i} className="t-await done"><span>✓ checkpoint · {pretty(t.name)} confirmed</span></div>;
-                if (t.type === "snap")
-                  return <div key={i} className="t-snap"><b>✳ SNAP</b><span>{t.note || "anchor set · transient detected"}</span></div>;
+                if (t.type === "snap") {
+                  const c = CUE[t.name] || CUE.snap;
+                  return <div key={i} className="t-snap"><b>✳ {c.label}</b><span>{t.note || c.note}</span></div>;
+                }
                 return <div key={i} className="t-line"><span className="who">You</span><span className="txt">{t.text}</span></div>;
               })}
               {waiting && <div className="t-await"><span className="dot" /><span>waiting for ideomotor response…</span></div>}

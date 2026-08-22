@@ -1,6 +1,7 @@
 id: referral_health.pain_comfort_adjunct.v1
 lane: referral_health
 referral_required: true
+guided_imagery: true
 referral_gate:
   requires: "written referral from the client's licensed CA physician (or other authorized licensee) on file BEFORE booking"
   scope_note: "adjunctive comfort and relaxation support under medical supervision; the licensee directs care — this is not diagnosis or treatment"
@@ -25,6 +26,7 @@ stages:
   - {stage: questionnaire, block: questionnaire, minutes: 5}
   - {stage: induction, block: induction_arm_raising, minutes: 10}
   - {stage: deepening, block: [deepener, progressive_relaxation], minutes: 5}
+  - {stage: guided_imagery, block: guided_imagery, minutes: 4}
   - {stage: suggestions, block: suggestions, minutes: 5}
   - {stage: phs, block: [phs_rehypnosis, count_out, phs_verify], minutes: 5}
   - {stage: homework, block: homework}

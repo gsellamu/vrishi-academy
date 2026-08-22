@@ -53,6 +53,24 @@
       "label": "Variation 2 - Physical lane (30m)",
       "minutes": 30,
       "focus": "var2_physical"
+    },
+    {
+      "id": "autodual20",
+      "label": "Auto Dual induction path (20m)",
+      "minutes": 20,
+      "focus": "auto_dual_path"
+    },
+    {
+      "id": "imagery18",
+      "label": "Guided Imagery secondary (18m)",
+      "minutes": 18,
+      "focus": "imagery_path"
+    },
+    {
+      "id": "selfhyp10",
+      "label": "Self-Hypnosis teach-back (10m)",
+      "minutes": 10,
+      "focus": "self_hypnosis"
     }
   ],
   "sequences": {
@@ -131,6 +149,23 @@
       "suggestions",
       "countout",
       "fingerspread"
+    ],
+    "auto_dual_path": [
+      "pretalk",
+      "tom",
+      "autodual",
+      "count50",
+      "progrelax",
+      "suggestions",
+      "countout"
+    ],
+    "imagery_path": [
+      "guidedimagery",
+      "suggestions",
+      "countout"
+    ],
+    "self_hypnosis": [
+      "selfhypnosis"
     ]
   },
   "drills": [
@@ -253,8 +288,11 @@
       "min": 4,
       "prompter": [
         "Setup: upright, feet flat, arm and hand ON the table - note WHICH arm and word everything to match. Glasses off, no gum.",
+        "Pre-check the movement: have them raise the hand to the forehead once - checks mechanics AND infers the arc the hand will travel.",
+        "Take away verbal responses now - answers go non-verbal (removing speech adds overload = more message units).",
         "Capture the arm: look elbow-to-fingertips, close eyes, hold the picture - nod when it's clear.",
-        "Suggestibility questions with direct eye contact (sleep-walk/talk, waking unable to move, replaying arguments, lemon-mouth, visualize?, imagine?) - weight the last two.",
+        "Suggestibility questions with direct eye contact (sleep-walk/talk, waking unable to move, replaying arguments, lemon-mouth, visualize?, imagine?) - weight the last two; if 'no' to visualize, downshift to 'imagine/conceptualize' so no one fails.",
+        "E/P tell in the RISE: Physical Suggestible's hand rises led by the WRIST; Emotional Suggestible's rises straighter OUT from the arm - read it live.",
         "Frame: 'I will notice the changes before you do - when YOU notice, nod yes.'",
         "Physio nods: breathing deepens (more oxygen)... lips-throat-mouth dry, urge to swallow (natural, normal)... eye flutter = first stage.",
         "Conversion: elbow pressing comfortably, down the forearm, wrist, fingertips - lighter and lighter, feather, then lighter still; small pulling or jerking twitches are the start - name them.",
@@ -263,21 +301,28 @@
         "E-clients: allowing, tendency, permission, you choose, peaceful, safe, greater sense of control. P-clients: direct - it IS lifting.",
         "Inference boost: many powerful balloons tied around that wrist - floating.",
         "Movement -> directive: lifting, rising, twisting, turning, palm and fingertips inward, upward and inward; head-to-hand or hand-to-head - let them choose; bicep tightening.",
+        "Head-to-hand close (P3): head grows heavy, drops to meet the rising hand - close the gap both ways. Steer to the BROW, not the eyes (avoid finger-poke).",
         "Repeat the weave until the hand is about six inches from the face.",
-        "'The moment you make skin contact, nod - peak of suggestibility, hypnotic sleep.' Contact + nod -> SNAP -> Deep Sleep.",
-        "PHS anatomy, immediately: cue words + for the purpose of hypnosis + WITH YOUR PERMISSION + quickly, calmly, deeply + the body relaxes."
+        "'The moment you make skin contact, nod - peak of suggestibility, hypnotic sleep.' Contact + nod -> SNAP (or touch forehead) -> Deep Sleep.",
+        "PHS anatomy, immediately: cue words + for the purpose of hypnosis + WITH YOUR PERMISSION + quickly, calmly, deeply + the body relaxes.",
+        "Depth read after the escape (eyes under lids): hypnoidal (up-down/REM) -> cataleptic (side-to-side) -> somnambulism (roll up, whites show; amnesia 30/60/80% by stage). Emotional may be deep yet feel light - trust the eyes.",
+        "Repetition target: the 'deep sleep' + PHS pair is given 6-8 times across the first session (peak + after each deepener)."
       ],
       "check": [
         "Arm noted (left/right) and wording matched throughout",
-        "Visualize-the-arm capture with nod",
+        "Movement pre-checked and verbal responses removed before conversion",
+        "E/P rise-tell read (wrist-led vs straight-out)",
+        "Visualize-the-arm capture with nod; visualize-'no' downshifted to imagine",
         "Questions asked with direct eye contact; last two weighted",
         "I-notice-first frame set before physio talk",
         "All FOUR nods elicited (breath, swallow, flutter, weight difference)",
         "Misdirection interleaved at least twice with ownership framing",
         "Language matched to E/P mode; escalated only after movement",
+        "Head-to-hand close steered to the brow, not the eyes",
         "Six-inch threshold respected before the contact line",
         "Skin contact -> snap -> deep sleep executed",
-        "PHS delivered with permission + purpose limiters"
+        "PHS delivered with permission + purpose limiters",
+        "Depth read from the eye signs after the escape"
       ]
     },
     {
@@ -540,6 +585,82 @@
         "Eyelid-muscle awareness built gradually",
         "Blink-heavy loop used (not rushed to close)",
         "Close converted to deep sleep + deepener"
+      ]
+    },
+    {
+      "id": "autodual",
+      "name": "Auto Dual Induction",
+      "weight": 3,
+      "min": 2,
+      "prompter": [
+        "Alternative PRIMARY induction (101-5 item 8) - pulse focus + repeat-after-me. Glasses off, no gum.",
+        "Sit up straight, feet flat. Arm out; other index finger on that wrist - feel the pulse; nod when you have it.",
+        "Confirm: 'Are you sure?' then have them stare at the fingernail while holding attention on the pulse (dual focus).",
+        "Slow deep breath. Set the frame: 'I'll say phrases, you say each one out loud right after me' - wait for the nod.",
+        "Lead the five setup lines (enter hypnosis / for deep relaxation and self-control / count 5-0 / deeper each count / at zero deep asleep).",
+        "SPEED UP the descent, speaking slightly OVER them - this overload is the mechanism.",
+        "5 breathing deep-gentle-rhythmic... 4 eyelids heavy, drowsier... 3 every muscle-nerve-fiber relaxing...",
+        "2 arms-legs-whole-body relaxed... 1 eyelids closing, rhythmic... 0 -> Deep Sleep.",
+        "Repeat the PHS."
+      ],
+      "check": [
+        "Pulse found and confirmed ('are you sure?') before proceeding",
+        "Dual focus set (fingernail + pulse)",
+        "Repeat-after-me frame agreed with a nod",
+        "Five self-spoken setup lines delivered and echoed",
+        "Count accelerated with slight overlap (overload)",
+        "Zero -> deep sleep -> PHS"
+      ]
+    },
+    {
+      "id": "guidedimagery",
+      "name": "Guided Imagery (Secondary Induction)",
+      "weight": 3,
+      "min": 2,
+      "prompter": [
+        "Secondary induction (101-5 item 17). Breath focus; eyes close on the exhale of the 3rd/4th breath.",
+        "Fallback baked in: not everyone visualizes - imagine, think about, or conceptualize; use the other senses too.",
+        "Head-to-toe release: crown -> face/jaw -> shoulders -> arms/hands -> chest/back -> stomach -> hips -> legs -> toes.",
+        "Count backward 5-0 in their own mind with you; at 0 -> Deep Sleep.",
+        "The journey: meadow on a perfect day - earth underfoot, scent of nature, wildflowers.",
+        "A free-flying bird; gentle breeze through distant trees (multisensory).",
+        "A single beautiful tree on a hill; approach and take in its form and the leaf-sounds.",
+        "One leaf at the branch tip twists and turns, breaks free, glides down to rest at the base.",
+        "At the roots, a single blade of grass - persevered and strong through its own motivation.",
+        "Embed: 'the same way YOU are motivated' - take what we discussed, understand it, help yourself. Carry the feelings forward.",
+        "From here: give therapeutic suggestions, or deepen further."
+      ],
+      "check": [
+        "Eyes closed on a breath exhale, not by command",
+        "Visualize/imagine/conceptualize fallback offered",
+        "Full head-to-toe release before the 5-0 count",
+        "Journey kept multisensory (sight, smell, sound, feel)",
+        "Leaf + blade-of-grass metaphor delivered with the motivation embed",
+        "Handed off to suggestions or a further deepener"
+      ]
+    },
+    {
+      "id": "selfhypnosis",
+      "name": "Self-Hypnosis (Client Homework)",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Teach this as a take-home tool (101-5 item 18). Client needs their three keywords first: physical, emotional, intellectual('DEEP SLEEP').",
+        "Semi-comfortable position; create an eye fascination - stare at a point above and in front.",
+        "Three breaths (in nose, out mouth, relax jaw); close eyes on the exhale of the third.",
+        "Top of head: repeat the PHYSICAL keyword to self; work down every body section, flowing with the physical feeling.",
+        "Count 5-0; at zero focus on the breath and repeat the EMOTIONAL keyword - really feel it.",
+        "Walk down a 20-step staircase; at the bottom say the intellectual keyword to self: DEEP SLEEP.",
+        "Give the prepared suggestions WITH feeling; repeat several times.",
+        "Count 0 up to 5: 'Eyes open, wide awake.' (Somnambulists may add 'to a completely non-suggestible state.')"
+      ],
+      "check": [
+        "Three personal keywords identified (physical / emotional / intellectual)",
+        "Eye-fascination open + 3-breath close",
+        "Physical keyword body scan top-to-bottom",
+        "5-0 then emotional keyword, felt not just said",
+        "20-step staircase then 'deep sleep'",
+        "Suggestions delivered with feeling; clean 0-5 count out"
       ]
     },
     {

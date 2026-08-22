@@ -91,7 +91,13 @@ Small pulling and jerking motions are starting in the hand. {{ brk('700ms') }}
 {#- PACING opposite hand → compound suggestion -#}
 At the same time, the other hand grows heavier against your leg, your feet press into the floor, your back rests against the chair. {{ brk('800ms') }}
 The deeper you go, the more you notice — each breath makes the light hand lighter and the heavy hand heavier — when you feel that difference in weight, nod your head. {{ await('weight_diff') }}
-The hand is lifting now — rising — pivoting at the elbow, the palm turning inward — lifting, rising, twisting, turning, upward and inward, the hand drawn to the face. {{ brk('1200ms') }}</p>
+The hand is lifting now — rising — pivoting at the elbow, the palm turning inward — lifting, rising, twisting, turning, upward and inward, the hand drawn to the face. {{ brk('700ms') }}
+{#- POWER-WORD REPETITION (P3 workbook): message-unit overload drives physical conversion -#}
+Lifting, rising, higher and higher, lighter and lighter, pulling up with every breath now. {{ brk('700ms') }}
+Higher and higher, lighter and lighter — light as a feather — pulling, jerking, moving up, up, and up. {{ brk('900ms') }}
+{#- HEAD-TO-HAND close (P3): head drops to meet the rising hand, closing the gap both ways; steer to brow, not eyes -#}
+And the head grows heavy now, dropping gently down to meet that rising hand — the hand toward the brow, the brow toward the hand, closer and closer together. {{ brk('800ms') }}
+With every inhale, the arm and hand go up — and on the exhale the head drops down to meet the hand — closer and closer together. {{ brk('1200ms') }}</p>
 {%- else -%}
 {#- INFERRED/EMOTIONAL mode: Milton model language, imagination-based -#}
 <p>Let your attention drift to the elbow resting comfortably on the table, down through the forearm, into the wrist, the hand, the fingertips. {{ brk('700ms') }}
@@ -156,10 +162,131 @@ And you land in the pillows, twice as relaxed.</p>
 {% for n in range(p.count_from, 0, -1) %}{{ n }} — a soft, steady step, deeper down. {{ brk('900ms') }}{% endfor %}
 At the last stone you settle onto a comfortable bench, twice as deep.</p>
 {%- else -%}
-<p>Before you is a staircase of {{ p.count_from }} steps, each step taking you twice as deep. {{ brk('800ms') }}
-{% for n in range(p.count_from, 0, -1) %}{{ n }} — deeper down. {{ brk('900ms') }}{% endfor %}
+{#- STAIRCASE: workbook p.20 — 20 steps, left/right alternation, "twice as deep" interspersions -#}
+<p>Before you is a beautiful staircase, well-lit, with sturdy, smooth handrails, and it has {{ p.count_from }} steps leading down to a bottom landing. {{ brk('700ms') }}
+With each step down you deepen your state of hypnosis and more deeply relax and let go. {{ brk('900ms') }}
+{% for n in range(p.count_from, 0, -1) %}{% if n % 2 == 0 %}Left foot at {% else %}Right foot at {% endif %}{{ n }}{% if n % 5 == 2 %} — twice as deep{% elif n % 5 == 0 %} — letting go{% elif n % 3 == 0 %} — feeling yourself deeply relax{% endif %} — deeper down. {{ brk('900ms') }}
+{% endfor %}
 At the bottom — {{ deep_sleep('moderate') }}</p>
 {%- endif %} {{ brk('1500ms') }}
+{{ phs_short(p) }}
+{%- endmacro -%}
+
+{%- macro eye_fascination(p) -%}
+{#- Secondary induction / deepener. Lane by suggestibility mode:
+    inferred/blended -> permissive (withhold closure, blur imagery, invite);
+    literal          -> paternal-rapid (blink<->heavy loop, drive lids down,
+                        cue_forehead touch on close + cue_limpness hands-drop).
+    Source: Practicum Scripts 101-5 item 15 (permissive baseline) +
+    classic paternal variant (forehead touch + limpness convincer). -#}
+<mark name="stage_eye_fascination"/>
+<p>Let the eyes come open for a moment, and pick a spot on the ceiling a little above your eye line — so the eyes look up just slightly to find it — and rest your gaze there. {{ brk('900ms') }}
+Let the eyes settle on that one point, without moving them. {{ brk('1200ms') }}</p>
+{% if p.mode != 'literal' -%}
+{#- PERMISSIVE lane (E / blended): urge built by withholding closure; blur imagery convincer -#}
+<p>As you keep looking at that spot — the gaze may drift and come back, gently, easily — you can begin to notice the small muscles around the eyes, {{ brk('400ms') }}how they hold the eyes up, {{ brk('400ms') }}and the eyelids, and what they feel like. {{ brk('900ms') }}
+You may begin to blink a little more often {{ await('ef_blink') }}
+That's it — and the breathing might deepen as you relax. {{ brk('800ms') }}
+As the eyes rest on that spot, the mind wrapped around it, the eyelids may start to feel heavy, and the eyes may want to close. But not just yet — let them stay open a little longer. {{ brk('900ms') }}
+And blinking a little more now {{ await('ef_blink2') }}
+you might notice that blink is a little slower than normal. {{ brk('800ms') }}
+Many people, entering hypnosis, find the focus going soft — the vision blurring — and as you look at that spot it might waver, or blur, or seem to shift shape or color. {{ brk('1000ms') }}That's it. {{ brk('700ms') }}
+And you may notice the arms and legs growing heavy as the eyelids grow heavier and heavier, and how good it would feel to let those tired eyes simply relax and close. {{ brk('900ms') }}
+As you focus on that spot and the eyes grow more tired, heavier, more fatigued — when you are ready, you can let them close. {{ await('ef_close') }}
+And closing the eyes means you can relax now — it feels good, peaceful, as you really let yourself go. {{ brk('900ms') }}</p>
+{%- else -%}
+{#- PATERNAL-RAPID lane (P / literal): message-unit overload; blink<->heavy reciprocal loop;
+    cue_forehead = light forehead touch on close; cue_limpness = lift-and-drop hands -#}
+<p>Keep staring at that spot — don't take the eyes off it — and as you stare, the eyelids are already beginning to feel heavy, {{ brk('300ms') }}heavy and tired, the muscles around the eyes working, tiring, wanting to rest. {{ brk('600ms') }}
+The longer you stare, the heavier they get — heavier and heavier — the eyes tiring, blinking {{ await('ef_blink') }}
+that's it — and every blink makes them heavier, and the heavier they get the more they blink, and the more they blink the heavier they get. {{ brk('500ms') }}
+So heavy now they want to close — <emphasis level="strong">let them get heavier</emphasis> — heavier — so heavy they are going to close, closing down now, heavier and heavier, closing, {{ brk('400ms') }}closing. {{ await('ef_close') }}</p>
+<p><mark name="cue_forehead"/>{{ deep_sleep() }} {{ brk('1200ms') }}</p>
+<p><mark name="cue_limpness"/>And the whole body going loose, {{ brk('300ms') }}limp, {{ brk('300ms') }}heavy — every muscle letting go, deeper with each breath. {{ brk('800ms') }}
+That's it — loose and limp all over, deeply relaxed. {{ brk('900ms') }}</p>
+{%- endif %}
+<p>Breathe in for a moment {{ brk('700ms') }}and breathe out — and let that relaxation double through the whole body. {{ brk('900ms') }}
+Deeper and deeper, all the way down. {{ brk('800ms') }}
+Five — the body relaxing — four — the mind letting go — three — emotionally calm — two — one — zero — {% if p.mode == 'literal' %}{{ deep_sleep() }}{% else %}{{ deep_sleep('moderate') }}{% endif %} {{ brk('1200ms') }}</p>
+{{ phs_short(p) }}
+{%- endmacro -%}
+
+{%- macro auto_dual_induction(p) -%}
+{#- Alternative PRIMARY induction (Practicum 101-5 item 8). Pulse-focus + repeat-after-me;
+    self-spoken counts drive message-unit overload. Speed the count, speak slightly over them.
+    Original wording. Marks: await_pulse (client finds pulse), then self-spoken descent. -#}
+<mark name="stage_auto_dual"/>
+<p>Sit up straight, feet flat on the floor. {{ brk('600ms') }}
+Hold your {{ p.vars.get('induction_arm','left') }} arm out, and place the index finger of the other hand on that wrist — feel for your pulse. When you have it, nod. {{ await('pulse') }}
+Good. Now stare directly at the fingernail of that index finger, and keep part of your attention on the pulse. {{ brk('700ms') }}
+All your attention on that fingernail — take a slow, deep breath. {{ brk('800ms') }}
+In a moment I will say some phrases, and you will say each one out loud, right after me. Everything I say, you say. Nod if that's clear. {{ await('repeat_ok') }}</p>
+<p>Repeat after me. {{ brk('500ms') }}
+I will now enter the state of hypnosis. {{ brk('1200ms') }}
+For reasons of deep relaxation and self-control. {{ brk('1200ms') }}
+I will count from five down to zero. {{ brk('1000ms') }}
+And with each count I will become more deeply relaxed. {{ brk('1000ms') }}
+When I reach zero, I will go deep asleep. {{ brk('1200ms') }}</p>
+{#- Accelerate here: shorter pauses, slight overlap = message-unit overload -#}
+<p>Five — my breathing growing deep, gentle, and rhythmic. {{ brk('700ms') }}
+Four — a heaviness in my eyelids, drowsier and sleepier. {{ brk('700ms') }}
+Three — every muscle, nerve, and fiber relaxing, deeply relaxing. {{ brk('600ms') }}
+Two — my arms, my legs, my whole body now deeply relaxed. {{ brk('600ms') }}
+One — my eyelids closing, the breathing rhythmic, deeply relaxed. {{ brk('600ms') }}
+Zero — {{ deep_sleep() }} {{ brk('1500ms') }}</p>
+{{ phs_short(p) }}
+{%- endmacro -%}
+
+{%- macro guided_imagery(p) -%}
+{#- Secondary induction (Practicum 101-5 item 17). Breath close → head-to-toe release →
+    5-0 → meadow/tree/leaf/blade-of-grass journey with embedded perseverance/motivation frame.
+    "can't visualize → imagine/conceptualize" fallback baked in. Original wording. -#}
+<mark name="stage_guided_imagery"/>
+<p>To begin, simply focus. Feel your breath. {{ brk('600ms') }}
+An easy breath in through the nose, and slowly out through the mouth. {{ brk('800ms') }}
+And in your own mind, give yourself permission to allow me to guide you on a pleasant journey. {{ brk('700ms') }}
+On the exhale of your third or fourth breath, let your eyes close. {{ brk('1500ms') }}
+Although not everyone visualizes, everyone can imagine — if you can't see it as a picture, that's alright; we'll use the other senses too, or simply think about it, or conceptualize. {{ brk('900ms') }}</p>
+<p>Let's start at the top of the head, and gently work downward, allowing any pressure inside to release. {{ brk('600ms') }}
+Down over the face, especially the jaw, releasing tension — a pleasant feeling you're allowing. {{ brk('600ms') }}
+Flowing down over the shoulders, down the arms and hands, the pressures of the day releasing. {{ brk('600ms') }}
+Down through the chest and the back, the stomach and lower back, {{ brk('500ms') }}through the hips, and all the way down the legs to the tips of the toes — a gentle letting go. {{ brk('900ms') }}
+Now count backward in your own mind with me, from five down to zero — five, {{ brk('500ms') }}four, {{ brk('500ms') }}three, even deeper, {{ brk('500ms') }}two, {{ brk('500ms') }}one, {{ brk('500ms') }}and zero — {{ deep_sleep('moderate') }} {{ brk('1200ms') }}</p>
+<p>Feel the rhythm of your breath, and let your imaginative mind open. {{ brk('700ms') }}
+Imagine we're walking through a beautiful meadow on a wonderful day, the temperature just as you'd like it. {{ brk('700ms') }}
+You feel the earth beneath your feet, a sweet smell of nature around you, perhaps wildflowers in bloom. {{ brk('700ms') }}
+A beautiful bird crosses the sky — majestic and free — and a free feeling rises in you. {{ brk('700ms') }}
+You hear a gentle breeze through distant trees. {{ brk('700ms') }}
+Ahead, on a little hill beyond the meadow, stands a single, beautiful tree. {{ brk('600ms') }}
+As you come closer you see how wonderfully it's formed, leaves moving in the breeze — the sounds and smells and images all easing you. {{ brk('800ms') }}
+Near the top, on the tip of one branch, a single leaf. {{ brk('600ms') }}
+You stop and watch it twist and turn, twist and turn — and something in you knows it's about to break free. {{ brk('700ms') }}
+And all at once the leaf is free, the breeze carrying it slowly, gliding down, down toward the earth, to rest near the base of the tree. {{ brk('800ms') }}
+You walk over and look down — the earth, the leaf, the roots of the tree — and there, a single blade of grass. {{ brk('700ms') }}
+It has persevered and grown strong through its own motivation — the same way you are motivated in your life. {{ brk('800ms') }}
+And you can take what we've talked about, begin to understand it, and help yourself with it — and that feels wonderful. {{ brk('900ms') }}
+So in this beautiful place — the smells, the sounds, the positive feelings in body and mind — we carry all of it forward with you. {{ brk('1000ms') }}</p>
+{%- endmacro -%}
+
+{%- macro self_hypnosis_teach(p) -%}
+{#- Homework teach-back (Practicum 101-5 item 18). Practitioner instructs the client on the
+    take-home self-hypnosis protocol. Client is AWAKE for this (post-emergence coaching) —
+    no deep_sleep/PHS here; it ends by confirming they have the steps. Original wording. -#}
+<mark name="stage_self_hypnosis_teach"/>
+<p>Before you go, let's set you up with a version you can do on your own, at home. {{ brk('600ms') }}
+You'll use three keywords we'll choose together: a physical word, an emotional word, and the intellectual cue — deep sleep. Keep them simple and personal. {{ brk('900ms') }}
+Nod when you have your physical word in mind. {{ await('sh_physical_word') }}
+And your emotional word. {{ await('sh_emotional_word') }}</p>
+<p>Here's the sequence. {{ brk('400ms') }}
+Sit somewhere semi-comfortable, and create an eye fascination — fix your gaze on a point above and in front of you. {{ brk('700ms') }}
+Take three slow breaths, in through the nose, out through the mouth, relaxing the jaw — and on the exhale of the third breath, let the eyes close. {{ brk('800ms') }}
+Bring your attention to the top of the head, and silently repeat your physical keyword — then carry it down through every part of the body, section by section, flowing with that physical feeling. {{ brk('900ms') }}
+Count yourself down from five to zero. At zero, rest on your breathing and repeat your emotional keyword — and really let yourself feel it. {{ brk('800ms') }}
+Then walk down a staircase of twenty steps, and at the bottom say your intellectual cue to yourself: deep sleep. {{ brk('800ms') }}
+Now give yourself the suggestions we've prepared — with feeling, meaning every word — and repeat them a few times. {{ brk('900ms') }}
+When you're ready to return, count from zero up to five, and tell yourself: eyes open, wide awake. {{ brk('700ms') }}</p>
+<p>Practice it once a day. Each repetition makes your own cue stronger and the change more automatic. {{ brk('500ms') }}
+Nod if you have the steps. {{ await('sh_steps_ok') }}</p>
 {%- endmacro -%}
 
 {%- macro progressive_relaxation(p) -%}
@@ -237,7 +364,7 @@ Separating — wider and wider, further and further apart. {{ brk('900ms') }}
 Separating — wider and wider, further and further apart. {{ brk('900ms') }}
 Separating — wider and wider, further and further apart. {{ brk('1000ms') }}
 And as the fingers keep separating — tell me, is it the hand, or the arm, that is starting to pull in toward your face? {{ await('hand_or_arm') }}
-Good. The {{ '{limb}' }} keeps pulling in closer and closer as the fingers separate — and when you notice your breathing getting deeper, taking in more oxygen, nod and let me know. {{ await('fs_breath') }}
+Good — it keeps pulling in closer and closer as the fingers separate — and when you notice your breathing getting deeper, taking in more oxygen, nod and let me know. {{ await('fs_breath') }}
 When the eyelids start to blink and grow heavy, nod — and the more they blink, the heavier they become, and the heavier they become, the more they blink — so heavy now they would much rather stay closed. {{ await('fs_eyes') }}
 Closer and closer with every breath — and when the hand comes all the way in to touch the face, nod — the moment you make skin contact, the eyes close, and you reach your peak and enter the hypnotic sleep. {{ await('fs_contact') }}
 {{ deep_sleep() }} {{ brk('1500ms') }}

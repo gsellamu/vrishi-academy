@@ -1,6 +1,7 @@
 id: vocational.presentation_confidence.v1
 lane: vocational
 referral_required: false
+teach_self_hypnosis: true
 presenting_issue: "confidence and composure when presenting and speaking to groups"
 critical_mind:
   problem: "the body rehearses alarm before and during presentations, even when the material is mastered"
@@ -25,6 +26,7 @@ stages:
   - {stage: suggestions, block: suggestions, minutes: 5}
   - {stage: phs, block: [phs_rehypnosis, count_out, phs_verify], minutes: 5}
   - {stage: homework, block: homework}
+  - {stage: self_hypnosis_teach, block: self_hypnosis_teach, minutes: 3}
 suggestions:
   literal:
     - "When {name} stands before a group, the shoulders drop, the breath slows, and the voice comes out level and strong."

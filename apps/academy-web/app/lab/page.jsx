@@ -10,10 +10,11 @@ const GROUP_OF = {
   psr15: "PSR", full25: "PSR", mock50: "PSR",
   moreno34: "Shadows", kappas22: "Shadows",
   var2e30: "Variations", var2p30: "Variations",
+  autodual20: "Self-work", imagery18: "Self-work", selfhyp10: "Self-work",
   tom5: "Singles",
 };
-const GROUP_ORDER = ["First session", "PSR", "Shadows", "Variations", "Singles"];
-const GROUP_COLOR = { "First session": "var(--teal)", PSR: "var(--amber)", Shadows: "var(--iris)", Variations: "#b57fd4", Singles: "var(--mist)" };
+const GROUP_ORDER = ["First session", "PSR", "Shadows", "Variations", "Self-work", "Singles"];
+const GROUP_COLOR = { "First session": "var(--teal)", PSR: "var(--amber)", Shadows: "var(--iris)", Variations: "#b57fd4", "Self-work": "var(--ok)", Singles: "var(--mist)" };
 const GRADED = { mock50: true };
 /* a few single-skill quick starts appended to the Singles lane */
 const SINGLE_SKILLS = ["armraise", "progrelax", "tom"];
@@ -80,6 +81,7 @@ export default function Lab() {
     ["psr_core", "PSR core sequence"], ["psr_full", "PSR full 11-item walk"],
     ["moreno_blueprint", "Shadow: Moreno modern blueprint"], ["kappas_vintage", "Shadow: Kappas vintage blueprint"],
     ["var2_emotional", "Variation 2: Emotional lane"], ["var2_physical", "Variation 2: Physical lane"],
+    ["auto_dual_path", "Self-work: Auto Dual induction path"], ["imagery_path", "Self-work: Guided Imagery secondary"], ["self_hypnosis", "Self-work: Self-Hypnosis teach-back"],
     ...drillData.drills.map((d) => [d.id, `Single skill: ${d.name}`]),
   ];
 

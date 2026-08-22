@@ -6,6 +6,7 @@
 {{ b.finger_spread_conversion(p) }}
 {{ b.deepener(p) }}
 {{ b.progressive_relaxation(p) }}
+{% if p.guided_imagery %}{{ b.guided_imagery(p) }}{% endif %}
 {{ b.suggestions(p, s) }}
 {{ b.count_out(p) }}
 {{ b.homework(p, s) }}

@@ -3,15 +3,18 @@
 <prosody rate="{{ p.rate }}" pitch="-2%" volume="{{ p.volume }}">
 {{ b.pre_talk(p, s) }}
 {{ b.theory_of_mind(p, s) }}
-{{ b.induction_arm_raising(p) }}
+{% if p.induction == 'auto_dual' %}{{ b.auto_dual_induction(p) }}{% else %}{{ b.induction_arm_raising(p) }}{% endif %}
 {{ b.count_5_0(p) }}
+{{ b.eye_fascination(p) }}
 {{ b.deepener_reactional(p) }}
 {% if p.heavy_light %}{{ b.deepener_heavy_light(p) }}{% endif %}
 {{ b.deepener(p) }}
 {{ b.progressive_relaxation(p) }}
+{% if p.guided_imagery %}{{ b.guided_imagery(p) }}{% endif %}
 {{ b.suggestions(p, s) }}
 {{ b.count_out(p) }}
 {{ b.finger_spread_conversion(p, verify=true) }}
 {{ b.homework(p, s) }}
+{% if p.teach_self_hypnosis %}{{ b.self_hypnosis_teach(p) }}{% endif %}
 </prosody>
 </speak>

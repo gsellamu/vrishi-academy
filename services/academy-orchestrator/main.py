@@ -8,7 +8,7 @@ Turn types:
   line   {text, stage, prosody, nlp}    - therapist prompter line + delivery metadata
   await  {name, stage}                  - ideomotor/verbal checkpoint -> persona replies
   reply  {text, persona, name}          - client (persona-svc) response to an await
-  snap   {}                             - snap cue slot
+  snap   {name}                         - action cue slot (snap / forehead / limpness)
   done   {stats}                        - session complete
 
 prosody = {rate, pitch, volume, tonality, pause_mult}
@@ -119,6 +119,7 @@ STAGE_MAP = {
     "pre_talk":       (1, "pre_induction", "conversational", None),
     "tom":            (2, "pre_induction", "paternal",       None),
     "induction":      (3, "induction",     "conversational", None),
+    "auto_dual":      (3, "induction",     "authority",      None),
     "sugg_questions": (3, "induction",     "conversational", None),
     "physio":         (3, "induction",     "paternal",       "maternal"),
     "conversion":     (3, "induction",     "paternal",       "maternal"),
@@ -126,10 +127,12 @@ STAGE_MAP = {
     "reactional":     (4, "deepening",     "authority",      "paternal"),
     "heavy_light":    (4, "deepening",     "paternal",       "maternal"),
     "deepener":       (4, "deepening",     "theta_hypnotic", None),
+    "guided_imagery": (4, "deepening",     "theta_hypnotic", None),
     "prog_relax":     (4, "deepening",     "maternal",       "maternal"),
     "suggestions":    (5, "therapy",       "theta_hypnotic", None),
     "emerge":         (8, "emergence",     "authority",      None),
     "finger_spread":  (7, "anchoring",     "paternal",       "maternal"),
+    "self_hypnosis_teach": (9, "post_session", "conversational", None),
     "homework":       (9, "post_session",  "conversational", None),
 }
 DEFAULT_STAGE = (5, "therapy", "conversational", None)
@@ -301,7 +304,7 @@ def parse_turns(ssml: str, ep_type: str = "balanced", vak: str | None = None,
         elif kind == "await":
             turns.append({"type": "await", "name": name, "stage": stage})
         elif kind == "cue":
-            turns.append({"type": "snap"})
+            turns.append({"type": "snap", "name": name})
         pos = m.end()
     tail = re.sub(r"<[^>]+>", " ", ssml[pos:])
     tail = re.sub(r"\s+", " ", tail).strip()

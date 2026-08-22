@@ -35,9 +35,12 @@ def resolve(profile: dict, plan: dict) -> dict:
         "anchor": occ["anchor"], "metaphor": occ["metaphor"], "payoff_frame": payoff,
         "deepener_style": swaps.get("staircase", "staircase"),
         "vak": profile.get("vak", "balanced"),
-        "count_from": 3 if profile["age_band"] == "child" else 10,
+        "count_from": 3 if profile["age_band"] == "child" else 20,
         "age_band": profile["age_band"],
         "heavy_light": profile["age_band"] == "adult",
+        "induction": profile.get("vars", {}).get("induction", plan.get("induction", "arm_raising")),
+        "guided_imagery": bool(profile.get("vars", {}).get("guided_imagery", plan.get("guided_imagery", False))),
+        "teach_self_hypnosis": bool(profile.get("vars", {}).get("teach_self_hypnosis", plan.get("teach_self_hypnosis", False))),
         "vars": profile.get("vars", {}),
     }
 
