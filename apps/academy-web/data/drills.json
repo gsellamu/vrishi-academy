@@ -71,6 +71,12 @@
       "label": "Self-Hypnosis teach-back (10m)",
       "minutes": 10,
       "focus": "self_hypnosis"
+    },
+    {
+      "id": "abreact8",
+      "label": "Abreaction handling (8m)",
+      "minutes": 8,
+      "focus": "abreaction_drill"
     }
   ],
   "sequences": {
@@ -166,6 +172,9 @@
     ],
     "self_hypnosis": [
       "selfhypnosis"
+    ],
+    "abreaction_drill": [
+      "abreaction"
     ]
   },
   "drills": [
@@ -594,6 +603,11 @@
       "min": 2,
       "prompter": [
         "Alternative PRIMARY induction (101-5 item 8) - pulse focus + repeat-after-me. Glasses off, no gum.",
+        "Reserved for the Intellectual Suggestible (80%+ Emotional) who keeps talking/questioning themselves out - speaking aloud with 'I' makes them suggestible to themselves (101-4P).",
+        "BEFORE auto-dual, try to rescue a stalling arm-raise: (in person) lift the wrist, press the fingers gently back, 'when I release your hand, the fingers lift and rise' - release on 'lift'.",
+        "Or take the arm halfway up (in person) / have them lift it consciously, and keep the 'lighter and lighter' patter going.",
+        "If the hand starts sinking, go with it: 'when the hand touches the table, you reach the peak of your suggestibility.'",
+        "In person, hover slightly closer than comfortable during the pulse-find (adds message units).",
         "Sit up straight, feet flat. Arm out; other index finger on that wrist - feel the pulse; nod when you have it.",
         "Confirm: 'Are you sure?' then have them stare at the fingernail while holding attention on the pulse (dual focus).",
         "Slow deep breath. Set the frame: 'I'll say phrases, you say each one out loud right after me' - wait for the nod.",
@@ -601,14 +615,17 @@
         "SPEED UP the descent, speaking slightly OVER them - this overload is the mechanism.",
         "5 breathing deep-gentle-rhythmic... 4 eyelids heavy, drowsier... 3 every muscle-nerve-fiber relaxing...",
         "2 arms-legs-whole-body relaxed... 1 eyelids closing, rhythmic... 0 -> Deep Sleep.",
+        "After 'deep sleep' -> Progressive Relaxation, use control-frame words (they need to feel in control): allowing the calming, because you choose to allow it, giving yourself permission, a greater sense of control, tendency, peaceful, safe.",
         "Repeat the PHS."
       ],
       "check": [
+        "Attempted at least one arm-raise rescue before resorting to auto-dual",
         "Pulse found and confirmed ('are you sure?') before proceeding",
         "Dual focus set (fingernail + pulse)",
         "Repeat-after-me frame agreed with a nod",
         "Five self-spoken setup lines delivered and echoed",
         "Count accelerated with slight overlap (overload)",
+        "Control-frame language used in the post-induction relaxation",
         "Zero -> deep sleep -> PHS"
       ]
     },
@@ -646,6 +663,11 @@
       "min": 1,
       "prompter": [
         "Teach this as a take-home tool (101-5 item 18). Client needs their three keywords first: physical, emotional, intellectual('DEEP SLEEP').",
+        "Physical keyword menu (pick ONE that resonates): heavy, floating, relaxation, lightness, loose, tingling, limp.",
+        "Emotional keyword menu (pick ONE): calmness, confidence, success, happiness, joy, contentment, peace.",
+        "Same three words every time (Law of Association) + daily practice builds momentum (Law of Repetition).",
+        "Frame the difference: hetero-hypnosis DISORGANIZES the critical mind to escape; self-hypnosis ORGANIZES it to bring in helpful info - it feels more present and connected.",
+        "Placement/safety: semi-comfortable with head supported; NOT in bed (unless for insomnia), NEVER while driving, and not when low/depressed with negative self-talk.",
         "Semi-comfortable position; create an eye fascination - stare at a point above and in front.",
         "Three breaths (in nose, out mouth, relax jaw); close eyes on the exhale of the third.",
         "Top of head: repeat the PHYSICAL keyword to self; work down every body section, flowing with the physical feeling.",
@@ -656,6 +678,9 @@
       ],
       "check": [
         "Three personal keywords identified (physical / emotional / intellectual)",
+        "Keyword picked from the physical + emotional menus (not vague)",
+        "Hetero- vs self-hypnosis distinction explained (organize vs disorganize)",
+        "Placement/safety stated (not bed / driving / low mood)",
         "Eye-fascination open + 3-breath close",
         "Physical keyword body scan top-to-bottom",
         "5-0 then emotional keyword, felt not just said",
@@ -711,6 +736,30 @@
         "Self-maintained ownership confirmed",
         "Context and drawbacks explored",
         "Ecology question asked"
+      ]
+    },
+    {
+      "id": "abreaction",
+      "name": "Abreaction Handling",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Definition (101-2P): an abreaction is an UNCONSCIOUS reaction to a therapeutic suggestion - a twitch, a sudden movement, a shift of affect.",
+        "First response: calmly give the SAME suggestion again and watch.",
+        "If the second time it does NOT abreact and is accepted - they released whatever was in the way. Continue.",
+        "If it abreacts AGAIN - make a note, move on, and know you may need more foundational work before returning.",
+        "Read the body: change of affect / softening = a healthy letting-go or release.",
+        "Erratic or sharp abreaction = fear present around that theme.",
+        "Constant movement = a possible trust issue - slow down, rebuild rapport and safety.",
+        "Never force the suggestion through; the abreaction is information, not failure.",
+        "Legal-language guard while re-wording: never 'cure' - use improve, modify, or positively change."
+      ],
+      "check": [
+        "Recognized the abreaction as an unconscious response (not client resistance)",
+        "Re-delivered the same suggestion once and observed",
+        "Correctly branched (accept & continue vs note & move on)",
+        "Read the physical indicator (release / fear / trust)",
+        "Avoided forcing; treated it as information"
       ]
     }
   ]

@@ -147,6 +147,15 @@ milton_model:
   - you can allow
   - imagine
   - there's no need to
+  # Intellectual-Suggestible control frame (Practicum 4 / 101-4P, auto-dual -> PR transition).
+  # They need to feel in control; these give permission while implying compliance.
+  - giving yourself permission
+  - a greater sense of control
+  - because you choose to
+  - as you begin to feel more comfortable
+  - allowing the calming
+  - a feeling that gives you a greater sense of control
+  - you choose to allow it
 
 # --- Grounded in HMI NLP 1 & 2 workbooks (201-2 / 201-3, Tabbanella) ---
 # Predicates table (NLP 2 p.8). Used for VAK weaving + counts in e11 plan meta.
@@ -215,3 +224,76 @@ eye_patterns:
 
 # Strategies (NLP 2 p.11): Elicitation → Utilization → Change → Installation
 strategy_steps: [elicitation, utilization, change, installation]
+
+# =====================================================================
+# HMI 101 Practicum scaffolding (P1-P4). Non-audio: used by grader/personas
+# and by authors choosing suggestion wording. Original phrasing throughout.
+# =====================================================================
+
+# Message-Unit Theory of Hypnosis (Practicum 1 / 101-1P).
+# Overload disorganizes the critical mind -> fight/flight -> hypersuggestible.
+message_unit_model:
+  sources: [environment, physical_body, conscious_mind, subconscious_mind]
+  acronym: ODTHA            # Open Door To Have Access
+  chain:
+    - Overload of message units, which
+    - Disorganize the critical mind / inhibitory process, thereby
+    - Triggering the fight/flight response, that creates a
+    - Hyper-suggestible state (the same as hypnosis), giving
+    - Access to the subconscious mind
+  note: critical mind goes into abeyance (temporary suspension) when the glass overflows
+
+# Suggestibility types (Practicum 1). Physical=literal/direct, Emotional=inferred.
+# resolve_ep already maps physical_pct; these two extremes need special handling.
+suggestibility_types:
+  physical: {learns: literal_direct, needs: body_phenomena_convincers, ego_sensations: higher}
+  emotional: {learns: inferential, needs: understood_rapport_imagery, ego_sensations: lower}
+  intellectual: {when: emotional_pct >= 80, needs: control_and_self_talk, induction: auto_dual}
+  somnambulist: {when: physical_pct == 50, both_lanes: true, count_up_add: "to a completely non-suggestible state"}
+
+# Self-hypnosis keyword menus (Practicum 4 / 101-4P). Client picks one of each.
+# Law of Association (same words each time) + Law of Repetition (daily practice).
+self_hypnosis_keywords:
+  physical: [heavy, floating, relaxation, lightness, loose, tingling, limp]
+  emotional: [calmness, confidence, success, happiness, joy, contentment, peace]
+  intellectual: [deep sleep]
+  safety: [not in bed unless for insomnia, never while driving, not when depressed or self-talk is negative]
+
+# Motivational system (Practicum 2 / 101-2P): pain/pleasure principle in the subconscious.
+motivation_principle: [move toward pleasure, move away from pain]
+
+# Legal language guardrail (Practicum 2): never claim to cure (state law).
+forbidden_claims: [cure]
+preferred_claims: [improve, modify, positively change]
+
+# Abreaction handling (Practicum 2): unconscious reaction to a suggestion.
+# Repeat the suggestion once; if it re-abreacts, note it and move on (needs more foundation).
+abreaction_indicators:
+  releasing: change of affect, a letting-go or softening
+  fear_present: erratic or sharp abreaction
+  trust_issue: constant movement
+
+# Finger-spread suggestibility read (Practicum 1): which hand separates tells the type.
+finger_spread_read:
+  first_hand_separates: physical (direct suggestion)
+  only_second_separates: emotional (inferred suggestion)
+  both_separate: somnambulist
+
+# =====================================================================
+# TONAL WORD-TRIGGERS (neural-TTS phonetic anchoring).
+# Rationale: ElevenLabs/neural voices infer pitch, resonance, and articulation
+# from the emotional weight of surrounding vocabulary - not from SSML alone.
+# STAGE_MAP already ASSIGNS maternal/paternal tonality per stage; choosing words
+# from the matching list here COMPOUNDS that read in the flattened ElevenLabs text.
+# Non-audio-marked (these guide authoring + the ElevenLabs flatten), original wording.
+# maternal = soft open vowels + liquid/nasal consonants -> voice softens, breathier, lifts slightly.
+# paternal = hard plosives (P/T/K/B/D/G/ST) -> voice tightens, deepens, crisp authority.
+# =====================================================================
+tonal_triggers:
+  maternal:   [soften, softening, dissolve, melting, drifting, gentle, gently, allow, allowing, wrap, wrapped, blanket, held, holding, home, ease, easily, flowing, warm, soothing, calm, calming, rest, resting, safe, secure, cradle, comfort, comforting, tender, quiet, peaceful, breathe, sway, floating, cared for, welcome, receive, worthy]
+  paternal:   [strength, strong, lock, locking, solid, granite, steel, anchor, anchoring, authority, command, commanding, claim, build, building, create, architect, decisive, unshakeable, unbreakable, resilient, structure, foundation, execute, executing, power, powerful, dominion, standing firm, sharp, steady, certain, direct, drive, grounded, rooted]
+  # Delivery notes for the human read-aloud and for tuning:
+  # - Maternal blocks: let the voice go airy; elongate the open vowels; lift pitch a touch on the exhale words.
+  # - Paternal blocks: land weight on the plosive; drop pitch on the operative verb; crisp, unhurried certainty.
+  # - In the engine, maternal words cluster naturally in prog_relax / physio(E) / suggestions(E);
+  #   paternal words in reactional / hand-forehead / arm-rigidity / emerge and the P-lane conversion.

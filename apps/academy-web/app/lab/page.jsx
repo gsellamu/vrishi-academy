@@ -11,7 +11,7 @@ const GROUP_OF = {
   moreno34: "Shadows", kappas22: "Shadows",
   var2e30: "Variations", var2p30: "Variations",
   autodual20: "Self-work", imagery18: "Self-work", selfhyp10: "Self-work",
-  tom5: "Singles",
+  tom5: "Singles", abreact8: "Singles",
 };
 const GROUP_ORDER = ["First session", "PSR", "Shadows", "Variations", "Self-work", "Singles"];
 const GROUP_COLOR = { "First session": "var(--teal)", PSR: "var(--amber)", Shadows: "var(--iris)", Variations: "#b57fd4", "Self-work": "var(--ok)", Singles: "var(--mist)" };

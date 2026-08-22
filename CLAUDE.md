@@ -47,14 +47,17 @@ academy.ps1 (CLI)
   apps/academy-web/             Next.js 14 (:3070)
     /plan/[slug]                9-page plan viewer
     /dojo                       gap dials + Dec 10 countdown
-    /lab                        Practice Lab (19 drills, 7 sequences, 9 presets)
+    /lab                        Practice Lab (22 drills, 10 sequences, 12 presets)
     /studio                     [NOT YET BUILT] WS role-play console
   packages/session-templates/
-    templates/_blocks/blocks.ssml.j2   v1.2 woven Kappasinian scripts
-    render/render_session.py           Jinja2 renderer
+    templates/_blocks/blocks.ssml.j2   v1.2 woven Kappasinian scripts (22 macros)
+    render/render_session.py           Jinja2 renderer (resolve() delivery flags)
     render/prosody.py                  SSML+NLP enrichment -> E11 plan
     render/nlp_lexicon.yaml            NLP vocab (grounded in HMI workbooks)
     schema/axes.yaml                   age/sex/occupation config
+  .claude/                      Claude Code delivery-system docs + slash commands
+    reference/00..06                   SSML/tonality/pacing/NLP/authoring/verification contract
+    commands/                          /new-block /new-plan /add-drill /tune-delivery /verify-session /enrich-check
   services/
     academy-compose.yml         docker overlay (6 services, 8600-8605)
     .env                        secrets (auto-loaded by scripts)
@@ -102,9 +105,12 @@ academy.ps1 (CLI)
 - Session-template contract version: `e11-2026-08-08`.
 
 ## Key data
-- **19 drills** in `apps/academy-web/data/drills.json`.
+- **22 drills / 12 presets / 10 sequences** in `apps/academy-web/data/drills.json`.
 - **3 client profiles**: p1 (physical/visual), p2 (emotional/kinesthetic), p3 (child/balanced).
-- **3 session plans**: vocational, referral, avocational.
+- **3 session plans**: vocational (teach_self_hypnosis on), referral (guided_imagery on), avocational.
 - **2 persona cards**: maya (physical), leo (emotional).
-- **16 ideomotor checkpoints** per first session.
+- **16 ideomotor checkpoints** per first session (baseline; +3 when self_hypnosis_teach is on).
+- **22 block macros** incl. 3 newest: `auto_dual_induction`, `guided_imagery`, `self_hypnosis_teach`.
+- **Delivery flags** (in `resolve()`, default off): `induction: arm_raising|auto_dual`, `guided_imagery: bool`, `teach_self_hypnosis: bool` — set in profile.vars or plan.
+- **Delivery contract docs**: see `.claude/reference/` (SSML/tonality/pacing/NLP/authoring/verification) and `.claude/commands/` slash commands.
 - **HMI gap**: 24 contacts, 21 conferences, 78 elective hrs, 9 workshops before Dec 10 2026.

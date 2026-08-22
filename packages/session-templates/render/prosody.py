@@ -92,6 +92,47 @@ def ssml_to_elevenlabs(ssml_text: str) -> str:
     text = re.sub(r"\s+", " ", text)
     return text.strip()
 
+def ssml_to_elevenlabs_expressive(ssml_text: str) -> str:
+    """Enhanced ElevenLabs flatten for hypnosis read-aloud fidelity. OPT-IN only.
+
+    The vendored ssml_to_elevenlabs() above stays byte-identical to ssml_router.py
+    (production TTS path). This variant is for standalone hypnosis-script export where
+    neural-voice pacing matters more than parity, per the ElevenLabs pacing guidance:
+      - graded ellipsis by pause length (short comma-beat vs deep dramatic drop),
+      - BLANK LINE between segments for a long (1.5-3s) integration silence
+        (a paragraph break reads as dramatic silence in ElevenLabs, unlike inline dots),
+      - <emphasis strong> -> CAPS (subconscious analog-mark), moderate -> unchanged.
+    A <break> at or above 2s (or 2000ms) becomes a paragraph break; shorter breaks become
+    proportional ellipses (1 dot / 300ms, capped at 6 so the line stays readable).
+    """
+    def dots(n: int) -> str:
+        return "." * max(1, min(6, n))
+    text = re.sub(r"</?speak>", "", ssml_text)
+    # long pauses -> paragraph break (dramatic silence); else graded ellipsis
+    def ms_break(m):
+        ms = int(m.group(1))
+        return "\n\n" if ms >= 2000 else dots(ms // 300 + 1)
+    def s_break(m):
+        s = float(m.group(1))
+        return "\n\n" if s >= 2.0 else dots(int(s * 3) + 1)
+    text = re.sub(r'<break time="(\d+)ms"/>', ms_break, text)
+    text = re.sub(r'<break time="(\d+\.?\d*)s"/>', s_break, text)
+    text = re.sub(r"<break[^>]*/>", "\n\n", text)
+
+    def emphasis_caps(m):
+        level, content = m.group(1), m.group(2)
+        return content.upper() if level == "strong" else content
+    text = re.sub(r'<emphasis level="([^"]+)">([^<]+)</emphasis>', emphasis_caps, text)
+    text = re.sub(r"<prosody[^>]*>([^<]*)</prosody>", r"\1", text)
+    text = re.sub(r"<mark[^>]*/>", "", text)
+    text = re.sub(r"<[^>]+>", "", text)
+    # tidy: collapse >6 dots, collapse spaces within a line, keep paragraph breaks
+    text = re.sub(r"\.{7,}", "......", text)
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r" *\n *", "\n", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
 # ------------------------------------------------------------- enrichment ----
 DEFAULT_LEXICON = {
     "embedded_commands": [
@@ -200,7 +241,9 @@ def main() -> int:
                     help="weave emphasis onto this rep system's predicates in therapy stages (NLP 2 predicates table)")
     ap.add_argument("-o", "--out", required=True, help="enriched .ssml output")
     ap.add_argument("--e11-plan", default=None, help="write ElevenLabs request plan JSON here")
-    ap.add_argument("--el-text", default=None, help="write flattened ElevenLabs text here")
+    ap.add_argument("--el-text", default=None, help="write flattened ElevenLabs text here (vendored parity)")
+    ap.add_argument("--el-text-expressive", default=None,
+                    help="write expressive ElevenLabs text here (blank-line silences, graded pauses)")
     args = ap.parse_args()
 
     ssml_in = Path(args.inp).read_text(encoding="utf-8")
@@ -225,6 +268,9 @@ def main() -> int:
     if args.el_text:
         Path(args.el_text).parent.mkdir(parents=True, exist_ok=True)
         Path(args.el_text).write_text("\n\n".join(p["body"]["text"] for p in plan), encoding="utf-8")
+    if args.el_text_expressive:
+        Path(args.el_text_expressive).parent.mkdir(parents=True, exist_ok=True)
+        Path(args.el_text_expressive).write_text(ssml_to_elevenlabs_expressive(enriched), encoding="utf-8")
     print(f"[OK] enriched -> {args.out} | segments: {len(plan)} | ep={args.suggestibility} | contract {PROSODY_CONTRACT_VERSION}")
     return 0
 
