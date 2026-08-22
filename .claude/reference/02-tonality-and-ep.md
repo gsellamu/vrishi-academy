@@ -55,6 +55,7 @@ you never bark body-commands at someone who needs permission.
 | stage_physio | 3 | induction | paternal | maternal |
 | stage_conversion | 3 | induction | paternal | maternal |
 | stage_count_5_0 | 4 | deepening | theta_hypnotic | — |
+| stage_eye_fascination | 4 | deepening | paternal | maternal |
 | stage_reactional | 4 | deepening | authority | paternal |
 | stage_heavy_light | 4 | deepening | paternal | maternal |
 | stage_deepener | 4 | deepening | theta_hypnotic | — |

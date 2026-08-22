@@ -124,6 +124,7 @@ STAGE_MAP = {
     "physio":         (3, "induction",     "paternal",       "maternal"),
     "conversion":     (3, "induction",     "paternal",       "maternal"),
     "count_5_0":      (4, "deepening",     "theta_hypnotic", None),
+    "eye_fascination": (4, "deepening",    "paternal",       "maternal"),
     "reactional":     (4, "deepening",     "authority",      "paternal"),
     "heavy_light":    (4, "deepening",     "paternal",       "maternal"),
     "deepener":       (4, "deepening",     "theta_hypnotic", None),
