@@ -1,0 +1,376 @@
+[
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "You made it here today. ..You are sitting in that chair. ..You can hear the sound of my voice clearly. ..And that means the part of you that wants this change is already at work. ... So before we begin, here is what hypnosis actually is. .. It is a natural state \u2014 you drift in and out of it every day, in movies, in daydreams, on familiar drives. ... It is a narrow, comfortable focus that lets the protective filter of the mind relax, so a negative pattern can be exchanged for a positive one. ... When I say the words ..DEEP SLEEP.., that is a cue for this relaxed state \u2014 not actual sleep. .. You stay aware the whole time, you hear everything, you cannot get stuck, and you would never do or say anything you wouldn't do ..WIDE AWAKE... It is not a truth serum. ...If your mind wanders, that is normal \u2014 it will return to my voice on its own. ... Some people find that they feel light and tingly, some feel pleasantly heavy, some simply feel calm. Whatever you experience is right for you. ... And you may begin to wonder whether you are hypnotized \u2014 that wondering is usually the sign that you are.This is a do-with process, not a do-to process \u2014 your participation and imagination are the engine. ... The reason you are here is confidence and composure when presenting and speaking to groups, and as you begin to work with the subconscious directly, the change you have been forcing becomes far easier. ... I will run a few tests today to learn how your mind takes in information. You cannot pass or fail them \u2014 so no helping, no hindering \u2014 they simply tell me how to work in your exact style. ... Any questions before we start? ...Good \u2014 and because of that, today we begin building the new associations that carry you to your goal.",
+      "zone": 1,
+      "suggestibility_type": "physical",
+      "override_tonality": "conversational",
+      "override_pace": 1.0,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_pre_talk",
+      "phase": "pre_induction",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 0,
+        "auditory": 2,
+        "kinesthetic": 7,
+        "auditory_digital": 4
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Let me show you how the mind is organized, because it explains exactly why this works. ... At the base sits the primitive area \u2014 pure survival instinct \u2014 with two settings: fight, which pushes through stress, and flight, the urge to withdraw and escape it. ...From birth to about age eight, the mind accepts nearly everything as true. That is when the programming forms \u2014 some of it positive, some negative \u2014 and those experiences become the known associations: what we believe, what feels familiar. ... Those associations make up the subconscious mind \u2014 about eighty-eight percent of your mental power. ... As we grow, a filter forms above it \u2014 the critical mind \u2014 whose whole job is to protect the known, even when the known is the problem. ... And on top, the conscious mind: logic, reasoning, decisions, willpower \u2014 the willpower that never quite works when you need it \u2014 only about twelve percent of the power.So here is what has been happening with confidence and composure when presenting and speaking to groups. .. The decision to change starts in the conscious mind, travels down, hits the critical filter, and gets checked against the old programming. ... The programming resists, the filter blocks the change, and the same pattern runs again \u2014 the subconscious long ago tagged group attention as a threat, so the filter keeps replaying that old protection ...And you might notice how that pattern has been running on its own, without your permission. ... Hypnosis takes that same intention and moves it past the filter, straight to the subconscious, where we install the new pattern with positive suggestion: we relax the filter in hypnosis and install the calm-competent pattern, then you rehearse it daily so it becomes the default ... I will work with the eighty-eight percent. You work with the twelve. Together, that is one hundred percent. ...That makes sense, doesn't it? ... And the way we begin is by testing your suggestibility.",
+      "zone": 2,
+      "suggestibility_type": "physical",
+      "override_tonality": "paternal",
+      "override_pace": 1.0,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_tom",
+      "phase": "pre_induction",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 2,
+        "auditory": 0,
+        "kinesthetic": 1,
+        "auditory_digital": 2
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Sit upright, feet flat on the floor, and rest your left arm on the table. ... Look at that arm now, from the elbow to the fingertips \u2014 take a good picture of it \u2014 and ..CLOSE YOUR EYES... ... See that arm and hand in your mind, and when you can remember exactly what they look like, nod your head. ...",
+      "zone": 3,
+      "suggestibility_type": "physical",
+      "override_tonality": "conversational",
+      "override_pace": 1.0,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_induction",
+      "phase": "induction",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 4,
+        "auditory": 0,
+        "kinesthetic": 1,
+        "auditory_digital": 0
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Keep the eyes closed and just answer naturally. .. Have you ever walked or talked in your sleep? ... Have you ever woken in the night feeling unable to move or speak for a moment? ... After an argument, do you replay what you could have said? ... If you think of biting into a sour lemon, does your mouth water? ... Can you picture things clearly in your mind? ...",
+      "zone": 3,
+      "suggestibility_type": "physical",
+      "override_tonality": "conversational",
+      "override_pace": 1.0,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_sugg_questions",
+      "phase": "induction",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 1,
+        "auditory": 0,
+        "kinesthetic": 0,
+        "auditory_digital": 1
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Now, as you begin to enter hypnosis, your body will show a series of changes. I will notice them before you do \u2014 when you become aware of each one, just nod and let me know. ... First, the breathing tends to grow deeper as the body takes in more oxygen. When you notice your breathing deepening, nod your head. ... The lips, mouth, and throat may feel a little dry, with an urge to swallow. Completely natural \u2014 when you notice it, nod. ... And notice the eyes now \u2014 that faint fluttering of the eyes beneath the lids. ... That is the first stage of hypnosis.",
+      "zone": 3,
+      "suggestibility_type": "physical",
+      "override_tonality": "paternal",
+      "override_pace": 1.0,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_physio",
+      "phase": "induction",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 5,
+        "auditory": 0,
+        "kinesthetic": 1,
+        "auditory_digital": 1
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Bring your attention to the elbow pressing into the table, down the forearm, into the wrist, the hand, the fingertips. ...You can feel where your hands are resting. ..And as that happens, that hand is becoming light. ..Very light. ..LIGHTER AND LIGHTER \u2014 light as a feather, and then lighter than that. ...And whether the lifting begins in the fingers first, or in the wrist, either way it rises. ... Small pulling and jerking motions are starting in the hand. ...At the same time, the other hand grows heavier against your leg, your feet press into the floor, your back rests against the chair. ... The deeper you go, the more you notice \u2014 each breath makes the light hand lighter and the heavy hand heavier \u2014 when you feel that difference in weight, nod your head. ... The hand is lifting now \u2014 rising \u2014 pivoting at the elbow, the palm turning inward \u2014 lifting, rising, twisting, turning, upward and inward, the hand drawn to the face. ...Lifting, rising, higher and higher, ..LIGHTER AND LIGHTER.., pulling up with every breath now. ... Higher and higher, ..LIGHTER AND LIGHTER.. \u2014 light as a feather \u2014 pulling, jerking, moving up, up, and up. ...And the head grows heavy now, dropping gently down to meet that rising hand \u2014 the hand toward the brow, the brow toward the hand, closer and closer together. ... With every inhale, the arm and hand go up \u2014 and on the exhale the head drops down to meet the hand \u2014 closer and closer together. ...And when the hand comes all the way in to touch the face \u2014 the moment you make skin contact \u2014 nod your head, and you will reach your peak of suggestibility and enter the hypnotic sleep. ... DEEP SLEEP. ... And from now on, whenever we are working together for the purpose of hypnosis, and with your permission, the words DEEP SLEEP bring you back to this state quickly, calmly, and deeply, and the body relaxes. ...",
+      "zone": 3,
+      "suggestibility_type": "physical",
+      "override_tonality": "paternal",
+      "override_pace": 1.0,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_conversion",
+      "phase": "induction",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 1,
+        "auditory": 0,
+        "kinesthetic": 11,
+        "auditory_digital": 0
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Gently let the hand come back down to rest. ... Now a count from five down to zero, and each count carries you deeper. ... Five \u2014 going down now, deeper into hypnosis. ... Four \u2014 the body releasing, relaxing, ..LETTING GO... ... Three \u2014 an emotional calmness. ... Two \u2014 the mind relaxing now. ... One \u2014 ..DEEPER AND DEEPER... ... And zero \u2014 DEEP SLEEP. ... And from now on, whenever we are working together for the purpose of hypnosis, and with your permission, the words DEEP SLEEP bring you back to this state quickly, calmly, and deeply, and the body relaxes. ...",
+      "zone": 4,
+      "suggestibility_type": "physical",
+      "override_tonality": "theta_hypnotic",
+      "override_pace": 0.82,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_count_5_0",
+      "phase": "deepening",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 0,
+        "auditory": 0,
+        "kinesthetic": 1,
+        "auditory_digital": 0
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Let the eyes come open for a moment, and pick a spot on the ceiling a little above your eye line \u2014 so the eyes look up just slightly to find it \u2014 and rest your gaze there. ... Let the eyes settle on that one point, without moving them. ... Keep staring at that spot \u2014 don't take the eyes off it \u2014 and as you stare, the eyelids are already beginning to feel heavy, ..heavy and tired, the muscles around the eyes working, tiring, wanting to rest. ... The longer you stare, the heavier they get \u2014 heavier and heavier \u2014 the eyes tiring, blinking ... that's it \u2014 and every blink makes them heavier, and the heavier they get the more they blink, and the more they blink the heavier they get. .. So heavy now they want to close \u2014 LET THEM GET HEAVIER \u2014 heavier \u2014 so heavy they are going to close, closing down now, heavier and heavier, closing, ..closing. ... DEEP SLEEP. ... And the whole body going loose, ..limp, ..heavy \u2014 every muscle ..LETTING GO.., deeper with each breath. ... That's it \u2014 loose and limp all over, deeply relaxed. ...Breathe in for a moment ...and breathe out \u2014 and let that relaxation double through the whole body. ... ..DEEPER AND DEEPER.., all the way down. ... Five \u2014 the body relaxing \u2014 four \u2014 the mind ..LETTING GO.. \u2014 three \u2014 emotionally calm \u2014 two \u2014 one \u2014 zero \u2014 DEEP SLEEP. ... And from now on, whenever we are working together for the purpose of hypnosis, and with your permission, the words DEEP SLEEP bring you back to this state quickly, calmly, and deeply, and the body relaxes. ...",
+      "zone": 4,
+      "suggestibility_type": "physical",
+      "override_tonality": "paternal",
+      "override_pace": 1.0,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_eye_fascination",
+      "phase": "deepening",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 1,
+        "auditory": 0,
+        "kinesthetic": 9,
+        "auditory_digital": 0
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "In a moment \u2014 not yet \u2014 I will ask you to open your eyes and fix them on a point above you, and when I say ..DEEP SLEEP.., they close again and you go ..TWICE AS DEEP... ... Open your eyes. ...And \u2014 DEEP SLEEP. ..TWICE AS DEEP... ... Open your eyes. ...And \u2014 DEEP SLEEP. ... Open your eyes. ...And \u2014 DEEP SLEEP. ..TWICE AS DEEP... ... One more time \u2014 open your eyes. ...And \u2014 DEEP SLEEP. ... And from now on, whenever we are working together for the purpose of hypnosis, and with your permission, the words DEEP SLEEP bring you back to this state quickly, calmly, and deeply, and the body relaxes. ...",
+      "zone": 4,
+      "suggestibility_type": "physical",
+      "override_tonality": "authority",
+      "override_pace": 1.05,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_reactional",
+      "phase": "deepening",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 0,
+        "auditory": 0,
+        "kinesthetic": 0,
+        "auditory_digital": 0
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Open your eyes and stretch both arms out in front of you at shoulder height. ... One palm faces up. The other hand turns sideways, thumb pointing to the ceiling. ... ..CLOSE YOUR EYES... ... On the open palm I am placing a heavy book \u2014 feel its weight pressing that arm down. ... And around the upright thumb I am tying many powerful helium balloons, pulling that arm upward. ... One arm pressed down, the other drawn up \u2014 let the arms respond. ... Good. Release both ideas, let the arms float gently down to your lap \u2014 and DEEP SLEEP. ... And from now on, whenever we are working together for the purpose of hypnosis, and with your permission, the words DEEP SLEEP bring you back to this state quickly, calmly, and deeply, and the body relaxes. ...",
+      "zone": 4,
+      "suggestibility_type": "physical",
+      "override_tonality": "paternal",
+      "override_pace": 1.0,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_heavy_light",
+      "phase": "deepening",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 0,
+        "auditory": 0,
+        "kinesthetic": 4,
+        "auditory_digital": 0
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Before you is a beautiful staircase, well-lit, with sturdy, smooth handrails, and it has 20 steps leading down to a bottom landing. ... With each step down you deepen your state of hypnosis and more deeply relax and ..LET GO... ... Left foot at 20 \u2014 ..LETTING GO.. \u2014 deeper down. ... Right foot at 19 \u2014 deeper down. ... Left foot at 18 \u2014 feeling yourself deeply relax \u2014 deeper down. ... Right foot at 17 \u2014 ..TWICE AS DEEP.. \u2014 deeper down. ... Left foot at 16 \u2014 deeper down. ... Right foot at 15 \u2014 ..LETTING GO.. \u2014 deeper down. ... Left foot at 14 \u2014 deeper down. ... Right foot at 13 \u2014 deeper down. ... Left foot at 12 \u2014 ..TWICE AS DEEP.. \u2014 deeper down. ... Right foot at 11 \u2014 deeper down. ... Left foot at 10 \u2014 ..LETTING GO.. \u2014 deeper down. ... Right foot at 9 \u2014 feeling yourself deeply relax \u2014 deeper down. ... Left foot at 8 \u2014 deeper down. ... Right foot at 7 \u2014 ..TWICE AS DEEP.. \u2014 deeper down. ... Left foot at 6 \u2014 feeling yourself deeply relax \u2014 deeper down. ... Right foot at 5 \u2014 letting go \u2014 deeper down. ... Left foot at 4 \u2014 deeper down. ... Right foot at 3 \u2014 feeling yourself deeply relax \u2014 deeper down. ... Left foot at 2 \u2014 twice as deep \u2014 deeper down. ... Right foot at 1 \u2014 deeper down. ... At the bottom \u2014 Deep sleep. ... And from now on, whenever we are working together for the purpose of hypnosis, and with your permission, the words DEEP SLEEP bring you back to this state quickly, calmly, and deeply, and the body relaxes. ...",
+      "zone": 4,
+      "suggestibility_type": "physical",
+      "override_tonality": "theta_hypnotic",
+      "override_pace": 0.82,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_deepener",
+      "phase": "deepening",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 0,
+        "auditory": 0,
+        "kinesthetic": 6,
+        "auditory_digital": 0
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Rest back now, feeling the rhythm of your breath, giving yourself permission to let me guide you. ...Your breath is moving in its own rhythm, naturally and easily. ... You can see, in the mind's eye, a soft light of calm resting at the crown of the head, ..you can hear how quiet and even the breath is becoming, ..and you can feel the first wave of softening begin. ... Bring your attention to the top of the head, and let a wave of relaxation wash down over the scalp, ..the forehead, ..the temples, ..the eyelids and cheeks, loosening the jaw. ...Any outside sounds are only the everyday sounds of life \u2014 they cannot distract you; they simply send you deeper. ...The calm flows through the neck and shoulders, softening them, ...down the upper arms, the elbows, the forearms, releasing the wrists, the hands, all the way to the fingertips. ... Into the chest now, opening, ..LETTING GO.. of anything that no longer serves you, ...down through the center, the belly unwinding. ...The deeper you go, the more comfortable you become \u2014 the breathing deep, gentle, rhythmic \u2014 that drowsy, daydream feeling taking over \u2014 ..LETTING GO.., ..DRIFTING DOWN... ... Through the hips, ..down the thighs, the large muscles and the small, ..the knees, the shins, the calves, ...the ankles, the heels, the arches, every toe loose to the very tips. ...And now a count from five to zero, each count deeper still \u2014 five, ..LETTING GO.. \u2014 four \u2014 three \u2014 two \u2014 one \u2014 zero \u2014 DEEP SLEEP. ... And from now on, whenever we are working together for the purpose of hypnosis, and with your permission, the words DEEP SLEEP bring you back to this state quickly, calmly, and deeply, and the body relaxes. ...",
+      "zone": 4,
+      "suggestibility_type": "physical",
+      "override_tonality": "maternal",
+      "override_pace": 0.92,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_prog_relax",
+      "phase": "deepening",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 1,
+        "auditory": 6,
+        "kinesthetic": 5,
+        "auditory_digital": 0
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "And in this deep, receptive state, the part of you that knows how to change is listening now. ... Your subconscious accepts what serves you, naturally and easily. ... When Marcus stands before a group, the shoulders drop, the breath slows, and the voice comes out level and strong. ... One slow breath before the first word switches the body to calm \u2014 every single time. ... Eyes on the audience feel exactly like eyes on a colleague \u2014 ordinary, manageable, safe. ... Mistakes are corrected in stride; the voice stays even and the message continues. ... Now see it. ... Picture a clear, ordered desk at first light \u2014 and within that scene, watch yourself living the change \u2014 group attention becomes familiar, workable territory, and preparation converts into steady delivery. ... Like a system settling into a steady state. ...And feel it \u2014 ..let the body register how this new pattern feels: the quick, solid satisfaction of a visible win, and momentum you can act on today. ...There is no rush \u2014 it is unfolding now, naturally and easily, with each breath. ...And whether you notice the first change tonight, or sometime tomorrow, or in a quiet moment you did not expect \u2014 the change is already underway, and you can trust yourself now. ...You are not becoming someone new. You already know how to do this. You are remembering who you have always been. ... Tonight and in the nights ahead, your dreams may quietly sort and release any leftover tension about speaking, so mornings arrive lighter. ...",
+      "zone": 5,
+      "suggestibility_type": "physical",
+      "override_tonality": "theta_hypnotic",
+      "override_pace": 0.82,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_suggestions",
+      "phase": "therapy",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 5,
+        "auditory": 1,
+        "kinesthetic": 5,
+        "auditory_digital": 1
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "It is time now to come back up, calm and refreshed. I will count from zero to five, and with each number you grow more alert, more awake, with a positive sense of well-being. ...Zero \u2014 we close the door to the subconscious, sealing out every negative. ... One \u2014 slowly and calmly coming up. ... Two \u2014 physically aware, mentally alert. ... Three \u2014 coming up higher now, and you may begin to wonder how good you feel. ... Four \u2014 the eyes beginning to open, and \u2014 ... Five \u2014 eyes open, ..WIDE AWAKE... ... One two three four five \u2014 ..EYES OPEN.., ..WIDE AWAKE...",
+      "zone": 8,
+      "suggestibility_type": "physical",
+      "override_tonality": "authority",
+      "override_pace": 1.05,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_emerge",
+      "phase": "emergence",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 0,
+        "auditory": 0,
+        "kinesthetic": 1,
+        "auditory_digital": 0
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Before we finish, one quick check. Sit with your feet flat and rest your hands on your legs. ... Raise one arm, bend it at the elbow, and hold the palm about ten inches in front of your face, fingers straight, just above eye level. ... Stare at the middle finger. Take a deep breath \u2014 and on the exhale, the fingers begin to separate. ... Separating \u2014 wider and wider, further and further apart. ... Separating \u2014 wider and wider, further and further apart. ... Separating \u2014 wider and wider, further and further apart. ... And as the fingers keep separating \u2014 tell me, is it the hand, or the arm, that is starting to pull in toward your face? ... Good \u2014 it keeps pulling in closer and closer as the fingers separate \u2014 and when you notice your breathing getting deeper, taking in more oxygen, nod and let me know. ... When the eyelids start to blink and grow heavy, nod \u2014 and the more they blink, the heavier they become, and the heavier they become, the more they blink \u2014 so heavy now they would much rather stay closed. ... Closer and closer with every breath \u2014 and when the hand comes all the way in to touch the face, nod \u2014 the moment you make skin contact, the eyes close, and you reach your peak and enter the hypnotic sleep. ... DEEP SLEEP. ... Perfect. ..And now \u2014 one two three four five \u2014 ..EYES OPEN.., ..WIDE AWAKE...",
+      "zone": 7,
+      "suggestibility_type": "physical",
+      "override_tonality": "paternal",
+      "override_pace": 1.0,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_finger_spread",
+      "phase": "anchoring",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 1,
+        "auditory": 0,
+        "kinesthetic": 5,
+        "auditory_digital": 1
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Before next session: .. Twice daily, one minute: the slow-breath cue plus a vivid replay of the calm-delivery scene. ... Deliver one low-stakes spoken moment each day \u2014 a toast, a stand-up update, a question in a meeting \u2014 and log it. ... Picture next week for a moment \u2014 you, walking in, telling me the first win. ...Same time next week, and notice what changes in the meantime. Sooner or later, you will be surprised by how naturally it unfolds.",
+      "zone": 9,
+      "suggestibility_type": "physical",
+      "override_tonality": "conversational",
+      "override_pace": 1.0,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_homework",
+      "phase": "post_session",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 2,
+        "auditory": 1,
+        "kinesthetic": 0,
+        "auditory_digital": 0
+      }
+    }
+  },
+  {
+    "endpoint": "http://localhost:8136/api/v1/tts/hypnotic/generate",
+    "body": {
+      "text": "Before you go, let's set you up with a version you can do on your own, at home. ... You'll use three keywords we'll choose together: a physical word, an emotional word, and the intellectual cue \u2014 ..DEEP SLEEP... Keep them simple and personal. ... Nod when you have your physical word in mind. ... And your emotional word. ... Here's the sequence. .. Sit somewhere semi-comfortable, and create an eye fascination \u2014 fix your gaze on a point above and in front of you. ... Take three slow breaths, in through the nose, out through the mouth, relaxing the jaw \u2014 and on the exhale of the third breath, let the eyes close. ... Bring your attention to the top of the head, and silently repeat your physical keyword \u2014 then carry it down through every part of the body, section by section, flowing with that physical feeling. ... Count yourself down from five to zero. At zero, rest on your breathing and repeat your emotional keyword \u2014 and really let yourself feel it. ... Then walk down a staircase of twenty steps, and at the bottom say your intellectual cue to yourself: ..DEEP SLEEP... ... Now give yourself the suggestions we've prepared \u2014 with feeling, meaning every word \u2014 and repeat them a few times. ... When you're ready to return, count from zero up to five, and tell yourself: ..EYES OPEN.., ..WIDE AWAKE... ... Practice it once a day. Each repetition makes your own cue stronger and the change more automatic. .. Nod if you have the steps. ...",
+      "zone": 9,
+      "suggestibility_type": "physical",
+      "override_tonality": "conversational",
+      "override_pace": 1.0,
+      "use_cache": true
+    },
+    "meta": {
+      "stage": "stage_self_hypnosis_teach",
+      "phase": "post_session",
+      "contract": "e11-2026-08-08",
+      "vak_counts": {
+        "visual": 0,
+        "auditory": 0,
+        "kinesthetic": 4,
+        "auditory_digital": 0
+      }
+    }
+  }
+]
