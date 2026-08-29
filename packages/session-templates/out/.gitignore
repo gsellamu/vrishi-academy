@@ -1,0 +1,9 @@
+# Ignore all intermediate/scratch render outputs.
+# Only canonical export packs (full profile_plan names) are committed.
+*
+
+# Keep canonical export packs
+!.gitignore
+!p1_physical_analyst_vocational_presentation_confidence.*
+!p2_emotional_elder_caregiver_referral_pain_comfort.*
+!p3_child_student_avocational_sports_performance.*
