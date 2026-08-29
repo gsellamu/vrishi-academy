@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const ORCH = process.env.NEXT_PUBLIC_ORCH_URL || "http://localhost:8600";
 const WS_BASE = ORCH.replace(/^http/, "ws");
@@ -14,7 +14,6 @@ const PLANS = [
   { id: "referral", label: "Referral — pain comfort adjunct (gate)" },
   { id: "avocational", label: "Avocational — sports performance" },
 ];
-// Persona display metadata — feeds the pinned client card.
 const PERSONAS = {
   maya: { name: "Maya Ellison", initials: "MA", arch: "The Analyst · literal lexicon",
     issue: "Presentation confidence — vocational goal. Responds to concrete, physical suggestion; resists abstraction.", ep: "72% Physical" },
@@ -22,7 +21,43 @@ const PERSONAS = {
     issue: "Sports performance — avocational goal. Rides imagery and metaphor; drifts under over-direct language.", ep: "68% Emotional" },
 };
 
-// Map an orchestrator stage name to its chip color token.
+// NLP type → CSS class (maps orchestrator detect_nlp types to globals.css)
+const NLP_CLASS = {
+  embed: "nlp-embed", presup: "nlp-presup", vak: "nlp-vak",
+  lead: "nlp-lead", pace: "nlp-pace", tag: "nlp-tag",
+  bind: "nlp-bind", milton: "nlp-milton",
+};
+const NLP_LABEL = {
+  embed: "Embedded cmd", presup: "Presupposition", vak: "VAK",
+  lead: "Lead", pace: "Pace", tag: "Tag question",
+  bind: "Double bind", milton: "Milton",
+};
+
+// Tonality display colors
+const TONE_COLOR = {
+  authority: "var(--red)", paternal: "var(--amber)", maternal: "var(--teal)",
+  conversational: "var(--mist)", theta_hypnotic: "var(--iris)",
+};
+
+// Render text with NLP phrase highlights using character offsets from the orchestrator
+function NlpText({ text, nlp }) {
+  if (!nlp || nlp.length === 0) return <>{text}</>;
+  const parts = [];
+  let cursor = 0;
+  for (const mark of nlp) {
+    if (mark.start > cursor) parts.push(<span key={cursor}>{text.slice(cursor, mark.start)}</span>);
+    const cls = NLP_CLASS[mark.type] || "";
+    parts.push(
+      <span key={mark.start} className={cls} title={NLP_LABEL[mark.type] || mark.type}>
+        {text.slice(mark.start, mark.end)}
+      </span>
+    );
+    cursor = mark.end;
+  }
+  if (cursor < text.length) parts.push(<span key={cursor}>{text.slice(cursor)}</span>);
+  return <>{parts}</>;
+}
+
 function stageColor(name = "") {
   const n = name.toLowerCase();
   if (n.includes("pre")) return "var(--stage-pre)";
@@ -36,8 +71,6 @@ function stageColor(name = "") {
 const pretty = (s) => (s || "").replace(/_/g, " ");
 const mmss = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
-// Practitioner action cues (mark name -> prompter label). Eye Fascination paternal
-// lane emits cue_forehead (touch + snap) and cue_limpness (lift & drop hands).
 const CUE = {
   snap: { label: "SNAP", note: "anchor set · transient detected" },
   forehead: { label: "TOUCH FOREHEAD + SNAP", note: "light contact on close, then Deep Sleep" },
@@ -55,20 +88,27 @@ export default function Studio() {
   const [stage, setStage] = useState("pre");
   const [idx, setIdx] = useState(0);
   const [nods, setNods] = useState(0);
-  const [waiting, setWaiting] = useState(false); // await checkpoint pending
-  const [typing, setTyping] = useState(false);    // persona composing a reply
+  const [waiting, setWaiting] = useState(false);
+  const [typing, setTyping] = useState(false);
   const [sec, setSec] = useState(0);
   const [stats, setStats] = useState(null);
   const [err, setErr] = useState("");
+  const [showNlp, setShowNlp] = useState(true);
+  const [showProsody, setShowProsody] = useState(true);
+  const [ttsEnabled, setTtsEnabled] = useState(false);
+  const [ttsAvail, setTtsAvail] = useState(null); // null=unknown, true/false
+  const [ttsPlaying, setTtsPlaying] = useState(false);
   const wsRef = useRef(null);
   const busyRef = useRef(false);
   const tRef = useRef(null);
   const rRef = useRef(null);
   const retryRef = useRef(0);
   const closedByUserRef = useRef(false);
+  const audioRef = useRef(null);
 
   const push = useCallback((item) => setFeed((f) => [...f, item]), []);
   const pmeta = PERSONAS[persona] || PERSONAS.maya;
+  const sessionIdRef = useRef(null);
 
   // session timer
   useEffect(() => {
@@ -76,6 +116,34 @@ export default function Studio() {
     const t = setInterval(() => setSec((s) => s + 1), 1000);
     return () => clearInterval(t);
   }, [phase]);
+
+  // Check TTS availability once on mount
+  useEffect(() => {
+    fetch(`${ORCH}/tts/health`).then((r) => r.json())
+      .then((d) => setTtsAvail(d.ok === true))
+      .catch(() => setTtsAvail(false));
+  }, []);
+
+  // Play TTS audio for a line turn
+  const playTts = useCallback(async (turnIdx) => {
+    if (!sessionIdRef.current) return;
+    setTtsPlaying(true);
+    try {
+      const r = await fetch(`${ORCH}/tts`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: sessionIdRef.current, turn_idx: turnIdx }),
+      });
+      if (!r.ok) { setTtsPlaying(false); return; }
+      const d = await r.json();
+      if (d.audio_url) {
+        const audio = new Audio(d.audio_url);
+        audioRef.current = audio;
+        audio.onended = () => setTtsPlaying(false);
+        audio.onerror = () => setTtsPlaying(false);
+        audio.play().catch(() => setTtsPlaying(false));
+      } else { setTtsPlaying(false); }
+    } catch { setTtsPlaying(false); }
+  }, []);
 
   const start = useCallback(async () => {
     setErr("");
@@ -86,6 +154,7 @@ export default function Studio() {
       });
       if (!r.ok) throw new Error((await r.text()).slice(0, 300));
       const m = await r.json();
+      sessionIdRef.current = m.session_id;
       setMeta(m); setFeed([]); setStage("pre"); setIdx(0); setNods(0);
       setWaiting(false); setTyping(false); setSec(0); setStats(null);
       closedByUserRef.current = false;
@@ -107,12 +176,12 @@ export default function Studio() {
             closedByUserRef.current = true;
             setStats(t.stats); setPhase("done"); busyRef.current = false; ws.close();
           } else { busyRef.current = false; }
-          if (t.type !== "done") push(t);
+          if (t.type !== "done") push({ ...t, _idx: d.idx });
         };
         ws.onclose = () => {
           wsRef.current = null;
           if (!closedByUserRef.current && retryRef.current < 3) {
-            const delay = Math.pow(2, retryRef.current) * 1000; // 1s, 2s, 4s
+            const delay = Math.pow(2, retryRef.current) * 1000;
             retryRef.current += 1;
             setErr("Reconnecting...");
             setTimeout(() => connectWs(sessionId), delay);
@@ -140,7 +209,10 @@ export default function Studio() {
   const reset = useCallback(() => {
     closedByUserRef.current = true;
     wsRef.current?.close(); wsRef.current = null;
+    if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
+    sessionIdRef.current = null;
     setPhase("idle"); setFeed([]); setMeta(null); setStats(null); setErr("");
+    setTtsPlaying(false);
   }, []);
 
   useEffect(() => {
@@ -158,7 +230,11 @@ export default function Studio() {
   // autoscroll each column
   useEffect(() => { tRef.current?.scrollTo({ top: tRef.current.scrollHeight, behavior: "smooth" }); }, [feed, waiting]);
   useEffect(() => { rRef.current?.scrollTo({ top: rRef.current.scrollHeight, behavior: "smooth" }); }, [feed, typing]);
-  useEffect(() => () => { closedByUserRef.current = true; wsRef.current?.close(); }, []);
+  useEffect(() => () => {
+    closedByUserRef.current = true;
+    wsRef.current?.close();
+    if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
+  }, []);
 
   // split the interleaved feed into therapist (left) and persona (right)
   const left = feed.filter((t) => t.type !== "reply");
@@ -246,15 +322,54 @@ export default function Studio() {
 
             <div className="tsel" ref={tRef}>
               {left.map((t, i) => {
-                if (t.type === "stage")
-                  return <div key={i} className="t-stage" style={{ "--sc": stageColor(t.name) }}><span>{pretty(t.name)}</span></div>;
+                if (t.type === "stage") {
+                  const p = t.prosody || {};
+                  return (
+                    <div key={i} className="t-stage" style={{ "--sc": stageColor(t.name) }}>
+                      <span>{pretty(t.name)}</span>
+                      {showProsody && t.tonality && (
+                        <span className="t-stage-tone" style={{ color: TONE_COLOR[t.tonality] || "var(--mist)" }}>
+                          {t.tonality.replace(/_/g, " ")} · z{t.zone}
+                        </span>
+                      )}
+                    </div>
+                  );
+                }
                 if (t.type === "await")
                   return <div key={i} className="t-await done"><span>✓ checkpoint · {pretty(t.name)} confirmed</span></div>;
                 if (t.type === "snap") {
                   const c = CUE[t.name] || CUE.snap;
                   return <div key={i} className="t-snap"><b>✳ {c.label}</b><span>{t.note || c.note}</span></div>;
                 }
-                return <div key={i} className="t-line"><span className="who">You</span><span className="txt">{t.text}</span></div>;
+                const p = t.prosody || {};
+                return (
+                  <div key={i} className="t-line">
+                    <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                      <span className="who">You</span>
+                      {showProsody && p.tonality && (
+                        <>
+                          <span className="tonality-chip" style={{ color: TONE_COLOR[p.tonality] || "var(--mist)", borderColor: TONE_COLOR[p.tonality] || "var(--line)" }}>
+                            {p.tonality.replace(/_/g, " ")}
+                          </span>
+                          <span className="prosody-badge" style={{ color: "var(--mist)", borderColor: "var(--line)" }}>
+                            {p.rate ?? "—"}wpm
+                          </span>
+                          <span className="prosody-badge" style={{ color: "var(--mist)", borderColor: "var(--line)" }}>
+                            ×{p.pace ?? 1}
+                          </span>
+                        </>
+                      )}
+                      {ttsEnabled && ttsAvail && (
+                        <button type="button" className="tts-btn" disabled={ttsPlaying}
+                          onClick={(e) => { e.stopPropagation(); playTts(t._idx); }}
+                          title="Play TTS audio">▶</button>
+                      )}
+                    </div>
+                    <span className="txt">
+                      {showNlp ? <NlpText text={t.text} nlp={t.nlp} /> : t.text}
+                    </span>
+                  </div>
+                );
               })}
               {waiting && <div className="t-await"><span className="dot" /><span>waiting for ideomotor response…</span></div>}
             </div>
@@ -262,6 +377,17 @@ export default function Studio() {
             <div className="studio-bar">
               <button type="button" className="primary" onClick={next}>Next</button>
               <span className="hint">or press <span className="kbd">Space</span> to advance</span>
+              <label className="prosody-toggle" title="Highlight NLP phrases">
+                <input type="checkbox" checked={showNlp} onChange={(e) => setShowNlp(e.target.checked)} />NLP
+              </label>
+              <label className="prosody-toggle" title="Show delivery cues">
+                <input type="checkbox" checked={showProsody} onChange={(e) => setShowProsody(e.target.checked)} />Prosody
+              </label>
+              {ttsAvail && (
+                <label className="prosody-toggle" title="Play lines via ElevenLabs TTS">
+                  <input type="checkbox" checked={ttsEnabled} onChange={(e) => setTtsEnabled(e.target.checked)} />TTS
+                </label>
+              )}
               <button type="button" className="ghost" style={{ marginLeft: "auto" }} onClick={reset}>End session</button>
             </div>
           </section>
@@ -279,6 +405,18 @@ export default function Studio() {
                 <span className="badge nods">☺ {nods} nods</span>
               </div>
             </div>
+            {showNlp && (
+              <div className="nlp-legend">
+                <span><span className="nlp-embed">embed</span></span>
+                <span><span className="nlp-presup">presup</span></span>
+                <span><span className="nlp-vak">vak</span></span>
+                <span><span className="nlp-bind">bind</span></span>
+                <span><span className="nlp-tag">tag</span></span>
+                <span><span className="nlp-lead">lead</span></span>
+                <span><span className="nlp-pace">pace</span></span>
+                <span><span className="nlp-milton">milton</span></span>
+              </div>
+            )}
             <div className="rsel" ref={rRef}>
               {replies.map((t, i) => {
                 const fallback = (t.source || "").startsWith("offline") || (t.source || "") === "fallback";
