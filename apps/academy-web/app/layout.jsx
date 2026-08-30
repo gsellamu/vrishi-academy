@@ -81,17 +81,23 @@ export default function RootLayout({ children }) {
                 <Link href="/persona-builder" className="navlink">
                   <span className="ord">14</span>Persona Builder
                 </Link>
+                <Link href="/csp-dashboard" className="navlink" style={{ color: "var(--iris)" }}>
+                  <span className="ord">15</span>CSP Dashboard
+                </Link>
+                <Link href="/csp" className="navlink">
+                  <span className="ord">&#9672;</span>Client Intake
+                </Link>
 
                 {/* Content */}
                 <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".14em", textTransform: "uppercase", color: "var(--dim)", margin: "14px 0 4px 11px" }}>Content</div>
                 <Link href="/resources" className="navlink">
-                  <span className="ord">15</span>Resources
+                  <span className="ord">17</span>Resources
                 </Link>
                 <Link href="/blog" className="navlink">
-                  <span className="ord">16</span>Blog
+                  <span className="ord">18</span>Blog
                 </Link>
                 <Link href="/support" className="navlink">
-                  <span className="ord">17</span>Support
+                  <span className="ord">19</span>Support
                 </Link>
 
                 {/* Tools */}
