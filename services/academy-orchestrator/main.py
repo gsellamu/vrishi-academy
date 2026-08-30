@@ -373,6 +373,37 @@ async def tts_proxy(req: TTSRequest):
         raise HTTPException(502, f"TTS error: {type(e).__name__}: {str(e)[:200]}")
 
 
+class TTSTextRequest(BaseModel):
+    text: str
+    tonality: str = "paternal"
+    pace: float = 1.0
+    zone: int = 0
+    suggestibility_type: str = "physical"
+
+
+@app.post("/tts/text")
+async def tts_text(req: TTSTextRequest):
+    """Synthesize arbitrary text via tts_service — no active session required."""
+    payload = {
+        "text": req.text,
+        "zone": req.zone,
+        "suggestibility_type": req.suggestibility_type,
+        "override_tonality": req.tonality,
+        "override_pace": req.pace,
+        "use_cache": True,
+    }
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as cli:
+            r = await cli.post(f"{TTS_URL}/api/v1/tts/hypnotic/generate", json=payload)
+            r.raise_for_status()
+            data = r.json()
+            return {"audio_url": f"{TTS_URL}{data.get('audio_url', '')}", "duration": data.get("duration_seconds")}
+    except httpx.ConnectError:
+        raise HTTPException(503, "TTS service not available at " + TTS_URL)
+    except Exception as e:
+        raise HTTPException(502, f"TTS error: {type(e).__name__}: {str(e)[:200]}")
+
+
 @app.get("/tts/health")
 async def tts_health():
     """Check if TTS service is reachable."""

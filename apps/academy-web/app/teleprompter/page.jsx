@@ -1,6 +1,8 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+const ORCH = process.env.NEXT_PUBLIC_ORCH_URL || "http://localhost:8600";
+
 /* ---------------------------------------------------------------------------
    Line data — Variation #2 E/P lane induction + deepening script
    --------------------------------------------------------------------------- */
@@ -86,10 +88,12 @@ export default function Teleprompter() {
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(1.0);
   const [speakOn, setSpeakOn] = useState(false);
+  const [ttsAvail, setTtsAvail] = useState(null); // null=checking, true=ElevenLabs, false=browser
 
   const timerRef = useRef(null);
   const activeLineRef = useRef(null);
   const utterRef = useRef(null);
+  const audioRef = useRef(null);
 
   /* Filter lines by lane */
   const lines = useMemo(
@@ -109,31 +113,64 @@ export default function Teleprompter() {
     }
   }, [activeIdx]);
 
-  /* Cancel speech on unmount or toggle off */
+  /* Check ElevenLabs TTS availability on mount */
+  useEffect(() => {
+    fetch(`${ORCH}/tts/health`).then((r) => r.json())
+      .then((d) => setTtsAvail(d.ok === true))
+      .catch(() => setTtsAvail(false));
+  }, []);
+
+  /* Stop all audio on unmount */
   useEffect(() => {
     return () => {
-      if (typeof window !== "undefined" && window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-      }
+      if (typeof window !== "undefined" && window.speechSynthesis) window.speechSynthesis.cancel();
+      if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
     };
   }, []);
 
-  /* Speak the current line via browser TTS */
-  const speakLine = useCallback((line) => {
-    if (typeof window === "undefined" || !window.speechSynthesis) return;
+  /* Map teleprompter line prosody to TTS service params */
+  const RATE_TO_PACE = { "x-slow": 0.5, slow: 0.7, medium: 1.0, fast: 1.3 };
+  const STAGE_TO_ZONE = { induction: 3, deepening: 4 };
+
+  /* Speak via ElevenLabs — returns a promise that resolves when audio finishes */
+  const speakEL = useCallback(async (line) => {
+    const pace = (RATE_TO_PACE[line.rate] || 1.0) * speed;
+    const body = {
+      text: line.text,
+      tonality: line.tone || "paternal",
+      pace: Math.max(0.5, Math.min(2.0, pace)),
+      zone: STAGE_TO_ZONE[line.stage] || 0,
+      suggestibility_type: lane === "E" ? "emotional" : "physical",
+    };
+    const r = await fetch(`${ORCH}/tts/text`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (!r.ok) throw new Error("TTS request failed");
+    const d = await r.json();
+    if (!d.audio_url) throw new Error("No audio URL");
+    return new Promise((resolve, reject) => {
+      const audio = new Audio(d.audio_url);
+      audioRef.current = audio;
+      audio.onended = () => { audioRef.current = null; resolve(d.duration); };
+      audio.onerror = () => { audioRef.current = null; reject(new Error("audio playback error")); };
+      audio.play().catch(reject);
+    });
+  }, [speed, lane]);
+
+  /* Speak via browser Web Speech — returns an utterance with onend callback */
+  const speakBrowser = useCallback((line) => {
+    if (typeof window === "undefined" || !window.speechSynthesis) return null;
     window.speechSynthesis.cancel();
 
     const utter = new SpeechSynthesisUtterance(line.text);
-    /* Map rate strings to numeric SpeechSynthesis rates */
     const rateMap = { "x-slow": 0.5, slow: 0.7, medium: 1.0, fast: 1.3 };
     utter.rate = (rateMap[line.rate] || 1.0) * speed;
 
-    /* Parse pitch like "-10%" to a numeric offset */
     const pitchMatch = (line.pitch || "0%").match(/^([+-]?\d+)%$/);
     const pitchOffset = pitchMatch ? parseInt(pitchMatch[1], 10) : 0;
     utter.pitch = Math.max(0, Math.min(2, 1 + pitchOffset / 50));
 
-    /* Try to pick a gendered voice */
     const voices = window.speechSynthesis.getVoices();
     const wantFemale = line.tone === "maternal";
     const match = voices.find((v) => {
@@ -159,21 +196,37 @@ export default function Teleprompter() {
     const line = lines[activeIdx];
     if (!line) { setPlaying(false); return; }
 
+    const advanceAfterBreak = () => {
+      timerRef.current = setTimeout(() => {
+        setActiveIdx((i) => {
+          if (i + 1 >= lines.length) { setPlaying(false); return i; }
+          return i + 1;
+        });
+      }, (line.brk || 800) / speed);
+    };
+
     if (speakOn) {
-      const utter = speakLine(line);
-      if (utter) {
-        utter.onend = () => {
-          /* Wait for the break duration, then advance */
-          timerRef.current = setTimeout(() => {
-            setActiveIdx((i) => {
-              if (i + 1 >= lines.length) { setPlaying(false); return i; }
-              return i + 1;
-            });
-          }, (line.brk || 800) / speed);
-        };
+      if (ttsAvail) {
+        /* ElevenLabs path — async, advance when audio finishes */
+        let cancelled = false;
+        speakEL(line)
+          .then(() => { if (!cancelled) advanceAfterBreak(); })
+          .catch(() => {
+            /* ElevenLabs failed — fall back to browser TTS for this line */
+            if (cancelled) return;
+            const utter = speakBrowser(line);
+            if (utter) { utter.onend = advanceAfterBreak; }
+            else advanceAfterBreak();
+          });
+        return () => { cancelled = true; clearTimeout(timerRef.current); if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; } };
+      } else {
+        /* Browser TTS fallback */
+        const utter = speakBrowser(line);
+        if (utter) { utter.onend = advanceAfterBreak; }
+        else advanceAfterBreak();
       }
     } else {
-      /* Calculate duration from word count and rate */
+      /* Silent auto-advance from word count and rate */
       const words = line.text.split(/\s+/).length;
       const wpm = RATE_WPM[line.rate] || 130;
       const readMs = ((words / wpm) * 60 * 1000 + (line.brk || 800)) / speed;
@@ -186,34 +239,38 @@ export default function Teleprompter() {
     }
 
     return () => clearTimeout(timerRef.current);
-  }, [playing, activeIdx, speakOn, speed, lines, speakLine]);
+  }, [playing, activeIdx, speakOn, speed, lines, speakEL, speakBrowser, ttsAvail]);
+
+  /* Stop all audio sources */
+  const stopAudio = useCallback(() => {
+    window.speechSynthesis?.cancel();
+    if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
+  }, []);
 
   /* Transport controls */
   const togglePlay = useCallback(() => {
-    if (playing) {
-      window.speechSynthesis?.cancel();
-    }
+    if (playing) stopAudio();
     setPlaying((p) => !p);
-  }, [playing]);
+  }, [playing, stopAudio]);
 
   const goPrev = useCallback(() => {
-    window.speechSynthesis?.cancel();
+    stopAudio();
     setActiveIdx((i) => Math.max(0, i - 1));
-  }, []);
+  }, [stopAudio]);
 
   const goNext = useCallback(() => {
-    window.speechSynthesis?.cancel();
+    stopAudio();
     setActiveIdx((i) => Math.min(lines.length - 1, i + 1));
-  }, [lines.length]);
+  }, [lines.length, stopAudio]);
 
   const adjustPace = useCallback((delta) => {
     setSpeed((s) => Math.max(0.4, Math.min(2.0, +(s + delta).toFixed(1))));
   }, []);
 
   const toggleSpeak = useCallback(() => {
-    if (speakOn) window.speechSynthesis?.cancel();
+    if (speakOn) stopAudio();
     setSpeakOn((s) => !s);
-  }, [speakOn]);
+  }, [speakOn, stopAudio]);
 
   const currentLine = lines[activeIdx] || lines[0];
   const vocab = lane === "E" ? E_VOCAB : P_VOCAB;
@@ -254,7 +311,7 @@ export default function Teleprompter() {
         {[
           { h: "What", body: "E/P lane teleprompter with SSML prosody tags and browser TTS for paced script practice." },
           { h: "Why", body: "Kappasinian inductions require different pacing for emotional vs. physical suggestibility types." },
-          { h: "How", body: "Lines are filtered by lane, rendered with prosody metadata, and optionally spoken via SpeechSynthesis." },
+          { h: "How", body: `Lines are filtered by lane, rendered with prosody metadata, and optionally spoken via ${ttsAvail ? "ElevenLabs" : "browser"} TTS.` },
           { h: "Value", body: "Build muscle memory for tone shifts, embedded commands, and PHS placement before live sessions." },
         ].map((c) => (
           <div key={c.h} style={{ background: "var(--panel)", border: "1px solid var(--line)", borderRadius: "var(--r-md)", padding: "14px 16px" }}>
@@ -295,7 +352,7 @@ export default function Teleprompter() {
                   {divider}
                   <div
                     ref={isActive ? activeLineRef : null}
-                    onClick={() => { window.speechSynthesis?.cancel(); setActiveIdx(idx); }}
+                    onClick={() => { stopAudio(); setActiveIdx(idx); }}
                     style={{
                       border: "1px solid " + (isActive ? "var(--amber)" : "var(--line)"),
                       borderLeft: isActive ? "3px solid var(--amber)" : "1px solid var(--line)",
@@ -455,10 +512,11 @@ export default function Teleprompter() {
           {playing ? "Pause" : "Play"}
         </button>
 
-        {/* Speak toggle */}
+        {/* Speak toggle — shows ElevenLabs or Browser TTS source */}
         <label style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: "var(--mono)", fontSize: 11, color: speakOn ? "var(--amber)" : "var(--mist)", cursor: "pointer", userSelect: "none" }}>
           <input type="checkbox" checked={speakOn} onChange={toggleSpeak} style={{ accentColor: "var(--amber)" }} />
-          Speak
+          {ttsAvail ? "ElevenLabs" : "Speak"}
+          {ttsAvail && <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--ok)", flexShrink: 0 }} />}
         </label>
 
         {/* Prev / Next */}
