@@ -5,6 +5,7 @@ import gap from "../data/gap.json";
 import AssistantDock from "./components/AssistantDock";
 import MobileNav from "./components/MobileNav";
 import Providers from "./components/Providers";
+import AuthChip from "./components/AuthChip";
 
 export const metadata = {
   title: "VRishi Academy",
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
+        <Providers>
         <div className="shell">
           <aside>
             <MobileNav>
@@ -117,10 +119,12 @@ export default function RootLayout({ children }) {
                 <span className="gapbar"><span style={{ width: `${pct}%` }} /></span>
                 <span className="gappct">{pct}% · Dec 10 hard stop</span>
               </Link>
+              <AuthChip />
             </MobileNav>
           </aside>
-          <main className="content" id="main"><Providers>{children}</Providers></main>
+          <main className="content" id="main">{children}</main>
         </div>
+        </Providers>
         <AssistantDock />
       </body>
     </html>

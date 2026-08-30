@@ -112,14 +112,21 @@ export default function Lab() {
     const nextH = [attempt, ...loadHistory()].slice(0, 30);
     localStorage.setItem("lab:attempts", JSON.stringify(nextH));
     setHistory(nextH);
-    /* log each drill in the plan to the academy store */
+    /* log each drill in the plan to the academy store (+ API when authenticated) */
     for (const p of plan) {
       const drill = DRILLS[p.id];
       if (!drill) continue;
       const total = drill.check.length;
       const hit = drill.check.filter((_, i) => checks[`${p.id}:${i}`]).length;
       const sc = total ? Math.round((100 * hit) / total) : 0;
-      logDrill({ drillId: p.id, score: sc, passed: sc >= 80, xp: Math.round(sc * 0.5) });
+      const missedItems = drill.check.filter((_, i) => !checks[`${p.id}:${i}`]).map((c) => `${drill.name}: ${c}`);
+      const checksMap = {};
+      drill.check.forEach((c, i) => { checksMap[`${p.id}:${i}`] = !!checks[`${p.id}:${i}`]; });
+      logDrill({
+        drillId: p.id, score: sc, passed: sc >= 80, xp: Math.round(sc * 0.5),
+        mode, minutesPlanned: p.mins, durationS: p.mins * 60,
+        checks: checksMap, missed: missedItems,
+      });
     }
     setPhase("plan");
   }

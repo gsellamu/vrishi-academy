@@ -215,7 +215,15 @@ export default function Studio() {
           } else if (t.type === "done") {
             closedByUserRef.current = true;
             setStats(t.stats); setPhase("done"); busyRef.current = false; ws.close();
-            logSession({ profile, plan, persona, durationSec: t.stats?.duration_s, turns: t.stats?.turns, checkpoints: t.stats?.awaits, phsCount: 0 });
+            logSession({
+              profile, plan, persona,
+              durationSec: t.stats?.duration_s, turns: t.stats?.turns,
+              checkpoints: t.stats?.awaits, phsCount: 0,
+              stagesSeen: t.stats?.stages_seen || [],
+              tonalitiesSeen: t.stats?.tonalities_seen || [],
+              nlpTypesSeen: t.stats?.nlp_types_seen || [],
+              nlpCoveragePct: t.stats?.nlp_coverage_pct || 0,
+            });
           } else { busyRef.current = false; }
           // Track PHS lines
           if (t.type === "line" && t.phs) setPhsCount((c) => c + 1);
