@@ -39,6 +39,30 @@ const TONE_COLOR = {
   conversational: "var(--mist)", theta_hypnotic: "var(--iris)",
 };
 
+// Coaching tips per major step — delivery guidance for the student
+const MAJOR_TIP = {
+  "Theory of Mind": "Personalize the 88/12 model to THEIR problem — trace it on the drawing.",
+  "Partnership": "Land the contract line and get an anchored yes before moving on.",
+  "E/P Test": "Note the last two answers — they set literal vs inferred wording for the whole session.",
+  "Physio onset": "Name each change as you SEE it (breath, swallow, flutter) — convincer loop.",
+  "Arm levitation": "Physical: \"it IS lighter.\" Emotional: \"you may allow it to lighten.\" Pace to the breath.",
+  "Peak": "Wait for real skin contact + the nod — don't rush the conversion.",
+  "Snap": "Snap immediately before \"deep sleep\"; voice drops hard.",
+  "PHS": "Full anatomy: cue + purpose + consent + speed triple + somatic tag.",
+  "Bicep challenge": "A felt, failed challenge is conviction for a physical — let them test it.",
+  "Count 5-0": "One voice-step down per number; ~1s gaps.",
+  "Eye catalepsy": "Test that the eyes stay closed — this is a felt challenge, not a verbal one.",
+  "Progressive relaxation": "Slowest pacing of the session; long pauses, top-down.",
+  "Staircase": "Wait for the finger signal before descending.",
+  "New self-image": "Mold in THEIR words from intake.",
+  "Suggestive therapy": "Say-See-Feel; land the See on a real upcoming situation.",
+  "PHS verify": "Re-seat the PHS after every deepener in a first session.",
+  "Venting dream": "Brief and permissive — plant the suggestion without elaborating.",
+  "Count 0-5": "Reverse the energy curve — start low, end bright.",
+  "Wide awake": "Crisp, energetic close; confirm fully alert.",
+  "Finger-spread verify": "Proves the cue installed — the default induction next session.",
+};
+
 // Render text with NLP phrase highlights using character offsets from the orchestrator
 function NlpText({ text, nlp }) {
   if (!nlp || nlp.length === 0) return <>{text}</>;
@@ -78,6 +102,14 @@ const CUE = {
 };
 const RING = 163.4; // 2πr, r=26
 
+// Stage keys for timeline — order matters
+const STAGE_KEYS = ["pre", "induction", "deepening", "therapy", "emergence", "post"];
+const STAGE_LABELS = { pre: "pre-talk & test", induction: "induction", deepening: "deepening", therapy: "therapy", emergence: "emergence", post: "verify" };
+const STAGE_COLORS = {
+  pre: "var(--stage-pre)", induction: "var(--stage-induction)", deepening: "var(--stage-deepening)",
+  therapy: "var(--stage-therapy)", emergence: "var(--stage-emergence)", post: "var(--stage-post)",
+};
+
 export default function Studio() {
   const [phase, setPhase] = useState("idle"); // idle | running | done
   const [profile, setProfile] = useState("p1");
@@ -88,6 +120,7 @@ export default function Studio() {
   const [stage, setStage] = useState("pre");
   const [idx, setIdx] = useState(0);
   const [nods, setNods] = useState(0);
+  const [phsCount, setPhsCount] = useState(0);
   const [waiting, setWaiting] = useState(false);
   const [typing, setTyping] = useState(false);
   const [sec, setSec] = useState(0);
@@ -95,9 +128,11 @@ export default function Studio() {
   const [err, setErr] = useState("");
   const [showNlp, setShowNlp] = useState(true);
   const [showProsody, setShowProsody] = useState(true);
+  const [showCoach, setShowCoach] = useState(false);
   const [ttsEnabled, setTtsEnabled] = useState(false);
   const [ttsAvail, setTtsAvail] = useState(null); // null=unknown, true/false
   const [ttsPlaying, setTtsPlaying] = useState(false);
+  const [stageLog, setStageLog] = useState([]); // [{name, startIdx}] for timeline
   const wsRef = useRef(null);
   const busyRef = useRef(false);
   const tRef = useRef(null);
@@ -155,8 +190,8 @@ export default function Studio() {
       if (!r.ok) throw new Error((await r.text()).slice(0, 300));
       const m = await r.json();
       sessionIdRef.current = m.session_id;
-      setMeta(m); setFeed([]); setStage("pre"); setIdx(0); setNods(0);
-      setWaiting(false); setTyping(false); setSec(0); setStats(null);
+      setMeta(m); setFeed([]); setStage("pre"); setIdx(0); setNods(0); setPhsCount(0);
+      setWaiting(false); setTyping(false); setSec(0); setStats(null); setStageLog([]);
       closedByUserRef.current = false;
       retryRef.current = 0;
       function connectWs(sessionId) {
@@ -167,7 +202,10 @@ export default function Studio() {
           if (d.event === "error") { setErr(d.message); return; }
           const t = d.turn;
           if (t.type !== "done") setIdx(d.idx);
-          if (t.type === "stage") { setStage(t.name); setWaiting(false); busyRef.current = false; }
+          if (t.type === "stage") {
+            setStage(t.name); setWaiting(false); busyRef.current = false;
+            setStageLog((sl) => [...sl, { name: t.name, idx: d.idx }]);
+          }
           else if (t.type === "await") { setWaiting(true); setTyping(true); busyRef.current = true; }
           else if (t.type === "reply") {
             setWaiting(false); setTyping(false); busyRef.current = false;
@@ -176,6 +214,8 @@ export default function Studio() {
             closedByUserRef.current = true;
             setStats(t.stats); setPhase("done"); busyRef.current = false; ws.close();
           } else { busyRef.current = false; }
+          // Track PHS lines
+          if (t.type === "line" && t.phs) setPhsCount((c) => c + 1);
           if (t.type !== "done") push({ ...t, _idx: d.idx });
         };
         ws.onclose = () => {
@@ -212,7 +252,7 @@ export default function Studio() {
     if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
     sessionIdRef.current = null;
     setPhase("idle"); setFeed([]); setMeta(null); setStats(null); setErr("");
-    setTtsPlaying(false);
+    setTtsPlaying(false); setStageLog([]);
   }, []);
 
   useEffect(() => {
@@ -242,19 +282,39 @@ export default function Studio() {
   const sc = stageColor(stage);
   const ringOffset = (RING * (1 - Math.min(sec / 1200, 1))).toFixed(1);
 
+  // Compute stage timeline weights for debrief
+  const stageWeights = {};
+  if (stageLog.length > 0) {
+    const totalTurns = meta?.turns || idx + 1;
+    for (let i = 0; i < stageLog.length; i++) {
+      const startIdx = stageLog[i].idx;
+      const endIdx = i + 1 < stageLog.length ? stageLog[i + 1].idx : totalTurns;
+      const key = stageLog[i].name?.toLowerCase().replace(/[^a-z]/g, "") || "pre";
+      const mapped = STAGE_KEYS.find((k) => key.includes(k)) || "pre";
+      stageWeights[mapped] = (stageWeights[mapped] || 0) + (endIdx - startIdx);
+    }
+  }
+
   return (
     <article>
       <div className="studio-head">
         <div>
-          <span className="eyebrow">Role-play studio</span>
+          <span className="eyebrow">Role-play studio · first session</span>
           <h1 style={{ margin: "8px 0 0" }}>Session <em>Studio</em></h1>
         </div>
-        {phase !== "idle" && (
-          <div className="seg">
-            <button type="button" className={phase === "running" ? "on" : ""} onClick={() => phase === "done" && start()}>Live</button>
-            <button type="button" className={phase === "done" ? "on" : ""} onClick={() => phase === "running" && setPhase("done")}>Debrief</button>
-          </div>
-        )}
+        <div className="seg">
+          <button type="button" className={phase === "idle" ? "on" : ""} onClick={() => reset()}>Setup</button>
+          <button type="button" className={phase === "running" ? "on" : ""} onClick={() => phase === "done" && start()}>Live</button>
+          <button type="button" className={phase === "done" ? "on" : ""} onClick={() => phase === "running" && setPhase("done")}>Debrief</button>
+        </div>
+      </div>
+
+      {/* ---------- INFO BAR ---------- */}
+      <div className="info-bar">
+        <div><div className="info-label" style={{ color: "var(--teal)" }}>What</div><div className="info-text">AI role-play of a full first session — you deliver each line, the client persona responds and nods.</div></div>
+        <div><div className="info-label" style={{ color: "var(--iris)" }}>Why</div><div className="info-text">Rehearse the whole Kappasinian arc with a client that answers every ideomotor checkpoint.</div></div>
+        <div><div className="info-label" style={{ color: "var(--amber)" }}>How</div><div className="info-text">Set profile, plan and persona, then advance with Next or Space; watch the stage, checkpoints and PHS.</div></div>
+        <div><div className="info-label" style={{ color: "var(--ok)" }}>Value</div><div className="info-text">Unlimited reps with no live client — build fluency and timing before the workshop.</div></div>
       </div>
 
       {/* ---------- SETUP ---------- */}
@@ -262,8 +322,8 @@ export default function Studio() {
         <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 900 }}>
           <p className="note">
             Pick a client profile, session plan, and persona. The orchestrator renders the full Kappasinian
-            first-session script, then the persona answers every ideomotor checkpoint. Advance with{" "}
-            <span className="kbd">Space</span> or the Next button once live.
+            first-session script across all six stages; the persona answers every ideomotor checkpoint. Advance with{" "}
+            <span className="kbd">Space</span> once live.
           </p>
           <div className="labform" style={{ flexWrap: "wrap" }}>
             <label style={{ flex: 1, minWidth: 220 }}>Profile
@@ -292,14 +352,14 @@ export default function Studio() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
             <button type="button" className="primary" onClick={start}>Begin Session →</button>
-            <span className="note" style={{ margin: 0 }}>Advance with <span className="kbd">Space</span> once live.</span>
+            <span className="note" style={{ margin: 0 }}>6 stages · est. 15 min · advance with <span className="kbd">Space</span></span>
           </div>
           {err && <p style={{ color: "var(--red)", fontFamily: "var(--mono)", fontSize: 13 }}>{err}</p>}
         </div>
       )}
 
-      {/* ---------- LIVE / DONE ---------- */}
-      {phase !== "idle" && meta && phase !== "done" && (
+      {/* ---------- LIVE ---------- */}
+      {phase === "running" && meta && (
         <div className="studio-grid">
           {/* LEFT — therapist */}
           <section className="panel studio-left">
@@ -323,7 +383,6 @@ export default function Studio() {
             <div className="tsel" ref={tRef}>
               {left.map((t, i) => {
                 if (t.type === "stage") {
-                  const p = t.prosody || {};
                   return (
                     <div key={i} className="t-stage" style={{ "--sc": stageColor(t.name) }}>
                       <span>{pretty(t.name)}</span>
@@ -341,11 +400,16 @@ export default function Studio() {
                   const c = CUE[t.name] || CUE.snap;
                   return <div key={i} className="t-snap"><b>✳ {c.label}</b><span>{t.note || c.note}</span></div>;
                 }
+                if (t.type === "phs" || t.phs) {
+                  return <div key={i} className="t-phs"><span>⚓</span>PHS re-hypnosis seated</div>;
+                }
                 const p = t.prosody || {};
+                const tipKey = t.major || t.stage || "";
+                const tip = showCoach ? (MAJOR_TIP[tipKey] || "") : "";
                 return (
-                  <div key={i} className="t-line">
-                    <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                      <span className="who">You</span>
+                  <div key={i} className="t-line" style={showProsody && p.tonality ? { borderLeftColor: TONE_COLOR[p.tonality] || "var(--line)", borderLeftWidth: 3 } : undefined}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 4, flexWrap: "wrap" }}>
+                      <span className="who">You{t.major ? ` · ${t.major}` : ""}</span>
                       {showProsody && p.tonality && (
                         <>
                           <span className="tonality-chip" style={{ color: TONE_COLOR[p.tonality] || "var(--mist)", borderColor: TONE_COLOR[p.tonality] || "var(--line)" }}>
@@ -368,6 +432,7 @@ export default function Studio() {
                     <span className="txt">
                       {showNlp ? <NlpText text={t.text} nlp={t.nlp} /> : t.text}
                     </span>
+                    {tip && <div className="t-tip"><span>◉</span>{tip}</div>}
                   </div>
                 );
               })}
@@ -377,6 +442,9 @@ export default function Studio() {
             <div className="studio-bar">
               <button type="button" className="primary" onClick={next}>Next</button>
               <span className="hint">or press <span className="kbd">Space</span> to advance</span>
+              <button type="button" className={`coach-btn${showCoach ? " on" : ""}`} onClick={() => setShowCoach(!showCoach)}>
+                ◉ Model notes{showCoach ? " on" : ""}
+              </button>
               <label className="prosody-toggle" title="Highlight NLP phrases">
                 <input type="checkbox" checked={showNlp} onChange={(e) => setShowNlp(e.target.checked)} />NLP
               </label>
@@ -439,7 +507,7 @@ export default function Studio() {
       )}
 
       {/* ---------- DONE SUMMARY ---------- */}
-      {phase === "done" && stats && (
+      {phase === "done" && (
         <div className="summary">
           <div className="top">
             <div>
@@ -449,11 +517,27 @@ export default function Studio() {
             <div className="stagechip" style={{ "--sc": "var(--stage-post)", marginTop: 0 }}><span className="dot" />post · emerged</div>
           </div>
           <div className="statrow">
-            <div className="stat"><div className="n" style={{ color: "var(--amber)" }}>{mmss(stats.duration_s ?? sec)}</div><div className="l">Duration</div></div>
-            <div className="stat"><div className="n">{stats.turns ?? meta?.turns}</div><div className="l">Turns</div></div>
-            <div className="stat"><div className="n" style={{ color: "var(--ok)" }}>{stats.awaits ?? 0}/{meta?.awaits ?? stats.awaits ?? 0}</div><div className="l">Checkpoints</div></div>
-            <div className="stat"><div className="n" style={{ color: "var(--iris)" }}>{nods}</div><div className="l">Nods</div></div>
+            <div className="stat"><div className="n" style={{ color: "var(--amber)" }}>{mmss(stats?.duration_s ?? sec)}</div><div className="l">Duration</div></div>
+            <div className="stat"><div className="n">{stats?.turns ?? meta?.turns ?? idx + 1}</div><div className="l">Turns</div></div>
+            <div className="stat"><div className="n" style={{ color: "var(--ok)" }}>{stats?.awaits ?? nods}/{meta?.awaits ?? stats?.awaits ?? nods}</div><div className="l">Checkpoints</div></div>
+            <div className="stat"><div className="n" style={{ color: "var(--iris)" }}>{phsCount}</div><div className="l">PHS seats</div></div>
           </div>
+
+          {/* Stage timeline */}
+          <div style={{ padding: "22px 28px", borderTop: "1px solid var(--line)" }}>
+            <div style={{ fontFamily: "var(--mono)", fontSize: "10.5px", letterSpacing: ".12em", textTransform: "uppercase", color: "var(--mist)", marginBottom: 12 }}>Stage timeline</div>
+            <div className="timeline">
+              {STAGE_KEYS.map((k) => (
+                <span key={k} style={{ flex: stageWeights[k] || 1, background: STAGE_COLORS[k] }} />
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 12, fontFamily: "var(--mono)", fontSize: "10.5px", color: "var(--mist)" }}>
+              {STAGE_KEYS.map((k) => (
+                <span key={k} style={{ color: STAGE_COLORS[k] }}>{STAGE_LABELS[k]}</span>
+              ))}
+            </div>
+          </div>
+
           <div style={{ display: "flex", gap: 12, padding: "20px 28px", borderTop: "1px solid var(--line)", background: "var(--panel-2)" }}>
             <button type="button" className="primary" onClick={start}>Run Again</button>
             <button type="button" className="chip" onClick={reset}>New Session</button>
