@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useAcademy } from "../../lib/academy-store";
 
 const ORCH = process.env.NEXT_PUBLIC_ORCH_URL || "http://localhost:8600";
 const WS_BASE = ORCH.replace(/^http/, "ws");
@@ -111,6 +112,7 @@ const STAGE_COLORS = {
 };
 
 export default function Studio() {
+  const { logSession } = useAcademy();
   const [phase, setPhase] = useState("idle"); // idle | running | done
   const [profile, setProfile] = useState("p1");
   const [plan, setPlan] = useState("vocational");
@@ -213,6 +215,7 @@ export default function Studio() {
           } else if (t.type === "done") {
             closedByUserRef.current = true;
             setStats(t.stats); setPhase("done"); busyRef.current = false; ws.close();
+            logSession({ profile, plan, persona, durationSec: t.stats?.duration_s, turns: t.stats?.turns, checkpoints: t.stats?.awaits, phsCount: 0 });
           } else { busyRef.current = false; }
           // Track PHS lines
           if (t.type === "line" && t.phs) setPhsCount((c) => c + 1);

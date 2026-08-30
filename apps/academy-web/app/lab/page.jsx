@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import drillData from "../../data/drills.json";
+import { useAcademy } from "../../lib/academy-store";
 
 const DRILLS = Object.fromEntries(drillData.drills.map((d) => [d.id, d]));
 
@@ -51,6 +52,7 @@ function sparkPoints(scores, w, h) {
 }
 
 export default function Lab() {
+  const { logDrill } = useAcademy();
   const [minutes, setMinutes] = useState(15);
   const [focus, setFocus] = useState("psr_core");
   const [mode, setMode] = useState("inferred");
@@ -109,7 +111,17 @@ export default function Lab() {
     };
     const nextH = [attempt, ...loadHistory()].slice(0, 30);
     localStorage.setItem("lab:attempts", JSON.stringify(nextH));
-    setHistory(nextH); setPhase("plan");
+    setHistory(nextH);
+    /* log each drill in the plan to the academy store */
+    for (const p of plan) {
+      const drill = DRILLS[p.id];
+      if (!drill) continue;
+      const total = drill.check.length;
+      const hit = drill.check.filter((_, i) => checks[`${p.id}:${i}`]).length;
+      const sc = total ? Math.round((100 * hit) / total) : 0;
+      logDrill({ drillId: p.id, score: sc, passed: sc >= 80, xp: Math.round(sc * 0.5) });
+    }
+    setPhase("plan");
   }
 
   /* grouped presets */

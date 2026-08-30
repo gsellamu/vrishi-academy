@@ -1,6 +1,7 @@
 "use client";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { useAcademy } from "../../lib/academy-store";
 
 /* ============================================================
    18-node Kappasinian skill constellation
@@ -76,13 +77,38 @@ function arrowHead(x1, y1, x2, y2, r) {
    ============================================================ */
 
 export default function SkillTree() {
+  const { skillNodes, drillStats, simXp: totalSimXp } = useAcademy();
   const [sel, setSel] = useState('tom');
   const [pan, setPan] = useState({ tx: 0, ty: 0, k: 1 });
   const dragging = useRef(null);
   const svgRef = useRef(null);
 
-  const masteredCount = NODES.filter(n => n.state === 'mastered').length;
-  const node = sel ? NODE_MAP[sel] : null;
+  /* Merge store-computed skill data onto static NODES */
+  const liveNodes = useMemo(() => NODES.map((n) => {
+    const sn = skillNodes[n.id];
+    if (!sn) return n;
+    return {
+      ...n,
+      state: sn.state,
+      simXp: sn.simXp || n.simXp,
+      mastery: sn.attempts > 0 ? `${sn.mastery}%` : '\u2014',
+    };
+  }), [skillNodes]);
+  const liveMap = useMemo(() => Object.fromEntries(liveNodes.map((n) => [n.id, n])), [liveNodes]);
+
+  /* Drill queue — skills with lowest mastery that are in-progress or available */
+  const drillQueue = useMemo(() =>
+    liveNodes
+      .filter((n) => n.state === 'inprogress' || (n.state === 'available' && skillNodes[n.id]?.attempts > 0))
+      .sort((a, b) => (parseInt(a.mastery) || 0) - (parseInt(b.mastery) || 0))
+      .slice(0, 3)
+      .map((n) => ({ id: n.id, label: `${n.short}: improve mastery (${n.mastery})`, drillId: n.id })),
+    [liveNodes, skillNodes]
+  );
+  const activeDrillQueue = drillQueue.length > 0 ? drillQueue : DRILL_QUEUE;
+
+  const masteredCount = liveNodes.filter(n => n.state === 'mastered').length;
+  const node = sel ? liveMap[sel] : null;
 
   /* pan handlers */
   const onPointerDown = useCallback((e) => {
@@ -124,7 +150,7 @@ export default function SkillTree() {
       {/* mastered count + legend */}
       <div style={{ display:'flex', alignItems:'center', gap:24, flexWrap:'wrap', marginBottom:20 }}>
         <span style={{ fontFamily:'var(--mono)', fontSize:14, color:'var(--ok)' }}>
-          {masteredCount} / {NODES.length} mastered
+          {masteredCount} / {liveNodes.length} mastered
         </span>
         <div style={{ display:'flex', gap:14, flexWrap:'wrap' }}>
           {Object.entries(STATE_LABEL).map(([k, label]) => (
@@ -201,8 +227,8 @@ export default function SkillTree() {
               ))}
 
               {/* edges (prereq -> node) */}
-              {NODES.map(n => n.prereq.map(pid => {
-                const p = NODE_MAP[pid];
+              {liveNodes.map(n => n.prereq.map(pid => {
+                const p = liveMap[pid];
                 if (!p) return null;
                 const { ex, ey, path } = arrowHead(p.x, p.y, n.x, n.y, R);
                 const sx = p.x, sy = p.y;
@@ -225,7 +251,7 @@ export default function SkillTree() {
               }))}
 
               {/* nodes */}
-              {NODES.map(n => {
+              {liveNodes.map(n => {
                 const col = STATE_COLOR[n.state];
                 const isFilled = n.state === 'mastered' || n.state === 'inprogress';
                 const isSel = sel === n.id;
@@ -426,7 +452,7 @@ export default function SkillTree() {
                   </div>
                   <div style={{ display:'flex', gap:6, flexWrap:'wrap' }}>
                     {node.prereq.map(pid => {
-                      const pn = NODE_MAP[pid];
+                      const pn = liveMap[pid];
                       return (
                         <button
                           key={pid}
@@ -487,8 +513,8 @@ export default function SkillTree() {
               Drill queue &middot; rubric misses
             </div>
             <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
-              {DRILL_QUEUE.map((dq, i) => {
-                const qn = NODE_MAP[dq.id];
+              {activeDrillQueue.map((dq, i) => {
+                const qn = liveMap[dq.id];
                 return (
                   <div key={dq.id} style={{
                     display:'flex', alignItems:'center', gap:10,

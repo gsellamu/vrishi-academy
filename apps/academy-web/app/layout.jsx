@@ -4,6 +4,7 @@ import { getPlanPages } from "../lib/plan.mjs";
 import gap from "../data/gap.json";
 import AssistantDock from "./components/AssistantDock";
 import MobileNav from "./components/MobileNav";
+import Providers from "./components/Providers";
 
 export const metadata = {
   title: "VRishi Academy",
@@ -118,7 +119,7 @@ export default function RootLayout({ children }) {
               </Link>
             </MobileNav>
           </aside>
-          <main className="content" id="main">{children}</main>
+          <main className="content" id="main"><Providers>{children}</Providers></main>
         </div>
         <AssistantDock />
       </body>

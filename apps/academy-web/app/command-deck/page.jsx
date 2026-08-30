@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import gap from "../../data/gap.json";
+import gapSeed from "../../data/gap.json";
+import { useAcademy } from "../../lib/academy-store";
 
 /* ── role definitions ─────────────────────────────────────────── */
 const ROLES = {
@@ -41,13 +42,13 @@ const FOCUS = {
   },
 };
 
-/* ── quick-launch cards ───────────────────────────────────────── */
-const CARDS = [
-  { icon: "\u25C9", label: "Session Studio",  href: "/studio",     border: "var(--amber)", status: "Continue Maya \u00B7 deepening \u2192" },
-  { icon: ">_",     label: "Practice Lab",    href: "/lab",        border: "var(--line)",  status: "Last run 86 \u00B7 2 to a clean streak \u2192" },
-  { icon: "\u25CE", label: "The Room",         href: "/room",       border: "var(--teal)",  status: "Enter the Room \u2192" },
-  { icon: "\u2726", label: "Skill Tree",       href: "/skill-tree", border: "var(--line)",  status: "5 of 18 nodes \u2192" },
-  { icon: "\u25C7", label: "Faculty",          href: "/faculty",    border: "var(--line)",  status: "Sit a mock PSR \u2192" },
+/* ── quick-launch cards (status is computed at render time) ──── */
+const CARDS_BASE = [
+  { icon: "\u25C9", label: "Session Studio",  href: "/studio",     border: "var(--amber)" },
+  { icon: ">_",     label: "Practice Lab",    href: "/lab",        border: "var(--line)" },
+  { icon: "\u25CE", label: "The Room",         href: "/room",       border: "var(--teal)" },
+  { icon: "\u2726", label: "Skill Tree",       href: "/skill-tree", border: "var(--line)" },
+  { icon: "\u25C7", label: "Faculty",          href: "/faculty",    border: "var(--line)" },
 ];
 
 /* ── season-pass categories ───────────────────────────────────── */
@@ -82,6 +83,8 @@ function weeklyRate(done, need, daysLeft) {
    Command Deck
    ================================================================ */
 export default function CommandDeck() {
+  const { store, simXp, skillNodes } = useAcademy();
+  const gap = store.gap || gapSeed;
   const [role, setRole] = useState("student");
   const r = ROLES[role];
   const focus = FOCUS[role];
@@ -151,7 +154,19 @@ export default function CommandDeck() {
         gap: 14,
         marginBottom: 36,
       }}>
-        {CARDS.map(c => (
+        {(() => {
+          const masteredN = Object.values(skillNodes).filter((n) => n.state === "mastered").length;
+          const sessions = store.sessionLog?.length || 0;
+          const drills = store.drillLog?.length || 0;
+          const statuses = {
+            "/studio": sessions ? `${sessions} session${sessions > 1 ? "s" : ""} logged \u2192` : "Begin a session \u2192",
+            "/lab": drills ? `${drills} drill${drills > 1 ? "s" : ""} \u00B7 ${simXp} sim XP \u2192` : "Start drilling \u2192",
+            "/room": "Enter the Room \u2192",
+            "/skill-tree": `${masteredN} of 18 nodes \u2192`,
+            "/faculty": "Sit a mock PSR \u2192",
+          };
+          return CARDS_BASE.map((c) => ({ ...c, status: statuses[c.href] || "\u2192" }));
+        })().map(c => (
           <Link key={c.href} href={c.href} style={{ textDecoration: "none" }}>
             <div
               className="panel"

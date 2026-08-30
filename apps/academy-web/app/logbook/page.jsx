@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useAcademy } from "../../lib/academy-store";
 
 const XP_MAP = {
   "Client contact": 240,
@@ -17,11 +18,7 @@ const OUTCOME_OPTIONS = [
   "No-show",
 ];
 
-const INITIAL_REPS = [
-  { date: "2026-08-08", client: "R.K.", type: "Client contact", outcome: "Completed \u00B7 good depth", xp: 240, verified: "\u2713 verified" },
-  { date: "2026-08-06", client: "Case #12", type: "Case conference", outcome: "Completed \u00B7 partial", xp: 120, verified: "\u2713 verified" },
-  { date: "2026-08-04", client: "T.S.", type: "Client contact", outcome: "Referred out", xp: 240, verified: "\u231B pending" },
-];
+/* INITIAL_REPS removed — now read from academy store */
 
 const GROW_CARDS = [
   { icon: "\u270E", color: "var(--amber)", title: "Referral-getter post", body: "Draft a first social post from the template \u2014 story + one clear call to book.", status: "draft", src: "Social Media Marketing 1" },
@@ -31,33 +28,33 @@ const GROW_CARDS = [
   { icon: "\u25C9", color: "var(--amber)", title: "5 discovery calls", body: "Book five 15-minute discovery calls this month \u2014 the top of the funnel.", status: "1/5", src: "Introduction to Business" },
 ];
 
-const REFRESHERS = [
-  { label: "Count 5\u21920 pacing", ago: "last drilled 9 days ago" },
-  { label: "Finger-spread verify", ago: "last drilled 12 days ago" },
-  { label: "PHS full anatomy", ago: "never drilled" },
-];
+/* REFRESHERS removed — now computed from academy store drill stats */
 
 export default function Logbook() {
-  const [reps, setReps] = useState(INITIAL_REPS);
+  const { store, simXp, realXp, weekStreak, drillStats, logRep } = useAcademy();
   const [fClient, setFClient] = useState("");
   const [fType, setFType] = useState(TYPE_OPTIONS[0]);
   const [fOutcome, setFOutcome] = useState(OUTCOME_OPTIONS[0]);
 
+  const reps = store.repLog || [];
   const contactCount = reps.filter((r) => r.type === "Client contact").length;
-  const realXp = reps.reduce((s, r) => s + r.xp, 0);
-  const simXp = 3720;
+
+  /* refreshers — drills sorted by staleness */
+  const refreshers = useMemo(() => {
+    const NAMES = { count50: "Count 5\u21920 pacing", fingerspread: "Finger-spread verify", phs_anatomy: "PHS full anatomy", staircase: "Staircase deepener", armraise: "Arm-raising induction" };
+    const candidates = ["count50", "fingerspread", "staircase", "armraise", "pretalk"];
+    return candidates.map((id) => {
+      const s = drillStats[id];
+      const label = NAMES[id] || id;
+      if (!s) return { label, ago: "never drilled" };
+      const days = Math.round((Date.now() - new Date(s.lastDate + "T00:00:00").getTime()) / 86400000);
+      return { label, ago: `last drilled ${days} day${days !== 1 ? "s" : ""} ago` };
+    }).sort((a, b) => (a.ago === "never drilled" ? -1 : 0) - (b.ago === "never drilled" ? -1 : 0)).slice(0, 3);
+  }, [drillStats]);
 
   function addRep() {
     if (!fClient.trim()) return;
-    const rep = {
-      date: new Date().toISOString().slice(0, 10),
-      client: fClient.trim(),
-      type: fType,
-      outcome: fOutcome,
-      xp: XP_MAP[fType] || 0,
-      verified: "\u231B pending",
-    };
-    setReps([rep, ...reps]);
+    logRep({ client: fClient.trim(), type: fType, outcome: fOutcome });
     setFClient("");
   }
 
@@ -109,7 +106,7 @@ export default function Logbook() {
           { label: "Sim XP", value: simXp.toLocaleString(), color: "var(--teal)" },
           { label: "Real XP \u00B710\u00D7", value: (realXp * 10).toLocaleString(), color: "var(--amber)" },
           { label: "Real reps", value: reps.length, color: "var(--ink)" },
-          { label: "Week streak", value: 6, color: "var(--ok)" },
+          { label: "Week streak", value: weekStreak, color: "var(--ok)" },
         ].map((s) => (
           <div key={s.label} style={{ background: "var(--panel)", padding: "16px 18px", textAlign: "center" }}>
             <div style={{ ...mono9, color: "var(--mist)", marginBottom: 6 }}>{s.label}</div>
@@ -264,7 +261,7 @@ export default function Logbook() {
           {/* Due for refresher */}
           <div style={panelBox}>
             <div style={{ ...mono9, color: "var(--iris)", marginBottom: 12 }}>Due for refresher</div>
-            {REFRESHERS.map((r) => (
+            {refreshers.map((r) => (
               <Link
                 key={r.label}
                 href="/lab"
