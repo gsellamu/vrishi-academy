@@ -77,6 +77,18 @@
       "label": "Abreaction handling (8m)",
       "minutes": 8,
       "focus": "abreaction_drill"
+    },
+    {
+      "id": "inferred30",
+      "label": "Inferred Mastery (30m)",
+      "minutes": 30,
+      "focus": "inferred_mastery"
+    },
+    {
+      "id": "inferredadv35",
+      "label": "Inferred Advanced: Overload + Confusion (35m)",
+      "minutes": 35,
+      "focus": "inferred_advanced"
     }
   ],
   "sequences": {
@@ -175,6 +187,22 @@
     ],
     "abreaction_drill": [
       "abreaction"
+    ],
+    "inferred_mastery": [
+      "inferred_rapport",
+      "inferred_induction",
+      "inferred_deepening",
+      "inferred_suggestions",
+      "inferred_metaphor",
+      "countout"
+    ],
+    "inferred_advanced": [
+      "inferred_rapport",
+      "overload_7pm2",
+      "ericksonian_confusion",
+      "inferred_deepening",
+      "inferred_suggestions",
+      "countout"
     ]
   },
   "drills": [
@@ -760,6 +788,216 @@
         "Correctly branched (accept & continue vs note & move on)",
         "Read the physical indicator (release / fear / trust)",
         "Avoided forcing; treated it as information"
+      ]
+    },
+    {
+      "id": "inferred_rapport",
+      "name": "Inferred Rapport: Pace, Mirror & Permissive Frame",
+      "weight": 3,
+      "min": 2,
+      "prompter": [
+        "Match breathing rhythm before any verbal lead - count three cycles.",
+        "Mirror posture subtly: head tilt, hand position, weight shift.",
+        "Pre-induction for emotionals: 'You will hear sounds that seem louder than usual. Many thoughts will pass through your mind, even questions about whether you are hypnotized.'",
+        "Control frame: 'This is a do-with process, not a do-to process. A cooperative process.'",
+        "Normalize: 'Whatever you experience is right for you - some feel light, some heavy, some just calm.'",
+        "Pace with three verifiable truisms: 'You're here, sitting comfortably, you can hear my voice...'",
+        "Lead on a connector: '...and that means the part of you that wants this change is already at work.'",
+        "Use their predicates back: if they said 'I see what you mean' -> visual; 'I feel stuck' -> kinesthetic.",
+        "Permissive frame: 'you might notice,' 'perhaps,' 'you may find' - never 'you will.'",
+        "Name their affect back: 'I can see this matters to you' - verify, don't assume.",
+        "Emotional client axis: they need to feel UNDERSTOOD, not instructed.",
+        "Resistance = insufficient rapport. Flex the approach, not the client.",
+        "Close forward: 'And because of that...' - bridge to the induction."
+      ],
+      "check": [
+        "Breathing rhythm matched before the first verbal lead",
+        "At least two body-language channels mirrored",
+        "Three verifiable truisms paced before leading",
+        "Permissive language throughout (no 'you will' commands)",
+        "Client's own predicates used in at least one lead",
+        "Emotional axis held (understood, not instructed)",
+        "Clean bridge into the induction"
+      ]
+    },
+    {
+      "id": "inferred_induction",
+      "name": "Inferred Arm-Raising Induction (Permissive Lane)",
+      "weight": 6,
+      "min": 4,
+      "prompter": [
+        "Setup: arm on table, feet flat, glasses off, no gum. Lift arm to face 4x to preview the path.",
+        "Visualize: 'Look at your arm, elbow to fingertips - get a good picture - close your eyes.'",
+        "Suggestibility questions: sleep-walk? replay arguments? lemon? visualize? (Weight the last two.)",
+        "Physiology nods: breathing deeper -> nod. Lips dry, urge to swallow -> nod. Eye flutter under lids.",
+        "Permissive conversion: 'imagine your hand becoming lighter - very, very light - light as a feather.'",
+        "Ownership frame: 'as you begin to CREATE that sensation, it gives you a greater sense of control.'",
+        "Misdirection: 'at the same time your right hand feels heavier on your leg, feet pressing into the floor.'",
+        "Tie to breathing: 'with every breath, that sense of the left hand growing lighter and lighter.'",
+        "Allow, don't command: 'you may notice little pulling or tugging motions beginning.'",
+        "Double bind: 'I wonder whether it's the hand being drawn to the face, or the face to the hand, or both drawn together. I will let you decide.'",
+        "Power words for emotionals: lifting, rising, twisting, turning, lighter, upwards, inwards.",
+        "Never force the rise - if the hand is slow, pace it: 'a tendency to lift with each breath.'",
+        "If stalling: 'when the hand touches the table, you reach the peak of your suggestibility' (go-with).",
+        "Withhold closure: let the client close the gap at their own pace.",
+        "Skin contact + nod -> SNAP -> Deep Sleep.",
+        "PHS anatomy immediately: cue + purpose + permission + quickly/calmly/deeply + body relaxes.",
+        "Key vocabulary: allow, permit, imagine, drift, float, notice, gentle, tendency, choose, peaceful."
+      ],
+      "check": [
+        "Permissive framing throughout (no direct 'it IS lifting' commands)",
+        "Balloon/helium imagery used for lightness",
+        "Ownership frame delivered ('you are creating')",
+        "Double bind offered (hand-to-face / face-to-hand / both)",
+        "Misdirection woven with heavy-hand imagery",
+        "Stalling handled with go-with reframe (not forced)",
+        "Closure withheld until client initiates",
+        "Skin contact -> snap -> deep sleep -> PHS"
+      ]
+    },
+    {
+      "id": "inferred_deepening",
+      "name": "Inferred Deepening: Eye Fascination + Permissive Staircase",
+      "weight": 4,
+      "min": 3,
+      "prompter": [
+        "Eye fascination (E-lane): spot on ceiling, gaze may drift and come back gently.",
+        "Build eyelid awareness gradually: 'you can begin to notice the small muscles around the eyes.'",
+        "Withhold closure: 'the eyelids may start to feel heavy... but not just yet.'",
+        "Blink-heavy loop: 'that blink is a little slower than normal' - pace the natural blinks.",
+        "Vision blur: 'the spot might waver, or blur, or seem to shift shape or color.'",
+        "Permissive close: 'when you are ready, you can let them close.'",
+        "Staircase (permissive variant): their scene, not yours - garden path, forest trail, beach steps.",
+        "Sensory detail per step: texture, light, scent, warmth - not just counting.",
+        "Pace language: 'with each step... drifting... settling... each one a little more comfortable.'",
+        "At the bottom: 'a place of complete comfort and safety - Deep Sleep.'",
+        "PHS repeated."
+      ],
+      "check": [
+        "Eye fascination ran permissive (withhold closure, not command-close)",
+        "Blink-heavy loop observed and paced (not rushed)",
+        "Vision-blur suggestion offered as possibility",
+        "Close initiated by the client (not commanded)",
+        "Staircase scene chosen by the client's imagery",
+        "Sensory detail on at least three steps",
+        "Bottom anchored to comfort + deep sleep + PHS"
+      ]
+    },
+    {
+      "id": "inferred_suggestions",
+      "name": "Inferred Suggestions: Permissive Therapeutic Language",
+      "weight": 4,
+      "min": 3,
+      "prompter": [
+        "Core principle: inferred suggestions imply change is happening rather than commanding it.",
+        "Permissive openers: 'you might find...', 'perhaps you notice...', 'you may begin to...'",
+        "Presupposition: 'as you continue to relax' (assumes they ARE relaxing).",
+        "Embedded commands within longer sentences: 'and I wonder if you can FEEL THAT COMFORT spreading.'",
+        "Truism chains: three observable truths, then the suggestion rides the yes-set momentum.",
+        "Say it -> See it -> Feel it: paint the outcome scene, then anchor it in the body.",
+        "Future-pace: 'and tomorrow, in that meeting, you might notice how calm your hands feel.'",
+        "Double bind: 'you can let this change happen quickly, or you can allow it to unfold gradually.'",
+        "Tag questions: 'that feels comfortable, doesn't it?' - lock in the acceptance.",
+        "Permissive coda: 'no rush - unfolding naturally, with each breath.'",
+        "Identity close: 'not becoming someone new - remembering who you have always been.'",
+        "Keep suggestions tied to the client's stated goal and their own keywords."
+      ],
+      "check": [
+        "At least two permissive openers used (might/perhaps/may)",
+        "At least one presupposition delivered smoothly",
+        "Embedded command marked with voice drop and slight pause",
+        "Truism chain (3 truths + suggestion) delivered",
+        "Say-See-Feel arc complete for the main suggestion",
+        "Future-pace placed in a specific scene from their life",
+        "Suggestions used the client's own keywords",
+        "Unhurried delivery with the permissive coda"
+      ]
+    },
+    {
+      "id": "inferred_metaphor",
+      "name": "Inferred Metaphor & Guided Imagery Design",
+      "weight": 3,
+      "min": 2,
+      "prompter": [
+        "Metaphor structure: isomorphic (parallel structure to the client's situation, not identical).",
+        "Elements: protagonist + challenge + resource + transformation + new normal.",
+        "Nature metaphors: tree (roots=foundation, branches=growth), river (flow around obstacles), seed (dormant potential).",
+        "Journey metaphors: path through a forest (dark to light), mountain climb (effort to vista), ocean crossing.",
+        "Transformation metaphors: caterpillar/butterfly, ice melting to water, dawn after night.",
+        "Multisensory: paint with all senses - what they see, hear, feel, smell in the scene.",
+        "Embed the therapeutic message: the protagonist's resolution mirrors the client's desired change.",
+        "The leaf and blade of grass (Kappasinian): leaf twists free, glides down, rests at the root; blade of grass persevered through its own motivation - 'the same way YOU are motivated.'",
+        "Let the metaphor breathe - silence between images lets the subconscious do its work.",
+        "Close: 'carry these feelings forward into the days ahead.'"
+      ],
+      "check": [
+        "Metaphor was isomorphic to the client's situation",
+        "All five elements present (protagonist, challenge, resource, transformation, new normal)",
+        "At least three senses engaged (visual + two others)",
+        "Therapeutic message embedded within the narrative",
+        "Pacing allowed silence between key images",
+        "Metaphor resolution mirrored the client's desired outcome",
+        "Closing carried the feelings forward"
+      ]
+    },
+    {
+      "id": "overload_7pm2",
+      "name": "7 ± 2 Overload Induction",
+      "weight": 5,
+      "min": 4,
+      "prompter": [
+        "Frame: 'allow yourself to be as comfortable as you want to be, listening to the sound of my voice.'",
+        "Stack item 1: breathing - 'concentrating on your breathing, slowly and steadily.'",
+        "Stack item 2: self-image - 'imagine how comfortable you might look while relaxing in that chair.'",
+        "Stack item 3: head weight - 'noticing the weight of your head against the back of the chair.'",
+        "Stack item 4: ambient sound - 'while listening to the sounds in the room.'",
+        "Stack item 5: feet - 'notice the way your feet feel on the floor.'",
+        "Stack item 6: arms - 'perhaps how your arms feel.'",
+        "Stack item 7: temperature - 'adding an awareness of the temperature of the room.'",
+        "Stack item 8: eyes - 'and how your eyes feel while you're thinking about all those other things.'",
+        "Recap all 9 rapidly: voice, breathing, head weight, self-image, temperature, feet, arms, music, eyes.",
+        "Collapse: 'And now you can think how good it will feel when you simply allow yourself to think of only the most important thing of all...'",
+        "Single focus: '...how relaxed you can be now. No need to think anything at all. Nobody wanting anything. Nothing for you to do except to... relax.'",
+        "Keep a cheat sheet of all 9 items visible - if you lose track, that's fine, the confusion IS the mechanism."
+      ],
+      "check": [
+        "At least 7 sensory items stacked before the collapse",
+        "Items added one at a time (not dumped all at once)",
+        "Recap listed items rapidly to create overload pressure",
+        "Collapse to single focus was smooth and inviting",
+        "Relief framing used ('how good it will feel to think of only one thing')",
+        "Permissive language throughout (no direct commands)",
+        "Pace was unhurried during stacking, then slightly faster at recap",
+        "Ended with clear relaxation anchor"
+      ]
+    },
+    {
+      "id": "ericksonian_confusion",
+      "name": "Ericksonian Confusion with Levitation",
+      "weight": 5,
+      "min": 4,
+      "prompter": [
+        "Frame: 'I'm not going to ask you to do anything uncomfortable. This is a learning process.'",
+        "Conscious/subconscious split: 'the conscious mind will hear the words and the subconscious mind will make the choices.'",
+        "Hand observation: 'look at your two hands - you may see similarities, or perhaps differences.'",
+        "Left/right bind: 'you may choose the left hand - perhaps that is the RIGHT choice for you. Or the right hand - the other will be the only one LEFT.'",
+        "Subconscious choice: 'your subconscious mind knows which of those two hands is lighter. Your conscious mind may be aware of the choices... or perhaps it is not.'",
+        "Lightness build: 'the feeling of lightness may start as a simple physical awareness of the difference between those hands.'",
+        "Balloon imagery: 'it's almost as if a balloon has been tied around the wrist, causing the hand to rise.'",
+        "Eyes close option: 'if you find your eyes getting tired, you can allow them to close - and the relaxation will be twice as deep.'",
+        "Hand choice: 'that hand can come back to rest on the leg or it can rise higher. Your subconscious mind makes the choice.'",
+        "Tranquility anchor: 'allow yourself to experience a moment of tranquility, more peaceful than any experience you have ever identified.'",
+        "Post-anchor: 'at any time, if you experience difficulty, you can bring yourself back to this point.'"
+      ],
+      "check": [
+        "Frame established as learning (not commanding)",
+        "Conscious/subconscious language used throughout",
+        "Left/right word play delivered with confusion intent",
+        "Client never told which hand to lift (subconscious decides)",
+        "Balloon imagery introduced for lightness",
+        "Eye closure offered as option (not commanded)",
+        "Tranquility anchor set at deepening",
+        "Post-hypnotic anchor delivered (return to this point)"
       ]
     }
   ]
