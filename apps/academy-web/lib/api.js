@@ -134,3 +134,47 @@ export const progressApi = {
       body: JSON.stringify(data),
     }),
 };
+
+/* ── CSP (Community Service Program) ── */
+export const cspApi = {
+  /* public -- no auth required */
+  submitIntake: (data) =>
+    fetch(`${PROGRESS_SVC}/csp/intakes`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }),
+
+  /* auth required */
+  getIntakes: (status) =>
+    apiFetch(PROGRESS_SVC, `/csp/intakes${status ? "?status=" + status : ""}`),
+
+  updateIntakeStatus: (id, newStatus, notes) =>
+    apiFetch(PROGRESS_SVC, `/csp/intakes/${id}/status?new_status=${encodeURIComponent(newStatus)}${notes ? "&notes=" + encodeURIComponent(notes) : ""}`, {
+      method: "PUT",
+    }),
+
+  getClients: (status) =>
+    apiFetch(PROGRESS_SVC, `/csp/clients${status ? "?status=" + status : ""}`),
+
+  addClient: (data) =>
+    apiFetch(PROGRESS_SVC, "/csp/clients", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  updateClient: (id, data) =>
+    apiFetch(PROGRESS_SVC, `/csp/clients/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+
+  getConferences: () =>
+    apiFetch(PROGRESS_SVC, "/csp/conferences"),
+
+  addConference: (data) =>
+    apiFetch(PROGRESS_SVC, "/csp/conferences", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+};

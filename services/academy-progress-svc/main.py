@@ -38,6 +38,16 @@ Preferences:
   GET    /preferences         -- user preferences
   PUT    /preferences         -- update preferences
 
+CSP (Community Service Program):
+  POST   /csp/intakes           -- submit intake form (public, no auth)
+  GET    /csp/intakes           -- list intake submissions (auth)
+  PUT    /csp/intakes/{id}/status -- update intake status (auth)
+  GET    /csp/clients           -- list practitioner's clients (auth)
+  POST   /csp/clients           -- add a client (auth)
+  PUT    /csp/clients/{id}      -- update client fields (auth)
+  GET    /csp/conferences       -- list conferences (auth)
+  POST   /csp/conferences       -- add a conference (auth)
+
 Health:
   GET    /healthz             -- liveness (from service_factory)
   GET    /readyz              -- readiness (from service_factory)
@@ -1157,6 +1167,375 @@ async def update_preferences(
                     {"fields": [s.split(" = ")[0] for s in sets]},
                     get_client_ip(request))
     return await get_preferences(auth=auth, db=db)
+
+
+# ---------------------------------------------------------------------------
+# CSP -- Community Service Program
+# ---------------------------------------------------------------------------
+class SubmitIntakeRequest(BaseModel):
+    full_name: str = Field(max_length=255)
+    email: str = Field(max_length=255)
+    phone: str | None = Field(None, max_length=50)
+    tier: str = Field(default="free", max_length=20)
+    concern: str = Field(max_length=5000)
+    prior_hypnosis: str = Field(default="none", max_length=20)
+    prior_detail: str | None = Field(None, max_length=2000)
+    medical_conditions: str | None = Field(None, max_length=2000)
+    medications: str | None = Field(None, max_length=2000)
+    mental_health: str | None = Field(None, max_length=2000)
+    seeing_provider: bool = False
+    provider_name: str | None = Field(None, max_length=255)
+    goals: str | None = Field(None, max_length=5000)
+    consent_agreed: bool = False
+    consent_signature: str | None = Field(None, max_length=255)
+    consent_date: str | None = Field(None, max_length=10)
+
+    @field_validator("tier")
+    @classmethod
+    def valid_tier(cls, v):
+        if v not in ("free", "paid"):
+            raise ValueError("tier must be free or paid")
+        return v
+
+    @field_validator("prior_hypnosis")
+    @classmethod
+    def valid_prior(cls, v):
+        if v not in ("none", "positive", "negative", "neutral"):
+            raise ValueError("prior_hypnosis must be none, positive, negative, or neutral")
+        return v
+
+
+class AddClientRequest(BaseModel):
+    initials: str = Field(max_length=10)
+    tier: str = Field(default="free", max_length=20)
+    concern: str | None = Field(None, max_length=2000)
+    referral_source: str | None = Field(None, max_length=255)
+    sessions_planned: int = Field(default=6, ge=1, le=50)
+    start_date: str | None = Field(None, max_length=10)
+    intake_id: str | None = Field(None, max_length=50)
+
+    @field_validator("tier")
+    @classmethod
+    def valid_tier(cls, v):
+        if v not in ("free", "$35", "$55"):
+            raise ValueError("tier must be free, $35, or $55")
+        return v
+
+
+class UpdateClientRequest(BaseModel):
+    sessions_completed: int | None = Field(None, ge=0, le=9999)
+    sessions_planned: int | None = Field(None, ge=1, le=50)
+    next_session_date: str | None = Field(None, max_length=30)
+    ccr_status: str | None = Field(None, max_length=20)
+    status: str | None = Field(None, max_length=20)
+    notes: str | None = Field(None, max_length=2000)
+
+    @field_validator("ccr_status")
+    @classmethod
+    def valid_ccr(cls, v):
+        if v is not None and v not in ("none", "filed", "due", "overdue"):
+            raise ValueError("ccr_status must be none, filed, due, or overdue")
+        return v
+
+    @field_validator("status")
+    @classmethod
+    def valid_status(cls, v):
+        if v is not None and v not in ("active", "completed", "dropped", "referred"):
+            raise ValueError("status must be active, completed, dropped, or referred")
+        return v
+
+
+class AddConferenceRequest(BaseModel):
+    faculty_name: str = Field(max_length=255)
+    conference_date: str = Field(max_length=10)
+    notes: str | None = Field(None, max_length=2000)
+
+
+# -- Intakes (public submit, auth for listing) --
+
+@app.post("/csp/intakes")
+async def submit_intake(
+    req: SubmitIntakeRequest,
+    request: Request,
+    db: DatabasePool = Depends(get_db),
+    cache: CacheService = Depends(get_cache),
+):
+    ip = get_client_ip(request)
+    await _rate_limit(cache, "csp_intake:{}".format(ip), window=300, max_hits=5)
+
+    consent_dt = None
+    if req.consent_date:
+        try:
+            consent_dt = date.fromisoformat(req.consent_date)
+        except ValueError:
+            raise HTTPException(422, "consent_date must be YYYY-MM-DD")
+
+    row = await db.fetchrow(
+        """INSERT INTO csp_intakes
+           (full_name, email, phone, tier, concern, prior_hypnosis, prior_detail,
+            medical_conditions, medications, mental_health, seeing_provider,
+            provider_name, goals, consent_agreed, consent_signature, consent_date)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
+           RETURNING id, created_at""",
+        req.full_name, req.email, req.phone, req.tier, req.concern,
+        req.prior_hypnosis, req.prior_detail, req.medical_conditions,
+        req.medications, req.mental_health, req.seeing_provider,
+        req.provider_name, req.goals, req.consent_agreed,
+        req.consent_signature, consent_dt,
+    )
+    return {"id": str(row["id"]), "status": "new", "created_at": str(row["created_at"])}
+
+
+@app.get("/csp/intakes")
+async def list_intakes(
+    status: str | None = None,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    if status:
+        if status not in ("new", "reviewed", "scheduled", "active", "completed", "declined"):
+            raise HTTPException(422, "Invalid status filter")
+        rows = await db.fetch(
+            "SELECT * FROM csp_intakes WHERE status = $1 ORDER BY created_at DESC LIMIT 100",
+            status,
+        )
+    else:
+        rows = await db.fetch(
+            "SELECT * FROM csp_intakes ORDER BY created_at DESC LIMIT 100",
+        )
+    return [
+        {
+            "id": str(r["id"]),
+            "full_name": r["full_name"],
+            "email": r["email"],
+            "phone": r["phone"],
+            "tier": r["tier"],
+            "concern": r["concern"],
+            "prior_hypnosis": r["prior_hypnosis"],
+            "status": r["status"],
+            "consent_agreed": r["consent_agreed"],
+            "created_at": str(r["created_at"]),
+        }
+        for r in rows
+    ]
+
+
+@app.put("/csp/intakes/{intake_id}/status")
+async def update_intake_status(
+    intake_id: str,
+    new_status: str,
+    notes: str | None = None,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+    audit: AuditService = Depends(get_audit),
+    request: Request = None,
+):
+    if new_status not in ("new", "reviewed", "scheduled", "active", "completed", "declined"):
+        raise HTTPException(422, "Invalid status")
+
+    sets = ["status = $1"]
+    vals = [new_status]
+    idx = 2
+    if notes is not None:
+        sets.append("notes = ${}".format(idx))
+        vals.append(notes)
+        idx += 1
+    vals.append(intake_id)
+
+    result = await db.execute(
+        "UPDATE csp_intakes SET {} WHERE id = ${}".format(", ".join(sets), idx),
+        *vals,
+    )
+    if result == "UPDATE 0":
+        raise HTTPException(404, "Intake not found")
+
+    await audit.log(auth.user_id, "update_intake_status", "csp_intakes",
+                    {"intake_id": intake_id, "new_status": new_status},
+                    get_client_ip(request))
+    return {"intake_id": intake_id, "status": new_status}
+
+
+# -- Clients (auth required) --
+
+@app.get("/csp/clients")
+async def list_clients(
+    status: str | None = None,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    if status:
+        if status not in ("active", "completed", "dropped", "referred"):
+            raise HTTPException(422, "Invalid status filter")
+        rows = await db.fetch(
+            """SELECT * FROM csp_clients
+               WHERE user_id = $1 AND status = $2
+               ORDER BY created_at DESC""",
+            auth.user_id, status,
+        )
+    else:
+        rows = await db.fetch(
+            "SELECT * FROM csp_clients WHERE user_id = $1 ORDER BY created_at DESC",
+            auth.user_id,
+        )
+    return [
+        {
+            "id": str(r["id"]),
+            "initials": r["initials"],
+            "tier": r["tier"],
+            "concern": r["concern"],
+            "referral_source": r["referral_source"],
+            "sessions_completed": r["sessions_completed"],
+            "sessions_planned": r["sessions_planned"],
+            "start_date": str(r["start_date"]) if r["start_date"] else None,
+            "last_session_date": str(r["last_session_date"]) if r["last_session_date"] else None,
+            "next_session_date": str(r["next_session_date"]) if r["next_session_date"] else None,
+            "ccr_status": r["ccr_status"],
+            "status": r["status"],
+            "notes": r["notes"],
+            "created_at": str(r["created_at"]),
+        }
+        for r in rows
+    ]
+
+
+@app.post("/csp/clients")
+async def add_client(
+    req: AddClientRequest,
+    request: Request,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+    cache: CacheService = Depends(get_cache),
+    audit: AuditService = Depends(get_audit),
+):
+    await _rate_limit(cache, "write:{}".format(auth.user_id))
+
+    start_dt = None
+    if req.start_date:
+        try:
+            start_dt = date.fromisoformat(req.start_date)
+        except ValueError:
+            raise HTTPException(422, "start_date must be YYYY-MM-DD")
+
+    intake_uuid = None
+    if req.intake_id:
+        try:
+            import uuid
+            intake_uuid = uuid.UUID(req.intake_id)
+        except ValueError:
+            raise HTTPException(422, "intake_id must be a valid UUID")
+
+    row = await db.fetchrow(
+        """INSERT INTO csp_clients
+           (user_id, initials, tier, concern, referral_source,
+            sessions_planned, start_date, intake_id)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+           RETURNING id, created_at""",
+        auth.user_id, req.initials, req.tier, req.concern,
+        req.referral_source, req.sessions_planned, start_dt, intake_uuid,
+    )
+    await audit.log(auth.user_id, "add_csp_client", "csp_clients",
+                    {"initials": req.initials, "tier": req.tier},
+                    get_client_ip(request))
+    return {"id": str(row["id"]), "created_at": str(row["created_at"])}
+
+
+@app.put("/csp/clients/{client_id}")
+async def update_client(
+    client_id: str,
+    req: UpdateClientRequest,
+    request: Request,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+    audit: AuditService = Depends(get_audit),
+):
+    sets, vals, idx = [], [], 1
+    for field in ("sessions_completed", "sessions_planned", "ccr_status", "status", "notes"):
+        val = getattr(req, field, None)
+        if val is not None:
+            sets.append("{} = ${}".format(field, idx))
+            vals.append(val)
+            idx += 1
+    if req.next_session_date is not None:
+        if req.next_session_date == "":
+            sets.append("next_session_date = NULL")
+        else:
+            try:
+                dt = datetime.fromisoformat(req.next_session_date)
+                sets.append("next_session_date = ${}".format(idx))
+                vals.append(dt)
+                idx += 1
+            except ValueError:
+                raise HTTPException(422, "next_session_date must be ISO datetime")
+
+    if not sets:
+        raise HTTPException(422, "No fields to update")
+
+    vals.extend([auth.user_id, client_id])
+    result = await db.execute(
+        "UPDATE csp_clients SET {} WHERE user_id = ${} AND id = ${}".format(
+            ", ".join(sets), idx, idx + 1
+        ),
+        *vals,
+    )
+    if result == "UPDATE 0":
+        raise HTTPException(404, "Client not found")
+
+    await audit.log(auth.user_id, "update_csp_client", "csp_clients",
+                    {"client_id": client_id, "fields": [s.split(" = ")[0] for s in sets]},
+                    get_client_ip(request))
+    return {"client_id": client_id, "updated": True}
+
+
+# -- Conferences (auth required) --
+
+@app.get("/csp/conferences")
+async def list_conferences(
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    rows = await db.fetch(
+        """SELECT * FROM csp_conferences
+           WHERE user_id = $1
+           ORDER BY conference_date DESC LIMIT 100""",
+        auth.user_id,
+    )
+    return [
+        {
+            "id": str(r["id"]),
+            "faculty_name": r["faculty_name"],
+            "conference_date": str(r["conference_date"]),
+            "notes": r["notes"],
+            "created_at": str(r["created_at"]),
+        }
+        for r in rows
+    ]
+
+
+@app.post("/csp/conferences")
+async def add_conference(
+    req: AddConferenceRequest,
+    request: Request,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+    cache: CacheService = Depends(get_cache),
+    audit: AuditService = Depends(get_audit),
+):
+    await _rate_limit(cache, "write:{}".format(auth.user_id))
+
+    try:
+        conf_date = date.fromisoformat(req.conference_date)
+    except ValueError:
+        raise HTTPException(422, "conference_date must be YYYY-MM-DD")
+
+    row = await db.fetchrow(
+        """INSERT INTO csp_conferences (user_id, faculty_name, conference_date, notes)
+           VALUES ($1,$2,$3,$4) RETURNING id, created_at""",
+        auth.user_id, req.faculty_name, conf_date, req.notes,
+    )
+    await audit.log(auth.user_id, "add_csp_conference", "csp_conferences",
+                    {"faculty_name": req.faculty_name, "date": req.conference_date},
+                    get_client_ip(request))
+    return {"id": str(row["id"]), "created_at": str(row["created_at"])}
 
 
 if __name__ == "__main__":

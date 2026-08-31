@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
+import { cspApi } from "../../lib/api";
 
 /* ================================================================
    VRishi Academy -- Community Service Program Landing + Intake
@@ -84,6 +85,8 @@ export default function CspLanding() {
   const [agreed, setAgreed] = useState(false);
   const [sig, setSig] = useState("");
   const [signed, setSigned] = useState(false);
+  const [intakeId, setIntakeId] = useState(null);
+  const [submitError, setSubmitError] = useState("");
 
   const intakeRef = useRef(null);
 
@@ -110,15 +113,63 @@ export default function CspLanding() {
     }
   };
 
-  const submitIntake = (e) => {
+  const priorMap = { "None": "none", "Yes -- positive": "positive", "Yes -- negative": "negative", "Yes -- neutral": "neutral" };
+
+  const submitIntake = async (e) => {
     e.preventDefault();
     if (submitting) return;
     setSubmitting(true);
-    setTimeout(() => { setSubmitting(false); setSubmitted(true); }, 900);
+    setSubmitError("");
+    try {
+      const r = await cspApi.submitIntake({
+        full_name: cname,
+        email: cmail,
+        phone: cphone || null,
+        tier: "free",
+        concern: q1,
+        prior_hypnosis: priorMap[q2] || "none",
+        medical_conditions: q3 || null,
+        medications: q4 || null,
+        mental_health: q5 || null,
+        goals: q6 || null,
+      });
+      if (r.ok) {
+        const data = await r.json();
+        setIntakeId(data.id);
+        setSubmitted(true);
+      } else {
+        const err = await r.json().catch(() => null);
+        setSubmitError(err?.detail || "Submission failed. Please try again.");
+      }
+    } catch {
+      setSubmitError("Could not reach the server. Please try again later.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const signConsent = () => {
-    if (canSign) setSigned(true);
+  const signConsent = async () => {
+    if (!canSign) return;
+    if (intakeId) {
+      try {
+        await cspApi.submitIntake({
+          full_name: cname,
+          email: cmail,
+          phone: cphone || null,
+          tier: "free",
+          concern: q1,
+          prior_hypnosis: priorMap[q2] || "none",
+          medical_conditions: q3 || null,
+          medications: q4 || null,
+          mental_health: q5 || null,
+          goals: q6 || null,
+          consent_agreed: true,
+          consent_signature: sig.trim(),
+          consent_date: new Date().toISOString().slice(0, 10),
+        });
+      } catch { /* consent recorded locally even if API fails */ }
+    }
+    setSigned(true);
   };
 
   return (
@@ -340,6 +391,9 @@ export default function CspLanding() {
                   <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#7fb98a", flex: "none" }}></span>
                   Intake received -- consent required below
                 </div>
+              )}
+              {submitError && (
+                <div style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#e0685e" }}>{submitError}</div>
               )}
             </div>
 

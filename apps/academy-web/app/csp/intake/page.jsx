@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { cspApi } from "../../../lib/api";
 
 /* ================================================================
    VRishi Academy -- CSP Intake Flow
@@ -278,7 +279,7 @@ export default function CSPIntake() {
 
   /* ---------- nav ---------- */
 
-  const goNext = () => {
+  const goNext = async () => {
     if (step < 7) {
       setStep(step + 1);
       setSubmitError(false);
@@ -291,11 +292,38 @@ export default function CSPIntake() {
     }
     setSubmitting(true);
     setSubmitError(false);
-    setTimeout(() => {
+    const priorMap = { first: "none", pos: "positive", neu: "neutral", neg: "negative" };
+    try {
+      const r = await cspApi.submitIntake({
+        full_name: fullName,
+        email,
+        phone: phone || null,
+        tier: tier === "paid" ? "paid" : "free",
+        concern,
+        prior_hypnosis: priorMap[prior] || "none",
+        prior_detail: priorMore || null,
+        medical_conditions: noConditions ? null : ([...chips, conditionNotes].filter(Boolean).join("; ") || null),
+        medications: noMeds ? null : (medsNotes || null),
+        mental_health: noMH ? null : (mhNotes || null),
+        seeing_provider: seeingProvider,
+        provider_name: seeingProvider ? (providerName || null) : null,
+        goals: goals || null,
+        consent_agreed: agreed,
+        consent_signature: sig.trim(),
+        consent_date: new Date().toISOString().slice(0, 10),
+      });
+      if (r.ok) {
+        setDone(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        const err = await r.json().catch(() => null);
+        setSubmitError(err?.detail || true);
+      }
+    } catch {
+      setSubmitError(true);
+    } finally {
       setSubmitting(false);
-      setDone(true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 1100);
+    }
   };
 
   const goBack = () => {

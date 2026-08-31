@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import gapSeed from "../../data/gap.json";
 import { useAcademy } from "../../lib/academy-store";
+import { cspApi } from "../../lib/api";
 
 /* ── helpers ─────────────────────────────────────────────────── */
 function daysTo(dateStr) {
@@ -91,6 +92,8 @@ export default function CspDashboard() {
   const [addOpen, setAddOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [clients, setClients] = useState(DEMO_CLIENTS);
+  const [conferences, setConferences] = useState(DEMO_CONFERENCES);
+  const [apiReady, setApiReady] = useState(false);
 
   /* form fields */
   const [fInitials, setFInitials] = useState("");
@@ -99,11 +102,54 @@ export default function CspDashboard() {
   const [fReferral, setFReferral] = useState("");
   const [fStart, setFStart] = useState("");
 
+  /* conference form */
+  const [confOpen, setConfOpen] = useState(false);
+  const [fFaculty, setFFaculty] = useState("");
+  const [fConfDate, setFConfDate] = useState("");
+  const [fConfNote, setFConfNote] = useState("");
+
+  /* load real data on mount */
+  const loadData = useCallback(async () => {
+    try {
+      const [cRes, confRes] = await Promise.all([
+        cspApi.getClients(),
+        cspApi.getConferences(),
+      ]);
+      if (cRes.ok && confRes.ok) {
+        const cData = await cRes.json();
+        const confData = await confRes.json();
+        if (cData.length > 0 || confData.length > 0) {
+          setApiReady(true);
+          setClients(cData.map((c) => {
+            const sessLabel = `${c.sessions_completed} of ${c.sessions_planned}`;
+            const lastDate = c.last_session_date
+              ? new Date(c.last_session_date).toLocaleDateString("en-US", { month: "short", day: "numeric" })
+              : "\u2014";
+            const nextDate = c.next_session_date
+              ? new Date(c.next_session_date).toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
+              : "Not booked";
+            return {
+              ...makeRow(c.initials, c.tier === "free" ? "Free" : c.tier, sessLabel, lastDate, nextDate, c.ccr_status || "due", c.status, c.concern || "TBD"),
+              id: c.id,
+            };
+          }));
+          setConferences(confData.map((c) => ({
+            date: new Date(c.conference_date).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+            faculty: c.faculty_name,
+            note: c.notes || "",
+          })));
+        }
+      }
+    } catch { /* fallback to demo data */ }
+  }, []);
+
+  useEffect(() => { loadData(); }, [loadData]);
+
   /* computed values */
   const daysLeft = daysTo(gap.hardStop);
   const weeksLeft = Math.max(1, Math.round(daysLeft / 7));
   const contactsDone = gap.contacts ? gap.contacts.done : 0;
-  const confDone = gap.conferences ? gap.conferences.done : 3;
+  const confDone = apiReady ? conferences.length : (gap.conferences ? gap.conferences.done : 3);
   const clientCount = clients.filter((c) => c.status === "Active").length;
   const isEmpty = clients.length === 0;
 
@@ -116,25 +162,69 @@ export default function CspDashboard() {
   }
 
   /* add client */
-  function addClient() {
+  async function addClient() {
     if (!fInitials.trim()) {
       setAddOpen(false);
       return;
     }
-    const tierLabel = fTier.startsWith("Free") ? "Free" : fTier.split(" ")[0];
-    const now = new Date();
-    const dateStr = now.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-    const newRow = makeRow(
-      fInitials.trim(), tierLabel, "0 of 6", dateStr, "Not booked", "due", "active",
-      fConcern.trim() || "TBD"
-    );
-    setClients((prev) => [...prev, newRow]);
+    const tierLabel = fTier.startsWith("Free") ? "free" : fTier.split(" ")[0];
+    try {
+      const r = await cspApi.addClient({
+        initials: fInitials.trim(),
+        tier: tierLabel,
+        concern: fConcern.trim() || null,
+        referral_source: fReferral.trim() || null,
+        sessions_planned: 6,
+        start_date: fStart || null,
+      });
+      if (r.ok) {
+        setApiReady(true);
+        await loadData();
+      }
+    } catch { /* fallback: add locally */ }
+    if (!apiReady) {
+      const displayTier = fTier.startsWith("Free") ? "Free" : fTier.split(" ")[0];
+      const now = new Date();
+      const dateStr = now.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      const newRow = makeRow(
+        fInitials.trim(), displayTier, "0 of 6", dateStr, "Not booked", "due", "active",
+        fConcern.trim() || "TBD"
+      );
+      setClients((prev) => [...prev, newRow]);
+    }
     setFInitials("");
     setFTier(TIER_OPTIONS[0]);
     setFConcern("");
     setFReferral("");
     setFStart("");
     setAddOpen(false);
+  }
+
+  /* add conference */
+  async function addConference() {
+    if (!fFaculty.trim() || !fConfDate) {
+      setConfOpen(false);
+      return;
+    }
+    try {
+      const r = await cspApi.addConference({
+        faculty_name: fFaculty.trim(),
+        conference_date: fConfDate,
+        notes: fConfNote.trim() || null,
+      });
+      if (r.ok) {
+        setApiReady(true);
+        await loadData();
+      }
+    } catch { /* fallback: add locally */ }
+    if (!apiReady) {
+      const dateStr = new Date(fConfDate + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      setConferences((prev) => [{ date: dateStr, faculty: fFaculty.trim(), note: fConfNote.trim() }, ...prev]);
+    }
+    setFFaculty("");
+    setFConfDate("");
+    setFConfNote("");
+    setConfOpen(false);
   }
 
   /* inline style shorthands */
@@ -643,7 +733,10 @@ export default function CspDashboard() {
             letterSpacing: ".14em", textTransform: "uppercase", color: "#8b85a0",
           }}>
             <span>Conferences</span>
-            <span style={{ color: "#8b7fd4" }}>{confDone} / 24</span>
+            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+              <span style={{ color: "#8b7fd4" }}>{confDone} / 24</span>
+              <button type="button" onClick={() => setConfOpen(!confOpen)} style={{ background: confOpen ? "transparent" : "#8b7fd4", color: confOpen ? "#8b85a0" : "#0e0d14", border: `1px solid ${confOpen ? "#322c44" : "#8b7fd4"}`, borderRadius: 8, padding: "5px 10px", fontFamily: "ui-monospace,Menlo,monospace", fontSize: "9px", letterSpacing: ".1em", textTransform: "uppercase", cursor: "pointer" }}>{confOpen ? "Cancel" : "+ Log"}</button>
+            </div>
           </div>
           <div style={{ padding: 18, display: "flex", flexDirection: "column", gap: 18 }}>
             {/* progress bar */}
@@ -655,6 +748,25 @@ export default function CspDashboard() {
                 borderRadius: 40,
               }} />
             </div>
+
+            {/* add conference form */}
+            {confOpen && (
+              <div style={{ border: "1px solid #262234", borderRadius: 12, background: "#1b1826", padding: 14, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 12, alignItems: "end" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <label htmlFor="cf" style={monoSmall}>Faculty</label>
+                  <input id="cf" placeholder="J. Aguilar" value={fFaculty} onChange={(e) => setFFaculty(e.target.value)} style={inputStyle} />
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <label htmlFor="cd" style={monoSmall}>Date</label>
+                  <input id="cd" type="date" value={fConfDate} onChange={(e) => setFConfDate(e.target.value)} style={inputStyle} />
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <label htmlFor="cn" style={monoSmall}>Notes</label>
+                  <input id="cn" placeholder="Topic discussed" value={fConfNote} onChange={(e) => setFConfNote(e.target.value)} style={inputStyle} />
+                </div>
+                <button type="button" onClick={addConference} style={{ background: "#8b7fd4", color: "#0e0d14", border: "none", borderRadius: 8, padding: "10px 14px", fontFamily: "ui-monospace,Menlo,monospace", fontSize: "10px", fontWeight: 650, letterSpacing: ".1em", textTransform: "uppercase", cursor: "pointer" }}>Save</button>
+              </div>
+            )}
 
             {/* next conference */}
             <div style={{
@@ -699,7 +811,7 @@ export default function CspDashboard() {
               }}>
                 Recent log
               </div>
-              {DEMO_CONFERENCES.map((c, i) => (
+              {conferences.map((c, i) => (
                 <div
                   key={`conf-${i}`}
                   style={{
