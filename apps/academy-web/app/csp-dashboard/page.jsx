@@ -109,7 +109,7 @@ export default function CspDashboard() {
 
   /* copy intake link */
   function copyLink() {
-    const url = "https://vrishihypno.com/csp";
+    const url = "https://pocketsuite.io/book/vrishihypno";
     if (navigator.clipboard) navigator.clipboard.writeText(url).catch(() => {});
     setCopied(true);
     setTimeout(() => setCopied(false), 1800);
@@ -216,7 +216,7 @@ export default function CspDashboard() {
             flex: "none",
           }}
         >
-          {copied ? "Copied \u2713" : "Copy intake link"}
+          {copied ? "Copied \u2713" : "Copy booking link"}
         </button>
       </div>
 
@@ -544,7 +544,7 @@ export default function CspDashboard() {
                   No clients yet
                 </div>
                 <div style={{ fontSize: 14, color: "#5b566d" }}>
-                  Share your intake link to get started.
+                  Share your PocketSuite booking link to get started.
                 </div>
               </div>
             )}

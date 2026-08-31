@@ -132,8 +132,8 @@ export default function CspLanding() {
             <h1 style={{ fontFamily: "Fraunces,Georgia,serif", fontWeight: 340, fontSize: "clamp(38px,5.4vw,62px)", lineHeight: 1.06, letterSpacing: "-.02em", color: "#e9e4f2", marginBottom: 18 }}>Free &amp; Low-Cost<br />Hypnotherapy</h1>
             <p style={{ fontSize: 16, lineHeight: 1.65, color: "#8b85a0", maxWidth: "52ch", margin: "0 0 28px" }}>Through the Hypnosis Motivation Institute Community Service Program. Sessions are provided by a Certified Master Hypnotist completing practicum requirements, at no cost or reduced cost, for vocational and avocational self-improvement.</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
-              <button type="button" onClick={goIntake} style={{ background: "#8b7fd4", color: "#0e0d14", border: "none", borderRadius: 8, padding: "14px 24px", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 650, letterSpacing: ".1em", textTransform: "uppercase", cursor: "pointer" }}>Begin Intake</button>
-              <div style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, letterSpacing: ".06em", color: "#5b566d" }}>6 questions &middot; about 4 minutes</div>
+              <a href="https://pocketsuite.io/book/vrishihypno" target="_blank" rel="noopener noreferrer" style={{ background: "#8b7fd4", color: "#0e0d14", border: "none", borderRadius: 8, padding: "14px 24px", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 650, letterSpacing: ".1em", textTransform: "uppercase", cursor: "pointer", textDecoration: "none", display: "inline-block" }}>Book Now</a>
+              <button type="button" onClick={goIntake} style={{ background: "transparent", color: "#8b85a0", border: "1px solid #322c44", borderRadius: 8, padding: "13px 22px", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", cursor: "pointer" }}>Clinical Pre-Screening</button>
             </div>
           </div>
 
