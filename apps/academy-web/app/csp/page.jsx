@@ -183,7 +183,8 @@ export default function CspLanding() {
             <h1 style={{ fontFamily: "Fraunces,Georgia,serif", fontWeight: 340, fontSize: "clamp(38px,5.4vw,62px)", lineHeight: 1.06, letterSpacing: "-.02em", color: "#e9e4f2", marginBottom: 18 }}>Free &amp; Low-Cost<br />Hypnotherapy</h1>
             <p style={{ fontSize: 16, lineHeight: 1.65, color: "#8b85a0", maxWidth: "52ch", margin: "0 0 28px" }}>Through the Hypnosis Motivation Institute Community Service Program. Sessions are provided by a Certified Master Hypnotist completing practicum requirements, at no cost or reduced cost, for vocational and avocational self-improvement.</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
-              <a href="https://pocketsuite.io/book/vrishihypno" target="_blank" rel="noopener noreferrer" style={{ background: "#8b7fd4", color: "#0e0d14", border: "none", borderRadius: 8, padding: "14px 24px", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 650, letterSpacing: ".1em", textTransform: "uppercase", cursor: "pointer", textDecoration: "none", display: "inline-block" }}>Book Now</a>
+              <a href="https://calendly.com/vrishihypno/90min" target="_blank" rel="noopener noreferrer" style={{ background: "#7fb98a", color: "#0e0d14", border: "none", borderRadius: 8, padding: "14px 24px", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 650, letterSpacing: ".1em", textTransform: "uppercase", cursor: "pointer", textDecoration: "none", display: "inline-block" }}>Book Free Session</a>
+              <a href="https://pocketsuite.io/book/vrishihypno" target="_blank" rel="noopener noreferrer" style={{ background: "#8b7fd4", color: "#0e0d14", border: "none", borderRadius: 8, padding: "14px 24px", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 650, letterSpacing: ".1em", textTransform: "uppercase", cursor: "pointer", textDecoration: "none", display: "inline-block" }}>Book Paid Session</a>
               <button type="button" onClick={goIntake} style={{ background: "transparent", color: "#8b85a0", border: "1px solid #322c44", borderRadius: 8, padding: "13px 22px", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", cursor: "pointer" }}>Clinical Pre-Screening</button>
             </div>
           </div>
@@ -290,6 +291,7 @@ export default function CspLanding() {
                   </div>
                 ))}
               </div>
+              <a href="https://calendly.com/vrishihypno/90min" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", marginTop: 18, background: "#7fb98a", color: "#0e0d14", border: "none", borderRadius: 8, padding: "11px 18px", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, fontWeight: 650, letterSpacing: ".1em", textTransform: "uppercase", textDecoration: "none" }}>Schedule via Calendly</a>
             </div>
             {/* Tier Two */}
             <div style={{ border: "1px solid #262234", borderLeft: "3px solid #e0a458", borderRadius: 16, background: "#1b1826", padding: 24 }}>
@@ -306,6 +308,7 @@ export default function CspLanding() {
                   </div>
                 ))}
               </div>
+              <a href="https://pocketsuite.io/book/vrishihypno" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", marginTop: 18, background: "#e0a458", color: "#0e0d14", border: "none", borderRadius: 8, padding: "11px 18px", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, fontWeight: 650, letterSpacing: ".1em", textTransform: "uppercase", textDecoration: "none" }}>Book via PocketSuite</a>
             </div>
           </div>
           <p style={{ margin: "20px 0 0", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, letterSpacing: ".04em", color: "#5b566d" }}>Typical engagement: 6-12 sessions, 45-90 minutes each.</p>
@@ -488,6 +491,7 @@ export default function CspLanding() {
             <div style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, letterSpacing: ".14em", textTransform: "uppercase", color: "#8b85a0", marginBottom: 4 }}>Contact</div>
             <a href="mailto:hello@vrishihypno.com" style={{ fontSize: 14, color: "#8b7fd4", textDecoration: "none" }}>hello@vrishihypno.com</a>
             <a href="https://vrishihypno.com" style={{ fontSize: 14, color: "#8b7fd4", textDecoration: "none" }}>vrishihypno.com</a>
+            <a href="/docs/Client-Zoom-Room-Setup-Guide.md" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: "#e0a458", textDecoration: "none", marginTop: 4 }}>Zoom Room Setup Guide</a>
           </div>
         </div>
         <div style={{ height: 1, background: "#262234", margin: "36px 0 20px" }}></div>

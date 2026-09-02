@@ -398,17 +398,17 @@ export default function CspDashboard() {
           <div style={monoLabel}>Program status</div>
           <div style={{ display: "flex", gap: 10, alignItems: "center", margin: "14px 0 10px" }}>
             <span style={{
-              width: 9, height: 9, borderRadius: "50%", background: "#e0a458",
-              boxShadow: "0 0 0 4px rgba(224,164,88,.14)", flex: "none",
+              width: 9, height: 9, borderRadius: "50%", background: "#7fb98a",
+              boxShadow: "0 0 0 4px rgba(127,185,138,.14)", flex: "none",
             }} />
             <span style={{ fontFamily: "Fraunces,Georgia,serif", fontSize: 24, color: "#e9e4f2" }}>
-              Action Needed
+              Approved
             </span>
           </div>
           <div style={{ fontSize: 13, lineHeight: 1.6, color: "#8b85a0" }}>
             {contactsDone === 0
-              ? "Zero contacts logged. Contact pace is the binding constraint."
-              : `${contactsDone} contacts logged. Keep the pace.`}
+              ? "CSP approved Sep 1, 2026. Ready to receive referrals. Begin scheduling contacts."
+              : `${contactsDone} contacts logged. Keep the pace -- 2+/week to Dec 10.`}
           </div>
         </div>
       </div>

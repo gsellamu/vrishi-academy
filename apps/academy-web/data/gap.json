@@ -1,6 +1,8 @@
 {
-  "asOf": "2026-08-08",
+  "asOf": "2026-09-01",
   "hardStop": "2026-12-10",
+  "cspStatus": "approved",
+  "cspApprovedDate": "2026-09-01",
   "contacts":    { "done": 0,  "need": 24,  "unit": "sessions" },
   "conferences": { "done": 3,  "need": 24,  "unit": "conferences" },
   "electives":   { "done": 57, "need": 135, "unit": "hours (S2)" },
