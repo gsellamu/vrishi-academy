@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 /* ================================================================
@@ -29,6 +30,7 @@ const INFO = [
 ];
 
 export default function Room() {
+  const router = useRouter();
   const canvasRef = useRef(null);
   const stopRef = useRef(false);
 
@@ -280,6 +282,7 @@ export default function Room() {
           <button
             type="button"
             className="primary"
+            onClick={() => router.push("/studio")}
             style={{
               padding: "14px 30px",
               fontSize: 15,

@@ -64,6 +64,14 @@ export default function Lab() {
   const [running, setRunning] = useState(false);
   const [checks, setChecks] = useState({});
   const [history, setHistory] = useState([]);
+  const [showScript, setShowScript] = useState(true);
+  const [showBuilder, setShowBuilder] = useState(false);
+  /* session builder picks */
+  const [bPre, setBPre] = useState({ intake: false, settle: false, pretalk: true, tom: true, suggestibility_test: false });
+  const [bInduction, setBInduction] = useState("armraise");
+  const [bDeepeners, setBDeepeners] = useState({ count50: true, progrelax: true, staircase: true, reactional: false, heavylight: false, handforehead: false, armrigidity: false, deepening_assess: false });
+  const [bPost, setBPost] = useState({ suggestions: true, phs_rehypnosis: false, guidedimagery: false, selfhypnosis: false, countout: true, fingerspread: false, homework: false });
+  const scriptRef = useRef(null);
   const tick = useRef(null);
 
   useEffect(() => { setHistory(loadHistory()); }, []);
@@ -90,6 +98,32 @@ export default function Lab() {
     ["auto_dual_path", "Self-work: Auto Dual induction path"], ["imagery_path", "Self-work: Guided Imagery secondary"], ["self_hypnosis", "Self-work: Self-Hypnosis teach-back"],
     ...drillData.drills.map((d) => [d.id, `Single skill: ${d.name}`]),
   ];
+
+  function buildCustom() {
+    const ids = [];
+    /* pre */
+    ["intake", "settle", "pretalk", "tom", "suggestibility_test"].forEach((id) => { if (bPre[id]) ids.push(id); });
+    /* induction */
+    ids.push(bInduction);
+    /* deepeners — in session order */
+    ["count50", "progrelax", "staircase", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].forEach((id) => { if (bDeepeners[id]) ids.push(id); });
+    /* post */
+    ["suggestions", "guidedimagery", "phs_rehypnosis", "selfhypnosis", "countout", "fingerspread", "homework"].forEach((id) => { if (bPost[id]) ids.push(id); });
+    const items = ids.map((id) => DRILLS[id]).filter(Boolean);
+    const totalWeight = items.reduce((s, d) => s + d.weight, 0);
+    const m = minutes;
+    let pl = items.map((d) => ({ id: d.id, name: d.name, mins: Math.max(d.min, Math.round((m * d.weight) / totalWeight)) }));
+    let overflow = pl.reduce((s, p) => s + p.mins, 0) - m;
+    while (overflow > 0) {
+      const reducible = [...pl].sort((a, b) => b.mins - a.mins).find((p) => p.mins > DRILLS[p.id].min);
+      if (!reducible) break;
+      reducible.mins -= 1; overflow -= 1;
+    }
+    let shortfall = m - pl.reduce((s, p) => s + p.mins, 0);
+    const byWeight = [...pl].sort((a, b) => DRILLS[b.id].weight - DRILLS[a.id].weight);
+    for (let i = 0; shortfall > 0 && byWeight.length > 0; i = (i + 1) % byWeight.length) { byWeight[i].mins += 1; shortfall -= 1; }
+    start(pl, m, "custom");
+  }
 
   function start(p = null, m = minutes, f = focus) {
     const built = p || buildPlan(m, f);
@@ -187,6 +221,67 @@ export default function Lab() {
             ))}
           </div>
 
+          {/* SESSION BUILDER */}
+          <div className="panel" style={{ padding: "18px 22px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }} onClick={() => setShowBuilder(!showBuilder)}>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--iris)" }}>
+                Session Builder {showBuilder ? "▾" : "▸"}
+              </div>
+              <span style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--mist)" }}>pick steps, build a custom session</span>
+            </div>
+            {showBuilder && (
+              <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 16 }}>
+                {/* PRE-SESSION */}
+                <div>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--teal)", marginBottom: 8 }}>Pre-session</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {[["intake", "Intake & Goal Plan"], ["settle", "Comfort & Settle"], ["pretalk", "Pre-Induction Talk"], ["tom", "Theory of Mind"], ["suggestibility_test", "Suggestibility Test"]].map(([id, label]) => (
+                      <button key={id} className={`checkchip${bPre[id] ? " on" : ""}`} onClick={() => setBPre((p) => ({ ...p, [id]: !p[id] }))}>{bPre[id] ? "✓ " : ""}{label}</button>
+                    ))}
+                  </div>
+                </div>
+                {/* INDUCTION */}
+                <div>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--amber)", marginBottom: 8 }}>Induction (pick one)</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {[["armraise", "Arm-Raising Induction"], ["autodual", "Auto Dual Induction"], ["eyefascination", "Eye Fascination"]].map(([id, label]) => (
+                      <button key={id} className={`checkchip${bInduction === id ? " on" : ""}`} onClick={() => setBInduction(id)}>{bInduction === id ? "● " : ""}{label}</button>
+                    ))}
+                  </div>
+                </div>
+                {/* DEEPENING */}
+                <div>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "#5bb89a", marginBottom: 8 }}>Deepening (any combination)</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {[["count50", "5-to-0 Count"], ["progrelax", "Progressive Relaxation"], ["staircase", "Staircase"], ["reactional", "Reactional"], ["deepening_assess", "Depth Assessment"], ["heavylight", "Heavy/Light"], ["handforehead", "Hand-to-Forehead Challenge"], ["armrigidity", "Arm Rigidity Challenge"]].map(([id, label]) => (
+                      <button key={id} className={`checkchip${bDeepeners[id] ? " on" : ""}`} onClick={() => setBDeepeners((p) => ({ ...p, [id]: !p[id] }))}>{bDeepeners[id] ? "✓ " : ""}{label}</button>
+                    ))}
+                  </div>
+                </div>
+                {/* POST — THERAPY & CLOSE */}
+                <div>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "#d49aba", marginBottom: 8 }}>Therapy & Close</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {[["suggestions", "Suggestions"], ["guidedimagery", "Guided Imagery"], ["phs_rehypnosis", "PHS Re-Hypnosis (#5)"], ["selfhypnosis", "Self-Hypnosis Teach"], ["countout", "Count Out"], ["fingerspread", "Finger-Spread Verify"], ["homework", "Homework & Close"]].map(([id, label]) => (
+                      <button key={id} className={`checkchip${bPost[id] ? " on" : ""}`} onClick={() => setBPost((p) => ({ ...p, [id]: !p[id] }))}>{bPost[id] ? "✓ " : ""}{label}</button>
+                    ))}
+                  </div>
+                </div>
+                {/* PREVIEW + BUILD */}
+                <div style={{ display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap", borderTop: "1px solid var(--line)", paddingTop: 14 }}>
+                  <button type="button" className="primary" onClick={buildCustom}>Build &amp; Start →</button>
+                  <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--mist)" }}>
+                    {[...["intake", "settle", "pretalk", "tom", "suggestibility_test"].filter((id) => bPre[id]).map((id) => DRILLS[id]?.name),
+                      DRILLS[bInduction]?.name,
+                      ...["count50", "progrelax", "staircase", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].filter((id) => bDeepeners[id]).map((id) => DRILLS[id]?.name),
+                      ...["suggestions", "guidedimagery", "phs_rehypnosis", "selfhypnosis", "countout", "fingerspread", "homework"].filter((id) => bPost[id]).map((id) => DRILLS[id]?.name),
+                    ].filter(Boolean).join(" → ")}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+
           <div className="labform">
             <label style={{ flex: 1, minWidth: 180 }}>Minutes · <span style={{ color: "var(--amber)" }}>{minutes}</span>
               <input type="range" min="3" max="90" value={minutes} onChange={(e) => setMinutes(Number(e.target.value) || 15)} />
@@ -230,7 +325,7 @@ export default function Lab() {
 
       {/* ---------- RUN ---------- */}
       {phase === "run" && current && (
-        <div style={{ display: "flex", flexDirection: "column", gap: 18, maxWidth: 860 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 20, flexWrap: "wrap" }}>
             <div>
               <div style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--iris)" }}>Step {step + 1} / {plan.length} · {mode === "literal" ? "Physical" : "Emotional"} mode</div>
@@ -240,22 +335,43 @@ export default function Lab() {
           </div>
           <div className="progress"><span style={{ width: `${progress}%` }} /></div>
 
-          <ol className="prompter">
-            {current.prompter.map((line, i) => (
-              <li key={i} className={i === activeLine ? "active" : i < activeLine ? "dim" : ""}>{line}</li>
-            ))}
-          </ol>
+          <div style={{ display: "grid", gridTemplateColumns: showScript && current.script?.length ? "1fr 1fr" : "1fr", gap: 18, alignItems: "start" }}>
+            {/* LEFT — prompter + checks */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <ol className="prompter">
+                {current.prompter.map((line, i) => (
+                  <li key={i} className={i === activeLine ? "active" : i < activeLine ? "dim" : ""}>{line}</li>
+                ))}
+              </ol>
 
-          <div className="checks">
-            {current.check.map((c, i) => {
-              const on = !!checks[`${current.id}:${i}`];
-              return <button key={i} className={`checkchip${on ? " on" : ""}`} onClick={() => toggle(current.id, i)}>{on ? "✓ " : ""}{c}</button>;
-            })}
+              <div className="checks">
+                {current.check.map((c, i) => {
+                  const on = !!checks[`${current.id}:${i}`];
+                  return <button key={i} className={`checkchip${on ? " on" : ""}`} onClick={() => toggle(current.id, i)}>{on ? "✓ " : ""}{c}</button>;
+                })}
+              </div>
+            </div>
+
+            {/* RIGHT — full script */}
+            {showScript && current.script?.length > 0 && (
+              <div ref={scriptRef} className="panel" style={{ padding: "18px 20px", maxHeight: "60vh", overflowY: "auto", borderLeft: "3px solid var(--iris)" }}>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 10.5, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--iris)", marginBottom: 14 }}>Full script</div>
+                {current.script.map((para, i) => {
+                  const isNote = para.startsWith("[");
+                  return (
+                    <p key={i} style={{ fontSize: 14.5, lineHeight: 1.75, color: isNote ? "var(--mist)" : "#e0dced", margin: "0 0 14px", fontStyle: isNote ? "italic" : "normal" }}>{para}</p>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
             <button type="button" className="chip" onClick={() => setRunning(!running)}>{running ? "Pause" : "Resume"}</button>
             <button type="button" className="primary" onClick={nextStep}>{step + 1 < plan.length ? "Next drill" : "Finish → debrief"}</button>
+            {current.script?.length > 0 && (
+              <button type="button" className={`chip${showScript ? "" : " ghost"}`} onClick={() => setShowScript(!showScript)}>{showScript ? "Hide script" : "Show script"}</button>
+            )}
             <button type="button" className="ghost" onClick={() => { setRunning(false); setPhase("plan"); }}>Abandon</button>
           </div>
           <p className="note">Plan: {plan.map((p, i) => `${i === step ? "▸ " : ""}${p.name} ${p.mins}m`).join("  ·  ")}</p>

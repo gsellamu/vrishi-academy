@@ -235,6 +235,7 @@
       "progrelax",
       "staircase",
       "reactional",
+      "deepening_assess",
       "heavylight",
       "handforehead",
       "armrigidity"
@@ -242,10 +243,12 @@
     "pr_mock": [
       "armraise",
       "count50",
+      "handforehead",
       "phs_anchor",
       "progrelax",
       "staircase",
       "reactional",
+      "deepening_assess",
       "heavylight",
       "suggestions",
       "phs_rehypnosis",
@@ -255,14 +258,16 @@
       "intake",
       "pretalk",
       "tom",
+      "suggestibility_test",
       "armraise",
       "count50",
+      "handforehead",
       "phs_anchor",
       "progrelax",
       "staircase",
       "reactional",
+      "deepening_assess",
       "heavylight",
-      "handforehead",
       "armrigidity",
       "suggestions",
       "phs_rehypnosis",
@@ -301,6 +306,18 @@
         "Plan co-created with the client (session + arc)",
         "Critical-mind 4 captured in notes",
         "Anchor scene seeded for later stages"
+      ],
+      "script": [
+        "[Warm greeting at the door. Light, genuine — let them settle in.]",
+        "Welcome, come in. Make yourself comfortable. How are you doing today?",
+        "[Reference their pre-session forms if returned.] I had a chance to review what you sent over — thank you for taking the time with that.",
+        "Tell me a bit more about what brings you in today. When did this first start?",
+        "[Listen. Observe. Verify. Empathize. Their words, their filter, not yours.]",
+        "[Use open-ended questions first to let them reveal their frame, then anchor with closed-ended confirmations: 'So that means... yes?']",
+        "[Articulate their issue back to them clearly — this builds credibility, rapport, and belief.]",
+        "So if I understand correctly, what you are looking for is... [restate their goal in concrete, daily-life terms].",
+        "What does success look like for you? In your daily life, what would be different?",
+        "[Define a clear, measurable goal together.]"
       ]
     },
     {
@@ -323,6 +340,12 @@
         "E/P axis consciously held (feel it vs feel understood)",
         "Client visibly settled (shoulders, breath, smile)",
         "Clean bridge into the pre-induction talk"
+      ],
+      "script": [
+        "Before we get started, is there anything you need? Water? Restroom?",
+        "Go ahead and get comfortable in the chair. Feet flat on the floor. Hands resting on your thighs.",
+        "[Observe their posture, breathing rate, and comfort level. Match your breathing to theirs initially.]",
+        "Good. We are going to have a great session today."
       ]
     },
     {
@@ -353,6 +376,15 @@
         "Framed testing as no-pass/no-fail",
         "Used the 'Good, because some people think...' follow-up or answered questions fully",
         "Closed with the change-has-begun expectation"
+      ],
+      "script": [
+        "Before we begin the hypnosis portion, I want to explain what hypnosis is and what it is not.",
+        "Hypnosis is a natural state you already enter several times a day — when you drive past your exit, when you get lost in a movie, or when you drift off just before sleep.",
+        "All hypnosis is self-hypnosis. I am simply a guide. You are always in control and can open your eyes at any time.",
+        "You cannot get stuck in hypnosis. It is impossible. If I left the room, you would simply open your eyes on your own.",
+        "You will hear everything I say. You will remember everything. This is not sleep — it is a focused, heightened state of awareness.",
+        "I will not make you do anything you do not want to do. Nothing I suggest will go against your moral or ethical beliefs.",
+        "What I need from you is your willingness to follow simple instructions and your permission to guide you. That is all it takes."
       ]
     },
     {
@@ -381,6 +413,14 @@
         "88/12 partnership close delivered",
         "Bridged into suggestibility testing",
         "Fight vs flight defined in daily-life terms"
+      ],
+      "script": [
+        "Let me draw something for you. Imagine your mind as a circle. The top portion, roughly twelve percent, is your conscious mind — the analytical, critical part that makes decisions, reasons through problems, and judges information.",
+        "The larger portion below, roughly eighty-eight percent, is your subconscious mind. This is where your habits, emotions, memories, and automatic behaviors live.",
+        "Between these two parts is a thin barrier called the critical mind. Think of it like a filter or gatekeeper. Its job is to compare new information against what you already believe.",
+        "When new information matches your existing beliefs, the critical mind lets it through. When it conflicts, the critical mind rejects it. This is why willpower alone rarely works for lasting change.",
+        "Hypnosis temporarily relaxes this critical mind, allowing positive suggestions to reach the subconscious directly. Once accepted at the subconscious level, the change becomes automatic — like updating the operating system rather than fighting with the apps.",
+        "Your issue lives in that eighty-eight percent. We are going to communicate directly with it today."
       ]
     },
     {
@@ -425,6 +465,25 @@
         "Skin contact -> snap -> deep sleep executed",
         "PHS delivered with permission + purpose limiters",
         "Depth read from the eye signs after the escape"
+      ],
+      "script": [
+        "I would like you to sit comfortably with both feet flat on the floor. Place your hands on your thighs. If you are wearing glasses, please remove them. If you have gum, please discard it.",
+        "Now I would like you to raise your right arm and bend it at the elbow, placing the palm of your hand in front of your face, about ten inches away, with your fingers pointing upward and above eye level.",
+        "Good. Now stare at your middle finger and take a deep, comfortable breath. On the exhale, notice how your fingers may begin to separate — wider and wider, further and further apart.",
+        "Now I am going to ask you a few questions. Rather than answering out loud, just nod your head yes or no. From this point forward, all your answers will be non-verbal.",
+        "Have you ever been driving and missed your exit? Have you ever been so absorbed in a movie that you forgot where you were? Have you ever replayed a conversation in your mind, wishing you had said something different?",
+        "Can you visualize your arm as it rests in front of you right now? Can you see every detail — the texture of the skin, the shape of each finger? Hold that image clearly.",
+        "Now I want you to notice something. I will notice the changes happening in your body before you do. When you notice them yourself, simply nod yes to let me know.",
+        "As you continue to focus on your hand, your breathing is beginning to deepen. You are taking in more oxygen. When you notice your breathing getting deeper, nod yes.",
+        "And as your breathing deepens, you may notice your lips and throat becoming dry. There may be an urge to swallow. That is perfectly natural — it means you are relaxing. When you notice this, nod yes.",
+        "Your eyelids may begin to flutter. This rapid movement is a natural sign that you are entering the first stages of hypnosis. When you notice this fluttering, nod yes.",
+        "Now notice that one hand feels heavier against your leg while the other hand, the one in front of your face, feels lighter. As if I were placing a feather beneath it. When you feel this difference in weight, nod yes.",
+        "That lightness is growing now. Your hand is becoming lighter and lighter. As if a gentle current of warm air were lifting it upward. You are creating this sensation. This is your ability.",
+        "Lighter and lighter, lifting and rising. Your hand is beginning to move — lifting, rising, turning slightly inward. Your palm and fingertips are rotating gently upward and inward toward your face.",
+        "Your hand continues to lift and rise, moving closer and closer to your face. Whether your head comes down to meet your hand or your hand rises to meet your face, allow it to happen naturally.",
+        "The moment you make skin contact — the moment your hand touches your forehead — give me a nod. At that instant you will reach your peak of suggestibility and enter the hypnotic state.",
+        "[Wait for contact and nod.] Deep Sleep.",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
       ]
     },
     {
@@ -445,6 +504,17 @@
         "Pace slow and even",
         "Snap + deep sleep on zero",
         "PHS repeated"
+      ],
+      "script": [
+        "Now you can gently allow your hand to float back down to rest comfortably on your lap.",
+        "And as I count from five down to zero, each number will carry you deeper into this comfortable, heavy relaxation.",
+        "Five — going down now, deeper and deeper. Your body is beginning to let go.",
+        "Four — physically releasing, every muscle softening.",
+        "Three — emotionally calm, peaceful, at ease.",
+        "Two — mentally quiet, the inner dialogue fading.",
+        "One — deeper and deeper, drifting down.",
+        "Zero — [snap] — Deep Sleep.",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
       ]
     },
     {
@@ -466,6 +536,18 @@
         "Four full cycles",
         "Snap on every deep sleep",
         "PHS repeated"
+      ],
+      "script": [
+        "Now in a moment, but not right now, I am going to have you open your eyes and stare at a spot on the ceiling above you. When I say the words Deep Sleep, you will close them again and go twice as deep.",
+        "So now — open your eyes. [Wait for them to open — it may take a few seconds.]",
+        "And — Deep Sleep. [Snap.] Twice as deep.",
+        "Open your eyes.",
+        "And — Deep Sleep. [Snap.]",
+        "Open your eyes.",
+        "And — Deep Sleep. [Snap.] Twice as deep.",
+        "And one more time — open your eyes.",
+        "And — Deep Sleep. [Snap.]",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
       ]
     },
     {
@@ -489,6 +571,16 @@
         "Allowed silent response time",
         "Clean release + deep sleep",
         "PHS repeated"
+      ],
+      "script": [
+        "Now I would like you to open your eyes and put both arms out in front of you at shoulder height, just like this. [Demonstrate.]",
+        "Good. Now one palm is facing upward, and the other hand is positioned with the palm facing inward and the thumb pointing straight up toward the ceiling. Go ahead and close your eyes.",
+        "Now imagine that I am placing a heavy bag of sand on the open palm. Feel it pressing downward. Heavy and solid, pressing your hand down.",
+        "And on your other thumb, imagine I am tying many powerful helium balloons. Feel the gentle upward pull, lifting your thumb higher and higher.",
+        "[Pause and observe — let the arms respond naturally for several seconds. Note which direction each arm moves.]",
+        "Good. Now you can release both of those ideas. Let go of the weight and the balloons. Allow your arms to relax and gently come down to rest on your lap.",
+        "Deep Sleep. [Snap.]",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
       ]
     },
     {
@@ -497,6 +589,7 @@
       "weight": 4,
       "min": 3,
       "prompter": [
+        "Transition to recliner if still at desk — guide them while maintaining trance: 'remain in this relaxed state as you move.'",
         "Recording note: this is usually where the client recording starts.",
         "Permission frame: rhythm of breath, letting me guide you.",
         "Top of head down: scalp, forehead, temples, eyelids, cheeks, jaw.",
@@ -510,6 +603,7 @@
         "Repeat the PHS."
       ],
       "check": [
+        "Recliner transition smooth (if applicable) — trance maintained",
         "Recording started (or noted) before beginning",
         "Permission frame delivered (rhythm of breath, giving permission)",
         "Head-to-toe order unbroken (scalp -> forehead -> temples -> eyelids -> cheeks -> jaw)",
@@ -522,6 +616,22 @@
         "Trance pacing held (slow, even, no rushing through body regions)",
         "Terminal 5-0 count with snap -> Deep Sleep",
         "PHS repeated"
+      ],
+      "script": [
+        "[Transition: if the client is still in the desk chair, guide them to the recliner now. 'In a moment I am going to have you stand and move to the recliner. You will remain in this deeply relaxed state as you do. When you are settled, we will continue even deeper.' Wait for them to settle, adjust the footrest, offer a blanket.]",
+        "[Recording note: this is where the client recording typically begins.]",
+        "Now as you relax in your chair, you feel the rhythm of your own breathing. You feel connected inside. You are giving yourself permission to allow me to guide you.",
+        "Now bring your attention to the very top of your head. Allow a sense of relaxation to wash down over your scalp, across your forehead, your temples, your eyelids, and your cheeks. Allow your jaw to soften and relax.",
+        "Pay no attention to any outside sounds except the sound of my voice. These outside sounds are simply the everyday sounds of life. They cannot distract you or disturb you. In fact, they tend to relax you even further, allowing you to go deeper into this comfortable state.",
+        "As this calm continues spreading, let it release through your neck, softening all the muscles along the way, flowing through your shoulders, letting them drop and settle.",
+        "Now allow this sense of ease to continue down through your upper arms, past your elbows, through your forearms, releasing any tension from your wrists, your hands, and all the way to the very tips of your fingers.",
+        "And now this wave of relaxation moves into your chest, helping to open it, letting go of anything that no longer serves you. Down through your solar plexus and your stomach, bringing a deep sense of unwinding and release.",
+        "Your breathing is becoming very deep, gentle, and rhythmic. And a drowsy, sleepy, daydreaming feeling takes over. Letting go. Drifting down. Deeper and deeper.",
+        "Allow that calming sensation to continue through your hips, releasing any remaining tension. Down through your thighs, relaxing every muscle from the largest to the smallest. Through your knees, your shins, and your calves.",
+        "And as this peaceful feeling reaches your ankles, your heels, your arches, and loosens every single one of your toes to the very tips — perhaps you notice a gentle tingling sensation.",
+        "And now as I count down from five to zero, each number represents a deeper level of relaxation. You feel the body letting go even more with every count.",
+        "Five — letting go. Four. Three. Two. One. Zero — [snap] — Deep Sleep.",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
       ]
     },
     {
@@ -543,6 +653,16 @@
         "Sensory detail present (not bare counting)",
         "Bottom anchored to comfort + deep sleep",
         "PHS repeated (first session)"
+      ],
+      "script": [
+        "Now I want you to visualize or imagine that you are standing at the top of a beautiful staircase. It is well-lit, with sturdy and smooth handrails, and it has twenty steps leading down to a comfortable landing below.",
+        "You have a sense of knowing that with each step downward, you will deepen your state of relaxation even more. Each step carries you further into comfort and peace.",
+        "So now, with your left foot you step down to nineteen, and your right foot follows at eighteen.",
+        "Twice as deep at seventeen. Sixteen. Feeling yourself deeply relax. Fifteen. Fourteen. Thirteen.",
+        "Twice as deep at twelve. Eleven. Ten.",
+        "Letting go at nine. Eight. Twice as deep at seven. Six. Five.",
+        "Deeper still at four. Three. Two. One. Zero — Deep Sleep.",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
       ]
     },
     {
@@ -565,6 +685,29 @@
         "Say-See-Feel arc complete",
         "Lines traced to the client's goal (not generic)",
         "Unhurried delivery"
+      ],
+      "script": [
+        "[Deliver suggestions tailored to the client's presenting issue. Include both inferred and literal language. Use the templates below as starting points — adapt the bracketed sections to the client's own words from intake.]",
+        "",
+        "[--- TEMPLATE A: Vocational Confidence (presentations, interviews, performance) ---]",
+        "You may begin to notice, in the days and weeks ahead, that something is shifting inside. A quiet, steady confidence is building — naturally, effortlessly, in its own time.",
+        "And you can see yourself in that moment — standing in front of your colleagues, or sitting across the table in that meeting — and you feel a calm steadiness. Your voice is clear. Your thoughts are organized. You belong in that room.",
+        "Each day you grow stronger in this feeling. Each day it becomes more naturally a part of who you are.",
+        "",
+        "[--- TEMPLATE B: Pain Comfort / Referral (adjunct to medical treatment) ---]",
+        "And as your body continues to relax, you are discovering something important — that you have more influence over your own comfort than you may have realized.",
+        "You can imagine a dial, from zero to ten, that represents the level of sensation in that area. And with each breath, you are gently turning that dial down. Not forcing it. Simply allowing your body to do what it already knows how to do — regulate, adapt, and find ease.",
+        "Each day, you find it easier to access this feeling of comfort. Your body remembers. Your subconscious remembers.",
+        "",
+        "[--- TEMPLATE C: Avocational Performance (sports, creativity, focus) ---]",
+        "See yourself at the starting line — or on that stage, or at that desk — and notice how your body feels. Loose. Ready. Alert but calm. Every muscle knows its job.",
+        "When the moment comes, you do not think — you flow. The training is in your body. The preparation is complete. You simply trust yourself and let it happen.",
+        "And afterward, you feel that deep satisfaction of knowing you showed up fully. Not perfect — present. That is enough.",
+        "",
+        "[--- COMMON CLOSE (use with any template) ---]",
+        "And your subconscious mind is absorbing these ideas now, integrating them, making them your own. There is no rush. This is unfolding at exactly the right pace for you.",
+        "Not becoming someone new — but remembering who you have always been.",
+        "[Optional: Venting dream.] And tonight, or in the nights that follow, you may have a dream — a cleansing dream — where any remaining tension or old patterns are simply released. You may or may not remember the dream. Either way is perfectly fine. When you awaken, you will feel refreshed and lighter."
       ]
     },
     {
@@ -585,6 +728,16 @@
         "Each count distinct and energizing",
         "Energy lifted toward five",
         "Rapid 1-5 repeat delivered"
+      ],
+      "script": [
+        "Now I am going to count from zero up to five. With each number you will become more alert, more awake, more refreshed, with a wonderful sense of well-being.",
+        "Zero — I am closing the door to the subconscious mind, sealing in all the positive suggestions, sealing out any negatives.",
+        "One — slowly and calmly beginning to come up.",
+        "Two — becoming more physically aware, more mentally alert.",
+        "Three — coming up higher now, feeling wonderful.",
+        "Four — your eyes are beginning to open.",
+        "Five — eyes open, wide awake! Feeling alert, refreshed, and wonderful.",
+        "One, two, three, four, five — eyes open, wide awake!"
       ]
     },
     {
@@ -609,6 +762,17 @@
         "Both physio nods elicited (breath, eyelids)",
         "Contact -> deep sleep clean",
         "Used as PHS verification with count-out after"
+      ],
+      "script": [
+        "[After counting the client out, allow them to orient for a moment. Then use this to verify the PHS is installed.]",
+        "Welcome back. How do you feel? [Brief check-in.]",
+        "Now I would like to verify something. Raise your arm and place the palm of your hand in front of your face, just as you did before. Stare at your middle finger.",
+        "Take a deep breath — and on the exhale, your fingers begin to separate once more. Separating, wider and wider.",
+        "As your fingers continue to separate, your hand is beginning to move closer to your face. Your breathing is deepening. Your eyelids are growing heavy.",
+        "When your hand comes all the way in to touch your face, give me a nod. The moment you make skin contact, your eyes will close and you will enter the hypnotic state.",
+        "[Wait for contact.] Deep Sleep. [Snap.]",
+        "Good. This tells us the connection is established. Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax.",
+        "[Count them back out: 0-1-2-3-4-5, eyes open, wide awake.]"
       ]
     },
     {
@@ -629,6 +793,14 @@
         "Homework specific, small, observable",
         "Next session booked",
         "Closed with genuine hope, not hurry"
+      ],
+      "script": [
+        "Before you go, I want to give you a few things to work on between now and our next session.",
+        "[Assign self-hypnosis practice if taught.] Practice the self-hypnosis technique we went through — once a day is ideal.",
+        "[Assign any behavioral tasks related to their presenting issue.]",
+        "If you have any questions between sessions, do not hesitate to reach out.",
+        "Schedule your next appointment on the way out. Consistency is important — we build on each session.",
+        "You did excellent work today. How are you feeling?"
       ]
     },
     {
@@ -651,6 +823,16 @@
         "Challenge voiced in a firmer, paternal tone",
         "Try-and-fail loop kept brief and safe",
         "Clean release + deep sleep + PHS"
+      ],
+      "script": [
+        "[Use this immediately after the arm-raising induction, while the client's hand is already pressing against their forehead.]",
+        "Now as you continue to feel your hand pressing into your forehead, you have a very connected and comfortable sensation.",
+        "It is almost as though you can imagine yourself as a solid marble statue, with your hand and your head being one solid piece of beautiful marble. You have such a connected and strong feeling of your hand pressing into your forehead.",
+        "[Shift to a firmer tone.] And the feeling is so strong that you may try to pull your hand away, but the more you try, the stronger your hand presses into your forehead.",
+        "You may try and pull your hand away, but the more you try, the stronger your hand presses into your forehead.",
+        "[Allow a brief moment for them to test.] So, at five — your body relaxes. Four — your mind is letting go. Three — you emotionally feel calm. Two. One. Zero — Deep Sleep. [Snap.]",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax.",
+        "Now you can gently allow your hand to float back down to rest on your lap."
       ]
     },
     {
@@ -673,6 +855,17 @@
         "5-to-0 stiffness count delivered",
         "Try-to-bend paradox line landed",
         "Full release verified (arm soft) + deep sleep + PHS"
+      ],
+      "script": [
+        "Now I would like you to put your arm straight out in front of you, making a fist.",
+        "I want you to picture all the tension in your body traveling into that arm. And the more it travels there, the tighter your arm becomes.",
+        "Feel it becoming tighter and tighter, stiffer and stiffer, with all the tension flooding into your arm.",
+        "Your arm is so stiff that it feels like a steel bar, all the way from your shoulder to your wrist. Becoming tighter and tighter, stiffer and stiffer, like a solid steel bar from your shoulder to your wrist.",
+        "Now at five — stiffer and stiffer. Four — tighter and tighter. Three — as stiff as a steel bar. Two. One. And zero — the more you try to bend it, the stiffer it becomes. The more you try to bend it, the stiffer it becomes.",
+        "[Allow a brief moment for them to test.] And now in a few moments, but not now, it will become as limp and relaxed as can be.",
+        "Three. Two. One. Release your arm to your lap. All the tension drops away. Any limiting beliefs dropping away. And with every breath you remember to let go of what no longer serves you.",
+        "And that is Deep Sleep. [Snap.]",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
       ]
     },
     {
@@ -694,6 +887,18 @@
         "Eyelid-muscle awareness built gradually",
         "Blink-heavy loop used (not rushed to close)",
         "Close converted to deep sleep + deepener"
+      ],
+      "script": [
+        "From where you are sitting comfortably, I would like you to pick a spot on the ceiling above you, so that your eyes are having to look up slightly. Find that spot now and keep your eyes resting on it.",
+        "Just look at that point. Keep focusing on that spot without moving your eyes. And as you do, you can become aware of the muscles around your eyes — how they are holding your eyes in position.",
+        "You may [wait for blink] blink a bit more frequently now. That is right. And your breathing might get deeper as you relax.",
+        "As your eyes continue to rest on that spot, your mind focused on it, your eyelids may begin to feel heavy. Or your eyes may want to close. But I do not want you to close them just yet. Let them remain open.",
+        "And blinking [wait for blink], even more frequently now. You might wonder if that blink is slower than normal.",
+        "Many people find that as they begin to enter hypnosis, their focus becomes fuzzy. Their vision gets blurry. That spot may begin to waver, or change shape, or shift in color.",
+        "Your arms and legs are getting heavy. Your eyelids are getting heavier and heavier. When you are ready, you can allow your eyes to close.",
+        "[Pause — their eyes may already be closed.] And closing those eyes means you can relax now. It feels so good, so peaceful.",
+        "Breathing in for a moment, and breathing out, allowing the relaxation to double throughout your entire body. Going deeper and deeper.",
+        "Five — your body relaxes. Four — your mind is letting go. Three — feeling emotionally calm. Two. One. Zero — Deep Sleep. [Snap.]"
       ]
     },
     {
@@ -727,6 +932,19 @@
         "Count accelerated with slight overlap (overload)",
         "Control-frame language used in the post-induction relaxation",
         "Zero -> deep sleep -> PHS"
+      ],
+      "script": [
+        "Now I would like you to raise both arms, elbows on the armrests, and make two fists.",
+        "I want you to stare directly between those two fists. Focus your eyes right between them.",
+        "As you stare between your fists, you may notice one fist beginning to feel lighter than the other. Allow that feeling.",
+        "And as one feels lighter, the other may feel heavier. One lifting, one pressing down.",
+        "Now I am going to count from eight down to one. With each count, the lighter hand continues to rise and the heavier hand continues to press down.",
+        "Eight — noticing the difference. Seven — one lighter, one heavier. Six — the separation growing.",
+        "Five — your eyes are becoming tired. Four — the lighter hand rising. Three — heavier and lighter.",
+        "Two — your eyelids growing heavy. One — and when you are ready, allow your eyes to close.",
+        "And as your eyes close, both hands can relax and come down to rest on your lap.",
+        "Deep Sleep. [Snap.]",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
       ]
     },
     {
@@ -754,6 +972,20 @@
         "Journey kept multisensory (sight, smell, sound, feel)",
         "Leaf + blade-of-grass metaphor delivered with the motivation embed",
         "Handed off to suggestions or a further deepener"
+      ],
+      "script": [
+        "Let us begin by focusing on your breath. Take a nice, easy breath through your nose. And then slowly release it through your mouth.",
+        "In your own words, in your mind, give yourself permission to allow me to guide you on this journey. On the exhale of your third or fourth breath, allow your eyes to close.",
+        "Although we cannot all visualize equally, we can all imagine. If you cannot see something as a picture, simply think about it, conceptualize it, or feel it. All of these work.",
+        "Let us start at the top of your head and gently work downward, releasing any pressure. Down over the facial muscles, the jaw releasing, the shoulders dropping, down your arms and hands, through the chest and back, the stomach and lower back, through the hips and all the way down to the tips of your toes.",
+        "Now count backwards with me in your mind. Five — moving into that wonderful imaginative space. Four. Three — even deeper. Two. One. And zero — Deep Sleep.",
+        "You feel the rhythm of your breath and feel yourself opening your imaginative mind.",
+        "Allow yourself to imagine a beautiful meadow on a perfect day. The temperature is exactly as you want it to be. You can feel the soft earth beneath your feet. Perhaps there is a sweet smell of wildflowers.",
+        "Walking through this meadow, you see a magnificent bird gliding across the sky — majestic and free. And you feel that same freedom inside yourself.",
+        "Ahead, at the top of a gentle hill, stands a single beautiful tree. As you approach, you hear the leaves rustling in a soft breeze. The sounds and smells and images create a deep feeling of ease.",
+        "Near the top of the tree, on one branch, there is a single leaf. You watch it twist and turn in the breeze. And something inside you knows it is about to let go.",
+        "And all at once the leaf breaks free, and the breeze carries it slowly — gliding down, back and forth, until it comes to rest near the base of the tree.",
+        "And beside it, a single blade of grass has persevered and grown strong. In the same way that you are finding your own strength and motivation. And that feels wonderful."
       ]
     },
     {
@@ -786,6 +1018,21 @@
         "5-0 then emotional keyword, felt not just said",
         "20-step staircase then 'deep sleep'",
         "Suggestions delivered with feeling; clean 0-5 count out"
+      ],
+      "script": [
+        "Now I am going to teach you self-hypnosis, so you can practice this on your own between our sessions.",
+        "First, get into a semi-comfortable position. Not too comfortable — we do not want you falling asleep.",
+        "Create an eye fascination by staring at a point above and slightly in front of you.",
+        "Take three breaths — inhale through the nose, exhale through the mouth, relaxing the jaw. On the exhale of the third breath, allow your eyes to close.",
+        "Now focus on the top of your head. Repeat your physical keyword to yourself: [their chosen keyword]. Work down through every section of the body, repeating the physical keyword and flowing with that physical feeling of relaxation.",
+        "When you reach the bottom, count down from five to zero. At zero, focus on your breathing, then repeat your emotional keyword: [their chosen keyword]. Really try to feel it.",
+        "Then walk down a staircase of twenty steps in your imagination.",
+        "At zero, say your intellectual keywords to yourself: Deep Sleep.",
+        "Now give yourself the suggestions you have prepared. Feel the words. Feel the suggestions. Repeat them several times with feeling.",
+        "When you are ready, count from zero up to five. Tell yourself: eyes open, wide awake.",
+        "[If the client has somnambulistic tendencies, add: 'to a completely non-suggestible state.']",
+        "Practice this every day. The more you practice, the faster and deeper you will go each time.",
+        "Any questions about the self-hypnosis process?"
       ]
     },
     {
@@ -810,6 +1057,15 @@
         "Predicates matched to their favored system",
         "One acuity shift noticed and used out loud",
         "Reframed any resistance as a rapport signal to yourself"
+      ],
+      "script": [
+        "[Match the client's breathing rate for the first thirty seconds.]",
+        "[Mirror their posture subtly — cross the same leg, tilt your head the same direction.]",
+        "[Match their speaking pace and volume before gradually leading them to a calmer rhythm.]",
+        "[Use their exact words when reflecting back — do not paraphrase their emotional language.]",
+        "I understand what you mean when you say... [use their words]. That makes complete sense.",
+        "[Begin to slow your speech rate slightly — if they follow, rapport is established.]",
+        "[Deepen the breath you are modeling — if their breathing follows, you can begin to lead.]"
       ]
     },
     {
@@ -836,6 +1092,16 @@
         "Self-maintained ownership confirmed",
         "Context and drawbacks explored",
         "Ecology question asked"
+      ],
+      "script": [
+        "What specifically would you like to achieve? [Get concrete, sensory-based answer.]",
+        "How will you know when you have it? What will you see, hear, or feel that tells you things have changed?",
+        "Is this goal something that is within your control — something you can initiate and maintain yourself?",
+        "Where, when, and with whom do you want this? [Context and ecology check.]",
+        "What will you gain when you achieve this? And is there anything you might lose or give up?",
+        "What resources do you already have that can help? What additional resources do you need?",
+        "What is the first small step you can take?",
+        "On a scale of one to ten, how committed are you to making this change?"
       ]
     },
     {
@@ -860,6 +1126,17 @@
         "Correctly branched (accept & continue vs note & move on)",
         "Read the physical indicator (release / fear / trust)",
         "Avoided forcing; treated it as information"
+      ],
+      "script": [
+        "[An abreaction is a sudden, strong emotional release during hypnosis. Stay calm — this is therapeutic, not dangerous.]",
+        "[Do NOT say 'calm down' or try to stop the emotion. Allow the release.]",
+        "That is right. Let it out. Let it go. Whatever you are feeling right now, it is safe to feel it here.",
+        "[If crying: offer a tissue without breaking the flow.] You are safe. I am right here with you.",
+        "This is your body and mind releasing something that has been held too long. This is healthy. This is healing.",
+        "[If the abreaction is intense, ground them:] Feel your feet on the floor. Feel the chair supporting you. You are here, in this room, and you are safe.",
+        "[Do NOT emerge them during an abreaction unless they request it. Let the wave pass naturally.]",
+        "[After the abreaction subsides:] Take a deep breath. How are you feeling now? [Pause.] Good. We can continue when you are ready.",
+        "[Note the abreaction in your session record — timing, trigger if known, resolution.]"
       ]
     },
     {
@@ -1093,6 +1370,13 @@
         "Quickly, calmly, deeply + body relaxes",
         "Tone matched to E/P suggestibility",
         "Delivered immediately after Deep Sleep cue"
+      ],
+      "script": [
+        "[Deliver immediately after the first Deep Sleep, following arm-raise contact.]",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax.",
+        "[Repeat this PHS after every deepener throughout the first session — aim for six to eight repetitions total.]",
+        "[For Emotional clients: deliver in a warm, maternal tone — gentle, allowing, permissive.]",
+        "[For Physical clients: deliver in a confident, paternal tone — direct, assured, matter-of-fact.]"
       ]
     },
     {
@@ -1103,6 +1387,7 @@
       "prompter": [
         "After suggestions are complete, count client OUT of hypnosis (0-5, eyes open, wide awake).",
         "Let client orient briefly - check in: 'How do you feel?'",
+        "Frame the WHY: 'I am going to teach your mind to enter this state on its own — a tool for between sessions. Also confirms the PHS is installed.'",
         "Now re-induce using the PHS: have them stare at fingernail of right index finger, paying attention to pulse.",
         "Frame: 'I will say some phrases and you will repeat them back to me out loud.'",
         "Guide them through the self-count: 'I will now enter the state of hypnosis... for reasons of deep relaxation and self-control.'",
@@ -1122,6 +1407,26 @@
         "Zero + Deep Sleep snap executed",
         "PHS repeated immediately after re-entry",
         "Client re-entered visibly faster than first induction"
+      ],
+      "script": [
+        "[After the suggestion phase is complete, count the client out of hypnosis: 0-1-2-3-4-5, eyes open, wide awake.]",
+        "[Allow the client to orient briefly.] Welcome back. How do you feel? Take a moment.",
+        "Now I am going to do something that may seem unusual. I am going to teach your mind to enter this state on its own — quickly and easily. This is a tool you will use between sessions, and it also confirms that the connection we have built today is solid. Ready?",
+        "Now I would like you to stare directly at the fingernail of your right index finger, while paying attention to your pulse.",
+        "All your attention is right there on that fingernail. Taking a deep breath now.",
+        "In a moment I will say some phrases and you will repeat them back to me out loud. Everything I say, you will say after I have said it. Ready?",
+        "Repeat after me: I will now enter the state of hypnosis. [Client repeats.]",
+        "For reasons of deep relaxation and self-control. [Client repeats.]",
+        "I will count from five down to zero. [Client repeats.]",
+        "And with each count I will become more deeply relaxed. [Client repeats.]",
+        "When I reach zero, I will go deep asleep. [Client repeats.]",
+        "Five — I begin to feel my breathing growing deep, gentle, and rhythmic. [Client repeats.]",
+        "Four — I begin to feel heaviness in my eyelids, as I become drowsier and sleepier. [Client repeats.]",
+        "Three — I begin to feel every muscle, nerve, and fiber in my body relaxing, deeply relaxing. [Client repeats.]",
+        "Two — my arms, my legs, my entire body are now deeply relaxed. [Client repeats.]",
+        "One — my eyelids closing, breathing becoming more rhythmic, I am deeply relaxed. [Client repeats.]",
+        "Zero — Deep Sleep! [Snap.]",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
       ]
     },
     {
@@ -1145,6 +1450,49 @@
         "E/P depth-perception difference acknowledged",
         "Next deepener chosen with rationale",
         "Chair-to-recliner transition decision made"
+      ],
+      "script": [
+        "[Observe the client's eyes beneath closed lids to assess depth.]",
+        "Hypnoidal (light): eyes moving up-and-down or showing REM-like flutter. Client needs additional deepening.",
+        "Cataleptic (medium): eyes moving side-to-side beneath the lids. Good working depth — proceed to progressive relaxation or suggestions.",
+        "Somnambulistic (deep): eyes rolled upward, whites may be visible. Excellent depth — note for session record.",
+        "[Remember: Emotional clients may report feeling light or like 'nothing happened' but may actually be in a deep state. Trust the eye signs, not their subjective report.]",
+        "[Physical clients typically display depth clearly through visible body stillness and slowed breathing rate.]",
+        "[Decision point: stay in the chair for additional desk-based deepeners, or transition to the recliner for progressive relaxation.]"
+      ]
+    },
+    {
+      "id": "suggestibility_test",
+      "name": "Suggestibility Testing",
+      "weight": 3,
+      "min": 2,
+      "prompter": [
+        "Purpose: determine E/P suggestibility BEFORE the induction. This sets the lane for the entire session.",
+        "Finger-spread test: hand up, fingers straight, stare at middle finger, take a breath — on exhale, fingers begin to separate.",
+        "Watch the spread pattern: Physical clients spread fast and wide; Emotional clients spread slowly with more internal processing.",
+        "Heavy/Light test (brief version): arms out, book on one palm, balloons on the other — observe which direction dominates.",
+        "Handwriting analysis (optional): have them write a sentence. Pressure, slant, and letter formation reveal suggestibility.",
+        "Score the result: assign an E/P percentage (e.g., 72% Physical). This determines your language, pace, and tone for the session.",
+        "Record the E/P score. Share the result with the client — builds credibility and buy-in."
+      ],
+      "check": [
+        "At least one suggestibility test administered",
+        "E/P percentage determined and recorded",
+        "Result explained to client in simple terms",
+        "Language lane set for the session (literal vs inferred)",
+        "Client engaged and curious (not confused or resistant)"
+      ],
+      "script": [
+        "Now before we begin the hypnosis, I would like to do a quick assessment. This helps me understand how your mind processes information, so I can tailor everything specifically to you.",
+        "I would like you to raise your hand and place the palm in front of your face, about ten inches away, with your fingers pointing straight up and above eye level.",
+        "Now stare at your middle finger. Take a deep breath, and on the exhale, your fingers will begin to separate. Separating, wider and wider, further and further apart.",
+        "[Observe: Physical suggestible — fingers spread quickly and visibly. Emotional suggestible — fingers spread slowly, may need more repetition, more internal processing before movement.]",
+        "Good. You can relax your hand. Now let me do one more quick test.",
+        "Put both arms out in front of you at shoulder height. One palm up, the other with the thumb pointing to the ceiling. Close your eyes.",
+        "Imagine a heavy book on the open palm, pressing it down. And on the other thumb, imagine a bunch of helium balloons pulling it up. Just let your arms respond naturally.",
+        "[Pause 10-15 seconds. Observe which arm moves more and how quickly. Physical clients show fast, visible arm movement. Emotional clients show subtle, slow shifts.]",
+        "Good. You can relax both arms. Thank you.",
+        "[Based on the results, assign E/P percentage. Share with the client:] Based on what I am seeing, your mind processes information in a way that is about [X]% physical and [Y]% emotional. This is neither good nor bad — it simply tells me the best way to communicate with your subconscious mind today."
       ]
     }
   ]
