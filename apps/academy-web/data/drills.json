@@ -89,6 +89,30 @@
       "label": "Inferred Advanced: Overload + Confusion (35m)",
       "minutes": 35,
       "focus": "inferred_advanced"
+    },
+    {
+      "id": "pr_solo10",
+      "label": "10-min Prog Relax solo practice",
+      "minutes": 10,
+      "focus": "pr_solo"
+    },
+    {
+      "id": "pr_chain25",
+      "label": "25-min Deepening chain (all methods)",
+      "minutes": 25,
+      "focus": "pr_chain"
+    },
+    {
+      "id": "pr_mock40",
+      "label": "40-min Mock: induction + deepeners + Rx",
+      "minutes": 40,
+      "focus": "pr_mock"
+    },
+    {
+      "id": "pr_roleplay55",
+      "label": "55-min Role-play full session w/ client",
+      "minutes": 55,
+      "focus": "pr_roleplay"
     }
   ],
   "sequences": {
@@ -203,6 +227,47 @@
       "inferred_deepening",
       "inferred_suggestions",
       "countout"
+    ],
+    "pr_solo": [
+      "progrelax"
+    ],
+    "pr_chain": [
+      "progrelax",
+      "staircase",
+      "reactional",
+      "heavylight",
+      "handforehead",
+      "armrigidity"
+    ],
+    "pr_mock": [
+      "armraise",
+      "count50",
+      "phs_anchor",
+      "progrelax",
+      "staircase",
+      "reactional",
+      "heavylight",
+      "suggestions",
+      "phs_rehypnosis",
+      "countout"
+    ],
+    "pr_roleplay": [
+      "intake",
+      "pretalk",
+      "tom",
+      "armraise",
+      "count50",
+      "phs_anchor",
+      "progrelax",
+      "staircase",
+      "reactional",
+      "heavylight",
+      "handforehead",
+      "armrigidity",
+      "suggestions",
+      "phs_rehypnosis",
+      "countout",
+      "homework"
     ]
   },
   "drills": [
@@ -445,10 +510,17 @@
         "Repeat the PHS."
       ],
       "check": [
-        "Head-to-toe order unbroken",
-        "Outside-sounds reframe included",
-        "Trance pacing held (slow, even, no rushing)",
-        "Terminal 5-0 with snap",
+        "Recording started (or noted) before beginning",
+        "Permission frame delivered (rhythm of breath, giving permission)",
+        "Head-to-toe order unbroken (scalp -> forehead -> temples -> eyelids -> cheeks -> jaw)",
+        "Outside-sounds reframe included (everyday sounds deepen relaxation)",
+        "Neck and shoulders softened; arms traced to fingertips",
+        "Chest opens + solar plexus + belly area addressed (releasing what no longer serves)",
+        "Breathing deepens language: drowsy, sleepy, daydreaming",
+        "Hips -> thighs (large to small muscles) -> knees -> shins -> calves",
+        "Ankles -> heels -> arches -> toes with tingling sensation cue",
+        "Trance pacing held (slow, even, no rushing through body regions)",
+        "Terminal 5-0 count with snap -> Deep Sleep",
         "PHS repeated"
       ]
     },
@@ -998,6 +1070,81 @@
         "Eye closure offered as option (not commanded)",
         "Tranquility anchor set at deepening",
         "Post-hypnotic anchor delivered (return to this point)"
+      ]
+    },
+    {
+      "id": "phs_anchor",
+      "name": "Post-Hypnotic Suggestion to Re-Hypnosis",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Deliver immediately after the first Deep Sleep (arm-raise contact).",
+        "Full PHS anatomy: 'Each and every time I suggest the words Deep Sleep to you...'",
+        "'...for the purpose of hypnosis...'",
+        "'...and with your permission...'",
+        "'...you will enter this state of hypnosis very quickly, calmly, and deeply...'",
+        "'...and the physical body will relax.'",
+        "Tone: maternal for Emotional clients, paternal for Physical clients.",
+        "Repeat after EVERY deepener throughout the first session (6-8 times total)."
+      ],
+      "check": [
+        "Full PHS wording delivered (no omissions)",
+        "Limiters present: purpose + permission",
+        "Quickly, calmly, deeply + body relaxes",
+        "Tone matched to E/P suggestibility",
+        "Delivered immediately after Deep Sleep cue"
+      ]
+    },
+    {
+      "id": "phs_rehypnosis",
+      "name": "PHS Re-Hypnosis (Script #5)",
+      "weight": 3,
+      "min": 2,
+      "prompter": [
+        "After suggestions are complete, count client OUT of hypnosis (0-5, eyes open, wide awake).",
+        "Let client orient briefly - check in: 'How do you feel?'",
+        "Now re-induce using the PHS: have them stare at fingernail of right index finger, paying attention to pulse.",
+        "Frame: 'I will say some phrases and you will repeat them back to me out loud.'",
+        "Guide them through the self-count: 'I will now enter the state of hypnosis... for reasons of deep relaxation and self-control.'",
+        "'I will count from five down to zero. With each count I will become more deeply relaxed. When I reach zero, I will go deep asleep.'",
+        "Client repeats each phrase, then counts: Five (breathing)... Four (eyelids heavy)... Three (muscles relaxing)...",
+        "Two (arms, legs, body deeply relaxed)... One (eyelids closing, rhythmic breathing)...",
+        "Zero - Deep Sleep! (snap or touch forehead).",
+        "Immediately repeat the PHS again to reinforce: 'Each and every time I suggest the words Deep Sleep...'",
+        "This proves to the client (and you) that the PHS is installed and working."
+      ],
+      "check": [
+        "Client counted fully out before re-induction",
+        "Brief orientation check between states",
+        "Eye fascination set (fingernail + pulse)",
+        "Client repeated each phrase aloud",
+        "Self-count 5-0 delivered with pacing cues per number",
+        "Zero + Deep Sleep snap executed",
+        "PHS repeated immediately after re-entry",
+        "Client re-entered visibly faster than first induction"
+      ]
+    },
+    {
+      "id": "deepening_assess",
+      "name": "Depth Assessment & Deepener Selection",
+      "weight": 2,
+      "min": 1,
+      "prompter": [
+        "Read the depth signs: hypnoidal (up-down REM), cataleptic (side-to-side), somnambulism (whites showing).",
+        "If hypnoidal: client needs more deepening - add another round of deepeners.",
+        "If cataleptic: good working depth - proceed to prog relax or suggestions.",
+        "If somnambulistic: excellent depth - note for session record; proceed carefully.",
+        "Emotional clients may feel light but be deep - trust the eye signs, not their report.",
+        "Physical clients usually show depth clearly - watch for body stillness and breathing rate.",
+        "Choose the next deepener based on what the client has responded to best so far.",
+        "Decision point: stay in chair for more desk deepeners, or transition to recliner for prog relax."
+      ],
+      "check": [
+        "Eye signs read and depth level identified",
+        "Depth level verbalized (hypnoidal / cataleptic / somnambulistic)",
+        "E/P depth-perception difference acknowledged",
+        "Next deepener chosen with rationale",
+        "Chair-to-recliner transition decision made"
       ]
     }
   ]

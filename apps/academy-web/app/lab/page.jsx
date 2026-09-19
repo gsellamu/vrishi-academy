@@ -11,12 +11,13 @@ const GROUP_OF = {
   psr15: "PSR", full25: "PSR", mock50: "PSR",
   moreno34: "Shadows", kappas22: "Shadows",
   var2e30: "Variations", var2p30: "Variations",
+  pr_solo10: "Prog Relax", pr_chain25: "Prog Relax", pr_mock40: "Prog Relax", pr_roleplay55: "Prog Relax",
   autodual20: "Self-work", imagery18: "Self-work", selfhyp10: "Self-work",
   inferred30: "Inferred", inferredadv35: "Inferred",
   tom5: "Singles", abreact8: "Singles",
 };
-const GROUP_ORDER = ["First session", "PSR", "Shadows", "Variations", "Inferred", "Self-work", "Singles"];
-const GROUP_COLOR = { "First session": "var(--teal)", PSR: "var(--amber)", Shadows: "var(--iris)", Variations: "#b57fd4", Inferred: "#d49aba", "Self-work": "var(--ok)", Singles: "var(--mist)" };
+const GROUP_ORDER = ["First session", "PSR", "Shadows", "Variations", "Prog Relax", "Inferred", "Self-work", "Singles"];
+const GROUP_COLOR = { "First session": "var(--teal)", PSR: "var(--amber)", Shadows: "var(--iris)", Variations: "#b57fd4", "Prog Relax": "#5bb89a", Inferred: "#d49aba", "Self-work": "var(--ok)", Singles: "var(--mist)" };
 const GRADED = { mock50: true };
 /* a few single-skill quick starts appended to the Singles lane */
 const SINGLE_SKILLS = ["armraise", "progrelax", "tom"];
@@ -85,6 +86,7 @@ export default function Lab() {
     ["moreno_blueprint", "Shadow: Moreno modern blueprint"], ["kappas_vintage", "Shadow: Kappas vintage blueprint"],
     ["var2_emotional", "Variation 2: Emotional lane"], ["var2_physical", "Variation 2: Physical lane"],
     ["inferred_mastery", "Inferred: Mastery sequence"], ["inferred_advanced", "Inferred: Advanced (overload + confusion)"],
+    ["pr_solo", "Prog Relax: Solo practice"], ["pr_chain", "Prog Relax: Deepening chain (all methods)"], ["pr_mock", "Prog Relax: Mock session"], ["pr_roleplay", "Prog Relax: Full role-play session"],
     ["auto_dual_path", "Self-work: Auto Dual induction path"], ["imagery_path", "Self-work: Guided Imagery secondary"], ["self_hypnosis", "Self-work: Self-Hypnosis teach-back"],
     ...drillData.drills.map((d) => [d.id, `Single skill: ${d.name}`]),
   ];
