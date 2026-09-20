@@ -113,6 +113,30 @@
       "label": "55-min Role-play full session w/ client",
       "minutes": 55,
       "focus": "pr_roleplay"
+    },
+    {
+      "id": "burns_color12",
+      "label": "12-min Color Progressive (Burns)",
+      "minutes": 12,
+      "focus": "burns_color"
+    },
+    {
+      "id": "burns_full30",
+      "label": "30-min Burns: Color + Ball of Light + Rx",
+      "minutes": 30,
+      "focus": "burns_full"
+    },
+    {
+      "id": "eyefasc_prog20",
+      "label": "20-min Eye Fascination + Progressive hybrid",
+      "minutes": 20,
+      "focus": "eyefasc_prog"
+    },
+    {
+      "id": "burns_master50",
+      "label": "50-min Burns Masterclass (full session)",
+      "minutes": 50,
+      "focus": "burns_master"
     }
   ],
   "sequences": {
@@ -273,6 +297,33 @@
       "phs_rehypnosis",
       "countout",
       "homework"
+    ],
+    "burns_color": [
+      "progrelax_color"
+    ],
+    "burns_full": [
+      "progrelax_color",
+      "ball_of_light",
+      "suggestions",
+      "countout"
+    ],
+    "eyefasc_prog": [
+      "eyefasc_progressive",
+      "suggestions",
+      "countout"
+    ],
+    "burns_master": [
+      "pretalk",
+      "tom",
+      "armraise",
+      "count50",
+      "phs_anchor",
+      "progrelax_color",
+      "deepening_assess",
+      "ball_of_light",
+      "suggestions",
+      "phs_rehypnosis",
+      "countout"
     ]
   },
   "drills": [
@@ -600,7 +651,11 @@
         "Hips and pelvis release; thighs large-to-small muscles, knees, shins, calves.",
         "Ankles, heels, arches, every toe - maybe tingling.",
         "Terminal count 5 to 0 - zero -> SNAP -> Deep Sleep.",
-        "Repeat the PHS."
+        "Repeat the PHS.",
+        "VARIATION (Burns): introduce a color symbol — let the client choose. Move the color head-to-toe.",
+        "VARIATION (Burns): weave suggestions INTO the body scan at chest/heart — do not wait until after.",
+        "VARIATION (Burns): cross up senses — 'What does that color feel like? What temperature?'",
+        "VARIATION (Burns): reverse wave at the end — toes to crown — before terminal count."
       ],
       "check": [
         "Recliner transition smooth (if applicable) — trance maintained",
@@ -1493,6 +1548,184 @@
         "[Pause 10-15 seconds. Observe which arm moves more and how quickly. Physical clients show fast, visible arm movement. Emotional clients show subtle, slow shifts.]",
         "Good. You can relax both arms. Thank you.",
         "[Based on the results, assign E/P percentage. Share with the client:] Based on what I am seeing, your mind processes information in a way that is about [X]% physical and [Y]% emotional. This is neither good nor bad — it simply tells me the best way to communicate with your subconscious mind today."
+      ]
+    },
+    {
+      "id": "progrelax_color",
+      "name": "Color Progressive Relaxation (Burns method)",
+      "weight": 5,
+      "min": 4,
+      "prompter": [
+        "Transition to recliner if needed — maintain trance during move.",
+        "Introduce the color symbol: 'Imagine a color that represents relaxation to you.'",
+        "Do NOT assign the color — let them choose. Their subconscious picks what it needs.",
+        "Begin at the top of the head — move the color down like warm light washing over each body part.",
+        "Scalp, forehead, eyebrows, eyelids, cheeks, jaw — color flooding through each.",
+        "Each exhale deepens: 8-second exhale, long and slow, like blowing out a candle.",
+        "Neck, shoulders, shoulder blades — color releasing tension as it passes.",
+        "Cross up senses: 'What does that color feel like? What temperature is it?'",
+        "Arms, forearms, wrists, fingertips — color flowing all the way down.",
+        "Chest: 'Breathing this color into your heart now.' Weave first therapeutic suggestion here.",
+        "Solar plexus, stomach, lower back — 'Unwinding, untangling.'",
+        "Hips, thighs, hamstrings — 'Big muscles showing the little muscles how to relax.'",
+        "Knees, shins, calves, ankles, heels, soles, toes.",
+        "Reverse wave: energy from toes washing back up to the crown. Zero → Deep Sleep.",
+        "PHS repeat."
+      ],
+      "check": [
+        "Client chose their own color (not assigned by therapist)",
+        "Color moved head-to-toe in unbroken order",
+        "At least one sensory crossover (feel/temperature/taste of the color)",
+        "Therapeutic suggestion woven into chest/heart region",
+        "8-second exhale cued at least twice",
+        "Reverse wave delivered (toes to crown)",
+        "Terminal count + Deep Sleep + PHS",
+        "Pacing slow and unhurried throughout"
+      ],
+      "script": [
+        "[Transition to recliner if client is still at the desk chair.]",
+        "Now our subconscious mind loves symbols. So I would like you to imagine a color — any color at all — that represents the feeling of relaxation to you. Maybe it represents your intention for today. Maybe both. It does not matter. Whatever color comes up is the right one.",
+        "Good. Now imagine that color beginning at the very top of your head, like warm light. Let it wash down through your scalp, into your forehead, your eyebrows, your eyelids.",
+        "Take a nice deep breath in, all the way to the top. Hold it. Now let that long, slow exhale out — eight seconds, long and slow, like you are gently blowing out a candle. Just letting the body release.",
+        "And as that color moves down into your cheeks and your jaw, notice what that color feels like. Is it warm? Is it cool? Does it have a texture? Let your imagination play with it.",
+        "Now move that color down through your neck, softening every muscle along the way. Into your shoulders, all the way into your shoulder blades. Feel the shoulders drop and settle.",
+        "One more time — nice deep breath in, hold it. And as you let that long slow exhale out, that color of relaxation flows down through your upper arms, your biceps, your forearms. Unfolding, unwinding, untangling. All the way into your wrists, your hands, to the very tips of your fingers.",
+        "And now that color moves into your chest. Into your heart. And here is where I want you to breathe this color in deeply — breathe all of this good energy right into your heart. [Weave your first therapeutic suggestion here, connected to their presenting issue.]",
+        "Let it go down through your diaphragm, remembering the power of the breath. Down through your stomach, your solar plexus. A sense of certainty growing. Down through your lower back, unwinding.",
+        "And now that color flows through your hips, down through your thighs and hamstrings. Almost like the big muscles are showing the little muscles how to do it — how to relax, how to let go.",
+        "All the way down through your knees, your shins, your calves. Down to your ankles, your heels, the soles of your feet, to the very tips of your toes.",
+        "And now — a wave. A wave of potential, of possibility, of beautiful energy, starting at your toes and washing all the way back up through your legs, your torso, your chest, all the way to the top of your head.",
+        "And zero — [snap] — Deep Sleep.",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
+      ]
+    },
+    {
+      "id": "ball_of_light",
+      "name": "Ball of Light Therapeutic Imagery",
+      "weight": 4,
+      "min": 3,
+      "prompter": [
+        "Use AFTER a progressive relaxation — client should already be deep.",
+        "Introduce the ball: pure energy, pure potential, hovering above the crown.",
+        "Cross senses: what does it look like? Sound like? (crackling energy). Smell like? (fresh air after rain).",
+        "Download positive affirmations: 'I am confident, I am capable, I am worthy.'",
+        "Move to mind's eye: ball descends through the crown, clearing old limiting beliefs.",
+        "Change color to match the client's vision — what does success look like?",
+        "Move to throat: the power of their voice, their influence, their authority.",
+        "Move to heart: connection, purpose, compassion. Breathe the energy in.",
+        "Move to gut: certainty, trust, instinct. Anchor the breath as a reset tool.",
+        "Move to base: grounding, stability, safety. Complete the journey.",
+        "Each stop = one therapeutic suggestion connected to their presenting issue."
+      ],
+      "check": [
+        "Ball introduced AFTER sufficient depth achieved",
+        "At least 3 senses engaged (visual + sound + smell or feel)",
+        "Positive affirmations downloaded clearly",
+        "Color changed at least twice (different therapeutic intentions)",
+        "Therapeutic suggestions woven into at least 3 body centers",
+        "Breath anchored as a real-world reset tool",
+        "Pacing slowed progressively through each center"
+      ],
+      "script": [
+        "And now I would like you to imagine — picture, visualize — a ball of pure energy hovering just above the top of your head. A ball of pure love, of pure potential.",
+        "Notice what it looks like. It might be glowing white, or golden, or whatever color feels right. And you can hear it — a gentle crackling, like something alive with possibility.",
+        "And it has a scent — clean, fresh, like the air after a rain. Like minerals and earth and something new.",
+        "We are downloading all of the positive into this ball of energy right now. I am confident. I am capable. I am worthy. All of it going in.",
+        "Now imagine that ball of energy gently lowering down through the crown of your head, into that space behind your mind's eye. And as it moves through, it is cleansing and clearing — clearing out any old cobwebs, any old limiting beliefs. Just clearing them out.",
+        "Now change the color of that ball to match your vision. What do you want this to look like? Imagine yourself months from now — [describe their specific vision from intake]. You have got this.",
+        "Let that ball of energy move down into your throat now. And here you remember the power of your voice. The influence you carry. The authority that is naturally yours.",
+        "Now change the color again — to the color of confidence. Whatever color comes up. And let it drop down into your heart. Breathing this energy in deeply. Connection. Purpose. Compassion.",
+        "And down into your gut now. A sense of certainty. Trust. And here is something powerful — anytime you start to feel a little stress, you do those nice, long, slow exhales, and you drop right back into this beautiful place. The breath is your anchor.",
+        "All the way down now, grounding through your center, your base. Stable. Safe. Strong. This is yours. This is who you are."
+      ]
+    },
+    {
+      "id": "eyefasc_progressive",
+      "name": "Eye Fascination + Progressive Hybrid",
+      "weight": 5,
+      "min": 4,
+      "prompter": [
+        "Start with eye fascination: pick a spot on the ceiling, hold focus.",
+        "Work in THREES: three deep breaths — in, hold, long slow exhale (8 sec).",
+        "Begin progressive from top while eyes are OPEN on the spot: scalp, forehead, eyebrows.",
+        "Color introduction: 'Imagine a color of relaxation on your eyelids.'",
+        "Eyes close on the third exhale — or when they naturally close.",
+        "Eye challenge MID-progressive: 'Eyelids so colored with relaxation they just would not work.'",
+        "Build in threes: (1) imagine they would not work, (2) be certain, (3) test for fun.",
+        "Release the challenge: 'Let that go, wipe it clean.'",
+        "Reactional deepener: 'Open your eyes, find your spot' → Deep Sleep → '10 times deeper.'",
+        "Continue progressive from shoulders down — now weaving in suggestions.",
+        "Cross senses: color + feeling + temperature + creative memory.",
+        "Complete to toes, reverse wave, terminal Deep Sleep + PHS."
+      ],
+      "check": [
+        "Eye fascination established before progressive began",
+        "Three-breath pattern used (in, hold, 8-sec exhale)",
+        "Progressive started with eyes open on the spot",
+        "Color introduced to eyelids before challenge",
+        "Eye challenge built in three stages (imagine, certain, test)",
+        "Challenge released cleanly before continuing",
+        "Open-close reactional used as mid-progressive deepener",
+        "Suggestions woven into body scan (not separate)",
+        "At least one sensory crossover included",
+        "Reverse wave + terminal Deep Sleep + PHS"
+      ],
+      "script": [
+        "From where you are sitting comfortably, I would like you to pick a spot on the ceiling above you. Let your eyes rest there.",
+        "Good. Now take a nice deep breath in, all the way to the top. Hold it. And let that long, slow exhale out — eight seconds, long and slow, like blowing out a candle. Just relaxing the body, releasing tension.",
+        "As you keep looking at that spot, move your awareness down through your scalp. Into your forehead. Your eyebrows. Now take another deep breath in, hold it, and as you exhale, move that awareness into your temples, the muscles under your eyes, especially those eyelids.",
+        "Now I want you to imagine a color — a color that represents relaxation. Let that color settle right onto your eyelids.",
+        "One more time — nice deep breath in, hold it. And when I say Deep Sleep, let it all go. Let your eyes close. Let the breath go all at once. Go deeper.",
+        "Deep Sleep. [Snap.] All the way down. The deeper you go, the better you feel. The better you feel, the deeper you go.",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state very quickly, calmly, and deeply, and the physical body will relax.",
+        "Now I am going to show you just how powerful your imagination is. This is not a trick. This is your mind, your creative power.",
+        "Imagine your eyelids are so colored with that relaxation, so heavy and so wonderfully relaxed, that you could imagine — even if you tried to open them — they just would not work.",
+        "Now ramp that up. Be certain. Your imagination is that strong, your eyelids that relaxed. You could be absolutely certain that even if you wanted to open them, they just would not work.",
+        "And now, just for fun — just as a little test — when you are absolutely certain, give it a try. See that indeed they just will not work. [Brief pause.] Good.",
+        "And now let that go. Wipe it clean. In a moment I will ask you to open your eyes and find your spot again. You will find it easy because you are taking in all these positive suggestions. Open your eyes and find your spot.",
+        "And Deep Sleep. [Snap.] Close them down. All the way down. Ten times deeper.",
+        "Now let that color of relaxation flow down into your shoulders, all the way into your shoulder blades. [Continue progressive from shoulders to toes, weaving in therapeutic suggestions at the chest, gut, and heart.]",
+        "And when you reach the tips of your toes — a wave. A wave of energy from toes to crown. And zero — Deep Sleep. [Snap.]",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state very quickly, calmly, and deeply, and the physical body will relax."
+      ]
+    },
+    {
+      "id": "progrelax_sensory",
+      "name": "Sensory Crossover Progressive (VAK Overload)",
+      "weight": 4,
+      "min": 3,
+      "prompter": [
+        "Purpose: overload the critical mind by engaging ALL senses simultaneously.",
+        "Start standard: head-to-toe body scan with color.",
+        "At each major body region, add a DIFFERENT sense:",
+        "  Head: Visual — see the color washing down.",
+        "  Shoulders: Kinesthetic — feel the weight dropping away.",
+        "  Arms: Temperature — warm or cool, their choice.",
+        "  Chest: Auditory — 'You might hear your own heartbeat, calm and steady.'",
+        "  Stomach: Olfactory — 'Like the clean smell of fresh air.'",
+        "  Legs: Gustatory — 'What would that color of relaxation taste like?'",
+        "Cross senses at least once: 'What does that color sound like?'",
+        "The overload bypasses the critical mind — they stop analyzing and just experience.",
+        "Terminal count + Deep Sleep + PHS."
+      ],
+      "check": [
+        "At least 4 different senses engaged during the body scan",
+        "At least one sensory crossover (e.g., 'taste the color')",
+        "Head-to-toe order maintained",
+        "Client stayed in experience (not analyzing)",
+        "Pacing adjusted based on client responsiveness",
+        "Terminal count + Deep Sleep + PHS"
+      ],
+      "script": [
+        "As that sense of relaxation begins at the top of your head, I want you to see it — see the color flowing down like warm light through your scalp, your forehead, your temples.",
+        "And as it reaches your shoulders, feel the weight dropping away. Feel the tension leaving, like setting down a heavy backpack you have been carrying all day.",
+        "Moving down through your arms now — and notice the temperature. Is it warm? Is it cool? Whatever feels right. Let that temperature flow all the way to your fingertips.",
+        "And as this wave of relaxation reaches your chest, you might hear your own heartbeat — calm, steady, rhythmic. Like a drum in the distance, keeping perfect time.",
+        "Down into your stomach — and there is a freshness here, like the clean smell of the air after a rain. Minerals and earth and something new. Breathe it in.",
+        "Through your hips, your thighs — and here is something interesting. If that color of relaxation had a taste, what would it taste like? Let your imagination go there for a moment. It does not have to make sense. Just notice.",
+        "All the way down through your knees, calves, ankles, to the tips of your toes. Every sense engaged. Every part of you relaxed.",
+        "And five — letting go. Four. Three. Two. One. Zero — [snap] — Deep Sleep.",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state very quickly, calmly, and deeply, and the physical body will relax."
       ]
     }
   ]

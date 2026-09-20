@@ -12,12 +12,13 @@ const GROUP_OF = {
   moreno34: "Shadows", kappas22: "Shadows",
   var2e30: "Variations", var2p30: "Variations",
   pr_solo10: "Prog Relax", pr_chain25: "Prog Relax", pr_mock40: "Prog Relax", pr_roleplay55: "Prog Relax",
+  burns_color12: "Burns", burns_full30: "Burns", eyefasc_prog20: "Burns", burns_master50: "Burns",
   autodual20: "Self-work", imagery18: "Self-work", selfhyp10: "Self-work",
   inferred30: "Inferred", inferredadv35: "Inferred",
   tom5: "Singles", abreact8: "Singles",
 };
-const GROUP_ORDER = ["First session", "PSR", "Shadows", "Variations", "Prog Relax", "Inferred", "Self-work", "Singles"];
-const GROUP_COLOR = { "First session": "var(--teal)", PSR: "var(--amber)", Shadows: "var(--iris)", Variations: "#b57fd4", "Prog Relax": "#5bb89a", Inferred: "#d49aba", "Self-work": "var(--ok)", Singles: "var(--mist)" };
+const GROUP_ORDER = ["First session", "PSR", "Shadows", "Variations", "Prog Relax", "Burns", "Inferred", "Self-work", "Singles"];
+const GROUP_COLOR = { "First session": "var(--teal)", PSR: "var(--amber)", Shadows: "var(--iris)", Variations: "#b57fd4", "Prog Relax": "#5bb89a", Burns: "#e0a458", Inferred: "#d49aba", "Self-work": "var(--ok)", Singles: "var(--mist)" };
 const GRADED = { mock50: true };
 /* a few single-skill quick starts appended to the Singles lane */
 const SINGLE_SKILLS = ["armraise", "progrelax", "tom"];
@@ -69,8 +70,8 @@ export default function Lab() {
   /* session builder picks */
   const [bPre, setBPre] = useState({ intake: false, settle: false, pretalk: true, tom: true, suggestibility_test: false });
   const [bInduction, setBInduction] = useState("armraise");
-  const [bDeepeners, setBDeepeners] = useState({ count50: true, progrelax: true, staircase: true, reactional: false, heavylight: false, handforehead: false, armrigidity: false, deepening_assess: false });
-  const [bPost, setBPost] = useState({ suggestions: true, phs_rehypnosis: false, guidedimagery: false, selfhypnosis: false, countout: true, fingerspread: false, homework: false });
+  const [bDeepeners, setBDeepeners] = useState({ count50: true, progrelax: true, staircase: true, reactional: false, heavylight: false, handforehead: false, armrigidity: false, deepening_assess: false, progrelax_color: false, progrelax_sensory: false, eyefasc_progressive: false });
+  const [bPost, setBPost] = useState({ ball_of_light: false, suggestions: true, phs_rehypnosis: false, guidedimagery: false, selfhypnosis: false, countout: true, fingerspread: false, homework: false });
   const scriptRef = useRef(null);
   const tick = useRef(null);
 
@@ -95,6 +96,7 @@ export default function Lab() {
     ["var2_emotional", "Variation 2: Emotional lane"], ["var2_physical", "Variation 2: Physical lane"],
     ["inferred_mastery", "Inferred: Mastery sequence"], ["inferred_advanced", "Inferred: Advanced (overload + confusion)"],
     ["pr_solo", "Prog Relax: Solo practice"], ["pr_chain", "Prog Relax: Deepening chain (all methods)"], ["pr_mock", "Prog Relax: Mock session"], ["pr_roleplay", "Prog Relax: Full role-play session"],
+    ["burns_color", "Burns: Color Progressive solo"], ["burns_full", "Burns: Color + Ball of Light + Rx"], ["eyefasc_prog", "Burns: Eye Fascination + Progressive hybrid"], ["burns_master", "Burns: Masterclass full session"],
     ["auto_dual_path", "Self-work: Auto Dual induction path"], ["imagery_path", "Self-work: Guided Imagery secondary"], ["self_hypnosis", "Self-work: Self-Hypnosis teach-back"],
     ...drillData.drills.map((d) => [d.id, `Single skill: ${d.name}`]),
   ];
@@ -106,9 +108,9 @@ export default function Lab() {
     /* induction */
     ids.push(bInduction);
     /* deepeners — in session order */
-    ["count50", "progrelax", "staircase", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].forEach((id) => { if (bDeepeners[id]) ids.push(id); });
+    ["count50", "progrelax", "progrelax_color", "progrelax_sensory", "eyefasc_progressive", "staircase", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].forEach((id) => { if (bDeepeners[id]) ids.push(id); });
     /* post */
-    ["suggestions", "guidedimagery", "phs_rehypnosis", "selfhypnosis", "countout", "fingerspread", "homework"].forEach((id) => { if (bPost[id]) ids.push(id); });
+    ["ball_of_light", "suggestions", "guidedimagery", "phs_rehypnosis", "selfhypnosis", "countout", "fingerspread", "homework"].forEach((id) => { if (bPost[id]) ids.push(id); });
     const items = ids.map((id) => DRILLS[id]).filter(Boolean);
     const totalWeight = items.reduce((s, d) => s + d.weight, 0);
     const m = minutes;
@@ -253,7 +255,7 @@ export default function Lab() {
                 <div>
                   <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "#5bb89a", marginBottom: 8 }}>Deepening (any combination)</div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {[["count50", "5-to-0 Count"], ["progrelax", "Progressive Relaxation"], ["staircase", "Staircase"], ["reactional", "Reactional"], ["deepening_assess", "Depth Assessment"], ["heavylight", "Heavy/Light"], ["handforehead", "Hand-to-Forehead Challenge"], ["armrigidity", "Arm Rigidity Challenge"]].map(([id, label]) => (
+                    {[["count50", "5-to-0 Count"], ["progrelax", "Progressive Relaxation"], ["progrelax_color", "Color Progressive (Burns)"], ["progrelax_sensory", "Sensory Crossover (VAK)"], ["eyefasc_progressive", "Eye Fasc + Progressive"], ["staircase", "Staircase"], ["reactional", "Reactional"], ["deepening_assess", "Depth Assessment"], ["heavylight", "Heavy/Light"], ["handforehead", "Hand-to-Forehead Challenge"], ["armrigidity", "Arm Rigidity Challenge"]].map(([id, label]) => (
                       <button key={id} className={`checkchip${bDeepeners[id] ? " on" : ""}`} onClick={() => setBDeepeners((p) => ({ ...p, [id]: !p[id] }))}>{bDeepeners[id] ? "✓ " : ""}{label}</button>
                     ))}
                   </div>
@@ -262,7 +264,7 @@ export default function Lab() {
                 <div>
                   <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "#d49aba", marginBottom: 8 }}>Therapy & Close</div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {[["suggestions", "Suggestions"], ["guidedimagery", "Guided Imagery"], ["phs_rehypnosis", "PHS Re-Hypnosis (#5)"], ["selfhypnosis", "Self-Hypnosis Teach"], ["countout", "Count Out"], ["fingerspread", "Finger-Spread Verify"], ["homework", "Homework & Close"]].map(([id, label]) => (
+                    {[["ball_of_light", "Ball of Light (Burns)"], ["suggestions", "Suggestions"], ["guidedimagery", "Guided Imagery"], ["phs_rehypnosis", "PHS Re-Hypnosis (#5)"], ["selfhypnosis", "Self-Hypnosis Teach"], ["countout", "Count Out"], ["fingerspread", "Finger-Spread Verify"], ["homework", "Homework & Close"]].map(([id, label]) => (
                       <button key={id} className={`checkchip${bPost[id] ? " on" : ""}`} onClick={() => setBPost((p) => ({ ...p, [id]: !p[id] }))}>{bPost[id] ? "✓ " : ""}{label}</button>
                     ))}
                   </div>
@@ -273,8 +275,8 @@ export default function Lab() {
                   <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--mist)" }}>
                     {[...["intake", "settle", "pretalk", "tom", "suggestibility_test"].filter((id) => bPre[id]).map((id) => DRILLS[id]?.name),
                       DRILLS[bInduction]?.name,
-                      ...["count50", "progrelax", "staircase", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].filter((id) => bDeepeners[id]).map((id) => DRILLS[id]?.name),
-                      ...["suggestions", "guidedimagery", "phs_rehypnosis", "selfhypnosis", "countout", "fingerspread", "homework"].filter((id) => bPost[id]).map((id) => DRILLS[id]?.name),
+                      ...["count50", "progrelax", "progrelax_color", "progrelax_sensory", "eyefasc_progressive", "staircase", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].filter((id) => bDeepeners[id]).map((id) => DRILLS[id]?.name),
+                      ...["ball_of_light", "suggestions", "guidedimagery", "phs_rehypnosis", "selfhypnosis", "countout", "fingerspread", "homework"].filter((id) => bPost[id]).map((id) => DRILLS[id]?.name),
                     ].filter(Boolean).join(" → ")}
                   </span>
                 </div>
