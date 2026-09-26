@@ -581,7 +581,8 @@
         "The moment you make skin contact — the moment your hand touches your forehead — give me a nod. At that instant you will reach your peak of suggestibility and enter the hypnotic state.",
         "[Wait for contact and nod.] Deep Sleep.",
         "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
-      ]
+      ],
+      "image": "/images/scenes/magic_chamber.png"
     },
     {
       "id": "count50",
@@ -612,7 +613,8 @@
         "One — deeper and deeper, drifting down.",
         "Zero — [snap] — Deep Sleep.",
         "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
-      ]
+      ],
+      "image": "/images/scenes/neuro_staircase.png"
     },
     {
       "id": "reactional",
@@ -645,7 +647,8 @@
         "And one more time — open your eyes.",
         "And — Deep Sleep. [Snap.]",
         "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
-      ]
+      ],
+      "image": "/images/scenes/magic_chamber.png"
     },
     {
       "id": "heavylight",
@@ -678,7 +681,8 @@
         "Good. Now you can release both of those ideas. Let go of the weight and the balloons. Allow your arms to relax and gently come down to rest on your lap.",
         "Deep Sleep. [Snap.]",
         "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
-      ]
+      ],
+      "image": "/images/scenes/cord_cutting.png"
     },
     {
       "id": "progrelax",
@@ -733,7 +737,8 @@
         "And now as I count down from five to zero, each number represents a deeper level of relaxation. You feel the body letting go even more with every count.",
         "Five — letting go. Four. Three. Two. One. Zero — [snap] — Deep Sleep.",
         "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
-      ]
+      ],
+      "image": "/images/scenes/healing_paradise.png"
     },
     {
       "id": "staircase",
@@ -784,7 +789,8 @@
         "[--- ADAPTATION: Playground Slide (child) ---]",
         "Now imagine you are at the top of the most fun slide you have ever seen. It is big and curving and shiny. You sit down at the top. Ready?",
         "Three — you push off. Two — you are sliding down, faster and faster, the wind in your hair. One — and you land at the bottom in a big, soft pile of cushions. So comfortable. So safe. Zero — Deep Sleep."
-      ]
+      ],
+      "image": "/images/scenes/treasure_land.png"
     },
     {
       "id": "suggestions",
@@ -829,7 +835,8 @@
         "And your subconscious mind is absorbing these ideas now, integrating them, making them your own. There is no rush. This is unfolding at exactly the right pace for you.",
         "Not becoming someone new — but remembering who you have always been.",
         "[Optional: Venting dream.] And tonight, or in the nights that follow, you may have a dream — a cleansing dream — where any remaining tension or old patterns are simply released. You may or may not remember the dream. Either way is perfectly fine. When you awaken, you will feel refreshed and lighter."
-      ]
+      ],
+      "image": "/images/scenes/future_progression.png"
     },
     {
       "id": "countout",
@@ -954,7 +961,8 @@
         "[Allow a brief moment for them to test.] So, at five — your body relaxes. Four — your mind is letting go. Three — you emotionally feel calm. Two. One. Zero — Deep Sleep. [Snap.]",
         "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax.",
         "Now you can gently allow your hand to float back down to rest on your lap."
-      ]
+      ],
+      "image": "/images/scenes/grounding_anchor.png"
     },
     {
       "id": "armrigidity",
@@ -987,7 +995,8 @@
         "Three. Two. One. Release your arm to your lap. All the tension drops away. Any limiting beliefs dropping away. And with every breath you remember to let go of what no longer serves you.",
         "And that is Deep Sleep. [Snap.]",
         "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
-      ]
+      ],
+      "image": "/images/scenes/grounding_anchor.png"
     },
     {
       "id": "eyefascination",
@@ -1020,7 +1029,8 @@
         "[Pause — their eyes may already be closed.] And closing those eyes means you can relax now. It feels so good, so peaceful.",
         "Breathing in for a moment, and breathing out, allowing the relaxation to double throughout your entire body. Going deeper and deeper.",
         "Five — your body relaxes. Four — your mind is letting go. Three — feeling emotionally calm. Two. One. Zero — Deep Sleep. [Snap.]"
-      ]
+      ],
+      "image": "/images/scenes/magic_chamber.png"
     },
     {
       "id": "autodual",
@@ -1066,7 +1076,8 @@
         "And as your eyes close, both hands can relax and come down to rest on your lap.",
         "Deep Sleep. [Snap.]",
         "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
-      ]
+      ],
+      "image": "/images/scenes/magic_chamber.png"
     },
     {
       "id": "guidedimagery",
@@ -1107,7 +1118,8 @@
         "Near the top of the tree, on one branch, there is a single leaf. You watch it twist and turn in the breeze. And something inside you knows it is about to let go.",
         "And all at once the leaf breaks free, and the breeze carries it slowly — gliding down, back and forth, until it comes to rest near the base of the tree.",
         "And beside it, a single blade of grass has persevered and grown strong. In the same way that you are finding your own strength and motivation. And that feels wonderful."
-      ]
+      ],
+      "image": "/images/scenes/wonderland.png"
     },
     {
       "id": "selfhypnosis",
@@ -1154,7 +1166,8 @@
         "[If the client has somnambulistic tendencies, add: 'to a completely non-suggestible state.']",
         "Practice this every day. The more you practice, the faster and deeper you will go each time.",
         "Any questions about the self-hypnosis process?"
-      ]
+      ],
+      "image": "/images/scenes/future_progression.png"
     },
     {
       "id": "nlp_rapport",
@@ -1498,7 +1511,8 @@
         "[Repeat this PHS after every deepener throughout the first session — aim for six to eight repetitions total.]",
         "[For Emotional clients: deliver in a warm, maternal tone — gentle, allowing, permissive.]",
         "[For Physical clients: deliver in a confident, paternal tone — direct, assured, matter-of-fact.]"
-      ]
+      ],
+      "image": "/images/scenes/grounding_anchor.png"
     },
     {
       "id": "phs_rehypnosis",
@@ -1548,7 +1562,8 @@
         "One — my eyelids closing, breathing becoming more rhythmic, I am deeply relaxed. [Client repeats.]",
         "Zero — Deep Sleep! [Snap.]",
         "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
-      ]
+      ],
+      "image": "/images/scenes/age_regression.png"
     },
     {
       "id": "deepening_assess",
@@ -1580,7 +1595,8 @@
         "[Remember: Emotional clients may report feeling light or like 'nothing happened' but may actually be in a deep state. Trust the eye signs, not their subjective report.]",
         "[Physical clients typically display depth clearly through visible body stillness and slowed breathing rate.]",
         "[Decision point: stay in the chair for additional desk-based deepeners, or transition to the recliner for progressive relaxation.]"
-      ]
+      ],
+      "image": "/images/scenes/blueprint_room.png"
     },
     {
       "id": "suggestibility_test",
@@ -1614,7 +1630,8 @@
         "[Pause 10-15 seconds. Observe which arm moves more and how quickly. Physical clients show fast, visible arm movement. Emotional clients show subtle, slow shifts.]",
         "Good. You can relax both arms. Thank you.",
         "[Based on the results, assign E/P percentage. Share with the client:] Based on what I am seeing, your mind processes information in a way that is about [X]% physical and [Y]% emotional. This is neither good nor bad — it simply tells me the best way to communicate with your subconscious mind today."
-      ]
+      ],
+      "image": "/images/scenes/blueprint_room.png"
     },
     {
       "id": "progrelax_color",
@@ -1663,7 +1680,8 @@
         "And now — a wave. A wave of potential, of possibility, of beautiful energy, starting at your toes and washing all the way back up through your legs, your torso, your chest, all the way to the top of your head.",
         "And zero — [snap] — Deep Sleep.",
         "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state of hypnosis very quickly, calmly, and deeply, and the physical body will relax."
-      ]
+      ],
+      "image": "/images/scenes/healing_paradise.png"
     },
     {
       "id": "ball_of_light",
@@ -1703,7 +1721,8 @@
         "Now change the color again — to the color of confidence. Whatever color comes up. And let it drop down into your heart. Breathing this energy in deeply. Connection. Purpose. Compassion.",
         "And down into your gut now. A sense of certainty. Trust. And here is something powerful — anytime you start to feel a little stress, you do those nice, long, slow exhales, and you drop right back into this beautiful place. The breath is your anchor.",
         "All the way down now, grounding through your center, your base. Stable. Safe. Strong. This is yours. This is who you are."
-      ]
+      ],
+      "image": "/images/scenes/healing_paradise.png"
     },
     {
       "id": "eyefasc_progressive",
@@ -1753,7 +1772,8 @@
         "Now let that color of relaxation flow down into your shoulders, all the way into your shoulder blades. [Continue progressive from shoulders to toes, weaving in therapeutic suggestions at the chest, gut, and heart.]",
         "And when you reach the tips of your toes — a wave. A wave of energy from toes to crown. And zero — Deep Sleep. [Snap.]",
         "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state very quickly, calmly, and deeply, and the physical body will relax."
-      ]
+      ],
+      "image": "/images/scenes/wonderland.png"
     },
     {
       "id": "progrelax_sensory",
@@ -1792,7 +1812,8 @@
         "All the way down through your knees, calves, ankles, to the tips of your toes. Every sense engaged. Every part of you relaxed.",
         "And five — letting go. Four. Three. Two. One. Zero — [snap] — Deep Sleep.",
         "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state very quickly, calmly, and deeply, and the physical body will relax."
-      ]
+      ],
+      "image": "/images/scenes/wonderland.png"
     },
     {
       "id": "staircase_100",
@@ -1848,7 +1869,8 @@
         "You are very deeply relaxed now. So very deeply and comfortably relaxed. From the top of your head, all the way down — deeper down — to the tips of your toes.",
         "Every nerve, every cell, every fiber, every consciousness of your body is deeply and comfortably relaxed.",
         "[Proceed to favorite place visualization, or continue directly with therapeutic suggestions.]"
-      ]
+      ],
+      "image": "/images/scenes/treasure_land.png"
     },
     {
       "id": "staircase_therapeutic",
@@ -2021,7 +2043,8 @@
         "[Ideomotor: remain completely silent while waiting. Movement can take 2-15 seconds. Micro-twitches count.]",
         "[If No or no response: 'Take all the time you need. Your inner mind is working at the perfect pace.']",
         "[Zoom 3-second lag: wait an extra 3-4 seconds after you see movement. Compression can delay subtle signals.]"
-      ]
+      ],
+      "image": "/images/scenes/healing_paradise.png"
     },
     {
       "id": "ideomotor_setup",
@@ -2085,7 +2108,8 @@
         "[Subtle Movements: look for micro-twitches, breathing shifts before the lift, or muscle tone changes in the hand.]",
         "[If No or no response: 'Take all the time you need. Your inner mind is working at the perfect pace. When the work is ready, that finger will lift.']",
         "[Zoom 3-second lag: always wait an extra 3-4 seconds after you think you see movement. Zoom compression can delay or bunch up subtle signals.]"
-      ]
+      ],
+      "image": "/images/scenes/blueprint_room.png"
     },
     {
       "id": "staircase_neuro21",
@@ -2196,7 +2220,8 @@
         "[Relationships]",
         "[Old: 'The old, draining cords of enmeshment and past heartbreak.']",
         "[New: 'A magnificent, self-contained fountain of brilliant white light feeding your own heart.']"
-      ]
+      ],
+      "image": "/images/scenes/neuro_staircase.png"
     }
   ]
 }

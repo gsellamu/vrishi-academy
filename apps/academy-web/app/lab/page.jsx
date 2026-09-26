@@ -359,6 +359,11 @@ export default function Lab() {
             {/* RIGHT — full script */}
             {showScript && current.script?.length > 0 && (
               <div ref={scriptRef} className="panel" style={{ padding: "18px 20px", maxHeight: "60vh", overflowY: "auto", borderLeft: "3px solid var(--iris)" }}>
+                {current.image && (
+                  <div style={{ margin: "-18px -20px 16px", borderRadius: "8px 8px 0 0", overflow: "hidden" }}>
+                    <img src={current.image} alt={current.name} style={{ width: "100%", height: 180, objectFit: "cover", display: "block" }} />
+                  </div>
+                )}
                 <div style={{ fontFamily: "var(--mono)", fontSize: 10.5, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--iris)", marginBottom: 14 }}>Full script</div>
                 {current.script.map((para, i) => {
                   const isNote = para.startsWith("[");
