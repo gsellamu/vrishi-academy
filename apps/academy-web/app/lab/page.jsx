@@ -13,12 +13,13 @@ const GROUP_OF = {
   var2e30: "Variations", var2p30: "Variations",
   pr_solo10: "Prog Relax", pr_chain25: "Prog Relax", pr_mock40: "Prog Relax", pr_roleplay55: "Prog Relax",
   burns_color12: "Burns", burns_full30: "Burns", eyefasc_prog20: "Burns", burns_master50: "Burns",
+  staircase_wonder25: "Staircase", staircase_heal30: "Staircase", neuro21_session40: "Staircase",
   autodual20: "Self-work", imagery18: "Self-work", selfhyp10: "Self-work",
   inferred30: "Inferred", inferredadv35: "Inferred",
   tom5: "Singles", abreact8: "Singles",
 };
-const GROUP_ORDER = ["First session", "PSR", "Shadows", "Variations", "Prog Relax", "Burns", "Inferred", "Self-work", "Singles"];
-const GROUP_COLOR = { "First session": "var(--teal)", PSR: "var(--amber)", Shadows: "var(--iris)", Variations: "#b57fd4", "Prog Relax": "#5bb89a", Burns: "#e0a458", Inferred: "#d49aba", "Self-work": "var(--ok)", Singles: "var(--mist)" };
+const GROUP_ORDER = ["First session", "PSR", "Shadows", "Variations", "Prog Relax", "Burns", "Staircase", "Inferred", "Self-work", "Singles"];
+const GROUP_COLOR = { "First session": "var(--teal)", PSR: "var(--amber)", Shadows: "var(--iris)", Variations: "#b57fd4", "Prog Relax": "#5bb89a", Burns: "#e0a458", Staircase: "#7fb8d4", Inferred: "#d49aba", "Self-work": "var(--ok)", Singles: "var(--mist)" };
 const GRADED = { mock50: true };
 /* a few single-skill quick starts appended to the Singles lane */
 const SINGLE_SKILLS = ["armraise", "progrelax", "tom"];
@@ -70,7 +71,7 @@ export default function Lab() {
   /* session builder picks */
   const [bPre, setBPre] = useState({ intake: false, settle: false, pretalk: true, tom: true, suggestibility_test: false, ideomotor_setup: false });
   const [bInduction, setBInduction] = useState("armraise");
-  const [bDeepeners, setBDeepeners] = useState({ count50: true, progrelax: true, staircase: true, staircase_100: false, staircase_therapeutic: false, reactional: false, heavylight: false, handforehead: false, armrigidity: false, deepening_assess: false, progrelax_color: false, progrelax_sensory: false, eyefasc_progressive: false });
+  const [bDeepeners, setBDeepeners] = useState({ count50: true, progrelax: true, staircase: true, staircase_100: false, staircase_therapeutic: false, staircase_neuro21: false, reactional: false, heavylight: false, handforehead: false, armrigidity: false, deepening_assess: false, progrelax_color: false, progrelax_sensory: false, eyefasc_progressive: false });
   const [bPost, setBPost] = useState({ ball_of_light: false, suggestions: true, phs_rehypnosis: false, guidedimagery: false, selfhypnosis: false, countout: true, fingerspread: false, homework: false });
   const scriptRef = useRef(null);
   const tick = useRef(null);
@@ -97,6 +98,7 @@ export default function Lab() {
     ["inferred_mastery", "Inferred: Mastery sequence"], ["inferred_advanced", "Inferred: Advanced (overload + confusion)"],
     ["pr_solo", "Prog Relax: Solo practice"], ["pr_chain", "Prog Relax: Deepening chain (all methods)"], ["pr_mock", "Prog Relax: Mock session"], ["pr_roleplay", "Prog Relax: Full role-play session"],
     ["burns_color", "Burns: Color Progressive solo"], ["burns_full", "Burns: Color + Ball of Light + Rx"], ["eyefasc_prog", "Burns: Eye Fascination + Progressive hybrid"], ["burns_master", "Burns: Masterclass full session"],
+    ["staircase_wonderland", "Staircase: to Wonderland"], ["staircase_healing", "Staircase: to Healing Paradise"], ["neuro21_full", "Staircase: Neuroplasticity 21-Step"],
     ["auto_dual_path", "Self-work: Auto Dual induction path"], ["imagery_path", "Self-work: Guided Imagery secondary"], ["self_hypnosis", "Self-work: Self-Hypnosis teach-back"],
     ...drillData.drills.map((d) => [d.id, `Single skill: ${d.name}`]),
   ];
@@ -108,7 +110,7 @@ export default function Lab() {
     /* induction */
     ids.push(bInduction);
     /* deepeners — in session order */
-    ["count50", "progrelax", "progrelax_color", "progrelax_sensory", "eyefasc_progressive", "staircase", "staircase_100", "staircase_therapeutic", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].forEach((id) => { if (bDeepeners[id]) ids.push(id); });
+    ["count50", "progrelax", "progrelax_color", "progrelax_sensory", "eyefasc_progressive", "staircase", "staircase_100", "staircase_therapeutic", "staircase_neuro21", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].forEach((id) => { if (bDeepeners[id]) ids.push(id); });
     /* post */
     ["ball_of_light", "suggestions", "guidedimagery", "phs_rehypnosis", "selfhypnosis", "countout", "fingerspread", "homework"].forEach((id) => { if (bPost[id]) ids.push(id); });
     const items = ids.map((id) => DRILLS[id]).filter(Boolean);
@@ -255,7 +257,7 @@ export default function Lab() {
                 <div>
                   <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "#5bb89a", marginBottom: 8 }}>Deepening (any combination)</div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {[["count50", "5-to-0 Count"], ["progrelax", "Progressive Relaxation"], ["progrelax_color", "Color Progressive (Burns)"], ["progrelax_sensory", "Sensory Crossover (VAK)"], ["eyefasc_progressive", "Eye Fasc + Progressive"], ["staircase", "Staircase (20-step)"], ["staircase_100", "Interactive Staircase (100-step)"], ["staircase_therapeutic", "Therapeutic Staircase (6 destinations)"], ["reactional", "Reactional"], ["deepening_assess", "Depth Assessment"], ["heavylight", "Heavy/Light"], ["handforehead", "Hand-to-Forehead Challenge"], ["armrigidity", "Arm Rigidity Challenge"]].map(([id, label]) => (
+                    {[["count50", "5-to-0 Count"], ["progrelax", "Progressive Relaxation"], ["progrelax_color", "Color Progressive (Burns)"], ["progrelax_sensory", "Sensory Crossover (VAK)"], ["eyefasc_progressive", "Eye Fasc + Progressive"], ["staircase", "Staircase (20-step)"], ["staircase_100", "Interactive Staircase (100-step)"], ["staircase_therapeutic", "Therapeutic Staircase (6 destinations)"], ["staircase_neuro21", "Neuroplasticity 21-Step"], ["reactional", "Reactional"], ["deepening_assess", "Depth Assessment"], ["heavylight", "Heavy/Light"], ["handforehead", "Hand-to-Forehead Challenge"], ["armrigidity", "Arm Rigidity Challenge"]].map(([id, label]) => (
                       <button key={id} className={`checkchip${bDeepeners[id] ? " on" : ""}`} onClick={() => setBDeepeners((p) => ({ ...p, [id]: !p[id] }))}>{bDeepeners[id] ? "✓ " : ""}{label}</button>
                     ))}
                   </div>
@@ -275,7 +277,7 @@ export default function Lab() {
                   <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--mist)" }}>
                     {[...["intake", "settle", "pretalk", "tom", "suggestibility_test", "ideomotor_setup"].filter((id) => bPre[id]).map((id) => DRILLS[id]?.name),
                       DRILLS[bInduction]?.name,
-                      ...["count50", "progrelax", "progrelax_color", "progrelax_sensory", "eyefasc_progressive", "staircase", "staircase_100", "staircase_therapeutic", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].filter((id) => bDeepeners[id]).map((id) => DRILLS[id]?.name),
+                      ...["count50", "progrelax", "progrelax_color", "progrelax_sensory", "eyefasc_progressive", "staircase", "staircase_100", "staircase_therapeutic", "staircase_neuro21", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].filter((id) => bDeepeners[id]).map((id) => DRILLS[id]?.name),
                       ...["ball_of_light", "suggestions", "guidedimagery", "phs_rehypnosis", "selfhypnosis", "countout", "fingerspread", "homework"].filter((id) => bPost[id]).map((id) => DRILLS[id]?.name),
                     ].filter(Boolean).join(" → ")}
                   </span>
