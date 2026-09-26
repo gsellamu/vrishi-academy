@@ -68,7 +68,7 @@ export default function Lab() {
   const [showScript, setShowScript] = useState(true);
   const [showBuilder, setShowBuilder] = useState(false);
   /* session builder picks */
-  const [bPre, setBPre] = useState({ intake: false, settle: false, pretalk: true, tom: true, suggestibility_test: false });
+  const [bPre, setBPre] = useState({ intake: false, settle: false, pretalk: true, tom: true, suggestibility_test: false, ideomotor_setup: false });
   const [bInduction, setBInduction] = useState("armraise");
   const [bDeepeners, setBDeepeners] = useState({ count50: true, progrelax: true, staircase: true, staircase_100: false, staircase_therapeutic: false, reactional: false, heavylight: false, handforehead: false, armrigidity: false, deepening_assess: false, progrelax_color: false, progrelax_sensory: false, eyefasc_progressive: false });
   const [bPost, setBPost] = useState({ ball_of_light: false, suggestions: true, phs_rehypnosis: false, guidedimagery: false, selfhypnosis: false, countout: true, fingerspread: false, homework: false });
@@ -104,7 +104,7 @@ export default function Lab() {
   function buildCustom() {
     const ids = [];
     /* pre */
-    ["intake", "settle", "pretalk", "tom", "suggestibility_test"].forEach((id) => { if (bPre[id]) ids.push(id); });
+    ["intake", "settle", "pretalk", "tom", "suggestibility_test", "ideomotor_setup"].forEach((id) => { if (bPre[id]) ids.push(id); });
     /* induction */
     ids.push(bInduction);
     /* deepeners — in session order */
@@ -237,7 +237,7 @@ export default function Lab() {
                 <div>
                   <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--teal)", marginBottom: 8 }}>Pre-session</div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {[["intake", "Intake & Goal Plan"], ["settle", "Comfort & Settle"], ["pretalk", "Pre-Induction Talk"], ["tom", "Theory of Mind"], ["suggestibility_test", "Suggestibility Test"]].map(([id, label]) => (
+                    {[["intake", "Intake & Goal Plan"], ["settle", "Comfort & Settle"], ["pretalk", "Pre-Induction Talk"], ["tom", "Theory of Mind"], ["suggestibility_test", "Suggestibility Test"], ["ideomotor_setup", "Ideomotor Setup"]].map(([id, label]) => (
                       <button key={id} className={`checkchip${bPre[id] ? " on" : ""}`} onClick={() => setBPre((p) => ({ ...p, [id]: !p[id] }))}>{bPre[id] ? "✓ " : ""}{label}</button>
                     ))}
                   </div>
@@ -273,7 +273,7 @@ export default function Lab() {
                 <div style={{ display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap", borderTop: "1px solid var(--line)", paddingTop: 14 }}>
                   <button type="button" className="primary" onClick={buildCustom}>Build &amp; Start →</button>
                   <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--mist)" }}>
-                    {[...["intake", "settle", "pretalk", "tom", "suggestibility_test"].filter((id) => bPre[id]).map((id) => DRILLS[id]?.name),
+                    {[...["intake", "settle", "pretalk", "tom", "suggestibility_test", "ideomotor_setup"].filter((id) => bPre[id]).map((id) => DRILLS[id]?.name),
                       DRILLS[bInduction]?.name,
                       ...["count50", "progrelax", "progrelax_color", "progrelax_sensory", "eyefasc_progressive", "staircase", "staircase_100", "staircase_therapeutic", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].filter((id) => bDeepeners[id]).map((id) => DRILLS[id]?.name),
                       ...["ball_of_light", "suggestions", "guidedimagery", "phs_rehypnosis", "selfhypnosis", "countout", "fingerspread", "homework"].filter((id) => bPost[id]).map((id) => DRILLS[id]?.name),
