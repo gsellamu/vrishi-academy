@@ -70,7 +70,7 @@ export default function Lab() {
   /* session builder picks */
   const [bPre, setBPre] = useState({ intake: false, settle: false, pretalk: true, tom: true, suggestibility_test: false });
   const [bInduction, setBInduction] = useState("armraise");
-  const [bDeepeners, setBDeepeners] = useState({ count50: true, progrelax: true, staircase: true, reactional: false, heavylight: false, handforehead: false, armrigidity: false, deepening_assess: false, progrelax_color: false, progrelax_sensory: false, eyefasc_progressive: false });
+  const [bDeepeners, setBDeepeners] = useState({ count50: true, progrelax: true, staircase: true, staircase_100: false, staircase_therapeutic: false, reactional: false, heavylight: false, handforehead: false, armrigidity: false, deepening_assess: false, progrelax_color: false, progrelax_sensory: false, eyefasc_progressive: false });
   const [bPost, setBPost] = useState({ ball_of_light: false, suggestions: true, phs_rehypnosis: false, guidedimagery: false, selfhypnosis: false, countout: true, fingerspread: false, homework: false });
   const scriptRef = useRef(null);
   const tick = useRef(null);
@@ -108,7 +108,7 @@ export default function Lab() {
     /* induction */
     ids.push(bInduction);
     /* deepeners — in session order */
-    ["count50", "progrelax", "progrelax_color", "progrelax_sensory", "eyefasc_progressive", "staircase", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].forEach((id) => { if (bDeepeners[id]) ids.push(id); });
+    ["count50", "progrelax", "progrelax_color", "progrelax_sensory", "eyefasc_progressive", "staircase", "staircase_100", "staircase_therapeutic", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].forEach((id) => { if (bDeepeners[id]) ids.push(id); });
     /* post */
     ["ball_of_light", "suggestions", "guidedimagery", "phs_rehypnosis", "selfhypnosis", "countout", "fingerspread", "homework"].forEach((id) => { if (bPost[id]) ids.push(id); });
     const items = ids.map((id) => DRILLS[id]).filter(Boolean);
@@ -255,7 +255,7 @@ export default function Lab() {
                 <div>
                   <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "#5bb89a", marginBottom: 8 }}>Deepening (any combination)</div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {[["count50", "5-to-0 Count"], ["progrelax", "Progressive Relaxation"], ["progrelax_color", "Color Progressive (Burns)"], ["progrelax_sensory", "Sensory Crossover (VAK)"], ["eyefasc_progressive", "Eye Fasc + Progressive"], ["staircase", "Staircase"], ["reactional", "Reactional"], ["deepening_assess", "Depth Assessment"], ["heavylight", "Heavy/Light"], ["handforehead", "Hand-to-Forehead Challenge"], ["armrigidity", "Arm Rigidity Challenge"]].map(([id, label]) => (
+                    {[["count50", "5-to-0 Count"], ["progrelax", "Progressive Relaxation"], ["progrelax_color", "Color Progressive (Burns)"], ["progrelax_sensory", "Sensory Crossover (VAK)"], ["eyefasc_progressive", "Eye Fasc + Progressive"], ["staircase", "Staircase (20-step)"], ["staircase_100", "Interactive Staircase (100-step)"], ["staircase_therapeutic", "Therapeutic Staircase (6 destinations)"], ["reactional", "Reactional"], ["deepening_assess", "Depth Assessment"], ["heavylight", "Heavy/Light"], ["handforehead", "Hand-to-Forehead Challenge"], ["armrigidity", "Arm Rigidity Challenge"]].map(([id, label]) => (
                       <button key={id} className={`checkchip${bDeepeners[id] ? " on" : ""}`} onClick={() => setBDeepeners((p) => ({ ...p, [id]: !p[id] }))}>{bDeepeners[id] ? "✓ " : ""}{label}</button>
                     ))}
                   </div>
@@ -275,7 +275,7 @@ export default function Lab() {
                   <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--mist)" }}>
                     {[...["intake", "settle", "pretalk", "tom", "suggestibility_test"].filter((id) => bPre[id]).map((id) => DRILLS[id]?.name),
                       DRILLS[bInduction]?.name,
-                      ...["count50", "progrelax", "progrelax_color", "progrelax_sensory", "eyefasc_progressive", "staircase", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].filter((id) => bDeepeners[id]).map((id) => DRILLS[id]?.name),
+                      ...["count50", "progrelax", "progrelax_color", "progrelax_sensory", "eyefasc_progressive", "staircase", "staircase_100", "staircase_therapeutic", "reactional", "deepening_assess", "heavylight", "handforehead", "armrigidity"].filter((id) => bDeepeners[id]).map((id) => DRILLS[id]?.name),
                       ...["ball_of_light", "suggestions", "guidedimagery", "phs_rehypnosis", "selfhypnosis", "countout", "fingerspread", "homework"].filter((id) => bPost[id]).map((id) => DRILLS[id]?.name),
                     ].filter(Boolean).join(" → ")}
                   </span>
