@@ -87,6 +87,12 @@ export default function RootLayout({ children }) {
                 <Link href="/csp" className="navlink">
                   <span className="ord">&#9672;</span>Client Intake
                 </Link>
+                <Link href="/business-practice" className="navlink" style={{ color: "var(--amber)" }}>
+                  <span className="ord">16</span>Business Practice
+                </Link>
+                <Link href="/cases" className="navlink" style={{ color: "#7fb8d4" }}>
+                  <span className="ord">&#9672;</span>Case Library
+                </Link>
 
                 {/* Content */}
                 <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".14em", textTransform: "uppercase", color: "var(--dim)", margin: "14px 0 4px 11px" }}>Content</div>

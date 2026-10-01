@@ -1,0 +1,239 @@
+{
+  "categories": [
+    {
+      "id": "sleep",
+      "label": "Sleep Issues",
+      "color": "#7fb8d4",
+      "icon": "moon"
+    },
+    {
+      "id": "anxiety",
+      "label": "Anxiety & Stress",
+      "color": "#e0a458",
+      "icon": "shield"
+    },
+    {
+      "id": "confidence",
+      "label": "Confidence & Performance",
+      "color": "#5bb89a",
+      "icon": "star"
+    },
+    {
+      "id": "habits",
+      "label": "Habits & Behavior",
+      "color": "#d49aba",
+      "icon": "refresh"
+    },
+    {
+      "id": "pain",
+      "label": "Pain & Comfort",
+      "color": "#b57fd4",
+      "icon": "heart"
+    },
+    {
+      "id": "relationships",
+      "label": "Relationships",
+      "color": "#e06868",
+      "icon": "users"
+    }
+  ],
+  "cases": [
+    {
+      "id": "SLEEP-001",
+      "category": "sleep",
+      "title": "The Busy Mind That Won't Shut Off",
+      "difficulty": "beginner",
+      "presenting": "I am struggling to sleep because my mind is always busy, even when I am sleeping. How do I completely turn off my brain? That way I can have a full sleep.",
+      "client": {
+        "name": "Alex R.",
+        "age": 38,
+        "occupation": "Software project manager",
+        "ep": "62% Emotional",
+        "vak": "Auditory-dominant",
+        "history": "No prior hypnosis. Has tried melatonin, sleep apps, and meditation (gave up after 2 weeks each). Gets 4-5 hours of broken sleep. Falls asleep fine but wakes at 2-3 AM with racing thoughts about tomorrow's meetings, unfinished tasks, and 'what if' scenarios. Reports feeling exhausted but 'wired' at bedtime. No medications. No psychiatric history."
+      },
+      "intake_dialogue": [
+        {
+          "role": "therapist",
+          "text": "Tell me a bit more about what happens when you try to sleep."
+        },
+        {
+          "role": "client",
+          "text": "I get into bed and my body is tired, but my brain just... won't stop. It's like a browser with 40 tabs open. I'll be thinking about a meeting tomorrow, then suddenly I'm replaying a conversation from last week, then I'm worrying about something that hasn't even happened yet."
+        },
+        {
+          "role": "therapist",
+          "text": "And when you wake up at 2 or 3 AM?"
+        },
+        {
+          "role": "client",
+          "text": "It's worse then. Because now I'm also worried about not sleeping. I look at the clock and think 'great, only 4 hours left' and that makes it even harder. Sometimes I just give up and check my phone, which I know makes it worse."
+        },
+        {
+          "role": "therapist",
+          "text": "You said you want to 'completely turn off your brain.' Can you tell me what that would look like for you?"
+        },
+        {
+          "role": "client",
+          "text": "I guess... just quiet. Like when I was a kid and I'd just lay down and be asleep in five minutes. No rehearsing, no planning, no replaying. Just... peace. And staying asleep through the night."
+        },
+        {
+          "role": "therapist",
+          "text": "That's a really clear picture. And that's exactly what we're going to work toward. Not turning off your brain — it's doing its job, it's trying to protect you by keeping you prepared. We're going to teach it that nighttime is the one time it can safely let go."
+        }
+      ],
+      "clinical_notes": {
+        "theory_of_mind": "The client's subconscious has associated bedtime with planning/preparation time. The critical mind stays active because the subconscious believes staying alert = staying safe. The 88% is running a 'night shift' it was never asked to run.",
+        "ep_approach": "62% Emotional — use permissive, allowing language. 'You may notice...' 'You might find...' Avoid direct commands about sleep. The subconscious will resist being told to shut down.",
+        "key_reframe": "Don't frame it as 'turning off the brain' — frame it as 'giving the brain permission to hand over the night shift to the body.' The mind isn't broken; it's overworking. We're promoting it to a better role.",
+        "contraindications": "Screen for: sleep apnea (ask about snoring, gasping), restless leg syndrome, caffeine after 2 PM, alcohol as sleep aid. Refer to physician if physical causes suspected."
+      },
+      "session_plan": {
+        "pretalk_focus": "Theory of Mind — the 88/12 model. The subconscious runs the night shift. We're giving it new instructions.",
+        "induction": "Arm-raising (standard). Emotional lane — permissive language throughout.",
+        "deepeners": [
+          "Progressive Relaxation (extended body scan with sleep-specific language)",
+          "Staircase — 20 steps down into a bedroom of the mind"
+        ],
+        "therapy": [
+          "4-7-8 Breathing Anchor: taught pre-induction, becomes nightly sleep trigger (tongue on ridge, in-4, hold-7, out-8)",
+          "Law of Reversed Effect reframe: stop trying to sleep, give the mind something else to do instead",
+          "Sleep-edition Progressive Relaxation: 'drowsiness of permission,' outside-sounds-as-confirmation reframe",
+          "10-step Staircase to the Sleep Garden: moonlit garden with jasmine, crickets, moss path, fireflies",
+          "Still Pond visualization: thoughts as fish beneath a calm surface — watch, do not follow",
+          "Boat Drift: gentle rocking across the pond — kinesthetic deepener bridging into sleep",
+          "Control Room Dimmer Switch: turn mental chatter from 8 down to 0, tabs closing with a click",
+          "Warm Mist technique: golden/lavender mist thickens until thoughts become hazy and distant",
+          "The Cabin: cedar-and-linen bedroom, weighted blanket, hearth fire dimming — final sleep destination",
+          "Pillow Trigger post-hypnotic: head touches pillow + 3 breaths of 4-7-8 = automatic sleep sequence",
+          "Night-waking protocol: one 4-7-8 breath resets the dimmer to zero",
+          "Self-hypnosis homework: 60-second nightly ritual (3 breaths + dimmer image)"
+        ],
+        "countout": "Standard 0-5 with emphasis on feeling refreshed and well-rested"
+      },
+      "practice_drills": [
+        "pretalk",
+        "tom",
+        "armraise",
+        "count50",
+        "progrelax",
+        "staircase",
+        "suggestions",
+        "selfhypnosis",
+        "countout"
+      ],
+      "session_script": [
+        "[--- PRE-TALK: SLEEP REFRAME ---]",
+        "Before we begin, I want to explain something about how your mind works at night. Your brain is not broken. In fact, it is doing exactly what it thinks you want — staying alert, staying prepared, keeping you safe. The problem is not that your mind is too active. The problem is that nobody ever told the deeper part of your mind that it is safe to let go at night.",
+        "There is something in hypnosis called the Law of Reversed Effect. The harder you try to sleep, the more awake you become. You have probably experienced this — lying in bed thinking, I have to fall asleep, I need to sleep, and the very act of trying pushes sleep further away. Tonight, we are going to stop trying. We are going to give your mind something else to do — something that naturally, effortlessly leads into sleep.",
+        "The word hypnosis itself comes from the Greek word for sleep — Hypnos. And the research shows that hypnosis helps people fall asleep faster over 90 percent of the time. So you have already made the right decision by being here.",
+        "Today, we are going to have a conversation directly with your subconscious mind. We are going to install a simple, automatic instruction: when the day is done, the night shift is handled. Your body takes over. Your conscious mind gets to clock out.",
+        "",
+        "[--- 4-7-8 BREATHING ANCHOR (teach before induction, while conscious) ---]",
+        "[This becomes the client's sleep trigger. Teach it while they are fully alert so they own the technique.]",
+        "Before we go into hypnosis, I want to teach you the single most powerful physical technique for triggering sleep. It is called the 4-7-8 method. It works by increasing your oxygen levels, slowing your heart rate, and releasing carbon dioxide from the lungs. All of these things shift your nervous system from alert mode into rest mode.",
+        "Place the tip of your tongue on the ridge at the top of your upper teeth — along the inside of your upper gum. Keep your tongue in this position throughout.",
+        "Now, exhale completely through your mouth, noting the sound it makes — like a heavy sigh. A whoosh.",
+        "Close your mouth. Breathe in through your nose for a count of four. One. Two. Three. Four.",
+        "Hold your breath for a count of seven. One. Two. Three. Four. Five. Six. Seven.",
+        "Now exhale slowly through your mouth for a count of eight. One. Two. Three. Four. Five. Six. Seven. Eight.",
+        "Let us do that twice more. [Guide two more cycles.] Notice how your body has already changed — a feeling of warmth and heaviness starting right in the center of your chest, spreading outward.",
+        "Tonight, instead of counting sheep, you will use this. Three cycles of 4-7-8. That is your new sleep ritual. Your lucky numbers.",
+        "",
+        "[--- INDUCTION: ARM-RAISING (emotional lane, permissive) ---]",
+        "[Standard arm-raising induction. Use permissive emotional language throughout — 'you may notice,' 'you might find,' 'allowing.' See armraise drill for full script.]",
+        "",
+        "[--- DEEPENING: 5-0 COUNT + PHS ---]",
+        "[Standard 5-0 count. Snap. Deep Sleep. Deliver PHS.]",
+        "",
+        "[--- PROGRESSIVE RELAXATION: SLEEP EDITION ---]",
+        "Now as you relax deeper, I want you to imagine that your body has its own intelligence. And right now, that body intelligence is waking up to do its job — the job of sleep preparation.",
+        "Starting at the top of your head, a warm, heavy wave of drowsiness begins to flow downward. Not the drowsiness of exhaustion — the drowsiness of permission. Your scalp softens. Your forehead smooths out. Your eyelids grow heavier with every breath — and that heaviness feels wonderful, because it means the day is done.",
+        "This wave moves through your jaw — and your jaw unclenches. Through your neck — and the muscles that have been holding your head up all day finally, gratefully, let go.",
+        "Pay no attention to any outside sounds. Those sounds are simply the natural rhythm of the world continuing without you. They cannot distract you. In fact, each sound you hear simply confirms that the world is handling itself, and you do not need to be on duty right now.",
+        "Down through your shoulders, which have been carrying the weight of responsibility. They drop. They settle. They remember that right now, in this moment, there is nothing to carry.",
+        "Through your arms, your hands, your fingers — all the way to the tips. And notice how still your hands become. They have no tasks right now. No emails to type. No problems to solve. Just stillness.",
+        "Your chest opens and your breathing deepens naturally — the slow, rhythmic breathing of someone who has given themselves full permission to rest. Your stomach softens. Your lower back releases tension it has been holding since morning.",
+        "Down through your hips, your thighs, your legs — heavy, warm, sinking deeper with every breath.",
+        "All the way to your feet, your toes — completely still, completely warm, completely at peace.",
+        "Five. Letting go. Four. Three. Two. One. Zero — [snap] — Deep Sleep.",
+        "[Repeat PHS.]",
+        "",
+        "[--- STAIRCASE: 10-STEP DESCENT TO THE SLEEP GARDEN ---]",
+        "Now I want you to imagine that you are standing at the top of a beautiful staircase. It has ten steps, and it leads down into a place of profound rest. With every step down, you double the depth of your relaxation.",
+        "Ten. Taking the first step down. Leaving the surface world behind.",
+        "Nine. Eight. Feeling your muscles loosen, your breathing becoming slower and deeper.",
+        "Seven. Six. Five. Halfway down, drifting deeper into your own inner mind.",
+        "Four. Three. So comfortable, so safe.",
+        "Two. One. Stepping off the final step.",
+        "Zero.",
+        "",
+        "[--- THE SLEEP GARDEN: MULTI-SENSORY DESTINATION ---]",
+        "You step off the staircase into a garden. Your garden. A place that exists only for you, and only for rest.",
+        "The air is warm and still, exactly the temperature you love. You can smell night-blooming jasmine and the clean, mineral scent of earth after rain. The sky above is deep velvet blue, and a single full moon hangs low, casting everything in soft silver light.",
+        "There are no clocks here. No deadlines. No notifications. The only sounds are the gentle chirping of crickets, the distant murmur of a stream, and the slow rhythm of your own breathing.",
+        "Walk along a soft moss path. Fireflies drift lazily around you, tiny points of amber light that seem to pulse in time with your heartbeat. The path leads through a grove of ancient trees to the edge of a perfectly still pond.",
+        "Stand at the edge of the pond. The surface is glass-smooth, reflecting the moon and the stars. Look into the water.",
+        "Your thoughts are like fish beneath the surface — they are there, they are moving, but the surface remains perfectly still. You do not need to catch them. You do not need to follow them. They simply swim, and you simply watch. And the surface stays calm.",
+        "A small wooden boat rests at the shore. Step into it. Feel it rock gently as you settle in. Lie back against soft cushions. The boat begins to drift slowly, silently, across the pond. Each gentle rocking motion takes you deeper.",
+        "Drifting. Floating. The sky is enormous above you. The stars are so bright they seem close enough to touch. And with each slow breath, the boundary between you and the night dissolves a little more.",
+        "",
+        "[--- THE CONTROL ROOM: DIMMER SWITCH ---]",
+        "Now I want you to imagine something deep inside your mind. A Control Room. This is where your conscious mind has been running the show — managing the day, processing the information, keeping all those tabs open.",
+        "Walk into this Control Room. It is warmly lit, quiet, and entirely yours. In the center is a large dimmer switch — a smooth dial that controls the volume of your conscious thinking.",
+        "Right now it is turned up — maybe to a seven or an eight. All those thoughts, plans, replays, and what-ifs are humming along.",
+        "Place your hand on that dimmer switch. Feel the smooth, cool surface under your fingers. And very slowly, begin to turn it down. From eight to seven. To six.",
+        "The mental chatter gets quieter. The thoughts are still there, but they are further away now. Like a television in another room — you can hear it, but you do not need to watch it.",
+        "Turn it down further. Five. Four. Three. The thoughts are becoming whispers now. Faint, distant, unimportant. Your body is taking over. Your breathing is the loudest thing in the room.",
+        "Two. One. The room is almost dark now. Almost silent. Just the gentle hum of your own heartbeat and the rhythm of your breath.",
+        "And zero. The switch clicks off. The screen goes dark. The tabs have all closed — each one with a soft, satisfying click. And what remains is not emptiness. It is peace. Warm, heavy, velvet peace.",
+        "",
+        "[--- WARM MIST TECHNIQUE (bridges from trance into sleep) ---]",
+        "And now a warm, comfortable mist begins to enter your garden. Not cold, not damp — this is a warm mist, like steam from a hot bath. It surrounds you softly.",
+        "Perhaps it has a color — a soft golden glow, or a gentle lavender, or pure moonlit white. Whatever feels most comforting to you.",
+        "As the mist thickens, your thoughts become softer. Hazier. More distant. Like sounds heard through a thick blanket. Not gone — just muffled. Just far away.",
+        "And the mist grows thicker, warmer, more comfortable. And you find yourself drifting. Not falling. Drifting. The way a leaf drifts on the surface of still water.",
+        "My voice becomes more distant. Less clear. Dimmer. Fading. And that is perfectly fine. Your subconscious mind continues to hear. It protects you, just as it always has.",
+        "And you are shrouded now in this beautiful, warm mist. Your body is heavy, comfortable, safe. Your mind is quiet, misty, peaceful.",
+        "Drifting. Warm. Safe. Heavy.",
+        "",
+        "[--- THE CABIN (final sleep destination) ---]",
+        "Through the mist, a shape emerges. A small, warm cabin nestled among the trees at the far edge of your garden. A single golden light glows in the window.",
+        "Walk to the cabin. Push open the door. Inside, it smells of cedar and clean linen. A fire crackles softly in a stone hearth, casting dancing shadows on the walls.",
+        "In the center of the room is the most comfortable bed you have ever seen. Deep pillows. Heavy, soft blankets. A mattress that holds you exactly the way you need to be held.",
+        "Lie down. Pull the blanket up to your chin. Feel the weight of it pressing you gently, firmly, safely into the mattress. Like the earth itself is holding you.",
+        "The fire dims. The mist outside the window thickens. The last distant sounds of the garden — crickets, the stream, the gentle wind — become your lullaby.",
+        "The night is embracing you. Surrender. And sleep.",
+        "",
+        "[--- POST-HYPNOTIC SUGGESTIONS: SLEEP TRIGGERS ---]",
+        "And here is the most important part. Your subconscious mind is installing these patterns permanently.",
+        "Every night, from this night forward, a simple sequence activates automatically:",
+        "When your head touches the pillow, your body remembers this feeling. The heaviness. The warmth. The permission.",
+        "You take your first 4-7-8 breath. Tongue on the ridge. In for four. Hold for seven. Out for eight. And the dimmer switch begins to turn down on its own.",
+        "By the second breath, the mist is forming. The thoughts are fading. The garden is appearing.",
+        "By the third breath — quiet. Warm. Dark. Safe. Sleep.",
+        "And if you wake in the night — at two, at three, whenever — you do not look at the clock. You simply take one slow 4-7-8 breath, and the dimmer clicks back to zero. Immediately. Effortlessly. Your body handles the night shift now. You are off duty.",
+        "Each night this becomes easier. Each night the dimmer turns down faster. Each night the sleep is deeper, longer, more restorative. Until this is simply how you sleep — quickly, deeply, and through the night.",
+        "And these suggestions grow stronger day by day. Stronger by the hour. Stronger by the minute. They are firmly embedded in your subconscious mind.",
+        "",
+        "[--- SELF-HYPNOSIS HOMEWORK ---]",
+        "Before our next session, practice this every night. It takes sixty seconds.",
+        "Lie in bed. Eyes closed. Tongue on the ridge.",
+        "Breathe in for four. Hold for seven. Exhale for eight. Three times.",
+        "On that third exhale, picture your hand reaching for the dimmer switch. Feel it turn down. See the garden. Feel the mist. Let go.",
+        "If your mind wanders — and it will — do not fight it. Do not follow the thought. Simply notice it, like a fish beneath the surface of the pond, and return to the breath. The thought was just a thought. It does not need you tonight.",
+        "Three breaths. One image. And your subconscious takes it from there.",
+        "",
+        "[--- COUNT OUT ---]",
+        "Now I am going to count from zero up to five. With each number you will become more alert, more awake, more refreshed.",
+        "Zero — closing the door to the subconscious, sealing in all these positive suggestions for tonight.",
+        "One — slowly and calmly beginning to come up.",
+        "Two — becoming more physically aware, more mentally alert.",
+        "Three — coming up higher now, feeling wonderful and optimistic about tonight.",
+        "Four — your eyes are beginning to open.",
+        "Five — eyes open, wide awake! Feeling alert, refreshed, and confident that tonight, you will sleep deeply.",
+        "One, two, three, four, five — eyes open, wide awake!"
+      ]
+    }
+  ]
+}
