@@ -5,6 +5,28 @@ import caseData from "../../data/cases.json";
 
 const CATS = Object.fromEntries(caseData.categories.map((c) => [c.id, c]));
 
+function openSessionWindow(cs, cat) {
+  const w = window.open("", "_blank", "width=700,height=900,scrollbars=yes,resizable=yes");
+  if (!w) return;
+  const lines = cs.session_script.map((p) => {
+    if (!p) return '<div style="height:18px"></div>';
+    const isNote = p.startsWith("[");
+    return `<p style="font-size:16px;line-height:1.85;color:${isNote ? "#8b85a0" : "#e0dced"};margin:0 0 16px;font-style:${isNote ? "italic" : "normal"}">${p.replace(/</g, "&lt;")}</p>`;
+  }).join("\n");
+  w.document.write(`<!DOCTYPE html><html><head><title>${cs.id} - Full Session Script</title>
+<style>body{background:#0e0d14;margin:0;padding:40px 48px 80px;font-family:Georgia,serif}
+.hdr{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:${cat?.color || "#7fb8d4"};margin-bottom:8px}
+h1{font-weight:340;font-size:28px;color:#e9e4f2;margin:0 0 6px}
+.sub{font-size:14px;color:#8b85a0;margin-bottom:32px}
+.divider{border:none;border-top:1px solid #28243a;margin:28px 0}
+@media print{body{background:#fff;color:#222;padding:20px}p{color:#222!important}}</style></head>
+<body><div class="hdr">${cs.id} &middot; ${cat?.label || "Case"} &middot; Full Session Script</div>
+<h1>${cs.title}</h1>
+<div class="sub">${cs.client.name} &middot; ${cs.client.ep} &middot; ${cs.client.vak}</div>
+${lines}</body></html>`);
+  w.document.close();
+}
+
 export default function Cases() {
   const [activeCase, setActiveCase] = useState(null);
   const [tab, setTab] = useState("intake");
@@ -157,7 +179,10 @@ export default function Cases() {
           {/* ── FULL SCRIPT TAB ── */}
           {tab === "script" && (
             <div className="panel" style={{ padding: "22px 26px", maxHeight: "70vh", overflowY: "auto", borderLeft: `3px solid ${cat?.color}` }}>
-              <div style={{ fontFamily: "var(--mono)", fontSize: 10.5, letterSpacing: ".12em", textTransform: "uppercase", color: cat?.color, marginBottom: 18 }}>Full Session Script &middot; {c.id}</div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 10.5, letterSpacing: ".12em", textTransform: "uppercase", color: cat?.color }}>Full Session Script &middot; {c.id} &middot; {c.session_script.length} paragraphs</div>
+                <button type="button" className="chip" onClick={() => openSessionWindow(c, cat)} style={{ fontSize: 11 }}>Open in Session Window</button>
+              </div>
               {c.session_script.map((para, i) => {
                 if (!para) return <div key={i} style={{ height: 16 }} />;
                 const isNote = para.startsWith("[");
