@@ -78,6 +78,9 @@ export default function RootLayout({ children }) {
                 <Link href="/client-journey" className="navlink" style={{ color: "var(--ok)" }}>
                   <span className="ord">13</span>Client Journey
                 </Link>
+                <Link href="/case-journal" className="navlink" style={{ color: "var(--iris)" }}>
+                  <span className="ord">&#9672;</span>Case Journal
+                </Link>
                 <Link href="/logbook" className="navlink">
                   <span className="ord">&#9672;</span>Logbook
                 </Link>

@@ -231,3 +231,41 @@ export const journeyApi = {
       method: "POST",
     }),
 };
+
+/* ── Clinical Case Journal API ── */
+export const journalApi = {
+  listEntries: (journeyId, type, sessionNum) => {
+    let q = `/journal/${journeyId}/entries`;
+    const params = [];
+    if (type) params.push(`entry_type=${type}`);
+    if (sessionNum != null) params.push(`session_num=${sessionNum}`);
+    if (params.length) q += "?" + params.join("&");
+    return apiFetch(PROGRESS_SVC, q);
+  },
+  addEntry: (journeyId, data) =>
+    apiFetch(PROGRESS_SVC, `/journal/${journeyId}/entries`, { method: "POST", body: JSON.stringify(data) }),
+  updateEntry: (entryId, data) =>
+    apiFetch(PROGRESS_SVC, `/journal/entries/${entryId}`, { method: "PUT", body: JSON.stringify(data) }),
+
+  listReasoning: (journeyId) =>
+    apiFetch(PROGRESS_SVC, `/journal/${journeyId}/reasoning`),
+  addReasoning: (journeyId, data) =>
+    apiFetch(PROGRESS_SVC, `/journal/${journeyId}/reasoning`, { method: "POST", body: JSON.stringify(data) }),
+  updateReasoning: (id, data) =>
+    apiFetch(PROGRESS_SVC, `/journal/reasoning/${id}`, { method: "PUT", body: JSON.stringify(data) }),
+
+  listResearch: () =>
+    apiFetch(PROGRESS_SVC, "/journal/research"),
+  addResearch: (data) =>
+    apiFetch(PROGRESS_SVC, "/journal/research", { method: "POST", body: JSON.stringify(data) }),
+
+  listComms: (journeyId) =>
+    apiFetch(PROGRESS_SVC, `/journal/${journeyId}/communications`),
+  addComm: (journeyId, data) =>
+    apiFetch(PROGRESS_SVC, `/journal/${journeyId}/communications`, { method: "POST", body: JSON.stringify(data) }),
+
+  listConsents: (journeyId) =>
+    apiFetch(PROGRESS_SVC, `/journal/${journeyId}/consents`),
+  addConsent: (journeyId, data) =>
+    apiFetch(PROGRESS_SVC, `/journal/${journeyId}/consents`, { method: "POST", body: JSON.stringify(data) }),
+};

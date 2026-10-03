@@ -1955,6 +1955,239 @@ ul{{margin:2px 0;padding-left:14px}}li{{margin:1px 0;font-size:10px}}
     }
 
 
+
+# ============================================================================
+# CLINICAL CASE JOURNAL
+# ============================================================================
+
+class JournalEntryRequest(BaseModel):
+    entry_type: str = Field(max_length=30)
+    session_num: int | None = None
+    title: str | None = Field(None, max_length=255)
+    content: str
+    research_refs: list[str] | None = None
+    tags: list[str] | None = None
+    visibility: str = Field(default="therapist_only", max_length=20)
+
+class ReasoningRequest(BaseModel):
+    session_num: int | None = None
+    decision: str = Field(max_length=500)
+    rationale: str
+    alternatives_considered: str | None = None
+    research_support: str | None = None
+    outcome: str | None = None
+
+class ResearchRefRequest(BaseModel):
+    citation_key: str = Field(max_length=50)
+    authors: str | None = Field(None, max_length=500)
+    title: str
+    journal: str | None = Field(None, max_length=255)
+    year: int | None = None
+    url: str | None = Field(None, max_length=500)
+    relevance: str | None = None
+
+class CommLogRequest(BaseModel):
+    channel: str = Field(max_length=20)
+    direction: str = Field(max_length=10)
+    summary: str
+    full_content: str | None = None
+
+class ConsentRequest(BaseModel):
+    document_type: str = Field(max_length=30)
+    signed_date: str | None = None
+    document_path: str | None = None
+    notes: str | None = None
+
+
+# --- Journal Entries ---
+
+@app.get("/journal/{journey_id}/entries")
+async def list_journal_entries(
+    journey_id: str,
+    entry_type: str | None = None,
+    session_num: int | None = None,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    q = "SELECT * FROM case_journal_entries WHERE journey_id = CAST($1 AS uuid)"
+    args = [journey_id]
+    idx = 2
+    if entry_type:
+        q += f" AND entry_type = ${idx}"
+        args.append(entry_type)
+        idx += 1
+    if session_num is not None:
+        q += f" AND session_num = ${idx}"
+        args.append(session_num)
+        idx += 1
+    q += " ORDER BY created_at DESC"
+    rows = await db.fetch(q, *args)
+    return [dict(r) for r in rows]
+
+@app.post("/journal/{journey_id}/entries")
+async def add_journal_entry(
+    journey_id: str,
+    req: JournalEntryRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    row = await db.fetchrow(
+        """INSERT INTO case_journal_entries
+           (journey_id, entry_type, session_num, title, content, research_refs, tags, visibility, created_by)
+           VALUES (CAST($1 AS uuid),$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id, created_at""",
+        journey_id, req.entry_type, req.session_num, req.title, req.content,
+        req.research_refs or [], req.tags or [], req.visibility, auth.user_id,
+    )
+    return {"id": str(row["id"]), "created_at": str(row["created_at"])}
+
+@app.put("/journal/entries/{entry_id}")
+async def update_journal_entry(
+    entry_id: str,
+    req: JournalEntryRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    await db.execute(
+        """UPDATE case_journal_entries SET entry_type=$2, session_num=$3, title=$4,
+           content=$5, research_refs=$6, tags=$7, visibility=$8
+           WHERE id = CAST($1 AS uuid)""",
+        entry_id, req.entry_type, req.session_num, req.title, req.content,
+        req.research_refs or [], req.tags or [], req.visibility,
+    )
+    return {"ok": True}
+
+
+# --- Clinical Reasoning ---
+
+@app.get("/journal/{journey_id}/reasoning")
+async def list_reasoning(
+    journey_id: str,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    rows = await db.fetch(
+        "SELECT * FROM clinical_reasoning_log WHERE journey_id = CAST($1 AS uuid) ORDER BY created_at",
+        journey_id,
+    )
+    return [dict(r) for r in rows]
+
+@app.post("/journal/{journey_id}/reasoning")
+async def add_reasoning(
+    journey_id: str,
+    req: ReasoningRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    row = await db.fetchrow(
+        """INSERT INTO clinical_reasoning_log
+           (journey_id, session_num, decision, rationale, alternatives_considered, research_support, outcome)
+           VALUES (CAST($1 AS uuid),$2,$3,$4,$5,$6,$7) RETURNING id""",
+        journey_id, req.session_num, req.decision, req.rationale,
+        req.alternatives_considered, req.research_support, req.outcome,
+    )
+    return {"id": str(row["id"])}
+
+@app.put("/journal/reasoning/{reasoning_id}")
+async def update_reasoning(
+    reasoning_id: str,
+    req: ReasoningRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    await db.execute(
+        """UPDATE clinical_reasoning_log SET session_num=$2, decision=$3, rationale=$4,
+           alternatives_considered=$5, research_support=$6, outcome=$7
+           WHERE id = CAST($1 AS uuid)""",
+        reasoning_id, req.session_num, req.decision, req.rationale,
+        req.alternatives_considered, req.research_support, req.outcome,
+    )
+    return {"ok": True}
+
+
+# --- Research References (global) ---
+
+@app.get("/journal/research")
+async def list_research(
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    rows = await db.fetch("SELECT * FROM research_references ORDER BY year DESC, citation_key")
+    return [dict(r) for r in rows]
+
+@app.post("/journal/research")
+async def add_research(
+    req: ResearchRefRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    row = await db.fetchrow(
+        """INSERT INTO research_references
+           (citation_key, authors, title, journal, year, url, relevance)
+           VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING id""",
+        req.citation_key, req.authors, req.title, req.journal, req.year, req.url, req.relevance,
+    )
+    return {"id": str(row["id"])}
+
+
+# --- Communication Log ---
+
+@app.get("/journal/{journey_id}/communications")
+async def list_communications(
+    journey_id: str,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    rows = await db.fetch(
+        "SELECT * FROM communication_log WHERE journey_id = CAST($1 AS uuid) ORDER BY created_at DESC",
+        journey_id,
+    )
+    return [dict(r) for r in rows]
+
+@app.post("/journal/{journey_id}/communications")
+async def add_communication(
+    journey_id: str,
+    req: CommLogRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    row = await db.fetchrow(
+        """INSERT INTO communication_log (journey_id, channel, direction, summary, full_content)
+           VALUES (CAST($1 AS uuid),$2,$3,$4,$5) RETURNING id, created_at""",
+        journey_id, req.channel, req.direction, req.summary, req.full_content,
+    )
+    return {"id": str(row["id"]), "created_at": str(row["created_at"])}
+
+
+# --- Consent Records ---
+
+@app.get("/journal/{journey_id}/consents")
+async def list_consents(
+    journey_id: str,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    rows = await db.fetch(
+        "SELECT * FROM consent_records WHERE journey_id = CAST($1 AS uuid) ORDER BY created_at",
+        journey_id,
+    )
+    return [dict(r) for r in rows]
+
+@app.post("/journal/{journey_id}/consents")
+async def add_consent(
+    journey_id: str,
+    req: ConsentRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    s_date = date.fromisoformat(req.signed_date) if req.signed_date else None
+    row = await db.fetchrow(
+        """INSERT INTO consent_records (journey_id, document_type, signed_date, document_path, notes)
+           VALUES (CAST($1 AS uuid),$2,$3,$4,$5) RETURNING id""",
+        journey_id, req.document_type, s_date, req.document_path, req.notes,
+    )
+    return {"id": str(row["id"])}
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8000")))
