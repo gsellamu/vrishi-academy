@@ -1,8 +1,9 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 const STOR = "cj:journal";
-const ENTRY_TYPES = ["observation", "reasoning", "idea", "research", "script_note", "session_note", "homework_note", "feedback", "supervision", "hmi_conference", "modification", "contraindication", "general"];
+const ENTRY_TYPES = ["observation", "reasoning", "idea", "research", "script_note", "session_note", "homework_note", "feedback", "supervision", "hmi_conference", "modification", "contraindication", "general", "time_log"];
+const ACTIVITY_TYPES = ["session_delivery", "script_writing", "research", "ai_claude", "case_planning", "client_comm", "documentation", "supervision", "admin", "other"];
 const VIS_OPTS = ["therapist_only", "hmi_visible", "hipaa_audit"];
 const CHANNELS = ["portal", "email", "phone", "zoom", "in_person"];
 const CONSENT_TYPES = ["sb577_disclosure", "acknowledgment_of_services", "recording_consent", "hipaa_notice", "insurance_verification", "pro_bono_agreement"];
@@ -40,6 +41,22 @@ const SEED = {
     comms: [
       { channel: "zoom", direction: "outbound", summary: "Session 1: Initial consultation + first induction (60 min). Assessment, Theory of Mind, eagle arm-raise, guided visualization.", created: "2026-10-01T17:00:00" },
       { channel: "text", direction: "inbound", summary: "Client feedback: 8.5-hour sleep block (11 PM to 7:33 AM), 1 bathroom wake. HR 72 to 63 bpm. Lost 1 kg overnight. Asked about session count (fatigue at 4-5).", created: "2026-10-02T06:12:00" },
+    ],
+    timeLog: [
+      { session: 1, activity: "session_delivery", desc: "Session 1 delivery via Zoom", minutes: 60, cost: 0, date: "2026-10-01" },
+      { session: 1, activity: "case_planning", desc: "Pre-session: intake review, case planning, script selection", minutes: 45, cost: 0, date: "2026-10-01" },
+      { session: 1, activity: "ai_claude", desc: "Claude Code: build SLEEP-004 case (264-para script, neuroscience deep dive, dream therapy, eagle visualization)", minutes: 180, cost: 12.50, aiTokens: "~350K tokens", date: "2026-10-01" },
+      { session: 1, activity: "research", desc: "Sleep science research: Cordi 2014/2022, Nongard 4-7-8, Kappas dream stages, Hypnotic World scripts review", minutes: 90, cost: 0, date: "2026-10-01" },
+      { session: 1, activity: "documentation", desc: "Post-session: SOAP notes, client feedback entry, CCH log documentation", minutes: 30, cost: 0, date: "2026-10-02" },
+      { session: 1, activity: "client_comm", desc: "WhatsApp feedback review + response planning (NOTE: move to portal)", minutes: 15, cost: 0, date: "2026-10-02" },
+      { session: 2, activity: "ai_claude", desc: "Claude Code: rebuild Session 2 as Installation Session (296-para script, 10 installations with ideomotor checks)", minutes: 120, cost: 8.00, aiTokens: "~250K tokens", date: "2026-10-02" },
+      { session: 2, activity: "ai_claude", desc: "Claude Code: Sleep Protocol Handbook (8-section printable guide), session builder, SMART goals", minutes: 90, cost: 6.00, aiTokens: "~180K tokens", date: "2026-10-02" },
+      { session: 2, activity: "script_writing", desc: "Session 3 script (152 paras): Depth Anchor Chain, Processing Vault, Auto-Pilot Mode", minutes: 60, cost: 0, date: "2026-10-02" },
+      { session: null, activity: "ai_claude", desc: "Claude Code: 8-session journey plan, decision trees, adaptive paths, 5 new drills", minutes: 90, cost: 6.00, aiTokens: "~200K tokens", date: "2026-10-02" },
+      { session: null, activity: "ai_claude", desc: "Claude Code: Clinical Case Journal (schema, 15 API endpoints, 5-tab page, seed data)", minutes: 120, cost: 8.00, aiTokens: "~250K tokens", date: "2026-10-02" },
+      { session: null, activity: "ai_claude", desc: "Claude Code: Client Journey tracker, healthcare AVS, HIPAA compliance, SOAP notes", minutes: 90, cost: 6.00, aiTokens: "~200K tokens", date: "2026-10-02" },
+      { session: null, activity: "research", desc: "WebSearch: hypnosis clinical trials for deep sleep (Cordi, Chamine, Lam meta-analyses)", minutes: 30, cost: 0, date: "2026-10-02" },
+      { session: null, activity: "admin", desc: "Image generation: 27 cinematic 3D scene images via gpt-image-2.5-flare (all 42 drills)", minutes: 45, cost: 15.00, aiTokens: "27 images", date: "2026-10-02" },
     ],
   }
 };
@@ -86,7 +103,15 @@ export default function CaseJournal() {
     });
   }, []);
 
-  const cd = data[clientId] || { entries: [], reasoning: [], research: [], comms: [] };
+  const [tOpen, setTOpen] = useState(false);
+  const [tSession, setTSession] = useState("");
+  const [tActivity, setTActivity] = useState("session_delivery");
+  const [tDesc, setTDesc] = useState("");
+  const [tMinutes, setTMinutes] = useState("");
+  const [tCost, setTCost] = useState("");
+  const [tTokens, setTTokens] = useState("");
+
+  const cd = data[clientId] || { entries: [], reasoning: [], research: [], comms: [], timeLog: [] };
 
   function addEntry() {
     if (!fContent.trim()) return;
@@ -127,6 +152,45 @@ export default function CaseJournal() {
     setCSummary(""); setCOpen(false);
   }
 
+  function addTimeEntry() {
+    if (!tDesc.trim()) return;
+    update((d) => {
+      (d[clientId] ||= { entries: [], reasoning: [], research: [], comms: [], timeLog: [] });
+      (d[clientId].timeLog ||= []).push({
+        session: tSession ? Number(tSession) : null,
+        activity: tActivity, desc: tDesc,
+        minutes: Number(tMinutes) || 0,
+        cost: Number(tCost) || 0,
+        aiTokens: tTokens || null,
+        date: new Date().toISOString().slice(0, 10),
+      });
+      return d;
+    });
+    setTDesc(""); setTMinutes(""); setTCost(""); setTTokens(""); setTOpen(false);
+  }
+
+  /* Compute time/cost aggregates */
+  const tl = cd.timeLog || [];
+  const totalMinutes = tl.reduce((s, t) => s + (t.minutes || 0), 0);
+  const totalCost = tl.reduce((s, t) => s + (t.cost || 0), 0);
+  const aiMinutes = tl.filter((t) => t.activity === "ai_claude").reduce((s, t) => s + (t.minutes || 0), 0);
+  const aiCost = tl.filter((t) => t.activity === "ai_claude").reduce((s, t) => s + (t.cost || 0), 0);
+  const sessionMinutes = tl.filter((t) => t.activity === "session_delivery").reduce((s, t) => s + (t.minutes || 0), 0);
+  const bySession = {};
+  tl.forEach((t) => {
+    const key = t.session ? `S${t.session}` : "General";
+    bySession[key] = bySession[key] || { minutes: 0, cost: 0 };
+    bySession[key].minutes += t.minutes || 0;
+    bySession[key].cost += t.cost || 0;
+  });
+  const byActivity = {};
+  tl.forEach((t) => {
+    byActivity[t.activity] = byActivity[t.activity] || { minutes: 0, cost: 0, count: 0 };
+    byActivity[t.activity].minutes += t.minutes || 0;
+    byActivity[t.activity].cost += t.cost || 0;
+    byActivity[t.activity].count += 1;
+  });
+
   const inputStyle = { background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 6, padding: "6px 10px", color: "#e9e4f2", fontSize: 12, width: "100%" };
   const taStyle = { ...inputStyle, resize: "vertical", fontFamily: "inherit", lineHeight: 1.5 };
 
@@ -142,6 +206,7 @@ export default function CaseJournal() {
           <button type="button" className={tab === "reasoning" ? "on" : ""} onClick={() => setTab("reasoning")}>Reasoning</button>
           <button type="button" className={tab === "research" ? "on" : ""} onClick={() => setTab("research")}>Research</button>
           <button type="button" className={tab === "comms" ? "on" : ""} onClick={() => setTab("comms")}>Comms</button>
+          <button type="button" className={tab === "time" ? "on" : ""} onClick={() => setTab("time")}>Time & Cost</button>
           <button type="button" className={tab === "export" ? "on" : ""} onClick={() => setTab("export")}>Export</button>
         </div>
       </div>
@@ -265,6 +330,109 @@ export default function CaseJournal() {
         </div>
       )}
 
+      {/* ═══ TIME & COST TAB ═══ */}
+      {tab === "time" && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 900 }}>
+          {/* Summary cards */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 10 }}>
+            <div className="panel" style={{ padding: "12px 14px", textAlign: "center" }}>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 22, color: "var(--amber)" }}>{Math.floor(totalMinutes / 60)}h {totalMinutes % 60}m</div>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 9, textTransform: "uppercase", color: "var(--mist)" }}>Total Time</div>
+            </div>
+            <div className="panel" style={{ padding: "12px 14px", textAlign: "center" }}>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 22, color: "var(--ok)" }}>${totalCost.toFixed(2)}</div>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 9, textTransform: "uppercase", color: "var(--mist)" }}>Total Cost</div>
+            </div>
+            <div className="panel" style={{ padding: "12px 14px", textAlign: "center" }}>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 22, color: "var(--iris)" }}>{Math.floor(aiMinutes / 60)}h {aiMinutes % 60}m</div>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 9, textTransform: "uppercase", color: "var(--mist)" }}>AI/Claude Time</div>
+            </div>
+            <div className="panel" style={{ padding: "12px 14px", textAlign: "center" }}>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 22, color: "var(--iris)" }}>${aiCost.toFixed(2)}</div>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 9, textTransform: "uppercase", color: "var(--mist)" }}>AI/Claude Cost</div>
+            </div>
+            <div className="panel" style={{ padding: "12px 14px", textAlign: "center" }}>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 22, color: "var(--teal)" }}>{Math.floor(sessionMinutes / 60)}h {sessionMinutes % 60}m</div>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 9, textTransform: "uppercase", color: "var(--mist)" }}>Client Sessions</div>
+            </div>
+          </div>
+
+          {/* By Session breakdown */}
+          <div className="panel" style={{ padding: "16px 20px" }}>
+            <div style={{ fontFamily: "var(--mono)", fontSize: 10, textTransform: "uppercase", color: "var(--amber)", marginBottom: 10 }}>Time & Cost by Session</div>
+            <div style={{ display: "grid", gridTemplateColumns: "80px 1fr 1fr", gap: "4px 12px", fontSize: 12 }}>
+              <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Session</div>
+              <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Time</div>
+              <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Cost</div>
+              {Object.entries(bySession).map(([key, val]) => (
+                <React.Fragment key={key}>
+                  <div style={{ color: "var(--amber)", fontFamily: "var(--mono)" }}>{key}</div>
+                  <div style={{ color: "#cfc9dd" }}>{Math.floor(val.minutes / 60)}h {val.minutes % 60}m</div>
+                  <div style={{ color: val.cost > 0 ? "var(--ok)" : "var(--dim)" }}>${val.cost.toFixed(2)}</div>
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+
+          {/* By Activity breakdown */}
+          <div className="panel" style={{ padding: "16px 20px" }}>
+            <div style={{ fontFamily: "var(--mono)", fontSize: 10, textTransform: "uppercase", color: "var(--iris)", marginBottom: 10 }}>Time & Cost by Activity Type</div>
+            <div style={{ display: "grid", gridTemplateColumns: "140px 1fr 1fr 60px", gap: "4px 12px", fontSize: 12 }}>
+              <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Activity</div>
+              <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Time</div>
+              <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Cost</div>
+              <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Count</div>
+              {Object.entries(byActivity).map(([key, val]) => (
+                <React.Fragment key={key}>
+                  <div style={{ color: key === "ai_claude" ? "var(--iris)" : key === "session_delivery" ? "var(--teal)" : "#cfc9dd", fontFamily: "var(--mono)", fontSize: 11 }}>{key.replace(/_/g, " ")}</div>
+                  <div style={{ color: "#cfc9dd" }}>{Math.floor(val.minutes / 60)}h {val.minutes % 60}m</div>
+                  <div style={{ color: val.cost > 0 ? "var(--ok)" : "var(--dim)" }}>${val.cost.toFixed(2)}</div>
+                  <div style={{ color: "var(--dim)" }}>{val.count}x</div>
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+
+          {/* Add time entry */}
+          <button type="button" className="chip" onClick={() => setTOpen(!tOpen)}>+ Log Time</button>
+          {tOpen && (
+            <div className="panel" style={{ padding: 16, display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", gap: 8 }}>
+                <select value={tActivity} onChange={(e) => setTActivity(e.target.value)} style={{ ...inputStyle, width: 160 }}>
+                  {ACTIVITY_TYPES.map((a) => <option key={a} value={a}>{a.replace(/_/g, " ")}</option>)}
+                </select>
+                <input placeholder="Session # (optional)" value={tSession} onChange={(e) => setTSession(e.target.value)} style={{ ...inputStyle, width: 100 }} />
+              </div>
+              <input placeholder="Description" value={tDesc} onChange={(e) => setTDesc(e.target.value)} style={inputStyle} />
+              <div style={{ display: "flex", gap: 8 }}>
+                <input placeholder="Minutes" value={tMinutes} onChange={(e) => setTMinutes(e.target.value)} style={{ ...inputStyle, width: 100 }} type="number" />
+                <input placeholder="Cost ($)" value={tCost} onChange={(e) => setTCost(e.target.value)} style={{ ...inputStyle, width: 100 }} type="number" step="0.01" />
+                <input placeholder="AI Tokens (e.g., ~200K)" value={tTokens} onChange={(e) => setTTokens(e.target.value)} style={{ ...inputStyle, width: 140 }} />
+              </div>
+              <button type="button" className="primary" onClick={addTimeEntry} style={{ fontSize: 12, padding: "8px 14px", alignSelf: "flex-start" }}>Log Time</button>
+            </div>
+          )}
+
+          {/* Time log detail */}
+          <div style={{ fontFamily: "var(--mono)", fontSize: 10, textTransform: "uppercase", color: "var(--mist)", marginTop: 4 }}>Detailed Time Log ({tl.length} entries)</div>
+          {tl.map((t, i) => (
+            <div key={i} className="panel" style={{ padding: "10px 14px", borderLeft: `3px solid ${t.activity === "ai_claude" ? "var(--iris)" : t.activity === "session_delivery" ? "var(--teal)" : "var(--line)"}` }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <span style={{ fontFamily: "var(--mono)", fontSize: 9, textTransform: "uppercase", color: t.activity === "ai_claude" ? "var(--iris)" : "var(--mist)" }}>{t.activity.replace(/_/g, " ")}</span>
+                  {t.session && <span style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--amber)" }}>S{t.session}</span>}
+                  <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--amber)" }}>{t.minutes}m</span>
+                  {t.cost > 0 && <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--ok)" }}>${t.cost.toFixed(2)}</span>}
+                  {t.aiTokens && <span style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--iris)" }}>{t.aiTokens}</span>}
+                </div>
+                <span style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--dim)" }}>{t.date}</span>
+              </div>
+              <p style={{ fontSize: 11, color: "#8b85a0", margin: "4px 0 0" }}>{t.desc}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* ═══ EXPORT TAB ═══ */}
       {tab === "export" && (
         <div style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 900 }}>
@@ -294,6 +462,8 @@ export default function CaseJournal() {
               <div style={{ textAlign: "center" }}><div style={{ fontFamily: "var(--mono)", fontSize: 22, color: "var(--iris)" }}>{cd.reasoning.length}</div><div style={{ fontSize: 9, color: "var(--mist)", textTransform: "uppercase" }}>Decisions</div></div>
               <div style={{ textAlign: "center" }}><div style={{ fontFamily: "var(--mono)", fontSize: 22, color: "#7fb8d4" }}>{(cd.research || []).length}</div><div style={{ fontSize: 9, color: "var(--mist)", textTransform: "uppercase" }}>References</div></div>
               <div style={{ textAlign: "center" }}><div style={{ fontFamily: "var(--mono)", fontSize: 22, color: "var(--teal)" }}>{cd.comms.length}</div><div style={{ fontSize: 9, color: "var(--mist)", textTransform: "uppercase" }}>Communications</div></div>
+              <div style={{ textAlign: "center" }}><div style={{ fontFamily: "var(--mono)", fontSize: 22, color: "var(--ok)" }}>{Math.floor(totalMinutes / 60)}h</div><div style={{ fontSize: 9, color: "var(--mist)", textTransform: "uppercase" }}>Total Hours</div></div>
+              <div style={{ textAlign: "center" }}><div style={{ fontFamily: "var(--mono)", fontSize: 22, color: "var(--iris)" }}>${totalCost.toFixed(0)}</div><div style={{ fontSize: 9, color: "var(--mist)", textTransform: "uppercase" }}>Total Cost</div></div>
             </div>
           </div>
         </div>
