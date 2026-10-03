@@ -1395,6 +1395,569 @@
         "",
         "How are you feeling? Questions?",
         "[Schedule session 3. Target: 1-2 weeks.]"
+      ],
+      "journey_plan": {
+        "client_code": "DS-001",
+        "case_ref": "SLEEP-004",
+        "total_sessions": 8,
+        "contingency_sessions": [
+          7,
+          8
+        ],
+        "independence_pivot": 4,
+        "graduation_earliest": 6,
+        "graduation_latest": 8,
+        "smart_goals": {
+          "deep_sleep_pct": {
+            "baseline": "~0%",
+            "s2": "10-15%",
+            "s3": "12-18%",
+            "s4": "15-20%",
+            "s5": "18-22%",
+            "s6": "18-23%",
+            "graduation": "18-23%"
+          },
+          "light_sleep_pct": {
+            "baseline": "79%",
+            "s2": "65%",
+            "s3": "58-62%",
+            "s4": "55-58%",
+            "s5": "52-55%",
+            "s6": "50-55%",
+            "graduation": "50-55%"
+          },
+          "sleep_onset_min": {
+            "baseline": "~35",
+            "s2": "<15",
+            "s3": "<12",
+            "s4": "<10",
+            "s5": "<8",
+            "s6": "<8",
+            "graduation": "<8"
+          },
+          "depth_score": {
+            "baseline": "Bad",
+            "s2": "Fair",
+            "s3": "Fair+",
+            "s4": "Good",
+            "s5": "Good",
+            "s6": "Good",
+            "graduation": "Good"
+          },
+          "regularity": {
+            "baseline": "Poor",
+            "s2": "Fair",
+            "s3": "Fair",
+            "s4": "Good",
+            "s5": "Good",
+            "s6": "Good",
+            "graduation": "Good"
+          },
+          "resting_hr": {
+            "baseline": "72 (post-S1: 63)",
+            "s2": "60-63",
+            "s3": "59-62",
+            "s4": "58-61",
+            "s5": "58-60",
+            "s6": "57-60",
+            "graduation": "57-60"
+          },
+          "subjective": {
+            "baseline": "4/10",
+            "s2": "6/10",
+            "s3": "6.5-7/10",
+            "s4": "7-7.5/10",
+            "s5": "7.5-8/10",
+            "s6": "8/10",
+            "graduation": "8/10"
+          }
+        },
+        "sessions": [
+          {
+            "num": 1,
+            "title": "Assessment + Installation",
+            "status": "completed",
+            "focus": "Full Kappasinian first session — assess, educate, install base programming",
+            "hw_refs": [],
+            "techniques": [
+              "Eagle arm-raise",
+              "Trophy staircase",
+              "Cellular regeneration progressive",
+              "Sorting Room",
+              "Depth Dial",
+              "Settling Pond",
+              "Island Cabin",
+              "4-7-8 anchor",
+              "Interrupted Sleep Protocol",
+              "Venting dream suggestions"
+            ],
+            "homework": [
+              "Sleep ceremony: time-box, screen cutoff, 4-7-8, settling, dream journal, night-waking protocol"
+            ],
+            "decision_points": []
+          },
+          {
+            "num": 2,
+            "title": "Data-Driven Deep Sleep Optimization",
+            "status": "script_ready",
+            "focus": "Delta-targeted suggestions, address slow onset, tension-release, PHS speed test",
+            "hw_refs": [],
+            "techniques": [
+              "Progressive Muscle Tension-Release",
+              "Delta-paced progressive",
+              "Numbered Trophy Staircase",
+              "Delta Floor (3-hr lock)",
+              "Enhanced Depth Dial (DELTA LOCK 0.5 Hz)",
+              "10:30 PM Time Anchor",
+              "Tracker as Convincer"
+            ],
+            "homework": [
+              "Upgraded ceremony: 10:30 shutdown, tension-release, 4-7-8, settling, DELTA LOCK",
+              "Daily tracking: deep %, light %, onset, depth score",
+              "Dream journal"
+            ],
+            "decision_points": [
+              {
+                "if": "PHS re-entry < 2 min",
+                "then": "Front-load complex techniques in S3"
+              },
+              {
+                "if": "PHS re-entry > 4 min",
+                "then": "Add second reactional set"
+              },
+              {
+                "if": "Vivid dreams reported",
+                "then": "Reinforce as convincer"
+              },
+              {
+                "if": "No homework compliance",
+                "then": "Address directly — the data shows the gap"
+              }
+            ]
+          },
+          {
+            "num": 3,
+            "title": "Maintenance Insomnia + Overactive Mind",
+            "status": "script_ready",
+            "focus": "Address mid-sleep waking and overactive mind. First Hypnotic World adapted scripts.",
+            "hw_refs": [
+              "HW #3 Maintenance Insomnia (7p)",
+              "HW #10 Pre-Sleep Overthinking (7p)"
+            ],
+            "techniques": [
+              "Depth Anchor Chain",
+              "Processing Vault",
+              "Auto-Pilot Mode",
+              "Enhanced Night-Wake Protocol (30-sec re-entry)",
+              "10-step abbreviated staircase"
+            ],
+            "homework": [
+              "Add vault-the-files step after time-boxing",
+              "Simplified night-wake: hand + breath + chain",
+              "Mid-session text check-in (nights 3-4)"
+            ],
+            "decision_points": [
+              {
+                "if": "Deep sleep >= 10%",
+                "then": "On track — proceed to S4 independence pivot"
+              },
+              {
+                "if": "Deep sleep < 5%",
+                "then": "Delta floor did not take. Double down with Depth Anchor Chain. Screen for environmental factors."
+              },
+              {
+                "if": "Onset improved but mid-wake increased",
+                "then": "Focus on Depth Anchor Chain"
+              },
+              {
+                "if": "Onset > 20 min",
+                "then": "Add 5-min body scan to ceremony"
+              },
+              {
+                "if": "Poor homework compliance",
+                "then": "Address fatigue risk. Frame: by S4 YOU run this."
+              }
+            ]
+          },
+          {
+            "num": 4,
+            "title": "The Independence Pivot",
+            "status": "not_built",
+            "focus": "Self-hypnosis independence. Client runs sleep ceremony without therapist by end of session.",
+            "hw_refs": [
+              "HW #9 Drug Free Sleeping (9p)"
+            ],
+            "techniques": [
+              "Self-Hypnosis Teach (keywords: heavy/restored/calibrated)",
+              "Natural Pharmacy (melatonin/adenosine/growth hormone/cortisol)",
+              "Autonomous System seal",
+              "Self-Hypnosis as Sleep Induction (bed mode)",
+              "Contingency Anchors",
+              "5-step Trophy Staircase (efficiency = mastery)"
+            ],
+            "homework": [
+              "Self-hypnosis daily (5-10 min in chair)",
+              "Sleep ceremony = self-hypnosis at bedtime",
+              "Dream journal optional",
+              "Recording for replay"
+            ],
+            "decision_points": [
+              {
+                "if": "All targets met or close",
+                "then": "Fast-track: S5 = fine-tuning, S6 = graduation. Skip 7-8."
+              },
+              {
+                "if": "Deep sleep 15%+ but onset > 10 min",
+                "then": "Add body scan to ceremony"
+              },
+              {
+                "if": "Deep sleep < 12%",
+                "then": "Do NOT fast-track. S5-6 are core treatment."
+              },
+              {
+                "if": "Client wants to stop after S4",
+                "then": "Respect. Give everything. Record ceremony. 30-day check-in."
+              },
+              {
+                "if": "Confidence score < 6/10",
+                "then": "Independence pivot not ready. Reinforce in S5."
+              }
+            ]
+          },
+          {
+            "num": 5,
+            "title": "Fine-Tuning + Deep Dive",
+            "status": "not_built",
+            "focus": "Fine-tune based on 2 weeks of independent practice. Three adaptive paths.",
+            "hw_refs": [
+              "HW #31 Calm an Overactive Mind (9p)",
+              "HW #13 Lucid Dreaming (9p) — optional"
+            ],
+            "techniques": [
+              "PATH DEPENDENT"
+            ],
+            "paths": {
+              "A_on_track": {
+                "condition": "All targets met",
+                "therapy": [
+                  "Stress Inoculation (travel/disruption resilience)",
+                  "Performance Enhancement Overlay (deep sleep → sharper engineering)",
+                  "Graduation Preview"
+                ],
+                "homework": "Same ceremony. Continue tracking."
+              },
+              "B_partial": {
+                "condition": "Some targets met, some lagging",
+                "therapy": [
+                  "Targeted intervention on lagging metric",
+                  "IF onset: 5-min body scan",
+                  "IF mid-wake: Reinforce Depth Anchor Chain",
+                  "IF delta plateau: Process Scheduler (from HW #31)"
+                ],
+                "homework": "Adjusted ceremony targeting specific gap"
+              },
+              "C_regression": {
+                "condition": "Regression or minimal progress",
+                "therapy": [
+                  "Deep clinical investigation",
+                  "Reinstall core with new metaphor: Data Center Shutdown",
+                  "Simplified ceremony (3 things only)"
+                ],
+                "homework": "Tension-release, three breaths, DELTA LOCK. That is all."
+              }
+            },
+            "homework": [
+              "Path-dependent"
+            ],
+            "decision_points": [
+              {
+                "if": "Path A",
+                "then": "S6 = graduation"
+              },
+              {
+                "if": "Path B",
+                "then": "S6 = consolidation, S7-8 available"
+              },
+              {
+                "if": "Path C",
+                "then": "S6-8 are treatment, not graduation"
+              }
+            ]
+          },
+          {
+            "num": 6,
+            "title": "Consolidation / Graduation",
+            "status": "not_built",
+            "focus": "Consolidate gains + graduation prep, OR continued treatment.",
+            "hw_refs": [
+              "HW #22 Sleep Temples Metaphor (8p)"
+            ],
+            "techniques": [
+              "Sleep Temple (capstone)",
+              "Long-Term Maintenance",
+              "Relapse Prevention",
+              "Self-Hypnosis 60-sec Turbo Mode"
+            ],
+            "tracks": {
+              "graduation": {
+                "condition": "All targets met",
+                "therapy": [
+                  "Sleep Temple capstone",
+                  "Relapse Prevention sealed",
+                  "Turbo mode taught"
+                ],
+                "post": "30-day check-in call. If stable, graduated."
+              },
+              "continued": {
+                "condition": "Targets not met",
+                "therapy": "Continue targeted therapy. S7 = consolidation, S8 = graduation.",
+                "post": "Schedule S7 in 2 weeks."
+              }
+            },
+            "homework": [
+              "Self-directed ceremony",
+              "30-day tracking (if graduating)"
+            ],
+            "decision_points": [
+              {
+                "if": "Graduation ready",
+                "then": "Sleep Temple ceremony. 30-day check-in."
+              },
+              {
+                "if": "Not ready",
+                "then": "Continue to S7-8."
+              }
+            ]
+          },
+          {
+            "num": 7,
+            "title": "Contingency: Gap Closure / Recovery",
+            "status": "not_built",
+            "focus": "ONLY if needed. Targeted intervention or regression recovery.",
+            "hw_refs": [
+              "HW #32 Bedtime Procrastination (7p)",
+              "HW #13 Lucid Dreaming (9p)"
+            ],
+            "techniques": [
+              "Mode-dependent"
+            ],
+            "modes": {
+              "gap_closure": "Single-metric targeted session with new metaphor + anchor",
+              "regression_recovery": "Abbreviated reinstall (30 min). 7-day boot camp.",
+              "secondary_issue": "New presenting issue. Separate plan. Keep sleep as anchor."
+            },
+            "homework": [
+              "Mode-dependent"
+            ],
+            "decision_points": [
+              {
+                "if": "Gap closes",
+                "then": "S8 = graduation"
+              },
+              {
+                "if": "Recovery holds 1 week",
+                "then": "S8 = graduation"
+              },
+              {
+                "if": "Secondary issue",
+                "then": "May need sessions beyond 8"
+              }
+            ]
+          },
+          {
+            "num": 8,
+            "title": "Graduation + Long-Term Independence",
+            "status": "not_built",
+            "focus": "Graduation. Final installation of long-term autonomy.",
+            "hw_refs": [
+              "HW #22 Sleep Temples Metaphor (8p) — if not used in S6"
+            ],
+            "techniques": [
+              "Graduation Seal (permanent firmware)",
+              "10-Year Forward trophy staircase",
+              "Relapse Protocol (3 options sealed)"
+            ],
+            "homework": [],
+            "deliverables": [
+              "Printed data graph (S1-S8)",
+              "Laminated ceremony card",
+              "Custom 15-min delta recording"
+            ],
+            "follow_up": [
+              "30-day check-in call (15 min)",
+              "90-day check-in email",
+              "Open door: one booster session anytime"
+            ],
+            "decision_points": [
+              {
+                "if": "All targets met",
+                "then": "Graduated. Status: graduated."
+              },
+              {
+                "if": "Close but not all met",
+                "then": "Graduated with maintenance protocol."
+              },
+              {
+                "if": "Client wants more sessions",
+                "then": "Assess: dependency vs genuine need."
+              }
+            ]
+          }
+        ]
+      },
+      "session_3_script": [
+        "[=== SESSION 3: MAINTENANCE INSOMNIA + OVERACTIVE MIND ===]",
+        "[Client: Deepak S. Session 3 of 6-8. 76% Physical. Targets: deep 12-18%, light 58-62%, onset <12 min, depth Fair+. Adapted from HW #3 Maintenance Insomnia + HW #10 Pre-Sleep Overthinking. PHYSICAL LANE throughout.]",
+        "",
+        "[--- STEP 1: DATA REVIEW + ASSESSMENT (10 min) ---]",
+        "",
+        "Deepak, show me the week's data.",
+        "[Pull up his tracker on screen. Review: deep sleep %, light sleep %, onset times, depth score, regularity. Compare to Session 2 targets.]",
+        "",
+        "[IF deep sleep moved to 10%+:] Good. The delta floor instruction is taking hold. Your brain is spending more time in the maintenance zone. Look at this number — that is your subconscious accepting the new programming.",
+        "[IF deep sleep still < 5%:] The delta instruction needs reinforcement. Today we are installing a physical anchor that holds you in delta. It is called the Depth Anchor Chain. It is the heaviest technique we have.",
+        "[IF onset improved:] The tension-release is working. Your body is learning the onset signal. Let us tighten that further.",
+        "[IF onset > 20 min:] The onset technique needs expansion. We are adding a full body scan between tension-release and 4-7-8 tonight.",
+        "",
+        "How is the ceremony going? Are you hitting 10:30 consistently?",
+        "[Assess compliance. Address any drift honestly.]",
+        "",
+        "Dream journal — what did you record this week?",
+        "[IF dreams shifting from novel/processing to comfort/familiar themes:] Your subconscious has integrated the new environment. The adaptation is completing. The dreams are confirming it.",
+        "[IF still processing novel data:] Still working through the backlog. Normal. The speed increases each week.",
+        "[IF no dreams remembered:] Processing is happening in delta, below awareness. That is actually the ideal state.",
+        "",
+        "Today we are addressing two specific things. First: if you are waking in the middle of the night, we are going to install a physical anchor that pulls you back to delta in 30 seconds. Second: your overactive mind — the engineer brain that keeps solving problems at night — we are going to give it a vault to lock those problems in until morning.",
+        "",
+        "[--- STEP 2: PHS RE-HYPNOSIS (target < 90 seconds) ---]",
+        "",
+        "Raise your arm. Palm in front of your face. Middle finger. Deep breath.",
+        "Fingers separating. Hand moving toward your forehead. Eyelids heavy.",
+        "[Time this. Should be significantly faster than Session 2.]",
+        "The moment your hand touches — nod. Deep Sleep. [Snap.]",
+        "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state very quickly, calmly, and deeply, and the physical body will relax.",
+        "",
+        "[Record the time. Compare to S1 and S2. Note: 'S1: X min, S2: X min, S3: X sec. The programming is accelerating.']",
+        "",
+        "[--- STEP 3: DEEPENING (abbreviated, delta-paced) ---]",
+        "",
+        "Five — going down. Your body knows this path now. Faster each time.",
+        "Four — physically releasing. Muscle memory from sessions 1 and 2.",
+        "Three — past theta. Approaching delta.",
+        "Two — delta. 2 hertz. The maintenance zone.",
+        "One — locked in.",
+        "Zero — [snap] — Deep Sleep.",
+        "[Repeat PHS.]",
+        "",
+        "[--- Reactional (2 cycles — abbreviated, body knows the path) ---]",
+        "Open your eyes. [Wait.] Deep Sleep. [Snap.] Twice as deep.",
+        "Open your eyes. Deep Sleep. [Snap.] Locked in.",
+        "[Repeat PHS.]",
+        "",
+        "[--- STEP 4: ABBREVIATED PROGRESSIVE (focused, delta-paced) ---]",
+        "[2-minute focused progressive. Target the areas he reports carrying tension — likely neck/shoulders from desk work. Delta pacing: 2-second pauses.]",
+        "",
+        "Focus on your neck and shoulders. [Pause.] These muscles have been holding your head up for sixteen hours. [Pause.] Let them stand down completely. [Pause.] Feel the weight of your head being fully held by the recliner. [Pause.]",
+        "Down through your arms. [Pause.] Hands open. [Pause.] Every system in maintenance mode. [Pause.]",
+        "Chest and core. [Pause.] Breathing in delta rhythm now. [Pause.] Slow. [Pause.] Deep. [Pause.] Automatic. [Pause.]",
+        "Five. [Long pause.] Four. [Long pause.] Three. [Long pause.] Two. [Long pause.] One. [Long pause.] Zero — [snap] — Deep Sleep.",
+        "[Repeat PHS.]",
+        "",
+        "[--- STEP 5: 10-STEP STAIRCASE (efficiency = mastery) ---]",
+        "[Reduced from 20 to 10 steps. He does not need 20 anymore. Efficiency demonstrates progress.]",
+        "",
+        "Staircase. Ten steps down. Each step you have taken before. Your body knows the depth.",
+        "Ten. Nine. Eight. Seven. Six. Halfway. Twice as deep.",
+        "Five. Four. Three. Two. One. Zero — Deep Sleep.",
+        "[Repeat PHS.]",
+        "",
+        "[--- STEP 6: THE DEPTH ANCHOR CHAIN (maintenance insomnia intervention) ---]",
+        "[Adapted from HW #3 Maintenance Insomnia. Physical lane: heavy, kinesthetic, tangible. This addresses mid-sleep waking.]",
+        "",
+        "Now I am installing something new. A physical anchor for mid-sleep depth.",
+        "Imagine you are lying in your bed at night. You are in delta — deep, heavy, restorative sleep. And somewhere around the 90-minute mark, your brain naturally cycles toward the surface. This is normal. Everyone does it. But in your case, you surface too far. You wake up. And then the overactive mind engages.",
+        "",
+        "Here is the fix. Attached to your right wrist — feel it there right now — is a chain. A heavy, weighted chain. It runs from your wrist, through the mattress, down through the floor, all the way to the delta floor beneath you.",
+        "This chain is not a restraint. It is a gravity anchor. When your brain naturally cycles upward toward the surface, the chain's weight holds you in the deep zone. You surface just enough for your thalamus to confirm: safe, comfortable, off duty. And then the chain's weight pulls you right back down. Not violently. Smoothly. Like a ship's anchor keeping it steady in a gentle current.",
+        "",
+        "Feel the weight of that chain on your wrist right now. It is heavy. Solid. Reassuring. The same way a weighted blanket feels — that deep pressure that tells your nervous system: you are held. You are grounded. You are not going anywhere.",
+        "",
+        "Each night, the chain gets heavier. Not uncomfortably — just more present. More effective. The surfacing gets shorter. By next week, the 90-minute cycle transitions happen in seconds, not minutes. You will not remember them. Your tracker will not register them. The chain handles it.",
+        "",
+        "And the anchor point on the delta floor? That is where your Depth Dial lives. At DELTA LOCK. 0.5 hertz. The chain connects your wrist to the deepest setting on the dial. So even if you surface, the chain always brings you back to the same depth. Every time. Automatically.",
+        "",
+        "[IDEOMOTOR CHECK: Subconscious mind, when the Depth Anchor Chain is fully installed and connected to the delta floor, let a nod happen. Wait for signal.]",
+        "",
+        "[--- STEP 7: THE PROCESSING VAULT (overactive mind intervention) ---]",
+        "[Adapted from HW #10 Pre-Sleep Overthinking. Physical lane: every metaphor involves a physical action — turning a key, placing a box, pulling a handle.]",
+        "",
+        "Now the second installation. Your overactive mind.",
+        "The Sorting Room librarians are excellent at processing data during delta. But the problem is: your conscious mind keeps feeding them new work AT BEDTIME. Business plans. Digital media. Unresolved threads. The librarians cannot start their night shift if the day shift keeps handing them files.",
+        "",
+        "Here is the solution. In the Sorting Room, there is now a vault. A heavy steel vault door, like a bank vault. Floor to ceiling. Six inches of solid steel. A combination lock and a physical key.",
+        "",
+        "At 10:30 PM, when you do your time-boxing — writing every open thought on the notepad — you are creating the files. Each thought is a file. Each worry is a file. Each plan is a file.",
+        "Now, after closing the notepad, close your eyes for 10 seconds and do this: visualize carrying those files to the vault. Stack them inside. They are safe in there. They are not going anywhere.",
+        "Now close the vault door. Feel the weight of it swinging shut. HEAVY. The steel contacts the frame with a solid, satisfying THUD.",
+        "Turn the combination lock. Feel the dial clicking under your fingers. Three turns. Click. Click. Click.",
+        "Turn the key. Feel the resistance, then the smooth lock engaging.",
+        "Pull the key out. Place it in a small box. Close the box. Place the box on a high shelf.",
+        "",
+        "Every physical action is a mental release. The door closes: the problems are contained. The lock turns: the access is cut. The key is shelved: you cannot reopen it even if you wanted to. The vault holds everything until 6 AM. At 6 AM, the vault automatically opens. The files are exactly where you left them. Not one is lost.",
+        "",
+        "Your mind can let go because the vault is secure. The problems are not gone. They are LOCKED. And locked is enough.",
+        "",
+        "[--- STEP 8: AUTO-PILOT MODE ---]",
+        "",
+        "Now the final piece. Once the sleep ceremony is complete — time-box done, vault locked, tension-release done, 4-7-8 done, settling pond done — your brain switches to auto-pilot.",
+        "Think of it like a plane at cruising altitude. The pilot has done the work: takeoff, climb, navigation. At cruising altitude, the pilot's hands come off the controls. The autopilot takes over. It runs the three maintenance processes — glymphatic flush, memory consolidation, synaptic calibration — without any conscious involvement from you.",
+        "",
+        "You have done your job by completing the ceremony. Now the autopilot does its job. You do not monitor it. You do not check on it. You do not wonder if it is working. The data will tell you in the morning. Tonight, you just sleep.",
+        "",
+        "And the autopilot has three tools: the Depth Dial at DELTA LOCK, the Anchor Chain holding you in the deep zone, and the vault keeping the overactive mind contained. Three tools, fully automated, running all night.",
+        "",
+        "[--- STEP 9: ENHANCED NIGHT-WAKE PROTOCOL (30-second re-entry) ---]",
+        "",
+        "And if you do wake in the night — for any reason — the protocol is faster now.",
+        "Hand on chest. One breath: in for four, hold for seven, out for eight.",
+        "On the exhale, the Anchor Chain activates. Feel the weight on your wrist. The chain pulls you back to delta. Not in 60 seconds like before. In 30 seconds. The path is well-worn now. Your brain knows where delta is. The chain just guides it there.",
+        "No staircase needed. No visualization needed. Just the weight of the chain and the single breath. Thirty seconds. Back to delta.",
+        "",
+        "[--- STEP 10: DREAM THERAPY ---]",
+        "",
+        "The venting process continues. As the delta foundation deepens, the venting becomes more efficient. Your brain clears more in less time.",
+        "If you remember dreams this week, they may be shorter, simpler, less vivid. That is a sign of efficiency — the system is clearing the backlog faster.",
+        "If you do not remember any dreams, the venting happened entirely in delta. Below awareness. That is the target state.",
+        "",
+        "[--- STEP 11: COUNT OUT (0-5) ---]",
+        "",
+        "Zero — sealing in the Depth Anchor Chain, the Processing Vault, and the Auto-Pilot. All three installed. All three automated.",
+        "One — coming up.",
+        "Two — physically aware. The chain is installed. You can feel its weight even now.",
+        "Three — coming up higher. Tonight, the vault locks at 10:30. The autopilot engages at 10:50.",
+        "Four — eyes beginning to open.",
+        "Five — eyes open, wide awake. Three new tools. All automated. The data will show it.",
+        "One, two, three, four, five — eyes open, wide awake.",
+        "",
+        "[--- STEP 12: UPDATED HOMEWORK ---]",
+        "",
+        "Your ceremony has one new step tonight.",
+        "",
+        "10:30 — Notepad time-box (same as before).",
+        "10:32 — NEW: Vault the files. Close your eyes for 10 seconds. Visualize carrying the files to the vault. Close the door. Turn the lock. Turn the key. Shelve the key. Open your eyes. Done.",
+        "10:35 — Tension-release (fists, shoulders, face).",
+        "10:40 — 4-7-8 breathing (three cycles).",
+        "10:45 — Settling pond + Depth Dial to DELTA LOCK.",
+        "10:50 — Autopilot engages. Sleep.",
+        "",
+        "If you wake: hand on chest, one breath, feel the chain. Thirty seconds. Back to delta.",
+        "",
+        "Continue tracking. Bring the data.",
+        "",
+        "Also: I will text you on night 3 or 4. Just a data check-in — 'How are the numbers looking?' One sentence reply is fine.",
+        "",
+        "How are you feeling? Questions?",
+        "[Schedule session 4. Target: 1-2 weeks. Frame: 'Session 4 is the independence pivot. By the end of that session, you run this yourself.']"
       ]
     }
   ]

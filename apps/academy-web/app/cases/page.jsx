@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import caseData from "../../data/cases.json";
 
@@ -30,8 +30,12 @@ ${lines}</body></html>`);
 export default function Cases() {
   const [activeCase, setActiveCase] = useState(null);
   const [tab, setTab] = useState("intake");
+  const [sessionNum, setSessionNum] = useState(1);
   const c = activeCase ? caseData.cases.find((x) => x.id === activeCase) : null;
   const cat = c ? CATS[c.category] : null;
+  const jp = c?.journey_plan || null;
+  const availSessions = jp ? jp.sessions.filter((s) => s.status !== "not_built").map((s) => s.num) : [1];
+  const activeScript = c ? (sessionNum === 1 ? c.session_script : c[`session_${sessionNum}_script`]) : null;
 
   return (
     <article>
@@ -166,6 +170,45 @@ export default function Cases() {
                 <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--ok)", marginBottom: 10 }}>Count Out</div>
                 <p style={{ fontSize: 14, color: "#cfc9dd", margin: 0 }}>{c.session_plan.countout}</p>
               </div>
+              {/* Journey Plan Overview */}
+              {jp && (
+                <div className="panel" style={{ padding: "18px 22px" }}>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: cat?.color, marginBottom: 12 }}>8-Session Treatment Arc</div>
+                  <div style={{ display: "grid", gridTemplateColumns: "40px 1fr 1fr 80px", gap: "4px 10px", fontSize: 12, color: "#cfc9dd" }}>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 10 }}>#</div>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 10 }}>Focus</div>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 10 }}>Key Techniques</div>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 10 }}>Status</div>
+                    {jp.sessions.map((s) => (
+                      <React.Fragment key={s.num}>
+                        <div style={{ color: cat?.color, fontFamily: "var(--mono)" }}>{s.num}</div>
+                        <div>{s.title}</div>
+                        <div style={{ fontSize: 11, color: "#8b85a0" }}>{(s.techniques || []).slice(0, 3).join(", ")}{(s.techniques || []).length > 3 ? "..." : ""}</div>
+                        <div style={{ fontFamily: "var(--mono)", fontSize: 10, color: s.status === "completed" ? "var(--ok)" : s.status === "script_ready" ? "var(--amber)" : "var(--dim)" }}>{s.status.replace("_", " ")}</div>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                  {/* SMART Goals */}
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--amber)", marginTop: 16, marginBottom: 8 }}>SMART Goals</div>
+                  <div style={{ display: "grid", gridTemplateColumns: "120px repeat(4, 1fr)", gap: "2px 8px", fontSize: 11 }}>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Metric</div>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Baseline</div>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>S2 Target</div>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>S4 Target</div>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Graduation</div>
+                    {Object.entries(jp.smart_goals).map(([key, vals]) => (
+                      <React.Fragment key={key}>
+                        <div style={{ color: "#cfc9dd" }}>{key.replace(/_/g, " ")}</div>
+                        <div style={{ color: "var(--red)" }}>{vals.baseline}</div>
+                        <div style={{ color: "var(--amber)" }}>{vals.s2}</div>
+                        <div style={{ color: "var(--iris)" }}>{vals.s4}</div>
+                        <div style={{ color: "var(--ok)" }}>{vals.graduation}</div>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Practice drills link */}
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 <Link href="/lab" className="primary" style={{ padding: "10px 18px", fontSize: 13, textDecoration: "none", display: "inline-block", borderRadius: 8 }}>
@@ -179,17 +222,34 @@ export default function Cases() {
           {/* ── FULL SCRIPT TAB ── */}
           {tab === "script" && (
             <div className="panel" style={{ padding: "22px 26px", maxHeight: "70vh", overflowY: "auto", borderLeft: `3px solid ${cat?.color}` }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-                <div style={{ fontFamily: "var(--mono)", fontSize: 10.5, letterSpacing: ".12em", textTransform: "uppercase", color: cat?.color }}>Full Session Script &middot; {c.id} &middot; {c.session_script.length} paragraphs</div>
-                <button type="button" className="chip" onClick={() => openSessionWindow(c, cat)} style={{ fontSize: 11 }}>Open in Session Window</button>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18, flexWrap: "wrap", gap: 8 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  {availSessions.length > 1 && (
+                    <div className="seg" style={{ marginRight: 6 }}>
+                      {availSessions.map((sn) => (
+                        <button key={sn} type="button" className={sessionNum === sn ? "on" : ""} onClick={() => setSessionNum(sn)} style={{ fontSize: 11, padding: "4px 10px" }}>S{sn}</button>
+                      ))}
+                    </div>
+                  )}
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 10.5, letterSpacing: ".12em", textTransform: "uppercase", color: cat?.color }}>
+                    Session {sessionNum} Script &middot; {c.id} &middot; {(activeScript || []).length} paragraphs
+                  </div>
+                </div>
+                <button type="button" className="chip" onClick={() => {
+                  const scriptData = { ...c, session_script: activeScript || c.session_script };
+                  openSessionWindow(scriptData, cat);
+                }} style={{ fontSize: 11 }}>Open in Session Window</button>
               </div>
-              {c.session_script.map((para, i) => {
+              {(activeScript || c.session_script || []).map((para, i) => {
                 if (!para) return <div key={i} style={{ height: 16 }} />;
                 const isNote = para.startsWith("[");
                 return (
                   <p key={i} style={{ fontSize: 14.5, lineHeight: 1.75, color: isNote ? "var(--mist)" : "#e0dced", margin: "0 0 14px", fontStyle: isNote ? "italic" : "normal" }}>{para}</p>
                 );
               })}
+              {!activeScript && sessionNum > 1 && (
+                <div style={{ padding: 20, textAlign: "center", color: "var(--mist)" }}>Session {sessionNum} script not yet built. Check the journey plan for the outline.</div>
+              )}
             </div>
           )}
 

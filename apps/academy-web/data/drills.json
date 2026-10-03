@@ -2239,6 +2239,134 @@
         "[New: 'A magnificent, self-contained fountain of brilliant white light feeding your own heart.']"
       ],
       "image": "/images/scenes/neuro_staircase.png"
+    },
+    {
+      "id": "depth_anchor_chain",
+      "name": "Depth Anchor Chain (Mid-Sleep Delta Hold)",
+      "weight": 4,
+      "min": 3,
+      "prompter": [
+        "Physical lane: heavy, kinesthetic. Client must FEEL the weight.",
+        "Setup: 'Attached to your wrist is a chain. Heavy, weighted, running to the delta floor.'",
+        "Function: when brain surfaces at 90-min cycle, chain holds in deep zone.",
+        "Not a restraint — a gravity anchor. Like a weighted blanket for the delta floor.",
+        "Each night the chain gets heavier. Surfacing gets shorter.",
+        "Anchor point = Depth Dial at DELTA LOCK (0.5 Hz).",
+        "Ideomotor check: 'When the chain is installed, let a nod happen.'"
+      ],
+      "check": [
+        "Client felt the weight on wrist (kinesthetic confirmation)",
+        "Chain described as anchor not restraint",
+        "Connected to existing Depth Dial at DELTA LOCK",
+        "90-minute cycle surfacing addressed",
+        "Progressive strengthening suggested (heavier each night)",
+        "Ideomotor check completed"
+      ],
+      "script": [],
+      "image": "/images/scenes/grounding_anchor.png"
+    },
+    {
+      "id": "processing_vault",
+      "name": "Processing Vault (Overactive Mind Lock)",
+      "weight": 3,
+      "min": 2,
+      "prompter": [
+        "Physical lane: every metaphor involves a PHYSICAL action.",
+        "Location: inside the Sorting Room. Heavy steel vault door.",
+        "Sequence: carry files to vault → close door (THUD) → turn combo lock (click click click) → turn key → place key in box → shelve box.",
+        "Each physical action = one mental release.",
+        "Vault opens automatically at 6 AM. Files are exactly where they were left.",
+        "Pairs with time-boxing notepad: write thoughts THEN vault them."
+      ],
+      "check": [
+        "Files carried to vault (not thrown, not shoved — placed deliberately)",
+        "Door closing described with weight and sound (THUD)",
+        "Combination lock turned with physical detail (clicking)",
+        "Key turned, removed, boxed, shelved (4 separate actions)",
+        "Vault auto-opens at morning — nothing lost",
+        "Paired with time-boxing homework"
+      ],
+      "script": [],
+      "image": "/images/scenes/blueprint_room.png"
+    },
+    {
+      "id": "natural_pharmacy",
+      "name": "The Natural Pharmacy (Endocrine Sleep Cascade)",
+      "weight": 3,
+      "min": 2,
+      "prompter": [
+        "Physical lane: body's own drug production system.",
+        "Four chemicals in sequence: melatonin (signal), adenosine (pressure), growth hormone (builder), cortisol (morning alarm).",
+        "Frame: 'Your body produces its own sleep drugs. No pills needed.'",
+        "10:30 ceremony triggers the cascade: melatonin rises, adenosine clears, growth hormone pulses, cortisol stays suppressed until 6 AM.",
+        "Engineer frame: 'endocrine system as pharmaceutical factory, running at full capacity.'"
+      ],
+      "check": [
+        "All four chemicals named with their function",
+        "Sequence tied to the sleep ceremony timing",
+        "No-pills-needed frame delivered",
+        "Growth hormone linked to cellular regeneration (from prior sessions)",
+        "Cortisol suppression linked to morning alarm (not eliminated — timed)"
+      ],
+      "script": [],
+      "image": "/images/scenes/neuro_staircase.png"
+    },
+    {
+      "id": "sleep_temple",
+      "name": "The Sleep Temple (Graduation Capstone)",
+      "weight": 6,
+      "min": 5,
+      "prompter": [
+        "Capstone visualization for graduation session. Physical lane.",
+        "Ancient temple built for perfect sleep. Stone walls, cedar, weighted robes.",
+        "Each room = a technique learned: Breathing Chamber (4-7-8), Release Room (tension-release), Settling Pool, Delta Vault (Depth Dial), Regeneration Chamber.",
+        "Center: private sanctum. Stone bed. Weighted robe. Silence.",
+        "Client built this temple room by room over the sessions. Now it is complete.",
+        "The temple does not require maintenance from the therapist. Client maintains it.",
+        "The ceremony is the daily walk through the rooms.",
+        "Relapse prevention: 'The rooms do not crumble from one disrupted night.'"
+      ],
+      "check": [
+        "Temple described with sensory detail (stone, cedar, weight)",
+        "Each room mapped to a specific technique from the treatment arc",
+        "Client recognized as the builder (ownership, not dependency)",
+        "Maintenance frame: daily ceremony = walking through rooms",
+        "Relapse prevention delivered (bad nights do not destroy the temple)",
+        "Independence sealed: therapist is not needed for maintenance"
+      ],
+      "script": [],
+      "image": "/images/scenes/healing_paradise.png"
+    },
+    {
+      "id": "self_hypnosis_sleep",
+      "name": "Self-Hypnosis for Sleep (Insomnia Bed Mode)",
+      "weight": 4,
+      "min": 3,
+      "prompter": [
+        "Teach consciously BEFORE using in trance. Client must own this technique.",
+        "Insomnia adaptation: self-hypnosis IS the sleep induction (done in bed, not chair).",
+        "Sequence: eye fascination (spot on ceiling) → 3 breaths (in nose, out mouth, relax jaw) → eyes close on 3rd exhale.",
+        "Physical keyword: 'heavy' (Physical lane choice).",
+        "Emotional keyword: 'restored' (systems restored to baseline).",
+        "Intellectual keyword: 'calibrated' (brain oscillation frame).",
+        "Body scan top-to-bottom with physical keyword at each region.",
+        "Emotional keyword (feel it, not think it).",
+        "Intellectual keyword: 'calibrated' → envision the calibrated brain.",
+        "Self-suggestions: 'Tonight I sleep in delta for three hours. Tomorrow I wake calibrated.'",
+        "Count 0-5, eyes open. (Practice in chair. At bedtime, skip countout — drift to sleep.)",
+        "Turbo mode (after mastery): 'Heavy. Restored. Calibrated. DELTA LOCK. Sleep.' 60 seconds."
+      ],
+      "check": [
+        "Taught consciously before trance (client understands the steps)",
+        "Keywords chosen by client (not assigned)",
+        "Body scan with physical keyword delivered",
+        "Emotional keyword felt, not just thought",
+        "Self-suggestions include specific sleep architecture language",
+        "Chair practice vs bed mode distinction clear",
+        "Turbo mode introduced (for experienced practice)"
+      ],
+      "script": [],
+      "image": "/images/scenes/future_progression.png"
     }
   ]
 }
