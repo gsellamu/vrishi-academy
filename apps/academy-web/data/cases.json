@@ -701,7 +701,8 @@
         "session_framing": "Session 1 was deliberately structured as cognitive + assessment: Theory of Mind, suggestibility testing, neuroscience explanation, first induction experience. The client's engineer background required extensive pre-talk for cognitive buy-in, consuming the time typically used for therapeutic suggestions. The installation was deferred to Session 2 to ensure the client fully understands the mechanism BEFORE the programming is anchored. This is a valid adaptation of the standard Kappasinian first-session flowchart — the cognitive foundation laid in Session 1 makes the Session 2 installation more effective because the critical mind has already accepted the framework.",
         "cch_compliance": "CCH LOG FORMAT: Use client initials D.S. only in all submitted clinical documentation. Full name 'Deepak S.' is used in internal records only. Never use full name or identifying details in CCH log, case conference submissions, or any shared documents.",
         "ai_disclosure": "AI DISCLOSURE: Claude Code (Anthropic) was used as a clinical support tool for: script preparation, research aggregation, session planning, clinical documentation, and image generation. All clinical decisions are made by the therapist. AI does not interact with the client directly. The client should be informed that AI tools assist in preparation. Suggested disclosure: 'I use AI-assisted tools to research best practices and prepare customized session materials for you. All clinical decisions and therapeutic delivery are mine. The AI never interacts with you directly.'",
-        "communication_policy": "COMMUNICATION POLICY: All client communication should move from WhatsApp/text to the client portal (when built) or encrypted email. WhatsApp is not HIPAA-compliant. Until the portal is ready, use email (jeeth@vrishihypno.com) for all non-urgent communication. Text/WhatsApp acceptable ONLY for appointment confirmations or brief data check-ins (e.g., 'How are the numbers looking?'). No clinical content over text. Document all client communications in the communication_log table regardless of channel."
+        "communication_policy": "COMMUNICATION POLICY: All client communication should move from WhatsApp/text to the client portal (when built) or encrypted email. WhatsApp is not HIPAA-compliant. Until the portal is ready, use email (jeeth@vrishihypno.com) for all non-urgent communication. Text/WhatsApp acceptable ONLY for appointment confirmations or brief data check-ins (e.g., 'How are the numbers looking?'). No clinical content over text. Document all client communications in the communication_log table regardless of channel.",
+        "bruce_conference_feedback": "Bruce (Case Conference Oct 3): (1) Set expectations that wearables measure outcome but are NOT the primary metric. Tracking can hinder speed of improvement if client fixates. Trust the process, monitor physical/mental improvements. (2) Over-deliver sleep suggestions — use buckshot approach, something will work. Monitor which ones land. (3) If client obsesses over tracker, use REVERSE INDUCTION: convert the anxiety about deep sleep into a deepening trigger. The more they check/think about the wearable, the stronger the drift into deeper REM. Imagery of wearable showing better and better numbers becomes a post-hypnotic suggestion itself. (4) Fish at the bottom of the ocean imagery — safest, deepest part. Simple. Physical. Powerful."
       },
       "session_plan": {
         "pretalk_focus": "Reptile brain (survival/protection/reproduction) + RAM vs hardwired (conscious=temporary, subconscious=permanent). Brain oscillations, glymphatic flush, DMA transfers, synaptic homeostasis, REM simulation, interrupt handler bug. Three dream stages (Kappas pipeline). Sleep ceremony = time-boxing to clear cognitive backlog.",
@@ -1174,6 +1175,9 @@
         "",
         "Tonight, you sink. Like a stone dropped into deep water. Not falling — sinking. Heavy. Steady. All the way to the bottom. The deepest, safest, heaviest place. Nothing can reach you there. Nothing can wake you there. You are at the bottom. And you stay there.",
         "",
+        "Like a fish going to the very bottom of the ocean. The safest, deepest part. Where the water is still. Where the current cannot reach. Where the pressure holds you in place — not crushing, cradling. You are the fish at the bottom. And you stay there all night.",
+        "",
+        "",
         "That is the simplest version. One image. One feeling. Heavy. Deep. Bottom. Research shows that just this one suggestion — 'tonight you will sleep deeper' — doubled to tripled the amount of deep sleep in clinical studies. One suggestion. That powerful.",
         "",
         "Now the most important instruction of this session. I am speaking directly to the subconscious mind.",
@@ -1257,6 +1261,17 @@
         "And each time you remember a venting dream, your confidence in this process doubles. And that confidence makes the next night even deeper.",
         "",
         "[=== INSTALLATION 10: TRACKER AS CONVINCER ===]",
+        "",
+        "",
+        "[BRUCE FEEDBACK: If client becomes obsessed with checking the tracker, convert the anxiety into a deepening trigger using reverse induction.]",
+        "",
+        "And here is something powerful about your tracker. If you find yourself checking it — looking at the numbers, wondering if they are improving — that very act of checking becomes a trigger for deeper sleep the NEXT night.",
+        "",
+        "The more you think about deep sleep, the stronger the drift into deeper REM. The more you check the wearable, the more your subconscious locks onto the instruction: deeper. heavier. longer. Every glance at that screen reinforces the programming.",
+        "",
+        "Imagine looking at your tracker tomorrow morning. See the screen. See the deep sleep bar growing. Longer than yesterday. See the light sleep bar shrinking. See the depth score changing — from Bad to Fair. Feel the satisfaction in your chest. That feeling IS the programming strengthening.",
+        "",
+        "And the next night, that memory of seeing the improvement pulls you even deeper. A positive spiral. The tracker does not just measure your sleep. It DRIVES your sleep deeper. Every check. Every glance. Deeper.",
         "",
         "Every morning, when you check your sleep score, the deep sleep percentage is climbing. That number is not just data. It is proof. Proof that your subconscious accepted every installation. Proof that delta is locking in. Proof that the maintenance window is opening wider every night.",
         "",
@@ -2379,7 +2394,11 @@
             "INSTRUCTOR: One simple deep suggestion ('tonight you sink to the bottom, heaviest place') can double-triple deep sleep. Don't over-engineer with 10 complex installations when one powerful anchor may outperform.",
             "INSTRUCTOR: Offer 5-min bedtime Zoom call for first week post-Session 2. Guide settling + Depth Dial in real sleep environment. Resets pattern. 'They love you for it.'",
             "INSTRUCTOR: Miniature golf technique for onset/night-waking. Mundane + sequential = displaces worry without stimulating.",
-            "INSTRUCTOR: 'If they held my dog hostage and I had to pick an issue, I'd pick insomnia — I can almost always get them sleeping way better than before.' Confidence builder."
+            "INSTRUCTOR: 'If they held my dog hostage and I had to pick an issue, I'd pick insomnia — I can almost always get them sleeping way better than before.' Confidence builder.",
+            "BRUCE FEEDBACK: Wearables measure outcome but are NOT the primary metric. Tracking can HINDER improvement if client fixates. Set expectations: trust the process, monitor how you FEEL.",
+            "BRUCE: Over-deliver sleep suggestions (buckshot approach). Something will work. Monitor which techniques land for this specific client.",
+            "BRUCE: If client obsesses over tracker stats, use REVERSE INDUCTION — convert checking-anxiety into a deepening trigger. Every glance at the tracker reinforces deeper sleep the next night.",
+            "BRUCE: Fish at the bottom of the ocean — safest, deepest part. One simple image. One powerful anchor."
           ],
           "sessions": {
             "S1": {
