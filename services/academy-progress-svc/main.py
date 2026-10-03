@@ -2188,6 +2188,111 @@ async def add_consent(
     return {"id": str(row["id"])}
 
 
+
+# ============================================================================
+# TIME & COST TRACKING
+# ============================================================================
+
+class TimeEntryRequest(BaseModel):
+    session_num: int | None = None
+    activity_type: str = Field(max_length=30)
+    description: str
+    minutes: int = 0
+    cost_usd: float = 0
+    ai_tokens: str | None = Field(None, max_length=50)
+    ai_model: str | None = Field(None, max_length=50)
+    activity_date: str | None = None
+
+@app.get("/journal/{journey_id}/time")
+async def list_time_entries(
+    journey_id: str,
+    session_num: int | None = None,
+    activity_type: str | None = None,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    q = "SELECT * FROM case_time_tracking WHERE journey_id = CAST($1 AS uuid)"
+    args = [journey_id]
+    idx = 2
+    if session_num is not None:
+        q += f" AND session_num = ${idx}"
+        args.append(session_num)
+        idx += 1
+    if activity_type:
+        q += f" AND activity_type = ${idx}"
+        args.append(activity_type)
+        idx += 1
+    q += " ORDER BY activity_date DESC, created_at DESC"
+    rows = await db.fetch(q, *args)
+    return [dict(r) for r in rows]
+
+@app.post("/journal/{journey_id}/time")
+async def add_time_entry(
+    journey_id: str,
+    req: TimeEntryRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    a_date = date.fromisoformat(req.activity_date) if req.activity_date else date.today()
+    row = await db.fetchrow(
+        """INSERT INTO case_time_tracking
+           (journey_id, session_num, activity_type, description, minutes, cost_usd, ai_tokens, ai_model, activity_date)
+           VALUES (CAST($1 AS uuid),$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id, created_at""",
+        journey_id, req.session_num, req.activity_type, req.description,
+        req.minutes, req.cost_usd, req.ai_tokens, req.ai_model, a_date,
+    )
+    return {"id": str(row["id"]), "created_at": str(row["created_at"])}
+
+@app.delete("/journal/time/{entry_id}")
+async def delete_time_entry(
+    entry_id: str,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    await db.execute("DELETE FROM case_time_tracking WHERE id = CAST($1 AS uuid)", entry_id)
+    return {"ok": True}
+
+@app.get("/journal/{journey_id}/time/summary")
+async def time_summary(
+    journey_id: str,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    """Aggregate time and cost by session and by activity type."""
+    by_session = await db.fetch(
+        """SELECT session_num, SUM(minutes) as total_minutes, SUM(cost_usd) as total_cost,
+                  COUNT(*) as entry_count
+           FROM case_time_tracking WHERE journey_id = CAST($1 AS uuid)
+           GROUP BY session_num ORDER BY session_num""",
+        journey_id,
+    )
+    by_activity = await db.fetch(
+        """SELECT activity_type, SUM(minutes) as total_minutes, SUM(cost_usd) as total_cost,
+                  COUNT(*) as entry_count
+           FROM case_time_tracking WHERE journey_id = CAST($1 AS uuid)
+           GROUP BY activity_type ORDER BY total_minutes DESC""",
+        journey_id,
+    )
+    totals = await db.fetchrow(
+        """SELECT SUM(minutes) as total_minutes, SUM(cost_usd) as total_cost,
+                  COUNT(*) as entry_count
+           FROM case_time_tracking WHERE journey_id = CAST($1 AS uuid)""",
+        journey_id,
+    )
+    ai_totals = await db.fetchrow(
+        """SELECT SUM(minutes) as ai_minutes, SUM(cost_usd) as ai_cost, COUNT(*) as ai_count
+           FROM case_time_tracking
+           WHERE journey_id = CAST($1 AS uuid) AND activity_type = 'ai_claude'""",
+        journey_id,
+    )
+    return {
+        "totals": dict(totals) if totals else {},
+        "ai_totals": dict(ai_totals) if ai_totals else {},
+        "by_session": [dict(r) for r in by_session],
+        "by_activity": [dict(r) for r in by_activity],
+    }
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8000")))

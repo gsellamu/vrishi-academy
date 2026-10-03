@@ -269,3 +269,21 @@ export const journalApi = {
   addConsent: (journeyId, data) =>
     apiFetch(PROGRESS_SVC, `/journal/${journeyId}/consents`, { method: "POST", body: JSON.stringify(data) }),
 };
+
+/* ── Time & Cost Tracking API ── */
+export const timeApi = {
+  list: (journeyId, sessionNum, activityType) => {
+    let q = `/journal/${journeyId}/time`;
+    const params = [];
+    if (sessionNum != null) params.push(`session_num=${sessionNum}`);
+    if (activityType) params.push(`activity_type=${activityType}`);
+    if (params.length) q += "?" + params.join("&");
+    return apiFetch(PROGRESS_SVC, q);
+  },
+  add: (journeyId, data) =>
+    apiFetch(PROGRESS_SVC, `/journal/${journeyId}/time`, { method: "POST", body: JSON.stringify(data) }),
+  remove: (entryId) =>
+    apiFetch(PROGRESS_SVC, `/journal/time/${entryId}`, { method: "DELETE" }),
+  summary: (journeyId) =>
+    apiFetch(PROGRESS_SVC, `/journal/${journeyId}/time/summary`),
+};

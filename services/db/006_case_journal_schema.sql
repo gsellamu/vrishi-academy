@@ -117,3 +117,32 @@ CREATE INDEX IF NOT EXISTS idx_comms_journey ON communication_log(journey_id);
 CREATE INDEX IF NOT EXISTS idx_consent_journey ON consent_records(journey_id);
 
 COMMIT;
+
+-- VRishi Academy -- Time & Cost Tracking schema addition
+-- Run: cat this | docker exec -i jeethhypno-postgres psql -U academy -d academy
+
+BEGIN;
+
+CREATE TABLE IF NOT EXISTS case_time_tracking (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  journey_id UUID NOT NULL REFERENCES client_journeys(id) ON DELETE CASCADE,
+  session_num INTEGER,
+  activity_type VARCHAR(30) NOT NULL CHECK (activity_type IN (
+    'session_delivery', 'script_writing', 'research', 'ai_claude',
+    'case_planning', 'client_comm', 'documentation', 'supervision',
+    'admin', 'image_generation', 'other'
+  )),
+  description TEXT NOT NULL,
+  minutes INTEGER NOT NULL DEFAULT 0,
+  cost_usd NUMERIC(10,2) NOT NULL DEFAULT 0,
+  ai_tokens VARCHAR(50),
+  ai_model VARCHAR(50),
+  activity_date DATE NOT NULL DEFAULT CURRENT_DATE,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_time_journey ON case_time_tracking(journey_id);
+CREATE INDEX IF NOT EXISTS idx_time_session ON case_time_tracking(session_num);
+CREATE INDEX IF NOT EXISTS idx_time_activity ON case_time_tracking(activity_type);
+
+COMMIT;
