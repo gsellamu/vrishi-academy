@@ -75,8 +75,11 @@ export default function RootLayout({ children }) {
                 <Link href="/safety" className="navlink">
                   <span className="ord">12</span>Safety & Ethics
                 </Link>
+                <Link href="/client-journey" className="navlink" style={{ color: "var(--ok)" }}>
+                  <span className="ord">13</span>Client Journey
+                </Link>
                 <Link href="/logbook" className="navlink">
-                  <span className="ord">13</span>Logbook
+                  <span className="ord">&#9672;</span>Logbook
                 </Link>
                 <Link href="/persona-builder" className="navlink">
                   <span className="ord">14</span>Persona Builder
