@@ -182,7 +182,7 @@ const SEED_CLIENTS = [
     id: "DS-001",
     name: "Deepak S.",
     initials: "DS",
-    age: 46,
+    age: 56,
     occupation: "Principal Engineer (EE/CS)",
     ep: "76% Physical",
     vak: "Kinesthetic",
