@@ -105,7 +105,7 @@ ${isFirst ? '<div class="f" style="color:#888">Session 1 was cognitive assessmen
 <h2>Treatment Plan</h2>
 <div class="f"><span class="fl">Sessions:</span> 6-8 (6 core + 2 contingency, reassessed at session 4)</div>
 <div class="f"><span class="fl">Frequency:</span> Every 1-2 weeks</div>
-<div class="f"><span class="fl">Approach:</span> Kappasinian hypnotherapy, Physical suggestible lane (direct/literal), data-driven with wearable biofeedback</div>
+<div class="f"><span class="fl">Approach:</span> Clinical hypnotherapy, Physical suggestible lane (direct/literal), data-driven with wearable biofeedback</div>
 <div class="f"><span class="fl">Session 1:</span> Assessment + Education + First Induction Experience</div>
 <div class="f"><span class="fl">Session 2:</span> THE INSTALLATION \u2014 10 post-hypnotic suggestions anchored in deep trance with ideomotor checks</div>
 <div class="f"><span class="fl">Session 3:</span> Maintenance + Reinforcement (Depth Anchor Chain, Processing Vault, Auto-Pilot)</div>
@@ -158,7 +158,7 @@ ${session.feedback ? `<h2>Client-Reported Outcomes</h2><div class="f">${session.
 <b>SB 577 Disclosure:</b> ${practitioner.name} is not a licensed physician, psychologist, or psychiatrist. Services are provided for vocational/avocational self-improvement under CA B&P Code \u00a72908. Not a substitute for medical/psychological treatment.<br><br>
 <b>No Guarantee of Outcomes:</b> While clinical research supports hypnotherapy for sleep improvement (Cordi 2014, Chamine 2018, Lam 2015), individual results vary based on suggestibility, compliance, and health. ${practitioner.practice} does not guarantee specific outcomes, cure rates, or timelines. SMART goals are research-based targets, not promises.<br><br>
 <b>Therapeutic Exclusions:</b> Clients on anti-depressant, anti-psychotic, or anti-anxiety medications, or with psychiatric history/suicidal ideation, must be referred to licensed mental health professionals.<br><br>
-<b>Liability:</b> Professional liability insurance via American Professional Agency ($1M/$3M). HMI listed as Additional Insured.<br><br>
+<b>Liability:</b> Professional liability insurance via American Professional Agency ($1M/$3M). Training institution listed as Additional Insured.<br><br>
 <b>Confidentiality:</b> All information kept confidential per HIPAA Privacy Rule (45 CFR \u00a7\u00a7160, 164) and CA law, except where disclosure required by law.
 </div>
 
