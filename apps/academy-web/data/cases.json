@@ -2211,7 +2211,396 @@
         "[If Path A: 'Next session is graduation. Bring all your data.']",
         "[If Path B: 'Next session we check the adjustment. The gap will close.']",
         "[If Path C: 'Run the simplified ceremony for 7 nights. Text me the numbers on day 4. We recalibrate at Session 6.']"
-      ]
+      ],
+      "client_plan": {
+        "title": "Your Sleep Restoration Program",
+        "client": "Deepak S.",
+        "prepared_by": "Jithendran Sellamuthu, C.MH.",
+        "date_prepared": "2026-10-02",
+        "overview": "A structured 6-8 session program designed to restore deep, restorative sleep. Each session builds on the previous one. Your progress is measured by your sleep tracker data. The program is adaptive — if you are ahead of schedule, we graduate early. If more time is needed, we have contingency sessions available.",
+        "your_commitment": [
+          "Follow the nightly sleep ceremony consistently (same time every night)",
+          "Track your sleep data daily and bring it to every session",
+          "Practice between sessions as instructed",
+          "Communicate any changes in medications, health, or sleep patterns",
+          "Attend scheduled sessions or reschedule with 24-hour notice"
+        ],
+        "what_to_expect": [
+          "Sessions are 60 minutes via Zoom",
+          "The first 10 minutes: we review your data and discuss your progress",
+          "The remaining time: guided hypnotherapy customized to your specific needs",
+          "After each session: you receive homework and an After Visit Summary",
+          "Between sessions: practice the sleep ceremony nightly"
+        ],
+        "sessions": [
+          {
+            "num": 1,
+            "title": "Assessment & First Experience",
+            "status": "completed",
+            "date": "2026-10-01",
+            "what_you_will_experience": "We assess your sleep patterns, explain how hypnotherapy works for sleep, and you experience your first guided trance session.",
+            "your_takeaway": "Understanding of why your sleep quality is poor despite adequate hours. A breathing technique (4-7-8) you can start using tonight.",
+            "homework": "Practice 4-7-8 breathing before bed. Start tracking sleep data daily."
+          },
+          {
+            "num": 2,
+            "title": "Deep Programming Session",
+            "status": "upcoming",
+            "what_you_will_experience": "A comprehensive guided session where we install the core sleep programming. This is the foundation session — everything builds from here.",
+            "your_takeaway": "A printed Sleep Protocol Handbook with your personalized nightly ceremony. Your sleep tracker should start showing changes within the first week.",
+            "homework": "Follow the sleep ceremony in the handbook every night at 10:30 PM. Track daily. Keep a dream journal.",
+            "target_outcome": "Sleep depth score improving from 'Bad' toward 'Fair'. Faster sleep onset."
+          },
+          {
+            "num": 3,
+            "title": "Reinforcement & Fine-Tuning",
+            "status": "upcoming",
+            "what_you_will_experience": "Based on your first week's data, we strengthen what is working and adjust what needs improvement. New tools are added for specific challenges.",
+            "your_takeaway": "Updated ceremony with additional techniques tailored to your data.",
+            "homework": "Updated nightly ceremony. Continue tracking.",
+            "target_outcome": "Deep+REM sleep increasing. Light sleep decreasing. Onset under 12 minutes."
+          },
+          {
+            "num": 4,
+            "title": "Independence Training",
+            "status": "upcoming",
+            "what_you_will_experience": "You learn to guide yourself into the sleep state using self-hypnosis. By the end of this session, you no longer need me to achieve deep sleep — you have the skill yourself.",
+            "your_takeaway": "Self-hypnosis technique you can use for life. Not just for sleep — for stress, focus, and recovery.",
+            "homework": "Practice self-hypnosis daily (5 minutes). Use it as your bedtime induction.",
+            "target_outcome": "Running the sleep protocol independently. Depth score approaching 'Good'."
+          },
+          {
+            "num": 5,
+            "title": "Data Review & Optimization",
+            "status": "upcoming",
+            "what_you_will_experience": "We review two full weeks of independent practice data. If everything is on track, this is a light tune-up. If there are gaps, we address them specifically.",
+            "your_takeaway": "Fine-tuned protocol based on a month of real data.",
+            "homework": "Continue ceremony + self-hypnosis. Prepare for potential graduation at Session 6.",
+            "target_outcome": "All metrics trending toward targets. Confidence score 8+/10."
+          },
+          {
+            "num": 6,
+            "title": "Graduation / Consolidation",
+            "status": "upcoming",
+            "what_you_will_experience": "If your data shows sustained improvement, this is your graduation session. You receive a permanent sleep protocol, a personalized handbook, and tools for long-term maintenance. If more work is needed, we continue with targeted sessions.",
+            "your_takeaway": "Personalized Client Handbook (for life), printed data graph showing your transformation, custom audio recording for ongoing use.",
+            "homework": "Continue the ceremony as daily practice. 30-day check-in call to confirm stability.",
+            "target_outcome": "Deep+REM 35-40%. Depth score 'Good'. Onset under 8 minutes."
+          },
+          {
+            "num": 7,
+            "title": "Booster (if needed)",
+            "status": "contingency",
+            "what_you_will_experience": "Only scheduled if your data indicates a specific gap or if a disruption event (travel, illness) caused regression. Targeted 60-minute session.",
+            "your_takeaway": "Specific fix for the identified gap.",
+            "homework": "Gap-specific homework."
+          },
+          {
+            "num": 8,
+            "title": "Extended Graduation (if needed)",
+            "status": "contingency",
+            "what_you_will_experience": "Final graduation session if Sessions 7 was needed. Same graduation protocol as Session 6.",
+            "your_takeaway": "Full graduation package.",
+            "homework": "Long-term maintenance."
+          }
+        ],
+        "measurement": {
+          "what_we_track": [
+            "Deep+REM sleep percentage (from your watch)",
+            "Light sleep percentage",
+            "Sleep onset time (how fast you fall asleep)",
+            "Depth score (Bad → Fair → Good)",
+            "Regularity score (consistency of bedtime)",
+            "Resting heart rate (morning measurement)",
+            "Your subjective sleep quality (1-10 scale)"
+          ],
+          "how_we_use_it": "Your data drives every decision. If the numbers show we can graduate early, we do. If they show we need more time, we adjust. No guessing — evidence-based decisions.",
+          "your_baseline": {
+            "deep_rem": "21% (combined Deep+REM)",
+            "light": "79%",
+            "onset": "~35 minutes",
+            "depth_score": "Bad",
+            "regularity": "Poor",
+            "resting_hr": "63 bpm (was 72 pre-treatment)",
+            "subjective": "4/10"
+          },
+          "graduation_targets": {
+            "deep_rem": "35-40%",
+            "light": "55-60%",
+            "onset": "Under 8 minutes",
+            "depth_score": "Good",
+            "regularity": "Good",
+            "resting_hr": "57-60 bpm",
+            "subjective": "8/10"
+          }
+        },
+        "disclaimer": "Results vary based on individual suggestibility, compliance with home practices, and underlying health conditions. These targets are based on clinical research averages, not guarantees. Hypnotherapy is a complementary modality for vocational/avocational self-improvement under CA B&P 2908."
+      },
+      "therapist_runbook": {
+        "title": "DS-001 Therapist Runbook",
+        "client_code": "DS-001",
+        "classification": "THERAPIST ONLY — DO NOT SHARE WITH CLIENT",
+        "last_updated": "2026-10-02",
+        "pre_session_checklist": [
+          "Review client's tracker data (shared via portal or brought to session)",
+          "Compare current metrics to session-specific SMART targets",
+          "Review previous session SOAP notes and homework compliance",
+          "Check dream journal entries (if any)",
+          "Determine which path to follow (for adaptive sessions like S5)",
+          "Prepare the session script (have it accessible on second monitor)",
+          "Set up recording if applicable (inform client, get consent)",
+          "Test Zoom audio/video quality",
+          "Review clinical reasoning log — any adjustments needed?"
+        ],
+        "session_execution": {
+          "general": [
+            "Start with data review (10 min). ALWAYS start with data. Engineer expects metrics.",
+            "PHYSICAL LANE: direct, literal, specific. No 'you may notice.' Use 'you ARE.'",
+            "PHS re-entry: TIME IT every session. Record in notes. Track the acceleration.",
+            "Ideomotor checks: wait for the signal. Do NOT proceed without it. Silence is OK.",
+            "Delta pacing: 2-second pauses between phrases during progressive relaxation.",
+            "Record progressive + therapeutic section for client playback.",
+            "Count out: energetic, crisp. Rapid 1-2-3-4-5 at the end.",
+            "Finger-spread PHS verify: do this every session (not just S1).",
+            "Homework: review AND assign. Be specific. Times, steps, sequence.",
+            "AVS: generate and provide after every session."
+          ],
+          "sessions": {
+            "S1": {
+              "status": "COMPLETED",
+              "focus": "Assessment + Education + First Induction",
+              "duration_split": "15min cognitive + 15min assessment + 25min trance + 5min homework",
+              "key_decisions": "Eagle visualization (Physical lane), reptile brain ToM, neuroscience deep dive for engineer buy-in",
+              "script_key": "session_script",
+              "phs_time": "First time — baseline",
+              "outcome": "8.5hr block, HR 72→63, depth still Bad",
+              "lessons_learned": "Session was cognitive-heavy. Installation deferred to S2. Client responds strongly to kinesthetic metaphors. Fatigue risk at S4-5."
+            },
+            "S2": {
+              "status": "SCRIPT READY",
+              "focus": "THE INSTALLATION — 10 post-hypnotic suggestions with ideomotor checks",
+              "duration_split": "15min review + arc overview + tension-release teach | 15min deepening | 25min installations | 5min PHS verify + homework + handbook",
+              "script_key": "session_2_script",
+              "critical_notes": [
+                "PRIORITIZE installations 1-5 if client fatigues. Save 6-10 for S3 reinforcement.",
+                "Tension-release taught BEFORE trance (Physical onset tool).",
+                "AI disclosure paragraph in pre-talk (Fix #8).",
+                "Tracker limitation discussion (combined Deep+REM, Fix #1).",
+                "Give printed Sleep Protocol Handbook at end.",
+                "ACTION: Record Parts 3-5 as audio file for client.",
+                "Collect SB 577 signed consent."
+              ],
+              "target_metrics": {
+                "deep_rem": "25-30%",
+                "light": "70%",
+                "onset": "<15m",
+                "depth": "Fair"
+              }
+            },
+            "S3": {
+              "status": "SCRIPT READY",
+              "focus": "Maintenance + Overactive Mind (HW-enriched)",
+              "duration_split": "10min data review | 5min PHS test + deepening | 5min progressive | 30min therapy (anchor chain + vault + train + autopilot) | 5min countout + homework",
+              "script_key": "session_3_script",
+              "hw_sources": [
+                "HW Maintenance Insomnia",
+                "HW Pre-Sleep Overthinking",
+                "HW Stop Overthinking"
+              ],
+              "new_techniques": [
+                "Depth Anchor Chain",
+                "Notebook Technique (bullet + line)",
+                "Processing Vault",
+                "Train Technique",
+                "Auto-Pilot Mode"
+              ],
+              "decision_points": [
+                "IF Deep+REM >= 25%: on track, proceed to S4 independence pivot",
+                "IF Deep+REM < 22%: delta floor not holding, double down on Anchor Chain",
+                "IF onset improved but mid-wake increased: focus on Anchor Chain",
+                "IF onset > 20 min: add full body scan to ceremony",
+                "IF poor compliance: address fatigue risk directly"
+              ],
+              "target_metrics": {
+                "deep_rem": "28-33%",
+                "light": "65-68%",
+                "onset": "<12m",
+                "depth": "Fair+"
+              }
+            },
+            "S4": {
+              "status": "SCRIPT READY",
+              "focus": "INDEPENDENCE PIVOT — Self-Hypnosis Teach",
+              "duration_split": "10min data review | 15min self-hypnosis teach (conscious) | 5min PHS test | 5min abbreviated deepening | 20min therapy (Natural Pharmacy + childhood memory + Autonomous System) | 5min PHS verify + homework",
+              "script_key": "session_4_script",
+              "hw_sources": [
+                "HW Drug Free Sleeping"
+              ],
+              "new_techniques": [
+                "Self-Hypnosis (7-step, keywords: Heavy/Restored/Calibrated)",
+                "Natural Pharmacy (4 chemicals)",
+                "Childhood Sleep Memory",
+                "Autonomous System seal"
+              ],
+              "critical_notes": [
+                "This is the session he flagged for fatigue risk. Frame as COMPLETION not continuation.",
+                "Client must leave feeling he CAN do this alone.",
+                "Confidence score 1-10: if < 6, reinforce in S5.",
+                "Schedule S5 in 2 WEEKS (not 1) — test independence.",
+                "Self-hypnosis practice: chair first (5min daily), bed mode at night."
+              ],
+              "decision_points": [
+                "IF all targets met: fast-track S5=tune, S6=graduate",
+                "IF deep+REM 30%+ but onset > 10m: add body scan",
+                "IF deep+REM < 28%: do NOT fast-track, S5-6 are core treatment",
+                "IF client wants to stop: respect, give everything, 30-day check-in"
+              ],
+              "target_metrics": {
+                "deep_rem": "30-35%",
+                "light": "62-65%",
+                "onset": "<10m",
+                "depth": "Good"
+              }
+            },
+            "S5": {
+              "status": "SCRIPT READY",
+              "focus": "Fine-Tuning (3 ADAPTIVE PATHS — data determines path)",
+              "duration_split": "15min data review + path selection | 40min therapy (path-dependent) | 5min countout + homework",
+              "script_key": "session_5_script",
+              "hw_sources": [
+                "HW Calm an Overactive Mind",
+                "HW Stop Overthinking"
+              ],
+              "paths": {
+                "A_on_track": {
+                  "condition": "All targets met or close (Deep+REM 30%+, Light <65%, Onset <12m)",
+                  "therapy": "Street Metaphor (thoughts as people — listen, thank, release) + Stress Inoculation + Performance Overlay + Graduation Preview",
+                  "homework": "Same ceremony. Continue tracking."
+                },
+                "B_partial": {
+                  "condition": "Some targets met, others lagging",
+                  "therapy": "Targeted: body scan (onset), double anchor chain (mid-wake), or process scheduler (delta plateau)",
+                  "homework": "Adjusted ceremony targeting specific gap"
+                },
+                "C_regression": {
+                  "condition": "Regression or minimal progress",
+                  "therapy": "Clinical investigation (meds? alcohol? screens? stress?) + simplified 3-step ceremony (60 sec) + core reinstall",
+                  "homework": "Simplified: tension-release + 3 breaths + DELTA LOCK only. 7 nights strict."
+                }
+              },
+              "target_metrics": {
+                "deep_rem": "33-38%",
+                "light": "60-62%",
+                "onset": "<8m",
+                "depth": "Good"
+              }
+            },
+            "S6": {
+              "status": "NOT YET BUILT",
+              "focus": "Graduation / Consolidation (HW Sleep Temples)",
+              "script_key": "session_6_script",
+              "tracks": {
+                "graduation": "Sleep Temple capstone + Relapse Prevention + Turbo Mode + data graph + ceremony card + recording",
+                "continued": "Continue targeted therapy, S7=consolidation, S8=graduation"
+              },
+              "deliverables_if_graduating": [
+                "Printed data graph (S1 baseline → S6 current, all 7 metrics)",
+                "Laminated ceremony card (quick-reference for travel)",
+                "Custom 15-min delta recording (for ongoing use)",
+                "Personalized Client Handbook (comprehensive, for life)"
+              ],
+              "target_metrics": {
+                "deep_rem": "35-40%",
+                "light": "55-60%",
+                "onset": "<8m",
+                "depth": "Good"
+              }
+            },
+            "S7": {
+              "status": "CONTINGENCY",
+              "focus": "Gap Closure / Regression Recovery / Secondary Issue",
+              "modes": [
+                "Single-metric targeted session",
+                "7-day boot camp reinstall",
+                "New presenting issue (keep sleep as anchor)"
+              ]
+            },
+            "S8": {
+              "status": "CONTINGENCY",
+              "focus": "Extended Graduation",
+              "therapy": "Same as S6 graduation track. 10-Year Forward trophy staircase. Relapse Protocol (3 options sealed)."
+            }
+          }
+        },
+        "post_session_checklist": [
+          "Write SOAP notes immediately (within 30 min of session end)",
+          "Generate and send AVS to client",
+          "Update client_sessions table with metrics",
+          "Update clinical_reasoning_log with any new decisions",
+          "Update time_tracking with session time + prep time",
+          "Update communication_log",
+          "Send homework summary via portal/email (NOT WhatsApp)",
+          "Schedule next session",
+          "Review: any contraindications or concerns to flag?",
+          "CCH log: update HMI documentation using initials D.S. only"
+        ],
+        "drift_tracking": {
+          "purpose": "Track deviation between planned targets and actual outcomes to improve future case planning accuracy.",
+          "method": "After each session, record: planned target vs actual value for each metric. Calculate drift % = (actual - target) / target * 100. Positive drift = ahead of plan. Negative drift = behind plan.",
+          "metrics_to_track": [
+            {
+              "metric": "deep_rem_pct",
+              "s1_actual": "21%",
+              "s2_planned": "25-30%",
+              "s2_actual": "TBD",
+              "drift": "TBD"
+            },
+            {
+              "metric": "light_pct",
+              "s1_actual": "79%",
+              "s2_planned": "70%",
+              "s2_actual": "TBD",
+              "drift": "TBD"
+            },
+            {
+              "metric": "onset_min",
+              "s1_actual": "~35",
+              "s2_planned": "<15",
+              "s2_actual": "TBD",
+              "drift": "TBD"
+            },
+            {
+              "metric": "depth_score",
+              "s1_actual": "Bad",
+              "s2_planned": "Fair",
+              "s2_actual": "TBD",
+              "drift": "TBD"
+            },
+            {
+              "metric": "regularity",
+              "s1_actual": "Poor",
+              "s2_planned": "Fair",
+              "s2_actual": "TBD",
+              "drift": "TBD"
+            },
+            {
+              "metric": "resting_hr",
+              "s1_actual": "63",
+              "s2_planned": "60-63",
+              "s2_actual": "TBD",
+              "drift": "TBD"
+            },
+            {
+              "metric": "subjective",
+              "s1_actual": "4",
+              "s2_planned": "6",
+              "s2_actual": "TBD",
+              "drift": "TBD"
+            }
+          ],
+          "review_cadence": "Update drift table after each session. If any metric shows >20% negative drift for 2 consecutive sessions, trigger Path C (regression investigation)."
+        }
+      }
     }
   ]
 }
