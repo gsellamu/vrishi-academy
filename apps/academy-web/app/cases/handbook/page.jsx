@@ -96,7 +96,7 @@ export default function SleepHandbook() {
           <li><strong>Let go.</strong> No countout. Just drift. The cabin takes you into delta.</li>
         </ol>
       </div>
-      <p style={{ fontSize: 13, lineHeight: 1.7, color: "#8b85a0", marginTop: 10 }}><strong>Turbo mode</strong> (after 2+ weeks of practice): Skip steps 3-5. Just say: &ldquo;Heavy. Restored. Calibrated. Delta Lock.&rdquo; Four words. Close your eyes. Sleep. This becomes a 60-second induction.</p>
+      <p style={{ fontSize: 13, lineHeight: 1.7, color: "#8b85a0", marginTop: 10 }}><strong>Turbo mode</strong> (after Session 4 self-hypnosis training (do NOT attempt before being taught)): Skip steps 3-5. Just say: &ldquo;Heavy. Restored. Calibrated. Delta Lock.&rdquo; Four words. Close your eyes. Sleep. This becomes a 60-second induction.</p>
 
       {/* === SECTION 5: DREAM JOURNAL === */}
       <h2 style={{ font: "560 18px var(--body)", color: "var(--amber)", borderBottom: "1px solid var(--line)", paddingBottom: 6, marginTop: 30 }}>5. Dream Journal</h2>

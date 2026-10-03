@@ -697,7 +697,11 @@
         "key_reframe": "Frame sleep as a SYSTEM with three required maintenance stages (Kappas model). His brain is running a cognitive backlog that prevents the three stages from completing. The 'sleep ceremony' — time-boxing thoughts, writing tasks down to mentally close them — clears the conscious queue so the subconscious can run its nightly pipeline. Use the RAM vs hardwired analogy: conscious decisions are temporary (RAM), but the subconscious programming (hardwired) is what runs at night. We are updating the firmware.",
         "contraindications": "Screen for: jet lag residual (circadian disruption from relocation), alcohol increase (new social life), screen time increase (new phone/language apps, social media in new language), dietary changes affecting sleep. Rule out: sleep apnea (ask about altitude change, new climate). Note: 'thinking while sleeping' can indicate the client is not reaching deep (stage 3/4) sleep — may be cycling in light sleep/REM without adequate slow-wave restoration.",
         "dream_therapy": "This client is an ideal candidate for dream therapy integration. His relocaton means his Processing stage (Stage 1) is overloaded with novel data. His Predictive stage (Stage 2) is modeling an unfamiliar future with limited reference data. His Venting stage (Stage 3) is trying to clear a massive backlog of message units. All three stages are running heavy, explaining the 'thinking while sleeping' report. Plant venting dream suggestions in session 1 — he will dream vividly this week (the hypnosis itself stimulates REM). When he reports vivid dreams next session, reinforce: 'That is the system clearing the backlog. Each dream restores capacity.' Monitor dream content across sessions — watch for the shift from novel-environment processing to integration/comfort themes. That shift signals adaptation is complete.",
-        "tracker_note": "IMPORTANT: Deepak's tracker (likely Samsung/Fitbit) combines Deep sleep (N3) and REM into one 'Deep or REM' category at 21% (1h 27m). It does NOT separate them. This means we cannot determine the actual N3 delta percentage from this tracker alone. The 79% light sleep is the definitive problem. Our target is to shift the ratio: reduce light sleep and increase the combined Deep+REM percentage, with therapeutic focus on increasing the deep (N3/delta) portion specifically. The tracker's 'Depth: Bad' score and the client's report of waking exhausted despite adequate hours confirms insufficient deep sleep regardless of the exact split."
+        "tracker_note": "IMPORTANT: Deepak's tracker (likely Samsung/Fitbit) combines Deep sleep (N3) and REM into one 'Deep or REM' category at 21% (1h 27m). It does NOT separate them. This means we cannot determine the actual N3 delta percentage from this tracker alone. The 79% light sleep is the definitive problem. Our target is to shift the ratio: reduce light sleep and increase the combined Deep+REM percentage, with therapeutic focus on increasing the deep (N3/delta) portion specifically. The tracker's 'Depth: Bad' score and the client's report of waking exhausted despite adequate hours confirms insufficient deep sleep regardless of the exact split.",
+        "session_framing": "Session 1 was deliberately structured as cognitive + assessment: Theory of Mind, suggestibility testing, neuroscience explanation, first induction experience. The client's engineer background required extensive pre-talk for cognitive buy-in, consuming the time typically used for therapeutic suggestions. The installation was deferred to Session 2 to ensure the client fully understands the mechanism BEFORE the programming is anchored. This is a valid adaptation of the standard Kappasinian first-session flowchart — the cognitive foundation laid in Session 1 makes the Session 2 installation more effective because the critical mind has already accepted the framework.",
+        "cch_compliance": "CCH LOG FORMAT: Use client initials D.S. only in all HMI-submitted documentation. Full name 'Deepak S.' is used in internal records only. Never use full name or identifying details in CCH log, case conference submissions, or any shared documents.",
+        "ai_disclosure": "AI DISCLOSURE: Claude Code (Anthropic) was used as a clinical support tool for: script preparation, research aggregation, session planning, clinical documentation, and image generation. All clinical decisions are made by the therapist. AI does not interact with the client directly. The client should be informed that AI tools assist in preparation. Suggested disclosure: 'I use AI-assisted tools to research best practices and prepare customized session materials for you. All clinical decisions and therapeutic delivery are mine. The AI never interacts with you directly.'",
+        "communication_policy": "COMMUNICATION POLICY: All client communication should move from WhatsApp/text to the client portal (when built) or encrypted email. WhatsApp is not HIPAA-compliant. Until the portal is ready, use email (jeeth@vrishihypno.com) for all non-urgent communication. Text/WhatsApp acceptable ONLY for appointment confirmations or brief data check-ins (e.g., 'How are the numbers looking?'). No clinical content over text. Document all client communications in the communication_log table regardless of channel."
       },
       "session_plan": {
         "pretalk_focus": "Reptile brain (survival/protection/reproduction) + RAM vs hardwired (conscious=temporary, subconscious=permanent). Brain oscillations, glymphatic flush, DMA transfers, synaptic homeostasis, REM simulation, interrupt handler bug. Three dream stages (Kappas pipeline). Sleep ceremony = time-boxing to clear cognitive backlog.",
@@ -1021,6 +1025,11 @@
         "Show me your watch readings.",
         "[Review tracker data together. Note: deep %, light %, onset, depth score, regularity, resting HR.]",
         "",
+        "",
+        "One important thing about your tracker. It combines Deep sleep and REM into one number — 'Deep or REM' at 21 percent. It does not separate them. This means we cannot see your exact delta percentage from this watch alone.",
+        "What we CAN track: the combined Deep+REM percentage going UP, and light sleep going DOWN. We can also track: the depth score (Bad to Good), your subjective quality (4/10 to 8/10), your sleep onset time, and your resting heart rate. Between these five measures, we have a clear picture of whether the programming is working.",
+        "If you want the exact delta measurement, we would need an EEG-based tracker like the Muse S headband. But for our purposes, the five measures I just listed are sufficient. The data tells the story.",
+        "",
         "Your first night after our session: 11 PM to 7:33 AM, eight and a half hours, one bathroom wake. Heart rate dropped from 72 to 63. That tells us two things: your body responded to the induction, and your nervous system shifted toward parasympathetic. Those are real physiological changes.",
         "",
         "Now here is what the data also shows. Your sleep architecture: 21 percent deep/REM combined, 79 percent light sleep. Depth score: Bad. Regularity: Poor. And you mentioned it took awhile to fall asleep.",
@@ -1040,6 +1049,9 @@
         "Sessions 7-8 — only if the data says we need them.",
         "",
         "The targets are specific and measurable. Deep sleep: from zero to 18-23 percent by graduation. Light sleep: from 79 down to 50-55. Sleep onset: from 35 minutes to under 8. Depth score: from Bad to Good. You will track these numbers every day. The data decides our pace.",
+        "",
+        "",
+        "One more thing before we start. I want to be transparent about my preparation process. I use AI-assisted tools to research the latest sleep science, prepare customized session scripts, and track clinical data. All the therapeutic decisions — what techniques to use, how to adapt them for your suggestibility profile, what to focus on today — those are mine. The AI is a research and preparation tool, not a therapist. I mention this because transparency is part of how I practice.",
         "",
         "Questions before we begin?",
         "",
@@ -1127,6 +1139,7 @@
         "[Repeat PHS.]",
         "",
         "[--- PART 5: THE INSTALLATION ---]",
+        "[CLINICAL NOTE: If time is limited, prioritize installations 1-5 (Sorting Room, Depth Dial, Delta Floor, Settling Pond, Island Cabin) + installation 6 (Pillow Trigger). Installations 7-10 (Night-Waking Reset, Time Anchor, Venting Dreams, Tracker Convincer) can be reinforced in Session 3 if needed. Monitor client fatigue throughout — if ideomotor responses slow or weaken, stop and save remaining installations for next session.]",
         "[This is the most important section. Each suggestion is installed separately, with time to anchor. Pace is slow. Voice is deep and authoritative (Physical lane). Each installation ends with an ideomotor check.]",
         "",
         "[=== INSTALLATION 1: THE SORTING ROOM ===]",
@@ -1304,7 +1317,8 @@
         "",
         "How are you feeling? Questions?",
         "[Schedule session 3. Target: 1-2 weeks.]",
-        "[Give client the printed Sleep Protocol Handbook.]"
+        "[Give client the printed Sleep Protocol Handbook.]",
+        "[ACTION: Record the progressive relaxation + therapeutic suggestion section of this session (Parts 3-5) as an audio file for the client. The recording starts at 'Now focus on the top of your head' and ends before the count out. Save to MinIO: client-documents/DS-001/recordings/S2-delta-session.mp3. Give the client instructions: 'Listen to this recording in bed on nights when the settling practice alone is not enough.']"
       ],
       "journey_plan": {
         "client_code": "DS-001",
