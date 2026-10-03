@@ -696,7 +696,8 @@
         "ep_approach": "76% Physical — DIRECT, LITERAL, SPECIFIC language throughout. No permissive softness. No 'you may notice' or 'you might find' — use 'your hand IS rising,' 'your body IS relaxing,' 'you WILL sleep deeply.' Metaphorical or indirect instructions will cause him to tune out. Kinesthetic anchors: physical sensations, weight, temperature, muscle release. The engineering metaphors in the pre-talk work because they are literal/technical, not poetic.",
         "key_reframe": "Frame sleep as a SYSTEM with three required maintenance stages (Kappas model). His brain is running a cognitive backlog that prevents the three stages from completing. The 'sleep ceremony' — time-boxing thoughts, writing tasks down to mentally close them — clears the conscious queue so the subconscious can run its nightly pipeline. Use the RAM vs hardwired analogy: conscious decisions are temporary (RAM), but the subconscious programming (hardwired) is what runs at night. We are updating the firmware.",
         "contraindications": "Screen for: jet lag residual (circadian disruption from relocation), alcohol increase (new social life), screen time increase (new phone/language apps, social media in new language), dietary changes affecting sleep. Rule out: sleep apnea (ask about altitude change, new climate). Note: 'thinking while sleeping' can indicate the client is not reaching deep (stage 3/4) sleep — may be cycling in light sleep/REM without adequate slow-wave restoration.",
-        "dream_therapy": "This client is an ideal candidate for dream therapy integration. His relocaton means his Processing stage (Stage 1) is overloaded with novel data. His Predictive stage (Stage 2) is modeling an unfamiliar future with limited reference data. His Venting stage (Stage 3) is trying to clear a massive backlog of message units. All three stages are running heavy, explaining the 'thinking while sleeping' report. Plant venting dream suggestions in session 1 — he will dream vividly this week (the hypnosis itself stimulates REM). When he reports vivid dreams next session, reinforce: 'That is the system clearing the backlog. Each dream restores capacity.' Monitor dream content across sessions — watch for the shift from novel-environment processing to integration/comfort themes. That shift signals adaptation is complete."
+        "dream_therapy": "This client is an ideal candidate for dream therapy integration. His relocaton means his Processing stage (Stage 1) is overloaded with novel data. His Predictive stage (Stage 2) is modeling an unfamiliar future with limited reference data. His Venting stage (Stage 3) is trying to clear a massive backlog of message units. All three stages are running heavy, explaining the 'thinking while sleeping' report. Plant venting dream suggestions in session 1 — he will dream vividly this week (the hypnosis itself stimulates REM). When he reports vivid dreams next session, reinforce: 'That is the system clearing the backlog. Each dream restores capacity.' Monitor dream content across sessions — watch for the shift from novel-environment processing to integration/comfort themes. That shift signals adaptation is complete.",
+        "tracker_note": "IMPORTANT: Deepak's tracker (likely Samsung/Fitbit) combines Deep sleep (N3) and REM into one 'Deep or REM' category at 21% (1h 27m). It does NOT separate them. This means we cannot determine the actual N3 delta percentage from this tracker alone. The 79% light sleep is the definitive problem. Our target is to shift the ratio: reduce light sleep and increase the combined Deep+REM percentage, with therapeutic focus on increasing the deep (N3/delta) portion specifically. The tracker's 'Depth: Bad' score and the client's report of waking exhausted despite adequate hours confirms insufficient deep sleep regardless of the exact split."
       },
       "session_plan": {
         "pretalk_focus": "Reptile brain (survival/protection/reproduction) + RAM vs hardwired (conscious=temporary, subconscious=permanent). Brain oscillations, glymphatic flush, DMA transfers, synaptic homeostasis, REM simulation, interrupt handler bug. Three dream stages (Kappas pipeline). Sleep ceremony = time-boxing to clear cognitive backlog.",
@@ -1318,22 +1319,22 @@
         "graduation_latest": 8,
         "smart_goals": {
           "deep_sleep_pct": {
-            "baseline": "~0%",
-            "s2": "10-15%",
-            "s3": "12-18%",
-            "s4": "15-20%",
-            "s5": "18-22%",
-            "s6": "18-23%",
-            "graduation": "18-23%"
+            "baseline": "21% (Deep+REM combined, actual deep unknown)",
+            "s2": "25-30% (increase deep portion within the 21%)",
+            "s3": "28-33%",
+            "s4": "30-35%",
+            "s5": "33-38%",
+            "s6": "35-40%",
+            "graduation": "35-40% (with majority being actual deep N3)"
           },
           "light_sleep_pct": {
-            "baseline": "79%",
-            "s2": "65%",
-            "s3": "58-62%",
-            "s4": "55-58%",
-            "s5": "52-55%",
-            "s6": "50-55%",
-            "graduation": "50-55%"
+            "baseline": "79% (5h 26m)",
+            "s2": "70%",
+            "s3": "65-68%",
+            "s4": "62-65%",
+            "s5": "60-62%",
+            "s6": "58-62%",
+            "graduation": "55-60%"
           },
           "sleep_onset_min": {
             "baseline": "~35",
