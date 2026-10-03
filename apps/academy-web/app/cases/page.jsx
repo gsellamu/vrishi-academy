@@ -50,6 +50,8 @@ export default function Cases() {
             <button type="button" className={tab === "plan" ? "on" : ""} onClick={() => setTab("plan")}>Session Plan</button>
             <button type="button" className={tab === "script" ? "on" : ""} onClick={() => setTab("script")}>Full Script</button>
             <button type="button" className={tab === "notes" ? "on" : ""} onClick={() => setTab("notes")}>Clinical Notes</button>
+            {c.client_plan && <button type="button" className={tab === "clientplan" ? "on" : ""} onClick={() => setTab("clientplan")}>Client Plan</button>}
+            {c.therapist_runbook && <button type="button" className={tab === "runbook" ? "on" : ""} onClick={() => setTab("runbook")}>Runbook</button>}
           </div>
         )}
       </div>
@@ -264,6 +266,148 @@ export default function Cases() {
                   <p style={{ fontSize: 14, lineHeight: 1.65, color: "#cfc9dd", margin: 0 }}>{value}</p>
                 </div>
               ))}
+            </div>
+          )}
+
+          {/* ── CLIENT PLAN TAB ── */}
+          {tab === "clientplan" && c.client_plan && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <div className="info-bar">
+                <div><div className="info-label" style={{ color: "var(--teal)" }}>For</div><div className="info-text">Client &middot; shareable &middot; no scripts or clinical details</div></div>
+                <div><div className="info-label" style={{ color: "var(--amber)" }}>Goal</div><div className="info-text">Set expectations, show the arc, define commitments</div></div>
+              </div>
+
+              <div className="panel" style={{ padding: "18px 22px" }}>
+                <h2 style={{ font: "340 24px/1.1 var(--display)", margin: "0 0 6px" }}>{c.client_plan.title}</h2>
+                <p style={{ fontSize: 14, lineHeight: 1.65, color: "#cfc9dd" }}>{c.client_plan.overview}</p>
+              </div>
+
+              <div className="panel" style={{ padding: "16px 20px" }}>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--amber)", marginBottom: 10 }}>Your Commitments</div>
+                <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, lineHeight: 1.7, color: "#cfc9dd" }}>
+                  {c.client_plan.your_commitment.map((item, i) => <li key={i}>{item}</li>)}
+                </ul>
+              </div>
+
+              {c.client_plan.sessions.map((s) => (
+                <div key={s.num} className="panel" style={{ padding: "14px 18px", borderLeft: `3px solid ${s.status === "completed" ? "var(--ok)" : s.status === "contingency" ? "var(--dim)" : "var(--amber)"}` }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
+                    <span style={{ font: "560 14px var(--body)", color: "#e9e4f2" }}>Session {s.num}: {s.title}</span>
+                    <span style={{ fontFamily: "var(--mono)", fontSize: 9, textTransform: "uppercase", color: s.status === "completed" ? "var(--ok)" : s.status === "contingency" ? "var(--dim)" : "var(--amber)" }}>{s.status}{s.date ? ` (${s.date})` : ""}</span>
+                  </div>
+                  <p style={{ fontSize: 13, lineHeight: 1.6, color: "#cfc9dd", margin: "0 0 6px" }}>{s.what_you_will_experience}</p>
+                  <div style={{ fontSize: 12, color: "#8b85a0" }}><b>Takeaway:</b> {s.your_takeaway}</div>
+                  {s.target_outcome && <div style={{ fontSize: 11, color: "var(--amber)", marginTop: 4 }}>Target: {s.target_outcome}</div>}
+                </div>
+              ))}
+
+              {c.client_plan.measurement && (
+                <div className="panel" style={{ padding: "16px 20px" }}>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--ok)", marginBottom: 10 }}>How We Measure Progress</div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "4px 12px", fontSize: 12, marginBottom: 10 }}>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Metric</div>
+                    <div style={{ fontWeight: 600, color: "var(--red)", fontSize: 9 }}>Baseline</div>
+                    <div style={{ fontWeight: 600, color: "var(--ok)", fontSize: 9 }}>Graduation</div>
+                    {Object.entries(c.client_plan.measurement.your_baseline).map(([key, val]) => (
+                      <React.Fragment key={key}>
+                        <div style={{ color: "#cfc9dd" }}>{key.replace(/_/g, " ")}</div>
+                        <div style={{ color: "var(--red)" }}>{val}</div>
+                        <div style={{ color: "var(--ok)" }}>{c.client_plan.measurement.graduation_targets[key]}</div>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ── RUNBOOK TAB ── */}
+          {tab === "runbook" && c.therapist_runbook && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <div className="info-bar">
+                <div><div className="info-label" style={{ color: "var(--red)" }}>Access</div><div className="info-text">THERAPIST ONLY &mdash; do not share with client</div></div>
+                <div><div className="info-label" style={{ color: "var(--iris)" }}>Purpose</div><div className="info-text">Execution guide, checklists, decision trees, drift tracking</div></div>
+              </div>
+
+              {/* Pre-Session Checklist */}
+              <div className="panel" style={{ padding: "16px 20px", borderLeft: "3px solid var(--amber)" }}>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--amber)", marginBottom: 10 }}>Pre-Session Checklist</div>
+                <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 1.7, color: "#cfc9dd" }}>
+                  {c.therapist_runbook.pre_session_checklist.map((item, i) => <li key={i}>{item}</li>)}
+                </ul>
+              </div>
+
+              {/* Per-Session Guides */}
+              {Object.entries(c.therapist_runbook.session_execution.sessions).map(([sKey, sVal]) => (
+                <div key={sKey} className="panel" style={{ padding: "14px 18px", borderLeft: `3px solid ${sVal.status === "COMPLETED" ? "var(--ok)" : sVal.status === "SCRIPT READY" ? "var(--iris)" : sVal.status === "CONTINGENCY" ? "var(--dim)" : "var(--amber)"}` }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
+                    <span style={{ font: "560 14px var(--body)", color: "#e9e4f2" }}>{sKey}: {sVal.focus}</span>
+                    <span style={{ fontFamily: "var(--mono)", fontSize: 9, textTransform: "uppercase", color: sVal.status === "COMPLETED" ? "var(--ok)" : "var(--amber)" }}>{sVal.status}</span>
+                  </div>
+                  {sVal.duration_split && <div style={{ fontSize: 11, color: "var(--amber)", marginBottom: 4 }}>{sVal.duration_split}</div>}
+                  {sVal.critical_notes && (
+                    <ul style={{ margin: "6px 0", paddingLeft: 16, fontSize: 11, color: "var(--red)", lineHeight: 1.5 }}>
+                      {sVal.critical_notes.map((n, i) => <li key={i}>{n}</li>)}
+                    </ul>
+                  )}
+                  {sVal.decision_points && (
+                    <div style={{ marginTop: 6 }}>
+                      <div style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--iris)", marginBottom: 4 }}>DECISION POINTS</div>
+                      {sVal.decision_points.map((dp, i) => (
+                        <div key={i} style={{ fontSize: 11, color: "#8b85a0", marginBottom: 2 }}>IF {dp.split(": ")[0]?.replace("IF ", "")} → <span style={{ color: "var(--ok)" }}>{dp.split(": ").slice(1).join(": ") || dp}</span></div>
+                      ))}
+                    </div>
+                  )}
+                  {sVal.target_metrics && (
+                    <div style={{ display: "flex", gap: 12, marginTop: 8, flexWrap: "wrap" }}>
+                      {Object.entries(sVal.target_metrics).map(([k, v]) => (
+                        <span key={k} style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--ok)", background: "rgba(91,184,154,.08)", padding: "2px 8px", borderRadius: 3 }}>{k}: {v}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              {/* Post-Session Checklist */}
+              <div className="panel" style={{ padding: "16px 20px", borderLeft: "3px solid var(--teal)" }}>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--teal)", marginBottom: 10 }}>Post-Session Checklist</div>
+                <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 1.7, color: "#cfc9dd" }}>
+                  {c.therapist_runbook.post_session_checklist.map((item, i) => <li key={i}>{item}</li>)}
+                </ul>
+              </div>
+
+              {/* Drift Tracking */}
+              {c.therapist_runbook.drift_tracking && (
+                <div className="panel" style={{ padding: "16px 20px", borderLeft: "3px solid var(--iris)" }}>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--iris)", marginBottom: 10 }}>Drift Tracking (Planned vs Actual)</div>
+                  <p style={{ fontSize: 12, color: "#8b85a0", margin: "0 0 10px" }}>{c.therapist_runbook.drift_tracking.purpose}</p>
+                  <div style={{ display: "grid", gridTemplateColumns: "100px 70px 70px 70px 60px", gap: "2px 8px", fontSize: 11 }}>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Metric</div>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>S1 Actual</div>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>S2 Planned</div>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>S2 Actual</div>
+                    <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Drift</div>
+                    {c.therapist_runbook.drift_tracking.metrics_to_track.map((m, i) => (
+                      <React.Fragment key={i}>
+                        <div style={{ color: "#cfc9dd" }}>{m.metric}</div>
+                        <div style={{ color: "var(--red)" }}>{m.s1_actual}</div>
+                        <div style={{ color: "var(--amber)" }}>{m.s2_planned}</div>
+                        <div style={{ color: m.s2_actual === "TBD" ? "var(--dim)" : "var(--ok)" }}>{m.s2_actual}</div>
+                        <div style={{ color: m.drift === "TBD" ? "var(--dim)" : "var(--ok)" }}>{m.drift}</div>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                  <p style={{ fontSize: 10, color: "var(--red)", marginTop: 8 }}>{c.therapist_runbook.drift_tracking.review_cadence}</p>
+                </div>
+              )}
+
+              {/* General Execution Notes */}
+              <div className="panel" style={{ padding: "16px 20px" }}>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--mist)", marginBottom: 10 }}>General Execution Notes</div>
+                <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 1.7, color: "#cfc9dd" }}>
+                  {c.therapist_runbook.session_execution.general.map((item, i) => <li key={i}>{item}</li>)}
+                </ul>
+              </div>
             </div>
           )}
         </div>
