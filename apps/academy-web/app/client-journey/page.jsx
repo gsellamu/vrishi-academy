@@ -87,20 +87,31 @@ ${session.soap_assessment ? `<div class="f" style="margin-top:4px"><span class="
 <h2>Techniques Used</h2>
 <div class="f">${session.techniques || "N/A"}</div>
 
-<h2>Post-Hypnotic Suggestions Installed</h2>
+<h2>Post-Hypnotic Suggestions ${isFirst ? "(Pending \u2014 Installation in Session 2)" : "Installed (Session 2)"}</h2>
+${isFirst ? '<div class="f" style="color:#888">Session 1 was cognitive assessment + first induction experience. The post-hypnotic suggestions below are scheduled for installation in Session 2 (The Installation Session), where each will be systematically anchored in deep trance with ideomotor confirmation.</div>' : ''}
 <ul>
-<li>Pillow trigger: head on pillow + 4-7-8 breathing = automatic sleep onset</li>
-<li>Night-waking reset: hand on chest + one breath = Depth Dial resets to Delta Lock</li>
-<li>Depth Dial: Surface (8 Hz) to Delta Lock (0.5 Hz)</li>
-<li>10:30 PM time anchor: shutdown sequence activates automatically</li>
-<li>Delta Floor: brain bypasses light sleep to delta within 30 minutes</li>
-<li>Venting dream activation: vivid dreams = system clearing backlog</li>
+<li><b>1. Sorting Room:</b> Subconscious processing team (Face Gallery, Language Wing, Map Room) files daily data silently during delta sleep</li>
+<li><b>2. Depth Dial:</b> Surface (8 Hz) \u2192 Shallow \u2192 Medium \u2192 Deep \u2192 DELTA LOCK (0.5 Hz) \u2014 permanently installed, turns to DELTA LOCK every night</li>
+<li><b>3. Delta Floor:</b> Brain bypasses light sleep directly to delta within 30 minutes. 3-hour uninterrupted deep sleep lock.</li>
+<li><b>4. Settling Pond:</b> Day's impressions settle like gold dust in still water \u2014 gravity does the work</li>
+<li><b>5. Island Cabin:</b> Permanent healing sanctuary \u2014 cedar, ocean air, weighted blanket, cellular regeneration</li>
+<li><b>6. Pillow Trigger:</b> Head on pillow + 4-7-8 breathing = Depth Dial auto-turns to DELTA LOCK. 4 breaths to sleep.</li>
+<li><b>7. Night-Waking Reset:</b> Hand on chest + one 4-7-8 breath = Depth Dial resets to DELTA LOCK. Back to delta in 60 seconds.</li>
+<li><b>8. 10:30 PM Time Anchor:</b> Nervous system begins shutdown sequence automatically at 10:30 every night</li>
+<li><b>9. Venting Dream Activation:</b> Vivid dreams = system clearing backlog. Remembering dreams = proof hypnosis is working.</li>
+<li><b>10. Tracker as Convincer:</b> Each morning, rising deep sleep % reinforces the programming. Positive feedback loop.</li>
 </ul>
 
 <h2>Treatment Plan</h2>
-<div class="f"><span class="fl">Sessions:</span> 6 estimated (reassessed at session 4 based on data)</div>
+<div class="f"><span class="fl">Sessions:</span> 6-8 (6 core + 2 contingency, reassessed at session 4)</div>
 <div class="f"><span class="fl">Frequency:</span> Every 1-2 weeks</div>
-<div class="f"><span class="fl">Approach:</span> Kappasinian hypnotherapy, Physical lane, data-driven with wearable biofeedback</div>
+<div class="f"><span class="fl">Approach:</span> Kappasinian hypnotherapy, Physical suggestible lane (direct/literal), data-driven with wearable biofeedback</div>
+<div class="f"><span class="fl">Session 1:</span> Assessment + Education + First Induction Experience</div>
+<div class="f"><span class="fl">Session 2:</span> THE INSTALLATION \u2014 10 post-hypnotic suggestions anchored in deep trance with ideomotor checks</div>
+<div class="f"><span class="fl">Session 3:</span> Maintenance + Reinforcement (Depth Anchor Chain, Processing Vault, Auto-Pilot)</div>
+<div class="f"><span class="fl">Session 4:</span> Independence Pivot \u2014 self-hypnosis taught, client runs ceremony alone</div>
+<div class="f"><span class="fl">Sessions 5-6:</span> Fine-tuning based on data / Graduation</div>
+<div class="f"><span class="fl">Sessions 7-8:</span> Contingency (only if data requires)</div>
 
 <table><tr><th>#</th><th>Focus</th><th>Key Target</th><th>Status</th></tr>
 <tr><td>1</td><td>Assessment + Installation</td><td>Baseline</td><td>${session.num >= 1 ? "Done" : "Upcoming"}</td></tr>
