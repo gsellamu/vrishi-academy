@@ -1538,6 +1538,423 @@ async def add_conference(
     return {"id": str(row["id"]), "created_at": str(row["created_at"])}
 
 
+
+# ============================================================================
+# CLIENT JOURNEY CRUD
+# ============================================================================
+
+class CreateJourneyRequest(BaseModel):
+    client_code: str = Field(max_length=20)
+    initials: str = Field(max_length=10)
+    full_name: str = Field(max_length=255)
+    age: int | None = None
+    occupation: str | None = Field(None, max_length=255)
+    ep_type: str | None = Field(None, max_length=50)
+    vak: str | None = Field(None, max_length=50)
+    presenting_issue: str = Field(max_length=5000)
+    case_ref: str | None = Field(None, max_length=20)
+    estimated_sessions: int | None = 6
+
+class UpdateJourneyRequest(BaseModel):
+    status: str | None = Field(None, max_length=20)
+    notes: str | None = None
+    estimated_sessions: int | None = None
+    presenting_issue: str | None = None
+
+class CreateSessionRequest(BaseModel):
+    session_num: int
+    session_date: str | None = None
+    status: str = Field(default="completed", max_length=20)
+    duration_min: int = 60
+    techniques: str | None = None
+    soap_subjective: str | None = None
+    soap_objective: str | None = None
+    soap_assessment: str | None = None
+    soap_plan: str | None = None
+    sleep_score: int | None = None
+    deep_sleep_pct: float | None = None
+    light_sleep_pct: float | None = None
+    rem_pct: float | None = None
+    sleep_onset_min: int | None = None
+    resting_hr: int | None = None
+    depth_score: str | None = None
+    regularity_score: str | None = None
+    client_feedback: str | None = None
+    dream_journal: str | None = None
+    homework_done: list[str] | None = None
+    next_plan: str | None = None
+
+class UpdateSessionRequest(BaseModel):
+    status: str | None = None
+    techniques: str | None = None
+    soap_subjective: str | None = None
+    soap_objective: str | None = None
+    soap_assessment: str | None = None
+    soap_plan: str | None = None
+    sleep_score: int | None = None
+    deep_sleep_pct: float | None = None
+    light_sleep_pct: float | None = None
+    rem_pct: float | None = None
+    sleep_onset_min: int | None = None
+    resting_hr: int | None = None
+    depth_score: str | None = None
+    regularity_score: str | None = None
+    client_feedback: str | None = None
+    dream_journal: str | None = None
+    homework_done: list[str] | None = None
+    next_plan: str | None = None
+
+class CreateGoalRequest(BaseModel):
+    metric: str = Field(max_length=100)
+    baseline_value: str | None = Field(None, max_length=50)
+    target_value: str | None = Field(None, max_length=50)
+    target_date: str | None = None
+
+class UpdateGoalRequest(BaseModel):
+    current_value: str | None = None
+    status: str | None = None
+    notes: str | None = None
+
+
+# --- Journey CRUD ---
+
+@app.get("/journey/clients")
+async def list_journeys(
+    status: str | None = None,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    q = "SELECT * FROM client_journeys WHERE practitioner_id = $1 OR practitioner_id IS NULL"
+    args = [auth.user_id]
+    if status:
+        q += " AND status = $2"
+        args.append(status)
+    q += " ORDER BY created_at DESC"
+    rows = await db.fetch(q, *args)
+    return [dict(r) for r in rows]
+
+@app.post("/journey/clients")
+async def create_journey(
+    req: CreateJourneyRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+    audit: AuditService = Depends(get_audit),
+    request: Request = None,
+):
+    row = await db.fetchrow(
+        """INSERT INTO client_journeys
+           (practitioner_id, client_code, initials, full_name, age, occupation,
+            ep_type, vak, presenting_issue, case_ref, estimated_sessions)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+           RETURNING id, created_at""",
+        auth.user_id, req.client_code, req.initials, req.full_name,
+        req.age, req.occupation, req.ep_type, req.vak,
+        req.presenting_issue, req.case_ref, req.estimated_sessions,
+    )
+    await audit.log(auth.user_id, "create_journey", "client_journeys",
+                    {"client_code": req.client_code}, get_client_ip(request))
+    return {"id": str(row["id"]), "created_at": str(row["created_at"])}
+
+@app.get("/journey/clients/{journey_id}")
+async def get_journey(
+    journey_id: str,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    j = await db.fetchrow("SELECT * FROM client_journeys WHERE id = CAST($1 AS uuid)", journey_id)
+    if not j:
+        raise HTTPException(404, "Journey not found")
+    sessions = await db.fetch(
+        "SELECT * FROM client_sessions WHERE journey_id = CAST($1 AS uuid) ORDER BY session_num",
+        journey_id,
+    )
+    goals = await db.fetch(
+        "SELECT * FROM client_goals WHERE journey_id = CAST($1 AS uuid) ORDER BY created_at",
+        journey_id,
+    )
+    result = dict(j)
+    result["sessions"] = [dict(s) for s in sessions]
+    result["goals"] = [dict(g) for g in goals]
+    return result
+
+@app.put("/journey/clients/{journey_id}")
+async def update_journey(
+    journey_id: str,
+    req: UpdateJourneyRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+    audit: AuditService = Depends(get_audit),
+    request: Request = None,
+):
+    sets, args, idx = [], [journey_id], 2
+    for field in ["status", "notes", "estimated_sessions", "presenting_issue"]:
+        val = getattr(req, field, None)
+        if val is not None:
+            sets.append(f"{field} = ${idx}")
+            args.append(val)
+            idx += 1
+    if not sets:
+        raise HTTPException(400, "No fields to update")
+    await db.execute(
+        f"UPDATE client_journeys SET {', '.join(sets)} WHERE id = CAST($1 AS uuid)",
+        *args,
+    )
+    await audit.log(auth.user_id, "update_journey", "client_journeys",
+                    {"journey_id": journey_id}, get_client_ip(request))
+    return {"ok": True}
+
+
+# --- Session CRUD ---
+
+@app.post("/journey/clients/{journey_id}/sessions")
+async def create_session(
+    journey_id: str,
+    req: CreateSessionRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+    audit: AuditService = Depends(get_audit),
+    request: Request = None,
+):
+    s_date = date.fromisoformat(req.session_date) if req.session_date else date.today()
+    hw_json = json.dumps(req.homework_done or [])
+    row = await db.fetchrow(
+        """INSERT INTO client_sessions
+           (journey_id, session_num, session_date, status, duration_min,
+            techniques, soap_subjective, soap_objective, soap_assessment, soap_plan,
+            sleep_score, deep_sleep_pct, light_sleep_pct, rem_pct,
+            sleep_onset_min, resting_hr, depth_score, regularity_score,
+            client_feedback, dream_journal, homework_done, next_plan)
+           VALUES (CAST($1 AS uuid),$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,CAST($21 AS jsonb),$22)
+           RETURNING id, created_at""",
+        journey_id, req.session_num, s_date, req.status, req.duration_min,
+        req.techniques, req.soap_subjective, req.soap_objective,
+        req.soap_assessment, req.soap_plan,
+        req.sleep_score, req.deep_sleep_pct, req.light_sleep_pct, req.rem_pct,
+        req.sleep_onset_min, req.resting_hr, req.depth_score, req.regularity_score,
+        req.client_feedback, req.dream_journal, hw_json, req.next_plan,
+    )
+    await audit.log(auth.user_id, "create_session", "client_sessions",
+                    {"journey_id": journey_id, "session_num": req.session_num},
+                    get_client_ip(request))
+    return {"id": str(row["id"]), "created_at": str(row["created_at"])}
+
+@app.put("/journey/sessions/{session_id}")
+async def update_session_record(
+    session_id: str,
+    req: UpdateSessionRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+    audit: AuditService = Depends(get_audit),
+    request: Request = None,
+):
+    sets, args, idx = [], [session_id], 2
+    for field in ["status", "techniques", "soap_subjective", "soap_objective",
+                  "soap_assessment", "soap_plan", "sleep_score",
+                  "deep_sleep_pct", "light_sleep_pct", "rem_pct",
+                  "sleep_onset_min", "resting_hr", "depth_score", "regularity_score",
+                  "client_feedback", "dream_journal", "next_plan"]:
+        val = getattr(req, field, None)
+        if val is not None:
+            sets.append(f"{field} = ${idx}")
+            args.append(val)
+            idx += 1
+    if req.homework_done is not None:
+        sets.append(f"homework_done = CAST(${idx} AS jsonb)")
+        args.append(json.dumps(req.homework_done))
+        idx += 1
+    if not sets:
+        raise HTTPException(400, "No fields to update")
+    await db.execute(
+        f"UPDATE client_sessions SET {', '.join(sets)} WHERE id = CAST($1 AS uuid)",
+        *args,
+    )
+    await audit.log(auth.user_id, "update_session", "client_sessions",
+                    {"session_id": session_id}, get_client_ip(request))
+    return {"ok": True}
+
+
+# --- Goal CRUD ---
+
+@app.get("/journey/clients/{journey_id}/goals")
+async def list_goals(
+    journey_id: str,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    rows = await db.fetch(
+        "SELECT * FROM client_goals WHERE journey_id = CAST($1 AS uuid) ORDER BY created_at",
+        journey_id,
+    )
+    return [dict(r) for r in rows]
+
+@app.post("/journey/clients/{journey_id}/goals")
+async def create_goal(
+    journey_id: str,
+    req: CreateGoalRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    t_date = date.fromisoformat(req.target_date) if req.target_date else None
+    row = await db.fetchrow(
+        """INSERT INTO client_goals (journey_id, metric, baseline_value, target_value, target_date)
+           VALUES (CAST($1 AS uuid),$2,$3,$4,$5) RETURNING id""",
+        journey_id, req.metric, req.baseline_value, req.target_value, t_date,
+    )
+    return {"id": str(row["id"])}
+
+@app.put("/journey/goals/{goal_id}")
+async def update_goal(
+    goal_id: str,
+    req: UpdateGoalRequest,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    sets, args, idx = [], [goal_id], 2
+    for field in ["current_value", "status", "notes"]:
+        val = getattr(req, field, None)
+        if val is not None:
+            sets.append(f"{field} = ${idx}")
+            args.append(val)
+            idx += 1
+    if not sets:
+        raise HTTPException(400, "No fields to update")
+    await db.execute(
+        f"UPDATE client_goals SET {', '.join(sets)} WHERE id = CAST($1 AS uuid)",
+        *args,
+    )
+    return {"ok": True}
+
+
+# --- AVS PDF Generation (stores to MinIO) ---
+
+@app.post("/journey/sessions/{session_id}/avs")
+async def generate_avs_pdf(
+    session_id: str,
+    auth: TokenPayload = Depends(require_auth),
+    db: DatabasePool = Depends(get_db),
+):
+    """Generate an After Visit Summary PDF and store in MinIO."""
+    session = await db.fetchrow(
+        "SELECT * FROM client_sessions WHERE id = CAST($1 AS uuid)", session_id,
+    )
+    if not session:
+        raise HTTPException(404, "Session not found")
+    journey = await db.fetchrow(
+        "SELECT * FROM client_journeys WHERE id = $1", session["journey_id"],
+    )
+    if not journey:
+        raise HTTPException(404, "Journey not found")
+    goals = await db.fetch(
+        "SELECT * FROM client_goals WHERE journey_id = $1 ORDER BY created_at",
+        session["journey_id"],
+    )
+
+    # Build HTML for PDF
+    hw_done = session.get("homework_done") or []
+    if isinstance(hw_done, str):
+        hw_done = json.loads(hw_done)
+
+    html = f"""<!DOCTYPE html><html><head><style>
+body{{font-family:'Segoe UI',sans-serif;margin:0;padding:24px 30px;color:#222;font-size:11px;line-height:1.4}}
+h1{{font-size:16px;margin:0 0 4px;color:#1a1a2e}}
+h2{{font-size:11px;font-weight:700;margin:14px 0 4px;color:#1a1a2e;border-bottom:1px solid #ddd;padding-bottom:2px;text-transform:uppercase;letter-spacing:.05em}}
+.meta{{font-size:9px;color:#666}}
+.f{{margin:2px 0;font-size:10px}}.fl{{font-weight:600;color:#555;display:inline-block;min-width:110px}}
+table{{width:100%;border-collapse:collapse;margin:4px 0;font-size:10px}}
+th{{background:#f0f4f8;text-align:left;padding:3px 6px;font-size:8px;text-transform:uppercase;color:#555;border-bottom:1px solid #ddd}}
+td{{padding:3px 6px;border-bottom:1px solid #eee}}
+ul{{margin:2px 0;padding-left:14px}}li{{margin:1px 0;font-size:10px}}
+.disc{{margin-top:14px;padding:8px;background:#fdf6e3;border:1px solid #e8d8a0;border-radius:3px;font-size:8px;color:#555}}
+.ft{{margin-top:10px;font-size:7px;color:#aaa;text-align:center}}
+</style></head><body>
+<h1>VRishi Hypnotherapy</h1>
+<div class="meta">Jithendran Sellamuthu, C.MH. | AHA #007913 | CA B&amp;P 2908 | jeeth@vrishihypno.com</div>
+<h2>After Visit Summary</h2>
+<div class="f"><span class="fl">Client:</span> {journey['full_name']} ({journey['client_code']})</div>
+<div class="f"><span class="fl">Date:</span> {session['session_date']}</div>
+<div class="f"><span class="fl">Session:</span> #{session['session_num']} | {'Initial Consultation' if session['session_num']==1 else 'Follow-Up'}</div>
+<div class="f"><span class="fl">Suggestibility:</span> {journey.get('ep_type','N/A')}</div>
+<div class="f"><span class="fl">Issue:</span> {journey['presenting_issue']}</div>
+{f'<div class="f"><span class="fl">Assessment:</span> {session["soap_assessment"]}</div>' if session.get('soap_assessment') else ''}
+<div class="f"><span class="fl">Techniques:</span> {session.get('techniques','N/A')}</div>
+
+<h2>Metrics</h2>
+<table><tr><th>Sleep Quality</th><th>Deep %</th><th>Light %</th><th>REM %</th><th>Onset (min)</th><th>HR</th><th>Depth</th></tr>
+<tr><td>{session.get('sleep_score','--')}/10</td><td>{session.get('deep_sleep_pct','--')}%</td><td>{session.get('light_sleep_pct','--')}%</td><td>{session.get('rem_pct','--')}%</td><td>{session.get('sleep_onset_min','--')}</td><td>{session.get('resting_hr','--')}</td><td>{session.get('depth_score','--')}</td></tr></table>
+
+<h2>SMART Goals</h2>
+<table><tr><th>Metric</th><th>Baseline</th><th>Target</th><th>Current</th><th>Status</th></tr>
+{''.join(f"<tr><td>{g['metric']}</td><td>{g.get('baseline_value','--')}</td><td>{g.get('target_value','--')}</td><td>{g.get('current_value','--')}</td><td>{g.get('status','--')}</td></tr>" for g in goals)}
+</table>
+
+{f'<h2>Client Feedback</h2><div class="f">{session["client_feedback"]}</div>' if session.get('client_feedback') else ''}
+{f'<h2>Next Steps</h2><div class="f">{session.get("next_plan","To be determined")}</div>' if session.get('next_plan') else ''}
+
+<div class="disc">
+<b>SB 577 Disclosure:</b> Hypnotherapy is provided for vocational/avocational self-improvement under CA B&amp;P Code 2908. Not a substitute for medical/psychological treatment. No guarantee of outcomes. Liability: $1M/$3M via American Professional Agency.
+</div>
+<div class="ft">PHI - Handle per HIPAA Privacy Rule (45 CFR 160, 164). AVS-{journey['client_code']}-S{session['session_num']}-{session['session_date']}</div>
+</body></html>"""
+
+    # Try to generate PDF with WeasyPrint; fallback to HTML storage
+    pdf_bytes = None
+    try:
+        from weasyprint import HTML as WeasyprintHTML
+        pdf_bytes = WeasyprintHTML(string=html).write_pdf()
+    except ImportError:
+        pass  # WeasyPrint not installed; store HTML instead
+
+    # Store to MinIO
+    content_type = "application/pdf" if pdf_bytes else "text/html"
+    ext = "pdf" if pdf_bytes else "html"
+    file_data = pdf_bytes or html.encode("utf-8")
+    obj_path = f"{journey['client_code']}/AVS-S{session['session_num']}-{session['session_date']}.{ext}"
+
+    stored_path = None
+    try:
+        import urllib.request
+        minio_url = os.getenv("MINIO_URL", "http://localhost:9000")
+        minio_user = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
+        minio_pass = os.getenv("MINIO_SECRET_KEY", "jeeth2025")
+        # Use minio Python SDK if available, else store locally
+        try:
+            from minio import Minio
+            client = Minio(
+                minio_url.replace("http://","").replace("https://",""),
+                access_key=minio_user, secret_key=minio_pass, secure=False,
+            )
+            from io import BytesIO
+            client.put_object(
+                "client-documents", obj_path,
+                BytesIO(file_data), len(file_data),
+                content_type=content_type,
+            )
+            stored_path = f"minio://client-documents/{obj_path}"
+        except ImportError:
+            # Fallback: save to local filesystem
+            local_dir = Path(f"/tmp/avs/{journey['client_code']}")
+            local_dir.mkdir(parents=True, exist_ok=True)
+            local_path = local_dir / f"AVS-S{session['session_num']}-{session['session_date']}.{ext}"
+            local_path.write_bytes(file_data)
+            stored_path = str(local_path)
+    except Exception as e:
+        stored_path = f"error: {e}"
+
+    # Update session record with AVS path
+    if stored_path and not stored_path.startswith("error"):
+        await db.execute(
+            "UPDATE client_sessions SET avs_document_path = $1 WHERE id = CAST($2 AS uuid)",
+            stored_path, session_id,
+        )
+
+    return {
+        "ok": True,
+        "format": ext,
+        "path": stored_path,
+        "size_bytes": len(file_data),
+    }
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8000")))

@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { cspApi } from "../../lib/api";
+import { cspApi, journeyApi } from "../../lib/api";
+import { useAcademy } from "../../lib/academy-store";
 import Link from "next/link";
 
 const STOR = "cj:data";
@@ -212,7 +213,9 @@ function saveData(d) {
 }
 
 export default function ClientJourney() {
+  const { isAuthenticated } = useAcademy();
   const [data, setData] = useState({ clients: [] });
+  const [apiReady, setApiReady] = useState(false);
   const [sel, setSel] = useState(null); // selected client id
   const [addOpen, setAddOpen] = useState(false);
   const [addSessionOpen, setAddSessionOpen] = useState(false);
@@ -228,7 +231,24 @@ export default function ClientJourney() {
   const [sNotes, setSNotes] = useState("");
   const [sSleep, setSSleep] = useState(5);
 
-  useEffect(() => { setData(loadData()); }, []);
+  useEffect(() => {
+    /* Try API first, fall back to localStorage */
+    if (isAuthenticated) {
+      journeyApi.listClients().then(async (r) => {
+        if (r.ok) {
+          const clients = await r.json();
+          if (clients.length > 0) {
+            setData({ clients });
+            setApiReady(true);
+            return;
+          }
+        }
+        setData(loadData());
+      }).catch(() => setData(loadData()));
+    } else {
+      setData(loadData());
+    }
+  }, [isAuthenticated]);
 
   const update = useCallback((fn) => {
     setData((prev) => {

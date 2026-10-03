@@ -178,3 +178,56 @@ export const cspApi = {
       body: JSON.stringify(data),
     }),
 };
+
+/* ── Client Journey API ── */
+export const journeyApi = {
+  listClients: (status) =>
+    apiFetch(PROGRESS_SVC, `/journey/clients${status ? "?status=" + status : ""}`),
+
+  createClient: (data) =>
+    apiFetch(PROGRESS_SVC, "/journey/clients", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  getClient: (journeyId) =>
+    apiFetch(PROGRESS_SVC, `/journey/clients/${journeyId}`),
+
+  updateClient: (journeyId, data) =>
+    apiFetch(PROGRESS_SVC, `/journey/clients/${journeyId}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+
+  createSession: (journeyId, data) =>
+    apiFetch(PROGRESS_SVC, `/journey/clients/${journeyId}/sessions`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  updateSession: (sessionId, data) =>
+    apiFetch(PROGRESS_SVC, `/journey/sessions/${sessionId}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+
+  listGoals: (journeyId) =>
+    apiFetch(PROGRESS_SVC, `/journey/clients/${journeyId}/goals`),
+
+  createGoal: (journeyId, data) =>
+    apiFetch(PROGRESS_SVC, `/journey/clients/${journeyId}/goals`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  updateGoal: (goalId, data) =>
+    apiFetch(PROGRESS_SVC, `/journey/goals/${goalId}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+
+  generateAVS: (sessionId) =>
+    apiFetch(PROGRESS_SVC, `/journey/sessions/${sessionId}/avs`, {
+      method: "POST",
+    }),
+};
