@@ -1171,6 +1171,11 @@
         "",
         "[=== INSTALLATION 3: THE DELTA FLOOR ===]",
         "",
+        "",
+        "Tonight, you sink. Like a stone dropped into deep water. Not falling — sinking. Heavy. Steady. All the way to the bottom. The deepest, safest, heaviest place. Nothing can reach you there. Nothing can wake you there. You are at the bottom. And you stay there.",
+        "",
+        "That is the simplest version. One image. One feeling. Heavy. Deep. Bottom. Research shows that just this one suggestion — 'tonight you will sleep deeper' — doubled to tripled the amount of deep sleep in clinical studies. One suggestion. That powerful.",
+        "",
         "Now the most important instruction of this session. I am speaking directly to the subconscious mind.",
         "",
         "Tonight, and every night from now on, your brain will descend past theta into delta within the first thirty minutes of sleep. Not gradually. Decisively. Like an elevator bypassing floors — it drops past the light sleep zone directly to the delta floor.",
@@ -1266,6 +1271,9 @@
         "The heaviness spreads from your toes to the top of your head. Take yourself to the staircase. Count down from twenty. At the bottom, the door. Open it. Walk through. Close it behind you.",
         "On the other side: wherever your subconscious takes you. You go wherever you need to go.",
         "And without even noticing how tired you were, you drift off to sleep.",
+        "",
+        "And here is another technique if the pretend-sleep method does not work on a given night. Imagine you are playing miniature golf. See the first hole. A simple straight shot. You line up the putt. You swing. The ball rolls. Hole in one. Your friend takes three strokes. Now the second hole — there is a clown's mouth to aim through. The third hole has a little bridge over water. Play each hole in your mind. See the ball. Hear the tap of the club. Feel the turf. Most people are asleep by hole five or six. It is mundane enough to not excite you, structured enough to displace worry, and sequential enough to occupy the engineer's brain without stimulating it.",
+        "",
         "These suggestions are firmly embedded. They grow stronger by the day, by the hour, by the minute.",
         "",
         "[--- PART 7: COUNT OUT (0-5) ---]",
@@ -1316,6 +1324,9 @@
         "The handbook covers all of this plus the science. Read it once. Then just follow the ceremony.",
         "",
         "How are you feeling? Questions?",
+        "",
+        "One more thing. For the first week after today, I am offering you a 5-minute bedtime call. At 10:45 PM, we connect on Zoom. You are already in bed. I guide you through the settling and the Depth Dial — five minutes, then I hang up and you sleep. This resets the pattern in the actual sleep environment. It is optional. If you want it, text me your preferred nights this week.",
+        "",
         "[Schedule session 3. Target: 1-2 weeks.]",
         "[Give client the printed Sleep Protocol Handbook.]",
         "[ACTION: Record the progressive relaxation + therapeutic suggestion section of this session (Parts 3-5) as an audio file for the client. The recording starts at 'Now focus on the top of your head' and ends before the count out. Save to MinIO: client-documents/DS-001/recordings/S2-delta-session.mp3. Give the client instructions: 'Listen to this recording in bed on nights when the settling practice alone is not enough.']"
@@ -2363,7 +2374,12 @@
             "Count out: energetic, crisp. Rapid 1-2-3-4-5 at the end.",
             "Finger-spread PHS verify: do this every session (not just S1).",
             "Homework: review AND assign. Be specific. Times, steps, sequence.",
-            "AVS: generate and provide after every session."
+            "AVS: generate and provide after every session.",
+            "INSTRUCTOR FEEDBACK (Case Conference Oct 3): Don't have client track daily — every 3-4 days. 'How you feel matters more than what the app says.'",
+            "INSTRUCTOR: One simple deep suggestion ('tonight you sink to the bottom, heaviest place') can double-triple deep sleep. Don't over-engineer with 10 complex installations when one powerful anchor may outperform.",
+            "INSTRUCTOR: Offer 5-min bedtime Zoom call for first week post-Session 2. Guide settling + Depth Dial in real sleep environment. Resets pattern. 'They love you for it.'",
+            "INSTRUCTOR: Miniature golf technique for onset/night-waking. Mundane + sequential = displaces worry without stimulating.",
+            "INSTRUCTOR: 'If they held my dog hostage and I had to pick an issue, I'd pick insomnia — I can almost always get them sleeping way better than before.' Confidence builder."
           ],
           "sessions": {
             "S1": {
@@ -2388,7 +2404,10 @@
                 "Tracker limitation discussion (combined Deep+REM, Fix #1).",
                 "Give printed Sleep Protocol Handbook at end.",
                 "ACTION: Record Parts 3-5 as audio file for client.",
-                "Collect SB 577 signed consent."
+                "Collect SB 577 signed consent.",
+                "INSTRUCTOR: Prioritize ONE powerful simple anchor ('sink to the bottom') over 10 complex installations. If time/depth allows, add more. Quality over quantity.",
+                "INSTRUCTOR: Offer 5-min bedtime Zoom at 10:45 PM for first week. Optional but powerful.",
+                "INSTRUCTOR: Reframe tracking from daily to every 3-4 days. 'How you feel > what the app says.'"
               ],
               "target_metrics": {
                 "deep_rem": "25-30%",

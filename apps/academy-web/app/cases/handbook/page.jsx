@@ -78,7 +78,7 @@ export default function SleepHandbook() {
           <li>On the exhale, the Depth Dial resets to DELTA LOCK.</li>
           <li>Back to delta within 60 seconds.</li>
         </ol>
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: "#8b85a0", margin: "10px 0 0" }}>If that does not work within 2 minutes, use the Interrupted Sleep Protocol: pretend you are asleep (mimic sleep breathing), take yourself to the staircase, count down from 20, walk through the door at the bottom. Your subconscious takes it from there.</p>
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "#8b85a0", margin: "10px 0 0" }}>If that does not work within 2 minutes, try the Miniature Golf technique: imagine playing miniature golf hole by hole. See the first hole, line up the putt, swing. Move to hole 2, then 3. Most people are asleep by hole 5 or 6. It is mundane enough to not excite you but structured enough to occupy your mind without stimulating it. If that does not work either, use the Interrupted Sleep Protocol: pretend you are asleep (mimic sleep breathing), take yourself to the staircase, count down from 20, walk through the door at the bottom. Your subconscious takes it from there.</p>
       </div>
 
       {/* === SECTION 4: IN-BED IMAGERY SELF-HYPNOSIS === */}
@@ -110,7 +110,7 @@ export default function SleepHandbook() {
 
       {/* === SECTION 6: DAILY TRACKING === */}
       <h2 style={{ font: "560 18px var(--body)", color: "var(--ok)", borderBottom: "1px solid var(--line)", paddingBottom: 6, marginTop: 30 }}>6. Daily Sleep Tracking</h2>
-      <p style={{ fontSize: 14, lineHeight: 1.7, color: "#cfc9dd" }}>Every morning, check your sleep tracker and note these numbers:</p>
+      <p style={{ fontSize: 14, lineHeight: 1.7, color: "#cfc9dd" }}>Every 3-4 days, check your sleep tracker and note these numbers (do not check daily — obsessing over stats makes sleep harder):</p>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, margin: "12px 0" }}>
         {["Deep sleep %", "Light sleep %", "Sleep onset time", "Depth score", "Regularity score", "Resting HR", "Total hours"].map((metric) => (
           <div key={metric} className="panel" style={{ padding: "8px 12px", fontSize: 12, color: "#cfc9dd", textAlign: "center" }}>{metric}</div>
