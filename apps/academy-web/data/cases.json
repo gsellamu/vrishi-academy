@@ -1360,67 +1360,74 @@
         "graduation_latest": 8,
         "smart_goals": {
           "subjective_quality": {
-            "baseline": "4/10",
+            "baseline": "4/10 (waking exhausted)",
             "s2": "5-6/10",
             "s3": "6/10",
             "s4": "6-7/10",
             "s5": "7/10",
             "s6": "7-8/10",
-            "graduation": "7-8/10"
+            "graduation": "7-8/10 for 2+ consecutive weeks",
+            "how_assessed": "Client self-report at each session"
           },
           "sleep_onset": {
-            "baseline": "Difficult (~35 min)",
+            "baseline": "Difficult, mind racing (~35 min client estimate)",
             "s2": "Easier",
             "s3": "Noticeably easier",
             "s4": "Falls asleep naturally",
             "s5": "Consistent",
             "s6": "Effortless",
-            "graduation": "Effortless"
+            "graduation": "Falls asleep naturally, not counting minutes",
+            "how_assessed": "Client self-report"
           },
           "night_waking": {
-            "baseline": "Frequent, hard to return",
+            "baseline": "Frequent, difficulty returning to sleep",
             "s2": "Less frequent",
             "s3": "Returns easily",
             "s4": "Rare",
             "s5": "Rare",
             "s6": "Rare or none",
-            "graduation": "Rare or none"
+            "graduation": "Rare, returns easily when it happens",
+            "how_assessed": "Client self-report"
           },
           "daytime_energy": {
             "baseline": "Low, persistent fatigue",
             "s2": "Slightly better",
             "s3": "Noticeably better",
-            "s4": "Consistent energy",
+            "s4": "Consistent",
             "s5": "Strong",
             "s6": "Strong throughout",
-            "graduation": "Strong throughout"
-          },
-          "self_hypnosis_confidence": {
-            "baseline": "N/A",
-            "s2": "N/A",
-            "s3": "N/A",
-            "s4": "5-6/10",
-            "s5": "7/10",
-            "s6": "8+/10",
-            "graduation": "8+/10"
+            "graduation": "Consistent energy, no persistent fatigue",
+            "how_assessed": "Client self-report"
           },
           "ceremony_compliance": {
-            "baseline": "Starting",
+            "baseline": "N/A (not yet assigned)",
             "s2": "Most nights",
             "s3": "Consistent",
             "s4": "Automatic",
             "s5": "Automatic",
             "s6": "Effortless habit",
-            "graduation": "Effortless habit"
+            "graduation": "Automatic, effortless, not requiring willpower",
+            "how_assessed": "Client self-report + homework tracking"
           },
-          "dream_processing": {
-            "baseline": "Mind active during sleep",
-            "s2": "Some venting dreams",
-            "s3": "Dreams normalizing",
-            "s4": "Dreams comfortable",
-            "s5": "Dreams natural",
-            "s6": "Normal dream patterns",
-            "graduation": "Normal dream patterns"
+          "self_hypnosis_confidence": {
+            "baseline": "N/A (not yet taught)",
+            "s2": "N/A",
+            "s3": "N/A",
+            "s4": "5-6/10",
+            "s5": "7/10",
+            "s6": "8+/10",
+            "graduation": "8+/10, demonstrated in session",
+            "how_assessed": "Client self-report + therapist observation (self-led induction)"
+          },
+          "phs_reentry": {
+            "baseline": "First session (baseline)",
+            "s2": "Faster",
+            "s3": "Under 90 sec",
+            "s4": "Under 60 sec",
+            "s5": "Under 45 sec",
+            "s6": "Under 30 sec",
+            "graduation": "Under 60 seconds",
+            "how_assessed": "Therapist observation (timed each session)"
           }
         },
         "sessions": [
@@ -1766,7 +1773,26 @@
             ]
           }
         ],
-        "measurement_note": "These goals are based on client subjective experience and clinical observation, NOT wearable device biometrics. The client may use personal sleep trackers for their own awareness, but therapy outcomes are not determined by tracker data."
+        "measurement_note": "All goals are measured through client self-report and therapist clinical observation. Client-shared wearable/tracker data is documented as additional reference information but is NOT used as a pass/fail criterion for therapy progress. VRishi Hypnotherapy has not tested or validated any wearable devices for clinical assessment.",
+        "graduation_criteria": {
+          "required": [
+            "Subjective quality 7/10 or higher for 2+ consecutive weeks",
+            "Sleep onset: falls asleep naturally, not counting minutes",
+            "Night-waking: rare, returns easily when it happens",
+            "Daytime function: consistent energy, no persistent fatigue",
+            "Independence: client runs full ceremony without therapist guidance",
+            "Self-hypnosis: confidence 8+/10, demonstrated in session",
+            "Ceremony habit: automatic, effortless, not requiring willpower",
+            "Relapse protocol: client can articulate the 3 options without prompting",
+            "PHS installed: finger-spread re-entry under 60 seconds"
+          ],
+          "not_required": [
+            "Specific device percentages (deep sleep %, light sleep %)",
+            "Specific biometric numbers (HR, Hz, depth score from tracker)",
+            "Specific onset time in minutes (from device)"
+          ],
+          "client_tracker_note": "Client-shared tracker data (if provided) is documented as a reference artifact in clinical notes. Trends noted for clinical reasoning but not used as pass/fail."
+        }
       },
       "session_3_script": [
         "[=== SESSION 3: MAINTENANCE + OVERACTIVE MIND (HW-ENRICHED) ===]",
@@ -2334,31 +2360,31 @@
         ],
         "measurement": {
           "what_we_track": [
-            "How you feel when you wake up (subjective quality, 1-10)",
-            "How you feel throughout the day (energy, focus, mood)",
-            "Sleep onset experience (falling asleep easily vs difficulty)",
+            "How you feel when you wake up (1-10 quality scale)",
+            "How easily you fall asleep (difficult to effortless)",
             "Night-waking frequency and ease of returning to sleep",
-            "Dream recall (venting dreams indicate processing progress)",
-            "Homework compliance (ceremony consistency)",
-            "Self-hypnosis confidence (1-10)"
+            "Daytime energy and focus throughout the day",
+            "Sleep ceremony consistency (how naturally it happens)",
+            "Self-hypnosis confidence (after Session 4)",
+            "Dream recall and quality (venting dreams indicate progress)"
           ],
-          "client_personal_tracking": "You are welcome to use your sleep tracker or wearable for your own personal awareness. Many clients find it helpful to notice trends. However, wearable device data is for YOUR information only — it is not a clinical outcome measure and therapy success is not determined by tracker numbers.",
-          "how_we_use_it": "Your subjective experience and my clinical observations guide every decision. How you FEEL when you wake up, how you function during the day, and how naturally sleep comes — these are what matter. If your tracker shows one thing but you feel great, trust how you feel.",
+          "client_personal_tracking": "You are welcome to use your sleep tracker or wearable for your own personal awareness. Many clients find it helpful to notice trends. If you choose to share tracker data, we will note it as additional reference information. However, therapy success is determined by how you feel and function, not by device readings.",
+          "how_we_use_it": "Your subjective experience guides every decision. How you FEEL when you wake up, how you function during the day, and how naturally sleep comes — these are what matter. Trust your body's signals over any device number.",
           "your_baseline": {
-            "subjective_quality": "4/10 (waking exhausted despite 6-7 hours)",
-            "daytime_energy": "Low (persistent fatigue)",
-            "sleep_onset": "Difficult (~35 minutes, mind racing)",
+            "sleep_quality": "4/10 (waking exhausted despite 6-7 hours)",
+            "falling_asleep": "Difficult, mind racing (~35 minutes)",
             "night_waking": "Frequent, difficulty returning to sleep",
-            "resting_hr": "72 bpm (dropped to 63 after Session 1)"
+            "daytime_energy": "Low, persistent fatigue",
+            "mental_activity": "Mind stays busy even during sleep"
           },
           "graduation_criteria": {
-            "subjective_quality": "7-8/10 (waking refreshed and rested)",
+            "sleep_quality": "7-8/10 (waking refreshed and rested)",
+            "falling_asleep": "Natural and effortless",
+            "night_waking": "Rare, returns to sleep easily",
             "daytime_energy": "Consistent throughout the day",
-            "sleep_onset": "Falling asleep within minutes, naturally",
-            "night_waking": "Rare, returns to sleep easily when occurs",
-            "self_hypnosis_confidence": "8+/10 (running ceremony independently)"
+            "self_hypnosis": "8+/10 confidence, running ceremony independently"
           },
-          "disclaimer": "Therapy progress is measured through clinical observation, client self-report, and subjective quality of life improvements. Wearable device data (sleep trackers, smartwatches) is not used as a clinical outcome measure. VRishi Hypnotherapy has not tested or validated any wearable devices for clinical assessment."
+          "disclaimer": "Therapy progress is measured through clinical observation, client self-report, and quality of life improvements. Wearable device data is not used as a clinical outcome measure. VRishi Hypnotherapy has not tested or validated any wearable devices for clinical assessment."
         },
         "disclaimer": "Results vary based on individual suggestibility, compliance with home practices, and underlying health conditions. These targets are based on clinical research averages, not guarantees. Hypnotherapy is a complementary modality for vocational/avocational self-improvement under CA B&P 2908."
       },
@@ -2584,8 +2610,8 @@
           "CCH log: update clinical documentation using initials D.S. only"
         ],
         "drift_tracking": {
-          "purpose": "Track deviation between planned subjective outcomes and actual client-reported experience. Therapy progress is measured through clinical observation and client self-report, not wearable device data.",
-          "method": "After each session, record: planned target vs actual value for each metric. Calculate drift % = (actual - target) / target * 100. Positive drift = ahead of plan. Negative drift = behind plan.",
+          "purpose": "Track deviation between planned subjective outcomes and actual client-reported experience. Client-shared tracker data noted as reference but not used as pass/fail.",
+          "method": "After each session, record: planned subjective target vs client self-report. Positive drift = ahead of plan. Negative drift = behind. Client-shared tracker data documented separately as 'Reference: client reports tracker shows [X]'.",
           "metrics_to_track": [
             {
               "metric": "subjective_quality",
@@ -2624,20 +2650,20 @@
             },
             {
               "metric": "phs_reentry_speed",
-              "s1_actual": "First time",
+              "s1_actual": "Baseline",
               "s2_planned": "Faster",
               "s2_actual": "TBD",
               "drift": "TBD"
             },
             {
-              "metric": "self_hypnosis_confidence",
-              "s1_actual": "N/A",
-              "s2_planned": "N/A",
+              "metric": "client_tracker_ref",
+              "s1_actual": "Depth Bad, 21% D+R",
+              "s2_planned": "N/A (reference only)",
               "s2_actual": "TBD",
-              "drift": "TBD"
+              "drift": "N/A"
             }
           ],
-          "review_cadence": "Update drift table after each session. If any metric shows >20% negative drift for 2 consecutive sessions, trigger Path C (regression investigation)."
+          "review_cadence": "Update after each session. If subjective quality shows no improvement for 2 consecutive sessions, trigger Path C investigation. Client-shared tracker data noted in the last row as reference artifact, not as a clinical target."
         }
       },
       "session_6_script": [
