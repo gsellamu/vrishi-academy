@@ -702,7 +702,8 @@
         "cch_compliance": "CCH LOG FORMAT: Use client initials D.S. only in all submitted clinical documentation. Full name 'Deepak S.' is used in internal records only. Never use full name or identifying details in CCH log, case conference submissions, or any shared documents.",
         "ai_disclosure": "AI DISCLOSURE: Claude Code (Anthropic) was used as a clinical support tool for: script preparation, research aggregation, session planning, clinical documentation, and image generation. All clinical decisions are made by the therapist. AI does not interact with the client directly. The client should be informed that AI tools assist in preparation. Suggested disclosure: 'I use AI-assisted tools to research best practices and prepare customized session materials for you. All clinical decisions and therapeutic delivery are mine. The AI never interacts with you directly.'",
         "communication_policy": "COMMUNICATION POLICY: All client communication should move from WhatsApp/text to the client portal (when built) or encrypted email. WhatsApp is not HIPAA-compliant. Until the portal is ready, use email (jeeth@vrishihypno.com) for all non-urgent communication. Text/WhatsApp acceptable ONLY for appointment confirmations or brief data check-ins (e.g., 'How are the numbers looking?'). No clinical content over text. Document all client communications in the communication_log table regardless of channel.",
-        "bruce_conference_feedback": "Bruce (Case Conference Oct 3): (1) Set expectations that wearables measure outcome but are NOT the primary metric. Tracking can hinder speed of improvement if client fixates. Trust the process, monitor physical/mental improvements. (2) Over-deliver sleep suggestions — use buckshot approach, something will work. Monitor which ones land. (3) If client obsesses over tracker, use REVERSE INDUCTION: convert the anxiety about deep sleep into a deepening trigger. The more they check/think about the wearable, the stronger the drift into deeper REM. Imagery of wearable showing better and better numbers becomes a post-hypnotic suggestion itself. (4) Fish at the bottom of the ocean imagery — safest, deepest part. Simple. Physical. Powerful."
+        "bruce_conference_feedback": "Bruce (Case Conference Oct 3): (1) Set expectations that wearables measure outcome but are NOT the primary metric. Tracking can hinder speed of improvement if client fixates. Trust the process, monitor physical/mental improvements. (2) Over-deliver sleep suggestions — use buckshot approach, something will work. Monitor which ones land. (3) If client obsesses over tracker, use REVERSE INDUCTION: convert the anxiety about deep sleep into a deepening trigger. The more they check/think about the wearable, the stronger the drift into deeper REM. Imagery of wearable showing better and better numbers becomes a post-hypnotic suggestion itself. (4) Fish at the bottom of the ocean imagery — safest, deepest part. Simple. Physical. Powerful.",
+        "biometric_disclaimer": "COMPLIANCE NOTE (HMI Instructor, Oct 3 2026): Client can use any devices to check personal progress, but the therapist cannot/should not commit to tracking therapy outcomes based on biometrics or wearable devices. Neither HMI nor VRishi Hypnotherapy has tested, trained with, or validated biometrics/wearables as a practice/service offering. Therapy success is measured through: (1) client subjective report (how they feel), (2) clinical observation (trance depth, PHS response, physiological signs during session), (3) functional improvement (daytime energy, mood, focus), (4) homework compliance, and (5) self-hypnosis independence. The client's tracker data is for THEIR personal information only — we do not promise outcomes based on those numbers."
       },
       "session_plan": {
         "pretalk_focus": "Reptile brain (survival/protection/reproduction) + RAM vs hardwired (conscious=temporary, subconscious=permanent). Brain oscillations, glymphatic flush, DMA transfers, synaptic homeostasis, REM simulation, interrupt handler bug. Three dream stages (Kappas pipeline). Sleep ceremony = time-boxing to clear cognitive backlog.",
@@ -1358,68 +1359,68 @@
         "graduation_earliest": 6,
         "graduation_latest": 8,
         "smart_goals": {
-          "deep_sleep_pct": {
-            "baseline": "21% (Deep+REM combined, actual deep unknown)",
-            "s2": "25-30% (increase deep portion within the 21%)",
-            "s3": "28-33%",
-            "s4": "30-35%",
-            "s5": "33-38%",
-            "s6": "35-40%",
-            "graduation": "35-40% (with majority being actual deep N3)"
-          },
-          "light_sleep_pct": {
-            "baseline": "79% (5h 26m)",
-            "s2": "70%",
-            "s3": "65-68%",
-            "s4": "62-65%",
-            "s5": "60-62%",
-            "s6": "58-62%",
-            "graduation": "55-60%"
-          },
-          "sleep_onset_min": {
-            "baseline": "~35",
-            "s2": "<15",
-            "s3": "<12",
-            "s4": "<10",
-            "s5": "<8",
-            "s6": "<8",
-            "graduation": "<8"
-          },
-          "depth_score": {
-            "baseline": "Bad",
-            "s2": "Fair",
-            "s3": "Fair+",
-            "s4": "Good",
-            "s5": "Good",
-            "s6": "Good",
-            "graduation": "Good"
-          },
-          "regularity": {
-            "baseline": "Poor",
-            "s2": "Fair",
-            "s3": "Fair",
-            "s4": "Good",
-            "s5": "Good",
-            "s6": "Good",
-            "graduation": "Good"
-          },
-          "resting_hr": {
-            "baseline": "72 (post-S1: 63)",
-            "s2": "60-63",
-            "s3": "59-62",
-            "s4": "58-61",
-            "s5": "58-60",
-            "s6": "57-60",
-            "graduation": "57-60"
-          },
-          "subjective": {
+          "subjective_quality": {
             "baseline": "4/10",
-            "s2": "6/10",
-            "s3": "6.5-7/10",
-            "s4": "7-7.5/10",
-            "s5": "7.5-8/10",
-            "s6": "8/10",
-            "graduation": "8/10"
+            "s2": "5-6/10",
+            "s3": "6/10",
+            "s4": "6-7/10",
+            "s5": "7/10",
+            "s6": "7-8/10",
+            "graduation": "7-8/10"
+          },
+          "sleep_onset": {
+            "baseline": "Difficult (~35 min)",
+            "s2": "Easier",
+            "s3": "Noticeably easier",
+            "s4": "Falls asleep naturally",
+            "s5": "Consistent",
+            "s6": "Effortless",
+            "graduation": "Effortless"
+          },
+          "night_waking": {
+            "baseline": "Frequent, hard to return",
+            "s2": "Less frequent",
+            "s3": "Returns easily",
+            "s4": "Rare",
+            "s5": "Rare",
+            "s6": "Rare or none",
+            "graduation": "Rare or none"
+          },
+          "daytime_energy": {
+            "baseline": "Low, persistent fatigue",
+            "s2": "Slightly better",
+            "s3": "Noticeably better",
+            "s4": "Consistent energy",
+            "s5": "Strong",
+            "s6": "Strong throughout",
+            "graduation": "Strong throughout"
+          },
+          "self_hypnosis_confidence": {
+            "baseline": "N/A",
+            "s2": "N/A",
+            "s3": "N/A",
+            "s4": "5-6/10",
+            "s5": "7/10",
+            "s6": "8+/10",
+            "graduation": "8+/10"
+          },
+          "ceremony_compliance": {
+            "baseline": "Starting",
+            "s2": "Most nights",
+            "s3": "Consistent",
+            "s4": "Automatic",
+            "s5": "Automatic",
+            "s6": "Effortless habit",
+            "graduation": "Effortless habit"
+          },
+          "dream_processing": {
+            "baseline": "Mind active during sleep",
+            "s2": "Some venting dreams",
+            "s3": "Dreams normalizing",
+            "s4": "Dreams comfortable",
+            "s5": "Dreams natural",
+            "s6": "Normal dream patterns",
+            "graduation": "Normal dream patterns"
           }
         },
         "sessions": [
@@ -1764,7 +1765,8 @@
               }
             ]
           }
-        ]
+        ],
+        "measurement_note": "These goals are based on client subjective experience and clinical observation, NOT wearable device biometrics. The client may use personal sleep trackers for their own awareness, but therapy outcomes are not determined by tracker data."
       },
       "session_3_script": [
         "[=== SESSION 3: MAINTENANCE + OVERACTIVE MIND (HW-ENRICHED) ===]",
@@ -2332,33 +2334,31 @@
         ],
         "measurement": {
           "what_we_track": [
-            "Deep+REM sleep percentage (from your watch)",
-            "Light sleep percentage",
-            "Sleep onset time (how fast you fall asleep)",
-            "Depth score (Bad → Fair → Good)",
-            "Regularity score (consistency of bedtime)",
-            "Resting heart rate (morning measurement)",
-            "Your subjective sleep quality (1-10 scale)"
+            "How you feel when you wake up (subjective quality, 1-10)",
+            "How you feel throughout the day (energy, focus, mood)",
+            "Sleep onset experience (falling asleep easily vs difficulty)",
+            "Night-waking frequency and ease of returning to sleep",
+            "Dream recall (venting dreams indicate processing progress)",
+            "Homework compliance (ceremony consistency)",
+            "Self-hypnosis confidence (1-10)"
           ],
-          "how_we_use_it": "Your data drives every decision. If the numbers show we can graduate early, we do. If they show we need more time, we adjust. No guessing — evidence-based decisions.",
+          "client_personal_tracking": "You are welcome to use your sleep tracker or wearable for your own personal awareness. Many clients find it helpful to notice trends. However, wearable device data is for YOUR information only — it is not a clinical outcome measure and therapy success is not determined by tracker numbers.",
+          "how_we_use_it": "Your subjective experience and my clinical observations guide every decision. How you FEEL when you wake up, how you function during the day, and how naturally sleep comes — these are what matter. If your tracker shows one thing but you feel great, trust how you feel.",
           "your_baseline": {
-            "deep_rem": "21% (combined Deep+REM)",
-            "light": "79%",
-            "onset": "~35 minutes",
-            "depth_score": "Bad",
-            "regularity": "Poor",
-            "resting_hr": "63 bpm (was 72 pre-treatment)",
-            "subjective": "4/10"
+            "subjective_quality": "4/10 (waking exhausted despite 6-7 hours)",
+            "daytime_energy": "Low (persistent fatigue)",
+            "sleep_onset": "Difficult (~35 minutes, mind racing)",
+            "night_waking": "Frequent, difficulty returning to sleep",
+            "resting_hr": "72 bpm (dropped to 63 after Session 1)"
           },
-          "graduation_targets": {
-            "deep_rem": "35-40%",
-            "light": "55-60%",
-            "onset": "Under 8 minutes",
-            "depth_score": "Good",
-            "regularity": "Good",
-            "resting_hr": "57-60 bpm",
-            "subjective": "8/10"
-          }
+          "graduation_criteria": {
+            "subjective_quality": "7-8/10 (waking refreshed and rested)",
+            "daytime_energy": "Consistent throughout the day",
+            "sleep_onset": "Falling asleep within minutes, naturally",
+            "night_waking": "Rare, returns to sleep easily when occurs",
+            "self_hypnosis_confidence": "8+/10 (running ceremony independently)"
+          },
+          "disclaimer": "Therapy progress is measured through clinical observation, client self-report, and subjective quality of life improvements. Wearable device data (sleep trackers, smartwatches) is not used as a clinical outcome measure. VRishi Hypnotherapy has not tested or validated any wearable devices for clinical assessment."
         },
         "disclaimer": "Results vary based on individual suggestibility, compliance with home practices, and underlying health conditions. These targets are based on clinical research averages, not guarantees. Hypnotherapy is a complementary modality for vocational/avocational self-improvement under CA B&P 2908."
       },
@@ -2398,7 +2398,8 @@
             "BRUCE FEEDBACK: Wearables measure outcome but are NOT the primary metric. Tracking can HINDER improvement if client fixates. Set expectations: trust the process, monitor how you FEEL.",
             "BRUCE: Over-deliver sleep suggestions (buckshot approach). Something will work. Monitor which techniques land for this specific client.",
             "BRUCE: If client obsesses over tracker stats, use REVERSE INDUCTION — convert checking-anxiety into a deepening trigger. Every glance at the tracker reinforces deeper sleep the next night.",
-            "BRUCE: Fish at the bottom of the ocean — safest, deepest part. One simple image. One powerful anchor."
+            "BRUCE: Fish at the bottom of the ocean — safest, deepest part. One simple image. One powerful anchor.",
+            "COMPLIANCE: Do NOT commit to biometric/wearable outcomes. Therapy success = subjective quality + clinical observation + functional improvement. Client tracker data is for THEIR awareness only. We do not promise outcomes based on device numbers."
           ],
           "sessions": {
             "S1": {
@@ -2583,55 +2584,55 @@
           "CCH log: update clinical documentation using initials D.S. only"
         ],
         "drift_tracking": {
-          "purpose": "Track deviation between planned targets and actual outcomes to improve future case planning accuracy.",
+          "purpose": "Track deviation between planned subjective outcomes and actual client-reported experience. Therapy progress is measured through clinical observation and client self-report, not wearable device data.",
           "method": "After each session, record: planned target vs actual value for each metric. Calculate drift % = (actual - target) / target * 100. Positive drift = ahead of plan. Negative drift = behind plan.",
           "metrics_to_track": [
             {
-              "metric": "deep_rem_pct",
-              "s1_actual": "21%",
-              "s2_planned": "25-30%",
+              "metric": "subjective_quality",
+              "s1_actual": "4/10",
+              "s2_planned": "5-6/10",
               "s2_actual": "TBD",
               "drift": "TBD"
             },
             {
-              "metric": "light_pct",
-              "s1_actual": "79%",
-              "s2_planned": "70%",
+              "metric": "sleep_onset",
+              "s1_actual": "Difficult",
+              "s2_planned": "Easier",
               "s2_actual": "TBD",
               "drift": "TBD"
             },
             {
-              "metric": "onset_min",
-              "s1_actual": "~35",
-              "s2_planned": "<15",
+              "metric": "night_waking",
+              "s1_actual": "Frequent",
+              "s2_planned": "Less frequent",
               "s2_actual": "TBD",
               "drift": "TBD"
             },
             {
-              "metric": "depth_score",
-              "s1_actual": "Bad",
-              "s2_planned": "Fair",
+              "metric": "daytime_energy",
+              "s1_actual": "Low",
+              "s2_planned": "Slightly better",
               "s2_actual": "TBD",
               "drift": "TBD"
             },
             {
-              "metric": "regularity",
-              "s1_actual": "Poor",
-              "s2_planned": "Fair",
+              "metric": "ceremony_compliance",
+              "s1_actual": "Starting",
+              "s2_planned": "Most nights",
               "s2_actual": "TBD",
               "drift": "TBD"
             },
             {
-              "metric": "resting_hr",
-              "s1_actual": "63",
-              "s2_planned": "60-63",
+              "metric": "phs_reentry_speed",
+              "s1_actual": "First time",
+              "s2_planned": "Faster",
               "s2_actual": "TBD",
               "drift": "TBD"
             },
             {
-              "metric": "subjective",
-              "s1_actual": "4",
-              "s2_planned": "6",
+              "metric": "self_hypnosis_confidence",
+              "s1_actual": "N/A",
+              "s2_planned": "N/A",
               "s2_actual": "TBD",
               "drift": "TBD"
             }

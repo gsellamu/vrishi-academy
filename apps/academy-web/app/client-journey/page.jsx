@@ -122,17 +122,16 @@ ${isFirst ? '<div class="f" style="color:#888">Session 1 was cognitive assessmen
 <tr><td>6</td><td>Graduation</td><td>All goals met</td><td>Upcoming</td></tr>
 </table>
 
-<h2>SMART Goals (Measurable Outcomes)</h2>
-<table><tr><th>Metric</th><th>Baseline</th><th>Next Target</th><th>Graduation</th></tr>
-<tr><td>Deep sleep %</td><td>~0% (Bad)</td><td>10-15%</td><td>18-23%</td></tr>
-<tr><td>Light sleep %</td><td>79%</td><td>65%</td><td>50-55%</td></tr>
-<tr><td>Sleep onset</td><td>~35 min</td><td>&lt;15 min</td><td>&lt;8 min</td></tr>
-<tr><td>Depth score</td><td>Bad</td><td>Fair</td><td>Good</td></tr>
-<tr><td>Regularity</td><td>Poor</td><td>Fair</td><td>Good</td></tr>
-<tr><td>Resting HR</td><td>63 bpm</td><td>60-63</td><td>57-60</td></tr>
-<tr><td>Subjective</td><td>4/10</td><td>6/10</td><td>8/10</td></tr>
+<h2>Progress Indicators</h2>
+<table><tr><th>How We Measure</th><th>Where You Started</th><th>What Improvement Looks Like</th></tr>
+<tr><td>How you feel waking up</td><td>4/10 (exhausted)</td><td>7-8/10 (refreshed, rested)</td></tr>
+<tr><td>Falling asleep</td><td>Difficult (~35 min)</td><td>Natural, effortless</td></tr>
+<tr><td>Night-waking</td><td>Frequent, hard to return</td><td>Rare, returns easily</td></tr>
+<tr><td>Daytime energy</td><td>Low, persistent fatigue</td><td>Consistent throughout day</td></tr>
+<tr><td>Ceremony compliance</td><td>Starting</td><td>Effortless habit</td></tr>
+<tr><td>Self-hypnosis confidence</td><td>Not yet learned</td><td>8+/10 (fully independent)</td></tr>
 </table>
-<div class="f" style="color:#888;font-size:9px">*Targets based on Cordi et al. (2014): 60-81% SWS increase in highly suggestible subjects. Individual results vary.</div>
+<div class="f" style="color:#888;font-size:9px">Progress is measured through your subjective experience and clinical observation. If you use a personal sleep tracker, that data is for your own awareness \u2014 therapy outcomes are not determined by device readings.</div>
 
 <h2>Client Responsibilities</h2>
 <div class="f" style="margin-bottom:6px">Treatment outcomes depend on daily home practice between sessions.</div>
