@@ -59,7 +59,7 @@ ul{margin:3px 0;padding-left:16px}li{margin:1px 0;font-size:11px}
 
 <div class="hdr">
 <div><div class="logo">${practitioner.practice}</div>
-<div class="cred">${practitioner.name}<br>${practitioner.credentials}<br>Insurance: American Professional Agency ($1M/$3M)</div></div>
+<div class="cred">${practitioner.name}<br>${practitioner.credentials}</div></div>
 <div class="rt">${practitioner.address}<br>${practitioner.email}<br>calendly.com/jeeth-vrishihypno/90min<br>${practitioner.license}</div>
 </div>
 
@@ -76,13 +76,14 @@ ul{margin:3px 0;padding-left:16px}li{margin:1px 0;font-size:11px}
 <div class="f">${client.presenting}</div>
 ${session.soap_assessment ? `<div class="f" style="margin-top:4px"><span class="fl">Assessment:</span> ${session.soap_assessment}</div>` : ""}
 
-<h2>Session Metrics</h2>
+<h2>Session Metrics (Client-Reported Baseline)</h2>
 <div class="met">
-<div><div class="mv">${session.sleepScore || "\u2014"}/10</div><div class="ml">Sleep Quality</div></div>
-<div><div class="mv">21%</div><div class="ml">REM/Deep</div></div>
+<div><div class="mv">${session.sleepScore || "\u2014"}/10</div><div class="ml">Sleep Quality (subjective)</div></div>
+<div><div class="mv">21%</div><div class="ml">Deep+REM combined*</div></div>
 <div><div class="mv">79%</div><div class="ml">Light Sleep</div></div>
-<div><div class="mv">Bad</div><div class="ml">Depth Score</div></div>
+<div><div class="mv">Bad</div><div class="ml">Tracker Depth Score</div></div>
 </div>
+<div class="f" style="color:#888;font-size:9px">*Client's tracker combines Deep (N3) and REM into one category. Actual N3 delta percentage is unknown from this data. Tracker data is for client's personal reference \u2014 therapy outcomes are measured through subjective experience and clinical observation.</div>
 
 <h2>Techniques Used</h2>
 <div class="f">${session.techniques || "N/A"}</div>
@@ -105,7 +106,7 @@ ${isFirst ? '<div class="f" style="color:#888">Session 1 was cognitive assessmen
 <h2>Treatment Plan</h2>
 <div class="f"><span class="fl">Sessions:</span> 6-8 (6 core + 2 contingency, reassessed at session 4)</div>
 <div class="f"><span class="fl">Frequency:</span> Every 1-2 weeks</div>
-<div class="f"><span class="fl">Approach:</span> Clinical hypnotherapy, Physical suggestible lane (direct/literal), data-driven with wearable biofeedback</div>
+<div class="f"><span class="fl">Approach:</span> Clinical hypnotherapy, Physical suggestible lane (direct/literal), progress-driven with subjective + clinical measures</div>
 <div class="f"><span class="fl">Session 1:</span> Assessment + Education + First Induction Experience</div>
 <div class="f"><span class="fl">Session 2:</span> THE INSTALLATION \u2014 10 post-hypnotic suggestions anchored in deep trance with ideomotor checks</div>
 <div class="f"><span class="fl">Session 3:</span> Maintenance + Reinforcement (Depth Anchor Chain, Processing Vault, Auto-Pilot)</div>
@@ -115,10 +116,10 @@ ${isFirst ? '<div class="f" style="color:#888">Session 1 was cognitive assessmen
 
 <table><tr><th>#</th><th>Focus</th><th>Key Target</th><th>Status</th></tr>
 <tr><td>1</td><td>Assessment + Installation</td><td>Baseline</td><td>${session.num >= 1 ? "Done" : "Upcoming"}</td></tr>
-<tr><td>2</td><td>Delta-targeted deepening</td><td>Deep 0%\u219210-15%</td><td>${session.num >= 2 ? "Done" : "Upcoming"}</td></tr>
-<tr><td>3</td><td>Maintenance + overactive mind</td><td>Light 79%\u219260%</td><td>Upcoming</td></tr>
+<tr><td>2</td><td>The Installation</td><td>10 PHS anchored</td><td>${session.num >= 2 ? "Done" : "Upcoming"}</td></tr>
+<tr><td>3</td><td>Maintenance + overactive mind</td><td>Night-waking ease</td><td>Upcoming</td></tr>
 <tr><td>4</td><td>Self-hypnosis independence</td><td>Self-directed</td><td>Upcoming</td></tr>
-<tr><td>5</td><td>Fine-tuning</td><td>Depth: Good</td><td>Upcoming</td></tr>
+<tr><td>5</td><td>Fine-tuning</td><td>Effortless onset</td><td>Upcoming</td></tr>
 <tr><td>6</td><td>Graduation</td><td>All goals met</td><td>Upcoming</td></tr>
 </table>
 
@@ -157,7 +158,7 @@ ${session.feedback ? `<h2>Client-Reported Outcomes</h2><div class="f">${session.
 <b>SB 577 Disclosure:</b> ${practitioner.name} is not a licensed physician, psychologist, or psychiatrist. Services are provided for vocational/avocational self-improvement under CA B&P Code \u00a72908. Not a substitute for medical/psychological treatment.<br><br>
 <b>No Guarantee of Outcomes:</b> While clinical research supports hypnotherapy for sleep improvement (Cordi 2014, Chamine 2018, Lam 2015), individual results vary based on suggestibility, compliance, and health. ${practitioner.practice} does not guarantee specific outcomes, cure rates, or timelines. SMART goals are research-based targets, not promises.<br><br>
 <b>Therapeutic Exclusions:</b> Clients on anti-depressant, anti-psychotic, or anti-anxiety medications, or with psychiatric history/suicidal ideation, must be referred to licensed mental health professionals.<br><br>
-<b>Liability:</b> Professional liability insurance via American Professional Agency ($1M/$3M). Training institution listed as Additional Insured.<br><br>
+<b>Liability:</b> Professional liability coverage maintained. Details available upon request.<br><br>
 <b>Confidentiality:</b> All information kept confidential per HIPAA Privacy Rule (45 CFR \u00a7\u00a7160, 164) and CA law, except where disclosure required by law.
 </div>
 
@@ -201,9 +202,9 @@ const SEED_CLIENTS = [
         dreamJournal: "",
         feedback: "Post-session (Oct 2, 6:12 AM): 'After the session, I went to bed immediately. It took me awhile to fall asleep. But once fell asleep, I got up just once to use the bathroom. Sleep started at 11 pm and woke up at 7:33 am.' Reports losing 1 kg overnight (unsure if related). ECG showed resting heart rate dropped from usual 72 bpm to 63 bpm the morning after. Historical baseline was 57 bpm. Asks how many sessions the program requires — notes tendency to 'lose or get fatigue after 4-5 sessions.' Watch data to follow.",
         plan: "Session 2: Review watch/sleep data. Reinforce Depth Dial. Address the 'took awhile to fall asleep' — strengthen the pillow trigger and 4-7-8 anchor. The 8.5-hour sleep block (11 PM to 7:33 AM) with only 1 wake is a strong first-session result. Heart rate drop (72 to 63) suggests significant parasympathetic activation — document as objective progress marker. Manage session fatigue concern — set expectations for 6-8 session arc, not open-ended.",
-        soap_subjective: "Client reports sleeping 6-7 hours but waking exhausted. Mind stays active during sleep — 'like the engine is always idling.' Recently relocated internationally, socially thriving, not anxious. Reports mental hyperactivity with business planning and digital media processing during sleep.",
+        soap_subjective: "Client reports sleeping 7-8 hours (up from 5-6 before relocation) but waking exhausted. Mind stays active during sleep — 'like the engine is always idling, even when the car is parked.' Recently relocated internationally, socially thriving, not anxious — 'happier than I have been in years.' Vivid work-related dreams throughout the night: meetings, conversations, navigating new city. Asks: 'How do I completely turn off my brain?'",
         soap_objective: "36-question suggestibility test: Highly Physical (76%). Arm-raising induction successful — strong physiological response (all 4 nods). Eagle visualization produced visible hand levitation. Hand-to-forehead challenge held. Reactional deepener: rapid re-entry on all 4 cycles. Progressive relaxation: visible muscle release, breathing rate dropped. Client appeared deeply relaxed throughout.",
-        soap_assessment: "Disturbed sleep secondary to new-environment data overload — brain processing novel stimuli (new language, faces, culture, spatial maps) at shallow depth during sleep. Three Kappas sleep stages not completing due to cognitive backlog from digital media and business planning at bedtime. Not anxiety-related. Prognosis: good — client is motivated, responds well to direct Physical-lane language, and shows strong hypnotic responsiveness.",
+        soap_assessment: "Unrefreshing sleep despite adequate duration, consistent with insufficient deep (N3) sleep. Tracker shows 21% combined Deep+REM (does not separate N3 from REM). Recent international relocation presents significant novel-data processing load (new language, cultural norms, spatial navigation, social dynamics) — vivid content-rich dreaming suggests processing at shallow sleep stages rather than deep restorative stages. Not anxiety-related — client is positive and relaxed during waking hours. Prognosis: good — motivated, strong hypnotic responsiveness (arm-raising: all 4 nods, hand levitation, challenge held, rapid reactional re-entry). 76% Physical responds well to direct, literal language.",
         soap_plan: "1. Sleep ceremony homework (time-boxing, notepad, 4-7-8 breathing, screen cutoff). 2. Settling practice nightly. 3. Dream journal to track venting. 4. Follow-up in 1-2 weeks to assess: sleep quality improvement, dream journal content, homework compliance. 5. Session 2: reinforce Depth Dial, test PHS re-hypnosis speed, adjust suggestions per feedback.",
       },
     ],
