@@ -1,7 +1,7 @@
 # CLAUDE.md — VRishi Academy
 
 ## Project
-Kappasinian hypnotherapy practice drill + role-play platform for Jeeth (Jithendran Sellamuthu), C.MH., AHA #007913, HMI student (Semester 2, grad deadline Dec 10 2026). Separate repo from client-facing VRishiHypno (compliance boundary).
+Kappasinian hypnotherapy practice drill + role-play platform for Jeeth (Jithendran Sellamuthu), C.MH., AHA #007913, HMI student (Semester 2 complete, pending Case Conferences + Client Contact hours). Separate repo from client-facing VRishiHypno (compliance boundary).
 
 ## Repo root
 `D:\ChatGPT Projects\genai-portfolio\projects\Jeeth.ai\Business\VRishiHypno\PrepPractices\`
@@ -113,4 +113,4 @@ academy.ps1 (CLI)
 - **22 block macros** incl. 3 newest: `auto_dual_induction`, `guided_imagery`, `self_hypnosis_teach`.
 - **Delivery flags** (in `resolve()`, default off): `induction: arm_raising|auto_dual`, `guided_imagery: bool`, `teach_self_hypnosis: bool` — set in profile.vars or plan.
 - **Delivery contract docs**: see `.claude/reference/` (SSML/tonality/pacing/NLP/authoring/verification) and `.claude/commands/` slash commands.
-- **HMI gap**: 24 contacts, 21 conferences, 78 elective hrs, 9 workshops before Dec 10 2026.
+- **HMI gap**: 69 Client Contact hours + 8 Case Conference hours remaining. Electives and workshops DONE. 700.5/720 total hours (97.3%), GPA 3.9.
