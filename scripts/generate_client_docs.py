@@ -506,15 +506,19 @@ def main():
         out = Path("Clients") / client.get("full_name", client["name"]) / "Documents"
     out.mkdir(parents=True, exist_ok=True)
 
-    session = client["sessions"][args.session]
-    prefix_date = session["date"]
-
     docs = {
-        "01-AVS-Session{}-{}".format(session["num"], prefix_date): gen_avs(client, args.session),
         "02-Treatment-Plan-{}".format(client["id"]): gen_treatment_plan(client),
         "03-SB577-Disclosure-AoS": gen_sb577(client),
         "04-Recording-Consent": gen_recording_consent(client),
     }
+
+    # AVS requires at least one session
+    if client.get("sessions") and args.session < len(client["sessions"]):
+        session = client["sessions"][args.session]
+        prefix_date = session["date"]
+        docs["01-AVS-Session{}-{}".format(session["num"], prefix_date)] = gen_avs(client, args.session)
+    else:
+        print("  [SKIP] AVS: no session data yet (intake client)")
 
     chrome = find_chrome()
     for name, html_content in docs.items():

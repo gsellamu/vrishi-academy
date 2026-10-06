@@ -1,0 +1,59 @@
+{
+  "id": "TM-002",
+  "name": "T.M.",
+  "full_name": "",
+  "initials": "TM",
+  "age": 22,
+  "occupation": "",
+  "ep": "",
+  "vak": "",
+  "presenting": "Unresolved childhood trauma affecting self-esteem, confidence, assertiveness, and trust. Anxiety-driven hypervigilance. Difficulty letting go and feeling comfortable in own skin.",
+  "presenting_quote": "I have some issues with letting go of past traumatic experiences and the feelings surrounding them from when I was a young kid. I've tried traditional psychotherapy, which has helped a ton, but I am still looking to resolve complicated feelings around self-esteem, confidence, assertiveness, and generally to feel comfortable in my own skin. I have issues letting go and trusting people that are close to me. It still feels like my anxiety still runs the show sometimes, and I want to become more open and less hypervigilant.",
+  "case_ref": "TRAUMA-001",
+  "status": "intake",
+  "start_date": "2026-10-08",
+  "fee": "pro_bono",
+  "referral": "HMI Community Service Program (CSP)",
+  "prior_therapy": "Traditional psychotherapy (client reports significant progress but unresolved feelings remain)",
+  "history": "22-year-old, childhood trauma (details TBD in session). Has done traditional psychotherapy which helped significantly. Remaining issues: self-esteem, confidence, assertiveness, comfort in own skin, letting go, trust, anxiety-driven hypervigilance. Wants to become more open and less guarded. Requested male therapist for comfort discussing men's issues. CSP pro bono client via HMI.",
+  "contraindications": [
+    "SCREEN: childhood trauma history requires careful approach",
+    "SCREEN: anxiety level and any panic disorder",
+    "SCREEN: current medications (anti-anxiety, anti-depressant)",
+    "SCREEN: suicidal ideation history",
+    "SCREEN: active psychiatric care (if yes, must coordinate or refer)"
+  ],
+  "medications": [],
+  "tracker": {},
+  "sessions": [],
+  "smart_goals": [
+    {"measure": "Self-esteem", "baseline": "TBD (Session 1)", "target": "7-8/10 (confident in own worth)"},
+    {"measure": "Assertiveness", "baseline": "TBD (Session 1)", "target": "Comfortable setting boundaries"},
+    {"measure": "Anxiety level", "baseline": "TBD (Session 1)", "target": "Manageable, not running the show"},
+    {"measure": "Trust in close relationships", "baseline": "TBD (Session 1)", "target": "Open, less hypervigilant"},
+    {"measure": "Comfort in own skin", "baseline": "TBD (Session 1)", "target": "8+/10 (at ease being self)"},
+    {"measure": "Letting go of past", "baseline": "TBD (Session 1)", "target": "Past acknowledged, no longer controls present"}
+  ],
+  "treatment_plan": {
+    "total_sessions": "6-8",
+    "frequency": "Every 1-2 weeks",
+    "approach": "Clinical hypnotherapy (EP lane TBD after suggestibility test)",
+    "sessions": [
+      {"num": 1, "focus": "Assessment + Intake + Suggestibility Test + First Induction", "status": "scheduled", "date": "2026-10-08"},
+      {"num": 2, "focus": "Inner Child Work + Core Belief Reframe", "status": "upcoming"},
+      {"num": 3, "focus": "Self-Esteem + Confidence Installation", "status": "upcoming"},
+      {"num": 4, "focus": "Trust + Assertiveness + Boundaries", "status": "upcoming"},
+      {"num": 5, "focus": "Anxiety Reduction + Hypervigilance Release", "status": "upcoming"},
+      {"num": 6, "focus": "Integration + Self-Hypnosis Independence", "status": "upcoming"},
+      {"num": 7, "focus": "Contingency (if needed)", "status": "upcoming"},
+      {"num": 8, "focus": "Contingency (if needed)", "status": "upcoming"}
+    ]
+  },
+  "phs": [],
+  "homework": [],
+  "notes": {
+    "client_preference": "Requested male therapist for comfort discussing men's issues. Accommodate this throughout.",
+    "therapeutic_approach": "Client has psychotherapy foundation. Hypnotherapy complements by accessing subconscious patterns that talk therapy has not fully resolved. Inner child work likely central. Approach with sensitivity given trauma history.",
+    "csp_compliance": "HMI Community Service Program. Pro bono. Log all hours to CCH. Use initials T.M. only in CCH logs and shared documents."
+  }
+}
