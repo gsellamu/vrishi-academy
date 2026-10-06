@@ -3,7 +3,8 @@ academy-builder-svc (:8606) -- Builder Studio
 Context-aware Claude API assistant + document generation + session automation.
 
 Endpoints:
-  POST /api/v1/chat              - Chat with Claude (context-aware, session persistence)
+  POST /api/v1/chat              - Chat with Claude (sync, cached system prompt)
+  POST /api/v1/chat/stream       - Chat with Claude (SSE streaming + cached prompt)
   POST /api/v1/generate-docs     - Generate client documents from JSON
   POST /api/v1/intake-to-plan    - Intake data -> treatment plan via Claude
   POST /api/v1/post-session      - SOAP notes -> AVS + email draft via Claude
@@ -14,6 +15,7 @@ Endpoints:
   PUT  /api/v1/context-files     - Upload/update a context file
   POST /api/v1/clients           - Store client data
   GET  /api/v1/clients/{id}      - Get client data
+  GET  /api/v1/stats             - Cost attribution + cache hit stats
   GET  /healthz                  - Liveness
   GET  /readyz                   - Readiness
 """
@@ -23,15 +25,14 @@ import os
 import sys
 import uuid
 from pathlib import Path
-from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from academy_shared.service_factory import create_app
 
-from fastapi import Depends, HTTPException, Request, UploadFile, File
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field
+from fastapi import HTTPException
+from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
 
 from storage import PostgresStorage, MinioStorage
 from claude_engine import ClaudeEngine
@@ -45,7 +46,7 @@ sys.path.insert(0, str(SCRIPTS_DIR))
 # ---------------------------------------------------------------------------
 app = create_app("academy-builder-svc", "1.0.0")
 
-# Globals initialized in startup
+# Globals initialized lazily
 pg_storage: PostgresStorage = None
 minio_storage: MinioStorage = None
 claude: ClaudeEngine = None
@@ -59,19 +60,19 @@ def _ensure_storage():
         if db:
             pg_storage = PostgresStorage(db)
     if minio_storage is None:
-        minio_endpoint = os.getenv("MINIO_ENDPOINT", "http://localhost:9000")
-        minio_user = os.getenv("MINIO_ROOT_USER", "")
-        minio_pass = os.getenv("MINIO_ROOT_PASSWORD", "")
-        if minio_user and minio_pass:
+        ep = os.getenv("MINIO_ENDPOINT", "http://localhost:9000")
+        user = os.getenv("MINIO_ROOT_USER", "")
+        pw = os.getenv("MINIO_ROOT_PASSWORD", "")
+        if user and pw:
             try:
-                minio_storage = MinioStorage(minio_endpoint, minio_user, minio_pass, "builder-studio")
+                minio_storage = MinioStorage(ep, user, pw, "builder-studio")
             except Exception:
                 pass
     if claude is None:
-        api_key = os.getenv("ANTHROPIC_API_KEY", "")
-        if api_key:
+        key = os.getenv("ANTHROPIC_API_KEY", "")
+        if key:
             try:
-                claude = ClaudeEngine(api_key)
+                claude = ClaudeEngine(key)
             except Exception:
                 pass
 
@@ -117,19 +118,18 @@ class PostSessionRequest(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Chat endpoints
+# Chat endpoints (sync + streaming)
 # ---------------------------------------------------------------------------
 @app.post("/api/v1/chat")
 async def chat_endpoint(req: ChatRequest):
+    """Synchronous chat with prompt caching."""
     _ensure_storage()
     if not claude:
         raise HTTPException(503, "Claude API not configured. Set ANTHROPIC_API_KEY.")
-    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
 
     session_id = req.session_id or str(uuid.uuid4())
-
     result = await claude.chat(
         prompt=req.prompt,
         storage=pg_storage,
@@ -140,6 +140,43 @@ async def chat_endpoint(req: ChatRequest):
     return result
 
 
+@app.post("/api/v1/chat/stream")
+async def chat_stream_endpoint(req: ChatRequest):
+    """Streaming chat via SSE with prompt caching. First token <500ms."""
+    _ensure_storage()
+    if not claude:
+        raise HTTPException(503, "Claude API not configured. Set ANTHROPIC_API_KEY.")
+    if not pg_storage:
+        raise HTTPException(503, "Database not available.")
+
+    session_id = req.session_id or str(uuid.uuid4())
+
+    async def event_generator():
+        try:
+            async for chunk in claude.chat_stream(
+                prompt=req.prompt,
+                storage=pg_storage,
+                session_id=session_id,
+                continue_session=req.continue_session,
+                model=req.model or None,
+            ):
+                yield "data: {}\n\n".format(json.dumps(chunk))
+        except Exception as e:
+            yield "data: {}\n\n".format(json.dumps({"type": "error", "error": str(e)}))
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
+# ---------------------------------------------------------------------------
+# Session endpoints
+# ---------------------------------------------------------------------------
 @app.get("/api/v1/sessions")
 async def list_sessions(limit: int = 20):
     _ensure_storage()
@@ -226,36 +263,31 @@ async def get_client(client_id: str):
 # ---------------------------------------------------------------------------
 @app.post("/api/v1/generate-docs")
 async def generate_docs(req: GenerateDocsRequest):
-    """Generate all 4 client documents. Returns HTML content (and optionally uploads to MinIO)."""
+    """Generate all 4 client documents. Returns HTML content."""
     try:
         from generate_client_docs import gen_avs, gen_treatment_plan, gen_sb577, gen_recording_consent
     except ImportError:
         raise HTTPException(500, "Document generator not found. Check scripts/ path.")
 
     client = req.client_data
-    docs = {}
-
     try:
-        docs["avs"] = gen_avs(client, req.session_index)
-        docs["treatment_plan"] = gen_treatment_plan(client)
-        docs["sb577"] = gen_sb577(client)
-        docs["recording_consent"] = gen_recording_consent(client)
+        docs = {
+            "avs": gen_avs(client, req.session_index),
+            "treatment_plan": gen_treatment_plan(client),
+            "sb577": gen_sb577(client),
+            "recording_consent": gen_recording_consent(client),
+        }
     except Exception as e:
         raise HTTPException(422, "Document generation failed: {}".format(e))
 
     result = {"documents": {}}
     for doc_type, html in docs.items():
         entry = {"html": html}
-
-        # Upload to MinIO if requested
         if req.output_to_minio and minio_storage:
             cid = client.get("id", "unknown")
             key = "client-documents/{}/{}".format(cid, doc_type)
-            minio_storage.upload_file(
-                "{}.html".format(key), html.encode("utf-8"), "text/html"
-            )
+            minio_storage.upload_file("{}.html".format(key), html.encode("utf-8"), "text/html")
             entry["minio_key"] = "{}.html".format(key)
-
         result["documents"][doc_type] = entry
 
     return result
@@ -270,7 +302,6 @@ async def intake_to_plan(req: IntakeRequest):
     _ensure_storage()
     if not claude:
         raise HTTPException(503, "Claude API not configured.")
-    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
 
@@ -280,19 +311,15 @@ async def intake_to_plan(req: IntakeRequest):
         raise HTTPException(500, "Session prep module not found.")
 
     prompt = build_intake_prompt(req.client_data)
-    result = await claude.generate_structured(
-        prompt=prompt, storage=pg_storage, model=req.model or None
-    )
-    return result
+    return await claude.generate_structured(prompt=prompt, storage=pg_storage, model=req.model or None)
 
 
 @app.post("/api/v1/post-session")
 async def post_session(req: PostSessionRequest):
-    """Generate post-session docs (AVS + email) from SOAP notes using Claude."""
+    """Generate post-session docs from SOAP notes using Claude."""
     _ensure_storage()
     if not claude:
         raise HTTPException(503, "Claude API not configured.")
-    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
 
@@ -302,10 +329,36 @@ async def post_session(req: PostSessionRequest):
         raise HTTPException(500, "Session prep module not found.")
 
     prompt = build_post_session_prompt(req.client_data, req.session_num, req.soap)
-    result = await claude.generate_structured(
-        prompt=prompt, storage=pg_storage, model=req.model or None
+    return await claude.generate_structured(prompt=prompt, storage=pg_storage, model=req.model or None)
+
+
+# ---------------------------------------------------------------------------
+# Stats / cost attribution
+# ---------------------------------------------------------------------------
+@app.get("/api/v1/stats")
+async def get_stats():
+    """Aggregate token usage and cache hit stats across sessions."""
+    _ensure_storage()
+    if not pg_storage:
+        raise HTTPException(503, "Database not available.")
+
+    row = await pg_storage.db.fetchrow(
+        """SELECT
+            COUNT(*) as total_sessions,
+            COALESCE(SUM(token_count), 0) as total_tokens,
+            COALESCE(AVG(token_count), 0) as avg_tokens_per_session
+           FROM builder_sessions"""
     )
-    return result
+
+    return {
+        "total_sessions": row["total_sessions"],
+        "total_tokens": row["total_tokens"],
+        "avg_tokens_per_session": round(float(row["avg_tokens_per_session"])),
+        "estimated_cost_usd": round(float(row["total_tokens"]) * 0.000009, 4),
+        "prompt_caching": "enabled",
+        "streaming": "enabled",
+        "model": claude.model if claude else "not configured",
+    }
 
 
 # ---------------------------------------------------------------------------

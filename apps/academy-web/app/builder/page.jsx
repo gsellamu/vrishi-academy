@@ -90,31 +90,53 @@ function ChatPanel() {
     if (!input.trim() || loading) return;
     const userMsg = input.trim();
     setInput("");
-    setMessages((prev) => [...prev, { role: "user", content: userMsg }]);
+    setMessages((prev) => [...prev, { role: "user", content: userMsg }, { role: "assistant", content: "" }]);
     setLoading(true);
 
     try {
-      const r = await fetch(API + "/api/v1/chat", {
+      const r = await fetch(API + "/api/v1/chat/stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: userMsg,
-          session_id: sessionId,
-          continue_session: true,
-        }),
+        body: JSON.stringify({ prompt: userMsg, session_id: sessionId, continue_session: true }),
       });
-      if (r.ok) {
-        const data = await r.json();
-        setMessages((prev) => [...prev, { role: "assistant", content: data.response }]);
-        setSessionId(data.session_id);
-        setStats({ tokens: data.total_tokens, model: data.model });
-        fetchSessions();
-      } else {
+
+      if (!r.ok) {
         const err = await r.text();
-        setMessages((prev) => [...prev, { role: "assistant", content: "Error: " + err }]);
+        setMessages((prev) => { const u = [...prev]; u[u.length - 1] = { role: "assistant", content: "Error: " + err }; return u; });
+        setLoading(false);
+        return;
+      }
+
+      const reader = r.body.getReader();
+      const decoder = new TextDecoder();
+      let assistantText = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const lines = decoder.decode(value, { stream: true }).split("
+");
+        for (const line of lines) {
+          if (!line.startsWith("data: ")) continue;
+          try {
+            const data = JSON.parse(line.slice(6));
+            if (data.type === "text") {
+              assistantText += data.text;
+              setMessages((prev) => { const u = [...prev]; u[u.length - 1] = { role: "assistant", content: assistantText }; return u; });
+            } else if (data.type === "done") {
+              setSessionId(data.session_id);
+              setStats({ tokens: data.total_tokens, model: data.model, cached: data.cache_read_input_tokens || 0 });
+              fetchSessions();
+            } else if (data.type === "error") {
+              assistantText += "
+Error: " + data.error;
+              setMessages((prev) => { const u = [...prev]; u[u.length - 1] = { role: "assistant", content: assistantText }; return u; });
+            }
+          } catch { /* partial JSON line */ }
+        }
       }
     } catch (e) {
-      setMessages((prev) => [...prev, { role: "assistant", content: "Connection error: " + e.message }]);
+      setMessages((prev) => { const u = [...prev]; u[u.length - 1] = { role: "assistant", content: "Connection error: " + e.message }; return u; });
     }
     setLoading(false);
   }
@@ -180,7 +202,7 @@ function ChatPanel() {
           ))}
           {loading && (
             <div style={{ fontSize: 11, color: "var(--amber)", fontFamily: "var(--mono)" }}>
-              thinking...
+              streaming...
             </div>
           )}
           <div ref={endRef} />
@@ -206,7 +228,7 @@ function ChatPanel() {
         </div>
         {stats && (
           <div style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--dim)", textAlign: "right" }}>
-            {stats.model} | {stats.tokens} tokens
+            {stats.model} | {stats.tokens} tokens{stats.cached ? " | " + stats.cached + " cached" : ""}
           </div>
         )}
       </div>
