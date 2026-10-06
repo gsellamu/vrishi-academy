@@ -114,8 +114,7 @@ function ChatPanel() {
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        const lines = decoder.decode(value, { stream: true }).split("
-");
+        const lines = decoder.decode(value, { stream: true }).split("\n");
         for (const line of lines) {
           if (!line.startsWith("data: ")) continue;
           try {
@@ -128,8 +127,7 @@ function ChatPanel() {
               setStats({ tokens: data.total_tokens, model: data.model, cached: data.cache_read_input_tokens || 0 });
               fetchSessions();
             } else if (data.type === "error") {
-              assistantText += "
-Error: " + data.error;
+              assistantText += "\nError: " + data.error;
               setMessages((prev) => { const u = [...prev]; u[u.length - 1] = { role: "assistant", content: assistantText }; return u; });
             }
           } catch { /* partial JSON line */ }
