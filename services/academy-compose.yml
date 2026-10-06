@@ -3,10 +3,11 @@
 #   docker compose -f academy-compose.yml --profile p0 up -d --build  # core (orch + persona)
 #   docker compose -f academy-compose.yml --profile p1 up -d --build  # + auth + progress
 #   docker compose -f academy-compose.yml --profile p2 up -d --build  # + grader
-#   docker compose -f academy-compose.yml --profile p3 up -d --build  # + content (future)
+#   docker compose -f academy-compose.yml --profile p3 up -d --build  # + zoom-copilot
+#   docker compose -f academy-compose.yml --profile p4 up -d --build  # + builder studio
 # Prereq: the common stack is up (jeeth.ai/infrastructure/docker/infra-stack-compose.yml)
 #
-# HOST PORTS: 8600-8605 for academy services, 3070 for academy-web dev.
+# HOST PORTS: 8600-8606 for academy services, 3070 for academy-web dev.
 
 name: vrishi-academy
 
@@ -124,4 +125,23 @@ services:
     ports: ["8605:8000"]
     networks: [jeethhypno-shared-network-global]
     profiles: ["p3"]
+    restart: unless-stopped
+
+  # -- P4: Builder Studio -------------------------------------------------
+  academy-builder-svc:
+    build:
+      context: ..
+      dockerfile: services/academy-builder-svc/Dockerfile
+    container_name: academy-builder
+    environment:
+      <<: *academy-env
+      CORS_ORIGINS: http://localhost:3070
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin}
+      MINIO_BUCKET: builder-studio
+      CLAUDE_MODEL: ${CLAUDE_MODEL:-claude-sonnet-4-6}
+    ports: ["8606:8000"]
+    networks: [jeethhypno-shared-network-global]
+    profiles: ["p4"]
     restart: unless-stopped
