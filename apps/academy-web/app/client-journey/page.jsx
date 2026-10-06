@@ -24,7 +24,7 @@ function openAVS(client, session, practitioner) {
   const w = window.open("", "_blank", "width=800,height=1000,scrollbars=yes,resizable=yes");
   if (!w) return;
   const isFirst = session.num === 1;
-  const hwItems = ["4-7-8 breathing", "Tension-release", "Settling practice", "Dream journal", "Screen cutoff", "Time-boxing", "Session recording", "Sleep tracking"];
+  const hwItems = ["Processing journaling", "Precognitive journaling", "Venting + next-day plan", "Close journal", "Breathing + progressive relaxation", "Deep sleep self-hypnosis"];
   const hwDone = session.homeworkDone || [];
   const hwRows = hwItems.map(h => `<tr><td>${h}</td><td>Daily</td><td style="text-align:center">${hwDone.includes(h) ? '<b style="color:#2d6a4f">YES</b>' : '<span style="color:#999">--</span>'}</td></tr>`).join("\n");
 
@@ -198,11 +198,11 @@ const SEED_CLIENTS = [
         techniques: "Eagle arm-raise, trophy staircase, cellular regeneration progressive, island cabin, Sorting Room, Depth Dial, Settling Pond",
         notes: "First session. 36-question suggestibility test: highly Physical. Theory of Mind with reptile brain + RAM/hardwired. Neuroscience deep dive (oscillations, glymphatic, DMA, synaptic homeostasis). Kappas 3-stage dream pipeline. 4-7-8 breathing anchor taught. Sleep ceremony homework assigned. Venting dream suggestions planted.",
         sleepScore: 4,
-        homeworkDone: ["4-7-8 breathing"],
+        homeworkDone: ["Breathing + progressive relaxation"],
         dreamJournal: "",
         feedback: "Post-session (Oct 2, 6:12 AM): 'After the session, I went to bed immediately. It took me awhile to fall asleep. But once fell asleep, I got up just once to use the bathroom. Sleep started at 11 pm and woke up at 7:33 am.' Reports losing 1 kg overnight (unsure if related). ECG showed resting heart rate dropped from usual 72 bpm to 63 bpm the morning after. Historical baseline was 57 bpm. Asks how many sessions the program requires — notes tendency to 'lose or get fatigue after 4-5 sessions.' Watch data to follow.",
         plan: "Session 2: Review watch/sleep data. Reinforce Depth Dial. Address the 'took awhile to fall asleep' — strengthen the pillow trigger and 4-7-8 anchor. The 8.5-hour sleep block (11 PM to 7:33 AM) with only 1 wake is a strong first-session result. Heart rate drop (72 to 63) suggests significant parasympathetic activation — document as objective progress marker. Manage session fatigue concern — set expectations for 6-8 session arc, not open-ended.",
-        soap_subjective: "Client reports sleeping 7-8 hours (up from 5-6 before relocation) but waking exhausted. Mind stays active during sleep — 'like the engine is always idling, even when the car is parked.' Recently relocated internationally, socially thriving, not anxious — 'happier than I have been in years.' Vivid work-related dreams throughout the night: meetings, conversations, navigating new city. Asks: 'How do I completely turn off my brain?'",
+        soap_subjective: "Client reports sleeping 6-7 hours (up from 5-6 before relocation) but waking exhausted. Mind stays active during sleep — 'like the engine is always idling, even when the car is parked.' Recently relocated internationally, socially thriving, not anxious — 'happier than I have been in years.' Vivid work-related dreams throughout the night: meetings, conversations, navigating new city. Asks: 'How do I completely turn off my brain?'",
         soap_objective: "36-question suggestibility test: Highly Physical (76%). Arm-raising induction successful — strong physiological response (all 4 nods). Eagle visualization produced visible hand levitation. Hand-to-forehead challenge held. Reactional deepener: rapid re-entry on all 4 cycles. Progressive relaxation: visible muscle release, breathing rate dropped. Client appeared deeply relaxed throughout.",
         soap_assessment: "Unrefreshing sleep despite adequate duration, consistent with insufficient deep (N3) sleep. Tracker shows 21% combined Deep+REM (does not separate N3 from REM). Recent international relocation presents significant novel-data processing load (new language, cultural norms, spatial navigation, social dynamics) — vivid content-rich dreaming suggests processing at shallow sleep stages rather than deep restorative stages. Not anxiety-related — client is positive and relaxed during waking hours. Prognosis: good — motivated, strong hypnotic responsiveness (arm-raising: all 4 nods, hand levitation, challenge held, rapid reactional re-entry). 76% Physical responds well to direct, literal language.",
         soap_plan: "1. Sleep ceremony homework (time-boxing, notepad, 4-7-8 breathing, screen cutoff). 2. Settling practice nightly. 3. Dream journal to track venting. 4. Follow-up in 1-2 weeks to assess: sleep quality improvement, dream journal content, homework compliance. 5. Session 2: reinforce Depth Dial, test PHS re-hypnosis speed, adjust suggestions per feedback.",
@@ -500,7 +500,7 @@ export default function ClientJourney() {
                 {/* Homework checklist */}
                 <div style={{ fontFamily: "var(--mono)", fontSize: 9, textTransform: "uppercase", color: "var(--dim)", marginBottom: 4 }}>Homework compliance</div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 4 }}>
-                  {["4-7-8 breathing", "Settling practice", "Dream journal", "Screen cutoff", "Time-boxing", "Recording listened"].map((hw) => {
+                  {["Processing journaling", "Precognitive journaling", "Venting + next-day plan", "Close journal", "Breathing + progressive relaxation", "Deep sleep self-hypnosis"].map((hw) => {
                     const on = (s.homeworkDone || []).includes(hw);
                     return (
                       <button key={hw} className={`checkchip${on ? " on" : ""}`} style={{ fontSize: 10 }}

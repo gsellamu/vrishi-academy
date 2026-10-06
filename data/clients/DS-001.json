@@ -7,13 +7,13 @@
   "occupation": "Principal Engineer (Computer & Electronics)",
   "ep": "76% Physical",
   "vak": "Kinesthetic-dominant",
-  "presenting": "Disturbed sleep \u2014 sleeping longer but not well",
+  "presenting": "Poor sleep quality — mental hyperactivity and persistent fatigue despite sleeping 6-7 hours per night",
   "presenting_quote": "I am struggling to sleep because my mind is always busy, even when I am sleeping. I am actually sleeping longer but not well.",
   "case_ref": "SLEEP-004",
   "status": "active",
   "start_date": "2026-10-01",
   "fee": "pro_bono",
-  "history": "No prior hypnosis. Recently relocated internationally. Socially thriving. Paradox: sleeping MORE hours (7-8, up from 5-6) but waking exhausted. Vivid work-related dreams. Not anxiety-related.",
+  "history": "No prior hypnosis. Recently relocated internationally. Socially thriving. Paradox: sleeping MORE hours (6-7, up from 5-6) but waking exhausted. Vivid work-related dreams. Not anxiety-related.",
   "contraindications": [],
   "medications": [],
   "tracker": {
@@ -30,10 +30,12 @@
       "duration_min": 60,
       "techniques": "Eagle arm-raise, trophy staircase, cellular regeneration progressive, island cabin, Sorting Room, Depth Dial, Settling Pond",
       "sleep_score": 4,
-      "homework_done": ["4-7-8 breathing"],
+      "homework_done": [
+        "Breathing + self progressive relaxation"
+      ],
       "soap": {
-        "subjective": "Client reports sleeping 7-8 hours (up from 5-6 before relocation) but waking exhausted. Mind stays active during sleep \u2014 'like the engine is always idling, even when the car is parked.' Recently relocated internationally, socially thriving, not anxious \u2014 'happier than I have been in years.' Vivid work-related dreams throughout the night: meetings, conversations, navigating new city.",
-        "objective": "36-question suggestibility test: Highly Physical (76%). Arm-raising induction successful \u2014 strong physiological response (all 4 nods). Eagle visualization produced visible hand levitation. Hand-to-forehead challenge held. Reactional deepener: rapid re-entry on all 4 cycles. Progressive relaxation: visible muscle release, breathing rate dropped.",
+        "subjective": "Client reports poor sleep quality characterized by mental hyperactivity and persistent fatigue despite sleeping 6-7 hours per night (up from 5-6 before relocation). Mind remains active with business planning and digital media even when attempting to rest. Describes mind as 'like the engine is always idling, even when the car is parked.' Recently relocated internationally, socially thriving, not anxious — 'happier than I have been in years.'",
+        "objective": "36-question suggestibility test: Highly Physical (76%). Arm-raising induction successful — strong physiological response (all 4 nods). Eagle visualization produced visible hand levitation. Hand-to-forehead challenge held. Reactional deepener: rapid re-entry on all 4 cycles. Progressive relaxation: visible muscle release, breathing rate dropped.",
         "assessment": "Unrefreshing sleep despite adequate duration, consistent with insufficient deep (N3) sleep. Tracker shows 21% combined Deep+REM (does not separate N3 from REM). Recent international relocation presents significant novel-data processing load. Not anxiety-related. Prognosis: good.",
         "plan": "1. Sleep ceremony homework. 2. Settling practice nightly. 3. Dream journal. 4. Follow-up in 1-2 weeks. 5. Session 2: reinforce Depth Dial, test PHS re-hypnosis speed."
       },
@@ -41,26 +43,83 @@
     }
   ],
   "smart_goals": [
-    {"measure": "Morning restedness", "baseline": "4/10 (exhausted)", "target": "7-8/10 (refreshed)"},
-    {"measure": "Sleep onset ease", "baseline": "Difficult (~35 min)", "target": "Natural, effortless"},
-    {"measure": "Night-waking", "baseline": "Frequent, hard to return", "target": "Rare, returns easily"},
-    {"measure": "Daytime energy", "baseline": "Low, persistent fatigue", "target": "Consistent throughout day"},
-    {"measure": "Ceremony compliance", "baseline": "Starting", "target": "Effortless habit"},
-    {"measure": "Self-hypnosis confidence", "baseline": "Not yet learned", "target": "8+/10 (fully independent)"}
+    {
+      "measure": "Morning restedness",
+      "baseline": "4/10 (exhausted)",
+      "target": "7-8/10 (refreshed)"
+    },
+    {
+      "measure": "Sleep onset ease",
+      "baseline": "Difficult (~35 min)",
+      "target": "Natural, effortless"
+    },
+    {
+      "measure": "Night-waking",
+      "baseline": "Frequent, hard to return",
+      "target": "Rare, returns easily"
+    },
+    {
+      "measure": "Daytime energy",
+      "baseline": "Low, persistent fatigue",
+      "target": "Consistent throughout day"
+    },
+    {
+      "measure": "Ceremony compliance",
+      "baseline": "Starting",
+      "target": "Effortless habit"
+    },
+    {
+      "measure": "Self-hypnosis confidence",
+      "baseline": "Not yet learned",
+      "target": "8+/10 (fully independent)"
+    }
   ],
   "treatment_plan": {
     "total_sessions": "6-8",
     "frequency": "Every 1-2 weeks",
     "approach": "Clinical hypnotherapy, Physical suggestible lane (direct/literal)",
     "sessions": [
-      {"num": 1, "focus": "Assessment + Education + First Induction", "status": "completed"},
-      {"num": 2, "focus": "THE INSTALLATION \u2014 10 PHS anchored in deep trance", "status": "scheduled", "date": "2026-10-09"},
-      {"num": 3, "focus": "Maintenance + Overactive Mind", "status": "upcoming"},
-      {"num": 4, "focus": "Independence Pivot \u2014 self-hypnosis taught", "status": "upcoming"},
-      {"num": 5, "focus": "Fine-Tuning", "status": "upcoming"},
-      {"num": 6, "focus": "Graduation", "status": "upcoming"},
-      {"num": 7, "focus": "Contingency (if needed)", "status": "upcoming"},
-      {"num": 8, "focus": "Contingency (if needed)", "status": "upcoming"}
+      {
+        "num": 1,
+        "focus": "Assessment + Education + First Induction",
+        "status": "completed"
+      },
+      {
+        "num": 2,
+        "focus": "THE INSTALLATION — 10 PHS anchored in deep trance",
+        "status": "scheduled",
+        "date": "2026-10-09"
+      },
+      {
+        "num": 3,
+        "focus": "Maintenance + Overactive Mind",
+        "status": "upcoming"
+      },
+      {
+        "num": 4,
+        "focus": "Independence Pivot — self-hypnosis taught",
+        "status": "upcoming"
+      },
+      {
+        "num": 5,
+        "focus": "Fine-Tuning",
+        "status": "upcoming"
+      },
+      {
+        "num": 6,
+        "focus": "Graduation",
+        "status": "upcoming"
+      },
+      {
+        "num": 7,
+        "focus": "Contingency (if needed)",
+        "status": "upcoming"
+      },
+      {
+        "num": 8,
+        "focus": "Contingency (if needed)",
+        "status": "upcoming"
+      }
     ]
   },
   "phs": [
@@ -76,13 +135,11 @@
     "Tracker as Convincer: Rising deep sleep % reinforces programming"
   ],
   "homework": [
-    "4-7-8 breathing",
-    "Tension-release",
-    "Settling practice",
-    "Dream journal",
-    "Screen cutoff",
-    "Time-boxing",
-    "Session recording",
-    "Sleep tracking"
+    "Processing journaling (Wishful Thinking Stage)",
+    "Precognitive journaling",
+    "Venting with plan for next day/future",
+    "Close the journal",
+    "Breathing + self progressive relaxation",
+    "Dream of deep peaceful sleep + self-hypnosis"
   ]
 }
