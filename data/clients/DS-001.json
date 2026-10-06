@@ -1,0 +1,88 @@
+{
+  "id": "DS-001",
+  "name": "Deepak S.",
+  "full_name": "Deepak Shankar",
+  "initials": "DS",
+  "age": 56,
+  "occupation": "Principal Engineer (Computer & Electronics)",
+  "ep": "76% Physical",
+  "vak": "Kinesthetic-dominant",
+  "presenting": "Disturbed sleep \u2014 sleeping longer but not well",
+  "presenting_quote": "I am struggling to sleep because my mind is always busy, even when I am sleeping. I am actually sleeping longer but not well.",
+  "case_ref": "SLEEP-004",
+  "status": "active",
+  "start_date": "2026-10-01",
+  "fee": "pro_bono",
+  "history": "No prior hypnosis. Recently relocated internationally. Socially thriving. Paradox: sleeping MORE hours (7-8, up from 5-6) but waking exhausted. Vivid work-related dreams. Not anxiety-related.",
+  "contraindications": [],
+  "medications": [],
+  "tracker": {
+    "type": "wearable",
+    "deep_rem_combined_pct": 21,
+    "light_pct": 79,
+    "note": "Tracker combines Deep (N3) and REM into one category. Actual N3 unknown."
+  },
+  "sessions": [
+    {
+      "num": 1,
+      "date": "2026-10-01",
+      "status": "completed",
+      "duration_min": 60,
+      "techniques": "Eagle arm-raise, trophy staircase, cellular regeneration progressive, island cabin, Sorting Room, Depth Dial, Settling Pond",
+      "sleep_score": 4,
+      "homework_done": ["4-7-8 breathing"],
+      "soap": {
+        "subjective": "Client reports sleeping 7-8 hours (up from 5-6 before relocation) but waking exhausted. Mind stays active during sleep \u2014 'like the engine is always idling, even when the car is parked.' Recently relocated internationally, socially thriving, not anxious \u2014 'happier than I have been in years.' Vivid work-related dreams throughout the night: meetings, conversations, navigating new city.",
+        "objective": "36-question suggestibility test: Highly Physical (76%). Arm-raising induction successful \u2014 strong physiological response (all 4 nods). Eagle visualization produced visible hand levitation. Hand-to-forehead challenge held. Reactional deepener: rapid re-entry on all 4 cycles. Progressive relaxation: visible muscle release, breathing rate dropped.",
+        "assessment": "Unrefreshing sleep despite adequate duration, consistent with insufficient deep (N3) sleep. Tracker shows 21% combined Deep+REM (does not separate N3 from REM). Recent international relocation presents significant novel-data processing load. Not anxiety-related. Prognosis: good.",
+        "plan": "1. Sleep ceremony homework. 2. Settling practice nightly. 3. Dream journal. 4. Follow-up in 1-2 weeks. 5. Session 2: reinforce Depth Dial, test PHS re-hypnosis speed."
+      },
+      "feedback": "Post-session (Oct 2, 6:12 AM): Sleep 11 PM to 7:33 AM with only 1 bathroom wake. Heart rate dropped 72 to 63 bpm. Reports tendency to fatigue after 4-5 sessions."
+    }
+  ],
+  "smart_goals": [
+    {"measure": "Morning restedness", "baseline": "4/10 (exhausted)", "target": "7-8/10 (refreshed)"},
+    {"measure": "Sleep onset ease", "baseline": "Difficult (~35 min)", "target": "Natural, effortless"},
+    {"measure": "Night-waking", "baseline": "Frequent, hard to return", "target": "Rare, returns easily"},
+    {"measure": "Daytime energy", "baseline": "Low, persistent fatigue", "target": "Consistent throughout day"},
+    {"measure": "Ceremony compliance", "baseline": "Starting", "target": "Effortless habit"},
+    {"measure": "Self-hypnosis confidence", "baseline": "Not yet learned", "target": "8+/10 (fully independent)"}
+  ],
+  "treatment_plan": {
+    "total_sessions": "6-8",
+    "frequency": "Every 1-2 weeks",
+    "approach": "Clinical hypnotherapy, Physical suggestible lane (direct/literal)",
+    "sessions": [
+      {"num": 1, "focus": "Assessment + Education + First Induction", "status": "completed"},
+      {"num": 2, "focus": "THE INSTALLATION \u2014 10 PHS anchored in deep trance", "status": "scheduled", "date": "2026-10-09"},
+      {"num": 3, "focus": "Maintenance + Overactive Mind", "status": "upcoming"},
+      {"num": 4, "focus": "Independence Pivot \u2014 self-hypnosis taught", "status": "upcoming"},
+      {"num": 5, "focus": "Fine-Tuning", "status": "upcoming"},
+      {"num": 6, "focus": "Graduation", "status": "upcoming"},
+      {"num": 7, "focus": "Contingency (if needed)", "status": "upcoming"},
+      {"num": 8, "focus": "Contingency (if needed)", "status": "upcoming"}
+    ]
+  },
+  "phs": [
+    "Sorting Room: Face Gallery, Language Wing, Map Room files daily data during delta sleep",
+    "Depth Dial: Surface (8 Hz) to DELTA LOCK (0.5 Hz), permanently installed",
+    "Delta Floor: Brain bypasses light sleep to delta within 30 min, 3-hour lock",
+    "Settling Pond: Day's impressions settle like gold dust in still water",
+    "Island Cabin: Permanent healing sanctuary, cedar, ocean air, cellular regeneration",
+    "Pillow Trigger: Head on pillow + 4-7-8 = Depth Dial auto-locks to DELTA",
+    "Night-Waking Reset: Hand on chest + one 4-7-8 = back to delta in 60 seconds",
+    "10:30 PM Time Anchor: Nervous system begins shutdown automatically",
+    "Venting Dream Activation: Vivid dreams = system clearing backlog",
+    "Tracker as Convincer: Rising deep sleep % reinforces programming"
+  ],
+  "homework": [
+    "4-7-8 breathing",
+    "Tension-release",
+    "Settling practice",
+    "Dream journal",
+    "Screen cutoff",
+    "Time-boxing",
+    "Session recording",
+    "Sleep tracking"
+  ]
+}
