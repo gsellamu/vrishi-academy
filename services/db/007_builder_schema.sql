@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS builder_workspace_files (
 -- Builder chat sessions (claude --continue equivalent)
 CREATE TABLE IF NOT EXISTS builder_sessions (
     session_id  VARCHAR(255) PRIMARY KEY,
-    user_id     INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    user_id     UUID REFERENCES users(id) ON DELETE CASCADE,
     title       VARCHAR(500),
     messages    JSONB NOT NULL DEFAULT '[]'::jsonb,
     model       VARCHAR(100) DEFAULT 'claude-sonnet-4-6',
