@@ -1,19 +1,19 @@
 """
 Storage adapters for Builder Studio.
 Supports Postgres (workspace files + sessions) and MinIO (documents + context).
+
+NOTE: self.db is an academy_shared.DatabasePool instance — use its
+.fetch(), .fetchrow(), .execute() methods directly (not raw pool acquire).
 """
 from __future__ import annotations
 import json
 import logging
 from abc import ABC, abstractmethod
-from typing import Optional
 
 log = logging.getLogger("builder.storage")
 
 
 class StorageAdapter(ABC):
-    """Unified contract for context files and session persistence."""
-
     @abstractmethod
     async def get_context_file(self, filename: str) -> str:
         pass
@@ -35,7 +35,7 @@ class StorageAdapter(ABC):
         pass
 
     @abstractmethod
-    async def list_sessions(self, user_id: int = None, limit: int = 20) -> list:
+    async def list_sessions(self, user_id=None, limit: int = 20) -> list:
         pass
 
     @abstractmethod
@@ -44,85 +44,96 @@ class StorageAdapter(ABC):
 
 
 class PostgresStorage(StorageAdapter):
-    """Stores workspace docs and sessions in Postgres (academy DB)."""
+    """Stores workspace docs and sessions in Postgres via DatabasePool."""
 
-    def __init__(self, pool):
-        self.pool = pool
+    def __init__(self, db):
+        self.db = db  # academy_shared.DatabasePool
 
     async def get_context_file(self, filename: str) -> str:
-        async with self.pool.acquire() as conn:
-            row = await conn.fetchrow(
-                "SELECT content FROM builder_workspace_files WHERE filename = $1",
-                filename,
-            )
-            return row["content"] if row else ""
+        row = await self.db.fetchrow(
+            "SELECT content FROM builder_workspace_files WHERE filename = $1", filename
+        )
+        return row["content"] if row else ""
 
     async def list_context_files(self) -> list:
-        async with self.pool.acquire() as conn:
-            rows = await conn.fetch(
-                "SELECT filename, category, updated_at FROM builder_workspace_files ORDER BY filename"
-            )
-            return [dict(r) for r in rows]
+        rows = await self.db.fetch(
+            "SELECT filename, category, updated_at FROM builder_workspace_files ORDER BY filename"
+        )
+        result = []
+        for r in rows:
+            result.append({
+                "filename": r["filename"],
+                "category": r["category"],
+                "updated_at": str(r["updated_at"]),
+            })
+        return result
 
     async def put_context_file(self, filename: str, content: str, category: str = "context") -> None:
-        async with self.pool.acquire() as conn:
-            await conn.execute(
-                """INSERT INTO builder_workspace_files (filename, content, category, updated_at)
-                   VALUES ($1, $2, $3, CURRENT_TIMESTAMP)
-                   ON CONFLICT (filename) DO UPDATE
-                   SET content = $2, category = $3, updated_at = CURRENT_TIMESTAMP""",
-                filename, content, category,
-            )
+        await self.db.execute(
+            """INSERT INTO builder_workspace_files (filename, content, category, updated_at)
+               VALUES ($1, $2, $3, CURRENT_TIMESTAMP)
+               ON CONFLICT (filename) DO UPDATE
+               SET content = $2, category = $3, updated_at = CURRENT_TIMESTAMP""",
+            filename, content, category,
+        )
 
     async def load_session(self, session_id: str) -> dict:
-        async with self.pool.acquire() as conn:
-            row = await conn.fetchrow(
-                "SELECT session_id, title, messages, model, token_count, created_at, updated_at "
-                "FROM builder_sessions WHERE session_id = $1",
-                session_id,
-            )
-            if not row:
-                return {"session_id": session_id, "messages": [], "title": "", "model": "", "token_count": 0}
-            result = dict(row)
-            if isinstance(result["messages"], str):
-                result["messages"] = json.loads(result["messages"])
-            return result
+        row = await self.db.fetchrow(
+            "SELECT session_id, title, messages, model, token_count, created_at, updated_at "
+            "FROM builder_sessions WHERE session_id = $1",
+            session_id,
+        )
+        if not row:
+            return {"session_id": session_id, "messages": [], "title": "", "model": "", "token_count": 0}
+        result = dict(row)
+        if isinstance(result["messages"], str):
+            result["messages"] = json.loads(result["messages"])
+        result["created_at"] = str(result["created_at"])
+        result["updated_at"] = str(result["updated_at"])
+        return result
 
     async def save_session(self, session_id: str, messages: list, title: str = "", model: str = "", token_count: int = 0) -> None:
-        async with self.pool.acquire() as conn:
-            await conn.execute(
-                """INSERT INTO builder_sessions (session_id, messages, title, model, token_count, updated_at)
-                   VALUES ($1, $2::jsonb, $3, $4, $5, CURRENT_TIMESTAMP)
-                   ON CONFLICT (session_id) DO UPDATE
-                   SET messages = $2::jsonb, title = COALESCE(NULLIF($3, ''), builder_sessions.title),
-                       model = COALESCE(NULLIF($4, ''), builder_sessions.model),
-                       token_count = $5, updated_at = CURRENT_TIMESTAMP""",
-                session_id, json.dumps(messages), title, model, token_count,
-            )
+        await self.db.execute(
+            """INSERT INTO builder_sessions (session_id, messages, title, model, token_count, updated_at)
+               VALUES ($1, $2::jsonb, $3, $4, $5, CURRENT_TIMESTAMP)
+               ON CONFLICT (session_id) DO UPDATE
+               SET messages = $2::jsonb, title = COALESCE(NULLIF($3, ''), builder_sessions.title),
+                   model = COALESCE(NULLIF($4, ''), builder_sessions.model),
+                   token_count = $5, updated_at = CURRENT_TIMESTAMP""",
+            session_id, json.dumps(messages), title, model, token_count,
+        )
 
-    async def list_sessions(self, user_id: int = None, limit: int = 20) -> list:
-        async with self.pool.acquire() as conn:
-            if user_id:
-                rows = await conn.fetch(
-                    "SELECT session_id, title, model, token_count, created_at, updated_at "
-                    "FROM builder_sessions WHERE user_id = $1 "
-                    "ORDER BY updated_at DESC LIMIT $2",
-                    user_id, limit,
-                )
-            else:
-                rows = await conn.fetch(
-                    "SELECT session_id, title, model, token_count, created_at, updated_at "
-                    "FROM builder_sessions ORDER BY updated_at DESC LIMIT $1",
-                    limit,
-                )
-            return [dict(r) for r in rows]
+    async def list_sessions(self, user_id=None, limit: int = 20) -> list:
+        if user_id:
+            rows = await self.db.fetch(
+                "SELECT session_id, title, model, token_count, created_at, updated_at "
+                "FROM builder_sessions WHERE user_id = $1 "
+                "ORDER BY updated_at DESC LIMIT $2",
+                user_id, limit,
+            )
+        else:
+            rows = await self.db.fetch(
+                "SELECT session_id, title, model, token_count, created_at, updated_at "
+                "FROM builder_sessions ORDER BY updated_at DESC LIMIT $1",
+                limit,
+            )
+        result = []
+        for r in rows:
+            result.append({
+                "session_id": r["session_id"],
+                "title": r["title"] or "",
+                "model": r["model"] or "",
+                "token_count": r["token_count"] or 0,
+                "created_at": str(r["created_at"]),
+                "updated_at": str(r["updated_at"]),
+            })
+        return result
 
     async def delete_session(self, session_id: str) -> bool:
-        async with self.pool.acquire() as conn:
-            result = await conn.execute(
-                "DELETE FROM builder_sessions WHERE session_id = $1", session_id
-            )
-            return "DELETE 1" in result
+        result = await self.db.execute(
+            "DELETE FROM builder_sessions WHERE session_id = $1", session_id
+        )
+        return "DELETE 1" in result
 
 
 class MinioStorage:
@@ -160,7 +171,3 @@ class MinioStorage:
     def list_files(self, prefix: str = "") -> list:
         response = self.s3.list_objects_v2(Bucket=self.bucket, Prefix=prefix)
         return [obj["Key"] for obj in response.get("Contents", [])]
-
-    def delete_file(self, key: str) -> bool:
-        self.s3.delete_object(Bucket=self.bucket, Key=key)
-        return True

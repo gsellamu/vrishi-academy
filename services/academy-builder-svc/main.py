@@ -27,8 +27,7 @@ from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from academy_shared.service_factory import create_app, get_db
-from academy_shared.database import DatabasePool
+from academy_shared.service_factory import create_app
 
 from fastapi import Depends, HTTPException, Request, UploadFile, File
 from fastapi.responses import JSONResponse
@@ -52,31 +51,29 @@ minio_storage: MinioStorage = None
 claude: ClaudeEngine = None
 
 
-@app.on_event("startup")
-async def startup():
+def _ensure_storage():
+    """Lazy-init storage from app.state (set by service_factory lifespan)."""
     global pg_storage, minio_storage, claude
-
-    db = get_db()
-    if db and db.pool:
-        pg_storage = PostgresStorage(db.pool)
-
-    # MinIO (optional)
-    minio_endpoint = os.getenv("MINIO_ENDPOINT", "http://localhost:9000")
-    minio_user = os.getenv("MINIO_ROOT_USER", "")
-    minio_pass = os.getenv("MINIO_ROOT_PASSWORD", "")
-    if minio_user and minio_pass:
-        try:
-            minio_storage = MinioStorage(minio_endpoint, minio_user, minio_pass, "builder-studio")
-        except Exception as e:
-            print("MinIO not available: {}".format(e))
-
-    # Claude API (optional - works without it for doc generation)
-    api_key = os.getenv("ANTHROPIC_API_KEY", "")
-    if api_key:
-        try:
-            claude = ClaudeEngine(api_key)
-        except Exception as e:
-            print("Claude API not available: {}".format(e))
+    if pg_storage is None:
+        db = getattr(app.state, "db", None)
+        if db:
+            pg_storage = PostgresStorage(db)
+    if minio_storage is None:
+        minio_endpoint = os.getenv("MINIO_ENDPOINT", "http://localhost:9000")
+        minio_user = os.getenv("MINIO_ROOT_USER", "")
+        minio_pass = os.getenv("MINIO_ROOT_PASSWORD", "")
+        if minio_user and minio_pass:
+            try:
+                minio_storage = MinioStorage(minio_endpoint, minio_user, minio_pass, "builder-studio")
+            except Exception:
+                pass
+    if claude is None:
+        api_key = os.getenv("ANTHROPIC_API_KEY", "")
+        if api_key:
+            try:
+                claude = ClaudeEngine(api_key)
+            except Exception:
+                pass
 
 
 @app.on_event("shutdown")
@@ -124,8 +121,10 @@ class PostSessionRequest(BaseModel):
 # ---------------------------------------------------------------------------
 @app.post("/api/v1/chat")
 async def chat_endpoint(req: ChatRequest):
+    _ensure_storage()
     if not claude:
         raise HTTPException(503, "Claude API not configured. Set ANTHROPIC_API_KEY.")
+    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
 
@@ -143,6 +142,7 @@ async def chat_endpoint(req: ChatRequest):
 
 @app.get("/api/v1/sessions")
 async def list_sessions(limit: int = 20):
+    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
     return await pg_storage.list_sessions(limit=limit)
@@ -150,6 +150,7 @@ async def list_sessions(limit: int = 20):
 
 @app.get("/api/v1/sessions/{session_id}")
 async def get_session(session_id: str):
+    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
     return await pg_storage.load_session(session_id)
@@ -157,6 +158,7 @@ async def get_session(session_id: str):
 
 @app.delete("/api/v1/sessions/{session_id}")
 async def delete_session(session_id: str):
+    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
     ok = await pg_storage.delete_session(session_id)
@@ -170,6 +172,7 @@ async def delete_session(session_id: str):
 # ---------------------------------------------------------------------------
 @app.get("/api/v1/context-files")
 async def list_context_files():
+    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
     return await pg_storage.list_context_files()
@@ -177,6 +180,7 @@ async def list_context_files():
 
 @app.put("/api/v1/context-files")
 async def put_context_file(req: ContextFileRequest):
+    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
     await pg_storage.put_context_file(req.filename, req.content, req.category)
@@ -188,27 +192,27 @@ async def put_context_file(req: ContextFileRequest):
 # ---------------------------------------------------------------------------
 @app.post("/api/v1/clients")
 async def store_client(req: ClientDataRequest):
+    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
-    async with pg_storage.pool.acquire() as conn:
-        await conn.execute(
-            """INSERT INTO builder_clients (client_id, data, updated_at)
-               VALUES ($1, $2::jsonb, CURRENT_TIMESTAMP)
-               ON CONFLICT (client_id) DO UPDATE
-               SET data = $2::jsonb, updated_at = CURRENT_TIMESTAMP""",
-            req.client_id, json.dumps(req.data),
-        )
+    await pg_storage.db.execute(
+        """INSERT INTO builder_clients (client_id, data, updated_at)
+           VALUES ($1, $2::jsonb, CURRENT_TIMESTAMP)
+           ON CONFLICT (client_id) DO UPDATE
+           SET data = $2::jsonb, updated_at = CURRENT_TIMESTAMP""",
+        req.client_id, json.dumps(req.data),
+    )
     return {"client_id": req.client_id, "status": "saved"}
 
 
 @app.get("/api/v1/clients/{client_id}")
 async def get_client(client_id: str):
+    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
-    async with pg_storage.pool.acquire() as conn:
-        row = await conn.fetchrow(
-            "SELECT data FROM builder_clients WHERE client_id = $1", client_id
-        )
+    row = await pg_storage.db.fetchrow(
+        "SELECT data FROM builder_clients WHERE client_id = $1", client_id
+    )
     if not row:
         raise HTTPException(404, "Client not found")
     data = row["data"]
@@ -263,8 +267,10 @@ async def generate_docs(req: GenerateDocsRequest):
 @app.post("/api/v1/intake-to-plan")
 async def intake_to_plan(req: IntakeRequest):
     """Generate treatment plan from intake data using Claude."""
+    _ensure_storage()
     if not claude:
         raise HTTPException(503, "Claude API not configured.")
+    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
 
@@ -283,8 +289,10 @@ async def intake_to_plan(req: IntakeRequest):
 @app.post("/api/v1/post-session")
 async def post_session(req: PostSessionRequest):
     """Generate post-session docs (AVS + email) from SOAP notes using Claude."""
+    _ensure_storage()
     if not claude:
         raise HTTPException(503, "Claude API not configured.")
+    _ensure_storage()
     if not pg_storage:
         raise HTTPException(503, "Database not available.")
 
