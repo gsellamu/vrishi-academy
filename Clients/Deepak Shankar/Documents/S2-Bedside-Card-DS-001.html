@@ -21,11 +21,10 @@ h2{font-size:9px;font-weight:700;color:#1a1a2e;margin:10px 0 4px;text-transform:
 .night .step{font-size:9.5px;margin:2px 0;line-height:1.35}
 .foot{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:6px;color:#aaa}
 
-/* Print: two cards per letter page */
-@page{margin:0.5in}
+@page{margin:0;size:5.5in 4.25in}
 @media print{
-  body{padding:0}
-  .card{border:1px dashed #bbb;page-break-inside:avoid;margin:10px auto}
+  body{padding:0;margin:0}
+  .card{border:none;border-radius:0;margin:0;width:100%;height:100%;padding:14px 16px}
 }
 </style></head><body>
 
