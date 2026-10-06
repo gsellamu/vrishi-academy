@@ -310,6 +310,12 @@ def gen_treatment_plan(client):
 {goals_rows}</table>
 <div class="f" style="color:#888;font-size:9px">Progress is measured through subjective experience and clinical observation.</div>
 
+<h2>Important Information</h2>
+<div class="f"><b>Emotional responses:</b> Hypnotherapy may bring up emotions, memories, or associations that cause temporary discomfort, including delayed emotional responses after sessions. This is a normal part of the therapeutic process.</div>
+<div class="f"><b>Memory accuracy:</b> Memories, images, or impressions experienced during hypnosis may be symbolic, metaphorical, or inaccurate. They should not be assumed to be factual representations of past events.</div>
+<div class="f"><b>Experiences vary:</b> Depth of trance, responsiveness, and progress vary between individuals and between sessions. Treatment is adjusted based on your response.</div>
+<div class="f"><b>Confidentiality:</b> Session content is kept confidential except where disclosure is required by law. If you are receiving services through a community service program, session content may be discussed with clinical supervisors for educational purposes, with your identity protected.</div>
+
 <h2>AI Disclosure</h2>
 <div class="f">This treatment plan was developed by the therapist with AI-assisted tools for documentation. All clinical decisions are performed by the therapist. AI is advisory only.</div>
 
@@ -375,8 +381,14 @@ def gen_sb577(client):
 <div class="f"><span class="fl">Cancellation:</span> 24-hour notice required; late cancellations may be charged the full session fee</div>
 <div class="f"><span class="fl">Insurance:</span> Hypnotherapy is generally not covered by insurance. Receipts provided upon request.</div>
 
-<h3>Supervision Disclosure (Community Service Program)</h3>
-<div class="f" style="margin-bottom:8px">If you are receiving services through a community service or training referral program, please be aware that session content may be discussed with clinical supervisors or instructors for educational and quality assurance purposes. Your identity will be protected using initials only in any supervisory discussions. This disclosure is specific to program-referred clients and does not apply to private-practice clients.</div>
+<h3>Community Service Program Disclosure</h3>
+<div class="f" style="margin-bottom:8px">If you are receiving services through a community service or training referral program:</div>
+<ul style="font-size:10px;margin:4px 0">
+<li>The therapeutic relationship is <b>separate and independent</b> from the referring institution (e.g., HMI, AHA). The practitioner is not an employee of the referring organization, and they do not exercise control over professional services.</li>
+<li>Session content may be discussed with <b>clinical supervisors or instructors</b> for educational and quality assurance purposes. Your identity will be protected using initials only.</li>
+<li>Information shared in sessions is <b>not protected by psychotherapist-patient privilege</b>, as the practitioner is not a licensed psychotherapist.</li>
+<li>After any initial complimentary sessions, paid services (if applicable) are provided under a private agreement between you and the practitioner. The referring organization does not participate in or receive payment for those services.</li>
+</ul>
 
 <h3>Client Consent</h3>
 <div class="check">&#9744; I have read and understand the SB 577 disclosure above in its entirety.</div>
@@ -434,7 +446,8 @@ def gen_recording_consent(client):
 <li><b>Personal use only:</b> Do not share, distribute, upload, or publish the recording.</li>
 <li><b>Storage:</b> Store on an encrypted or password-protected device only.</li>
 <li><b>Deletion:</b> Therapist deletes their copy within 30 days of program completion.</li>
-<li><b>Confidentiality:</b> Recordings are PHI, protected under HIPAA.</li>
+<li><b>Confidentiality:</b> Recordings are treated as protected information consistent with applicable privacy standards.</li>
+<li><b>Supervision:</b> If you are receiving services through a community service or training program, recordings or session content may be reviewed with clinical supervisors for educational and quality assurance purposes. Your identity will be protected.</li>
 <li><b>Revocation:</b> You may revoke this consent at any time in writing.</li>
 <li><b>California law:</b> Two-party consent state (Penal Code &#167;632).</li>
 </ol>
@@ -448,8 +461,14 @@ def gen_recording_consent(client):
 </ul>
 </div>
 
-<h3>Supervision Disclosure (Community Service Program)</h3>
-<div class="f" style="margin-bottom:8px">If you are receiving services through a community service or training referral program, please be aware that session content may be discussed with clinical supervisors or instructors for educational and quality assurance purposes. Your identity will be protected using initials only in any supervisory discussions. This disclosure is specific to program-referred clients and does not apply to private-practice clients.</div>
+<h3>Community Service Program Disclosure</h3>
+<div class="f" style="margin-bottom:8px">If you are receiving services through a community service or training referral program:</div>
+<ul style="font-size:10px;margin:4px 0">
+<li>The therapeutic relationship is <b>separate and independent</b> from the referring institution (e.g., HMI, AHA). The practitioner is not an employee of the referring organization, and they do not exercise control over professional services.</li>
+<li>Session content may be discussed with <b>clinical supervisors or instructors</b> for educational and quality assurance purposes. Your identity will be protected using initials only.</li>
+<li>Information shared in sessions is <b>not protected by psychotherapist-patient privilege</b>, as the practitioner is not a licensed psychotherapist.</li>
+<li>After any initial complimentary sessions, paid services (if applicable) are provided under a private agreement between you and the practitioner. The referring organization does not participate in or receive payment for those services.</li>
+</ul>
 
 <h3>Client Consent</h3>
 <div class="check">&#9744; I consent to audio recording of the therapy portions of my sessions.</div>
