@@ -1,237 +1,381 @@
-<!DOCTYPE html><html><head><title>Session 1 Intake Prep Sheet - TM-002 - THERAPIST ONLY</title>
+<!DOCTYPE html><html><head><title>Session 1 Runbook - TM-002 - THERAPIST ONLY</title>
 <style>
 *{box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,sans-serif;margin:0;padding:20px 28px 40px;color:#222;font-size:10px;line-height:1.4}
-h1{font-size:15px;font-weight:700;color:#1a1a2e;margin:0 0 4px;border-bottom:2px solid #1a1a2e;padding-bottom:6px}
-h2{font-size:10px;font-weight:700;margin:10px 0 3px;color:#1a1a2e;border-bottom:1px solid #ddd;padding-bottom:2px;text-transform:uppercase;letter-spacing:.05em}
-h3{font-size:9px;font-weight:700;margin:6px 0 2px;color:#444}
-.warn{background:#fff3cd;border:1px solid #e8d8a0;border-radius:4px;padding:6px 8px;margin:6px 0;font-size:9px}
-.crit{background:#f8d7da;border:1px solid #f5c6cb;border-radius:4px;padding:6px 8px;margin:6px 0;font-size:9px}
-.ok{background:#d4edda;border:1px solid #c3e6cb;border-radius:4px;padding:6px 8px;margin:6px 0;font-size:9px}
-.info{background:#d1ecf1;border:1px solid #bee5eb;border-radius:4px;padding:6px 8px;margin:6px 0;font-size:9px}
-table{width:100%;border-collapse:collapse;margin:4px 0;font-size:9px}
-th{background:#f0f4f8;text-align:left;padding:3px 5px;font-size:8px;text-transform:uppercase;letter-spacing:.04em;color:#555;border-bottom:2px solid #ddd}
-td{padding:2px 5px;border-bottom:1px solid #eee;vertical-align:top}
-ul{margin:2px 0;padding-left:12px}li{margin:1px 0;font-size:9px}
-ol{margin:2px 0;padding-left:14px}ol li{margin:1px 0;font-size:9px}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.box{border:1px solid #ddd;border-radius:4px;padding:6px 8px;margin:3px 0}
-.ft{margin-top:8px;padding-top:4px;border-top:1px solid #ddd;font-size:7px;color:#aaa;text-align:center}
-@page{margin:0}@media print{body{padding:12px 16px 20px;font-size:9px}}
+body{font-family:'Segoe UI',system-ui,sans-serif;margin:0;padding:18px 24px 40px;color:#222;font-size:10.5px;line-height:1.5}
+h1{font-size:14px;font-weight:700;color:#1a1a2e;margin:0 0 4px;border-bottom:2px solid #1a1a2e;padding-bottom:5px}
+.step{margin:10px 0 0;padding:8px 10px;border-left:3px solid #1a1a2e;background:#fafafa;page-break-inside:avoid}
+.step-hdr{font-size:10px;font-weight:700;color:#1a1a2e;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.step-time{font-family:'Consolas',monospace;font-size:8px;color:#888;float:right}
+.say{margin:3px 0;padding:3px 8px;background:#e8f5e9;border-radius:3px;font-size:10px}
+.say::before{content:"SAY: ";font-weight:700;color:#2e7d32;font-size:8px}
+.ask{margin:3px 0;padding:3px 8px;background:#e3f2fd;border-radius:3px;font-size:10px}
+.ask::before{content:"ASK: ";font-weight:700;color:#1565c0;font-size:8px}
+.do{margin:3px 0;padding:3px 8px;background:#fff3e0;border-radius:3px;font-size:10px}
+.do::before{content:"DO: ";font-weight:700;color:#e65100;font-size:8px}
+.watch{margin:3px 0;padding:3px 8px;background:#fce4ec;border-radius:3px;font-size:10px}
+.watch::before{content:"WATCH: ";font-weight:700;color:#c62828;font-size:8px}
+.record{margin:3px 0;padding:3px 8px;background:#f3e5f5;border-radius:3px;font-size:10px}
+.record::before{content:"RECORD: ";font-weight:700;color:#6a1b9a;font-size:8px}
+.if{margin:3px 0;padding:3px 8px;background:#e0f7fa;border-radius:3px;font-size:9px;font-style:italic}
+.if::before{content:"IF: ";font-weight:700;color:#00838f;font-size:8px;font-style:normal}
+.crit{margin:4px 0;padding:4px 8px;background:#f8d7da;border-left:3px solid #c62828;font-size:9px;color:#721c24}
+.note{margin:3px 0;font-size:9px;color:#666;font-style:italic}
+.branch{margin:4px 0;padding:4px 8px;background:#e0f2f1;border-left:3px solid #00695c;font-size:9px}
+.ft{margin-top:10px;padding-top:4px;border-top:1px solid #ddd;font-size:7px;color:#aaa;text-align:center}
+@page{margin:0}@media print{body{padding:12px 16px 20px}.step{break-inside:avoid}}
 </style></head><body>
 
-<h1>SESSION 1 PREP SHEET: 24-STEP KAPPASINIAN MASTER</h1>
-<div style="font-size:9px;color:#666;margin-bottom:6px">TM-002 (T.M., 22) | Wed Oct 8, 6:00 PM PST | Zoom | TRAUMA-001 | <b style="color:#c00">THERAPIST ONLY</b></div>
+<h1>SESSION 1 RUNBOOK: FOLLOW STEP BY STEP</h1>
+<div style="font-size:9px;color:#666;margin-bottom:4px">TM-002 (T.M., 22) | Wed Oct 8, 6:00 PM PST | Zoom | <b style="color:#c00">THERAPIST ONLY</b></div>
 
-<div class="crit">
-<b>BEFORE SESSION:</b> Confirm SB 577 + Recording Consent are SIGNED. Childhood trauma client &mdash; complete ALL 6 screening questions before any trance work. If active psychiatric care, anti-psychotic meds, or suicidal ideation: REFER, do not proceed.
+<div class="crit"><b>GATE CHECK:</b> SB 577 + Recording Consent SIGNED? &rarr; If NO: collect verbal consent on camera. Do NOT record without consent. Do NOT proceed to trance without completing Step 4 (Screening).</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 1: Warm-Up <span class="step-time">2-3 min</span></div>
+<div class="say">"T.M., welcome. Good to see you. Before we get into anything clinical, how was your day?"</div>
+<div class="do">Let him talk. 2-3 minutes of normal human conversation. Match his energy. Be warm, direct. Do NOT start clinical mode yet.</div>
+<div class="say">"Good. Thank you for making the time tonight. I know it takes courage to try something new."</div>
 </div>
 
-<h2>Pre-Session Checklist</h2>
-<div class="cols">
-<div>
-<ul>
-<li>&#9744; SB 577 + Recording Consent signed?</li>
-<li>&#9744; Review presenting issue + 6 themes (below)</li>
-<li>&#9744; 36-question suggestibility test ready</li>
-<li>&#9744; Screening questions reviewed (6 mandatory)</li>
-<li>&#9744; L.O.V.E. intake structure reviewed</li>
-<li>&#9744; Theory of Mind circle diagram ready to draw/show</li>
-</ul>
-</div>
-<div>
-<ul>
-<li>&#9744; Zoom audio/video tested</li>
-<li>&#9744; Recording software ready (start at Step 15)</li>
-<li>&#9744; Notepad for EP scoring + screening answers</li>
-<li>&#9744; Timer for induction + PHS verify timing</li>
-<li>&#9744; Master script open on second monitor (902 lines)</li>
-<li>&#9744; CCH log form ready for hours tracking</li>
-</ul>
-</div>
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 2: Session Frame <span class="step-time">2 min</span></div>
+<div class="say">"Here is how tonight works. We are going to do four things. First, we talk. I want to hear what brought you here. Second, I ask some screening questions. Third, I run a suggestibility assessment. Fourth, if you are comfortable, we do a first relaxation experience. Sound good?"</div>
 </div>
 
-<h2>Client Profile</h2>
-<table>
-<tr><td><b>Case</b></td><td>TM-002 (TRAUMA-001)</td><td><b>Age</b></td><td>22</td><td><b>Fee</b></td><td>Pro bono (CSP)</td></tr>
-<tr><td><b>Referral</b></td><td>HMI Community Service Program</td><td><b>Prior therapy</b></td><td>Psychotherapy ("helped a ton")</td><td><b>Preference</b></td><td>Male therapist</td></tr>
-<tr><td><b>EP</b></td><td>TBD (Session 1)</td><td><b>VAK</b></td><td>TBD</td><td><b>Presenting</b></td><td>Childhood trauma &rarr; 6 themes below</td></tr>
-</table>
-
-<h2>Presenting Issues (Client's Own Words)</h2>
-<div class="info">
-"I have some issues with <b>letting go of past traumatic experiences</b>... I've tried traditional psychotherapy, which has helped a ton, but I am still looking to resolve complicated feelings around <b>self-esteem</b>, <b>confidence</b>, <b>assertiveness</b>, and generally to <b>feel comfortable in my own skin</b>. I have issues <b>letting go</b> and <b>trusting people</b> close to me. My <b>anxiety still runs the show</b> sometimes, and I want to <b>become more open and less hypervigilant</b>."
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 3: L.O.V.E. Intake <span class="step-time">10-15 min</span></div>
+<div class="ask">"Tell me what brought you here. In your own words. Take your time."</div>
+<div class="do"><b>LISTEN.</b> Do not interrupt. Note his exact words for each theme. Watch body language, vocal shifts, eye contact.</div>
+<div class="if">He goes quiet: "You can share as much or as little as you're comfortable with tonight."</div>
+<div class="say">"Thank you for sharing that. That takes courage, especially with someone new."</div>
+<div class="say">"I want to make sure I heard you correctly. You've been working on this in psychotherapy, and it helped significantly. But the self-esteem, the trust, the hypervigilance, the feeling of not being comfortable in your own skin &mdash; those are still running. Is that accurate?"</div>
+<div class="do">Let him correct you. His corrections tell you what matters most. Use HIS words going forward.</div>
+<div class="ask">"Can you give me a specific recent example? A situation where you noticed the anxiety or hypervigilance showing up?"</div>
+<div class="ask">"When the anxiety is running the show, where do you feel that in your body? Is there a physical sensation?"</div>
+<div class="record">Body location of anxiety: _________________ (chest? stomach? jaw? nowhere?)</div>
 </div>
 
-<h2>6-Theme Issue Map</h2>
-<table>
-<tr><th>#</th><th>Theme</th><th>Client's Language</th><th>Approach</th></tr>
-<tr><td>1</td><td><b>Childhood trauma</b></td><td>"past traumatic experiences from young kid"</td><td>Core wound &mdash; root of all other symptoms</td></tr>
-<tr><td>2</td><td><b>Self-esteem</b></td><td>"comfortable in my own skin"</td><td>Core belief reframe</td></tr>
-<tr><td>3</td><td><b>Confidence / assertiveness</b></td><td>"confidence, assertiveness"</td><td>Assertive voice installation</td></tr>
-<tr><td>4</td><td><b>Trust</b></td><td>"trusting people close to me"</td><td>Circle of trust, boundary gate</td></tr>
-<tr><td>5</td><td><b>Anxiety / hypervigilance</b></td><td>"anxiety runs the show", "hypervigilant"</td><td>Dial-down, nervous system recalibration</td></tr>
-<tr><td>6</td><td><b>Letting go</b></td><td>"issues letting go"</td><td>Release ritual, safe container</td></tr>
-</table>
-
-<h2>24-Step Session Flow (Master Script reference)</h2>
-<table>
-<tr><th>#</th><th>Step</th><th>Time</th><th>Key Notes</th></tr>
-<tr><td>1</td><td><b>Warm-up</b></td><td>2-3m</td><td>Human conversation first. Match his energy. Be direct but warm.</td></tr>
-<tr><td>2</td><td><b>L.O.V.E. Intake</b></td><td>10-15m</td><td>Open-ended &rarr; closed-ended anchors. Body awareness Q. Expectations check (Melton).</td></tr>
-<tr><td>3</td><td><b>Co-create plan</b></td><td>3m</td><td>6-8 session arc overview. Ask: "What would you prioritize?"</td></tr>
-<tr><td>4</td><td><b>Critical screening</b></td><td>5-10m</td><td>6 mandatory Qs. CSP supervision disclosure. Get verbal acknowledgment.</td></tr>
-<tr><td>5</td><td><b>Pre-induction speech</b></td><td>3-5m</td><td>14 points: natural state, not sleep, in control, "do with" not "do to", cooperative.</td></tr>
-<tr><td>6</td><td><b>Theory of Mind</b></td><td>5m</td><td>Circle model. 88/12. Critical mind filter. "I work with 88%, you with 12%."</td></tr>
-<tr><td>7</td><td><b>Suggestibility test</b></td><td>5-10m</td><td>36 Qs + finger-spread demo. Score EP. Announce result.</td></tr>
-<tr><td>8</td><td><b>Physiological changes</b></td><td>1m</td><td>"You'll notice changes. I'll notice before you do." Eyelid flutter = stage 1.</td></tr>
-<tr><td>9</td><td><b>Consent + safety</b></td><td>2m</td><td>Exit signal (right index finger). Explicit verbal consent. "Not sleep, focused relaxation."</td></tr>
-<tr style="background:#e8f5e9"><td>10</td><td><b>Arm-raising induction</b></td><td>5-8m</td><td>Physical: power words, elbow-press, magnetic pull. Emotional: inferential, misdirection.</td></tr>
-<tr style="background:#e8f5e9"><td>11</td><td><b>5-0 count + PHS</b></td><td>2m</td><td>"Safely and comfortably" added to PHS. 5=beginning, 3=emotional calm, 0=Deep Sleep.</td></tr>
-<tr style="background:#e8f5e9"><td>12</td><td><b>Hand-to-forehead</b></td><td>2m</td><td>Physical EP only. Marble fusion, brief challenge.</td></tr>
-<tr style="background:#e8f5e9"><td>13</td><td><b>Reactional x2</b></td><td>2m</td><td>Only 2 cycles (trauma). "Open eyes. Deep Sleep. Twice as deep."</td></tr>
-<tr style="background:#e8f5e9"><td>14</td><td><b>Heavy/Light</b></td><td>2m</td><td>OPTIONAL. Physical only. Sand bag + helium balloons.</td></tr>
-<tr style="background:#e8f5e9"><td>15</td><td><b>Progressive relaxation</b></td><td>5m</td><td><b style="color:#c00">START RECORDING HERE.</b> Full body scan. Delta pacing. "Outside sounds cannot disturb."</td></tr>
-<tr style="background:#e8f5e9"><td>16</td><td><b>Staircase (20 steps)</b></td><td>3m</td><td>Well-lit, sturdy handrails. "Twice as deep" at 17, 12, 7. Safe OPEN destination (no walls).</td></tr>
-<tr style="background:#e8f5e9"><td>17</td><td><b>Safe space + anchor</b></td><td>5m</td><td>Client designs NEW room (not childhood). 5 senses. Ideomotor nod. Anchor: triple-fire.</td></tr>
-<tr style="background:#e8f5e9"><td>18</td><td><b>Post-hypnotic suggestion</b></td><td>1m</td><td>"Unexpected moments of calm." Dreams = processing. Gap between trigger and reaction.</td></tr>
-<tr style="background:#e8f5e9"><td>19</td><td><b>Count out</b></td><td>2m</td><td>"Shut the door to block negatives." Gentle. Body awareness. NOT rapid.</td></tr>
-<tr><td>20</td><td><b>PHS verify</b></td><td>2m</td><td>Finger-spread re-hypnosis test. TIME IT. Gentle count out.</td></tr>
-<tr><td>21</td><td><b>Debrief</b></td><td>3m</td><td>3 Qs: how do you feel, what did you notice, how deep (1-10)?</td></tr>
-<tr><td>22</td><td><b>SMART baselines</b></td><td>3m</td><td>6 measures (below). Record all.</td></tr>
-<tr><td>23</td><td><b>Homework</b></td><td>3m</td><td>2 items ONLY: grounding anchor + safe room visit. 988 crisis line.</td></tr>
-<tr><td>24</td><td><b>Therapist checklist</b></td><td>Post</td><td>SOAP, EP, timing, baselines, safe room details, triggers, CCH log.</td></tr>
-</table>
-<div style="font-size:8px;color:#666">Green rows = trance (Steps 10-19). Recording starts at Step 15.</div>
-
-<h2>Critical Screening (6 Mandatory Questions)</h2>
-<ol>
-<li><b>Active care?</b> Therapist, psychologist, psychiatrist? &rarr; If yes: coordinate. Get details.</li>
-<li><b>Medications?</b> Anti-anxiety, anti-depressant, anti-psychotic? &rarr; If anti-psychotic: STOP, REFER.</li>
-<li><b>Safety?</b> "Have you ever had thoughts of harming yourself?" &rarr; If active: STOP. 988. Refer.</li>
-<li><b>Trauma scope?</b> Single vs ongoing? Physical vs emotional? &rarr; Scope only, no forced disclosure.</li>
-<li><b>Triggers?</b> Words, topics, imagery to avoid? &rarr; Write down. Refer before every future session.</li>
-<li><b>Panic/dissociation?</b> Panic attacks? Watching yourself from outside? &rarr; Adjust induction if yes.</li>
-</ol>
-
-<h2>EP-Branched Induction Strategy</h2>
-<div class="cols">
-<div class="box">
-<h3>If Physical (50%+)</h3>
-<ul>
-<li>Arm-raise: power words, elbow-press, magnetic pull, breathing tie-in</li>
-<li>Direct language: "IS rising", "IS relaxing"</li>
-<li>Deepeners: hand-forehead + reactional + heavy/light (optional)</li>
-<li>Kinesthetic anchors: weight, pressure, temperature</li>
-</ul>
-</div>
-<div class="box">
-<h3>If Emotional (50%+)</h3>
-<ul>
-<li>Arm-raise: inferential, misdirection, "you may notice", "I wonder"</li>
-<li>Permissive: "you may notice", "allow", "at your own pace"</li>
-<li>Deepeners: reactional only (skip hand-forehead, heavy/light)</li>
-<li>Emotional anchors: safety, warmth, permission</li>
-</ul>
-</div>
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 4: Check Expectations <span class="step-time">3 min</span></div>
+<div class="ask">"What are you expecting from hypnotherapy? What do you think will be different from the psychotherapy you've done?"</div>
+<div class="ask">"What do you already understand about these reactions, and what would you like to be different?"</div>
+<div class="ask">"What are you hoping hypnotherapy will add to the work you've already done?"</div>
+<div class="record">His answer to the last question (verbatim): _________________________________</div>
+<div class="say">"The therapy you've done already made real progress. Those are genuine gains. What we do here is add an experiential layer &mdash; in a deeply relaxed state, your mind becomes more open to experiencing things differently. We're building on what you've accomplished."</div>
+<div class="ask">"Does that make sense? Does that match what you're looking for?"</div>
+<div class="if">No: explore further. Do NOT proceed until aligned.</div>
 </div>
 
-<div class="warn">
-<b>TRAUMA RULES:</b> No regression. No "go back to." Permission language throughout. Exit signal (right index finger). If abreaction: deepen, guide to safe space, do NOT count out abruptly. Safe space = NEW room (not childhood). Gentle count out. PHS includes "safely and comfortably."
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 5: Co-Create Plan <span class="step-time">3 min</span></div>
+<div class="say">"Based on what you've shared, here's what I'm hearing. You have six things that are interconnected &mdash; self-esteem, confidence, assertiveness, trust, anxiety, and letting go. And underneath all of them, experiences from childhood that encoded certain patterns."</div>
+<div class="say">"I propose we work together for six to eight sessions. Tonight is assessment. Next sessions, we go deeper. By session four or five, we build your independence. By session six, if things are tracking well, we graduate."</div>
+<div class="ask">"Does that pace feel right? Is there anything you'd want to prioritize?"</div>
+<div class="record">His priority: ________________________________</div>
 </div>
 
-<h2>SMART Goal Baselines (Collect at Step 22)</h2>
-<table>
-<tr><th>Measure</th><th>Question to Ask</th><th>Baseline</th></tr>
-<tr><td>Self-esteem</td><td>"How comfortable do you feel being yourself?" (1-10)</td><td>___/10</td></tr>
-<tr><td>Assertiveness</td><td>"How easy is it to set boundaries or say no?" (1-10)</td><td>___/10</td></tr>
-<tr><td>Anxiety</td><td>"How much does anxiety affect your decisions?" (1=barely, 10=everything)</td><td>___/10</td></tr>
-<tr><td>Trust</td><td>"How much do you trust people closest to you?" (1-10)</td><td>___/10</td></tr>
-<tr><td>Comfort</td><td>"How often do you feel at ease without being on guard?" (1-10)</td><td>___/10</td></tr>
-<tr><td>Past influence</td><td>"How much does the past shape how you react?" (1=barely, 10=everything)</td><td>___/10</td></tr>
-</table>
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 6: Critical Screening <span class="step-time">5-10 min</span></div>
+<div class="say">"I need to ask you some screening questions. Standard for every client, especially important given what you've shared. I need honest answers so we can work safely."</div>
 
-<h2>End of Session Checklist</h2>
-<div class="cols">
-<div>
-<ul>
-<li>&#9744; Screening complete (all 6 Qs documented)</li>
-<li>&#9744; EP determined: Physical ___% / Emotional ___%</li>
-<li>&#9744; Induction time: ___ min. PHS verify time: ___ sec</li>
-<li>&#9744; Self-reported depth: ___/10</li>
-<li>&#9744; Safe room description: _________________</li>
-<li>&#9744; Triggers noted: _________________</li>
-<li>&#9744; Grounding anchor installed (triple-fire)</li>
-<li>&#9744; All 6 SMART baselines recorded</li>
-</ul>
+<div class="ask"><b>Q1:</b> "Are you currently seeing a therapist, psychologist, or psychiatrist?"</div>
+<div class="record">Active care: Y/N. If Y, name + type: _________________</div>
+
+<div class="ask"><b>Q2:</b> "Are you currently taking any medications? Anything for anxiety, depression, sleep?"</div>
+<div class="crit">If anti-psychotic: STOP. REFER. Do not proceed.</div>
+<div class="record">Medications: _________________________________</div>
+
+<div class="ask"><b>Q3:</b> "I need to ask this directly. Have you ever had thoughts of harming yourself or ending your life?"</div>
+<div class="crit">If ACTIVE: STOP. Provide 988. REFER. Do not proceed.</div>
+<div class="record">Safety: Active / Past-resolved / Never</div>
+
+<div class="ask"><b>Q4:</b> "You mentioned experiences from when you were young. Without needing to share details &mdash; was this a single event or something over time? Did it involve physical harm, emotional harm, or both?"</div>
+<div class="do">Scope only. Do NOT push for details he's not ready to share.</div>
+<div class="record">Trauma scope: Single / Ongoing. Physical / Emotional / Both. Who: ____________</div>
+
+<div class="ask"><b>Q5:</b> "Is there anything I should be careful about? Words, topics, imagery that trigger strong reactions?"</div>
+<div class="record">Triggers: ___________________________________</div>
+
+<div class="ask"><b>Q6:</b> "Do you experience panic attacks? And when very stressed, do you ever feel like you're watching yourself from the outside?"</div>
+<div class="record">Panic: Y/N, frequency: ______. Dissociation: Y/N</div>
+
+<div class="say">"Thank you. Everything stays confidential, with two exceptions: immediate danger or abuse of a minor or elder."</div>
+<div class="say">"One thing to be aware of &mdash; because this is through the community service program, I may discuss our session with a clinical supervisor for educational purposes. Your identity is always protected. Is that okay?"</div>
+<div class="record">CSP supervision acknowledged: Y/N</div>
 </div>
-<div>
-<ul>
-<li>&#9744; Count out: gentle, grounded</li>
-<li>&#9744; PHS verify: finger-spread test passed</li>
-<li>&#9744; Homework assigned (anchor + room visit)</li>
-<li>&#9744; Session 2 scheduled: ____/____ at ____</li>
-<li>&#9744; 988 crisis line mentioned</li>
-<li>&#9744; Stop recording after Step 18</li>
-<li>&#9744; CCH hours logged to HMI</li>
-<li>&#9744; Update TM-002.json with EP, SOAP, baselines</li>
-</ul>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 7: Pre-Induction Speech <span class="step-time">3-5 min</span></div>
+<div class="say">"Let me tell you what hypnosis is and what it is not."</div>
+<div class="say">"Hypnosis is a natural state. You go in and out of it throughout your day &mdash; when you're absorbed in a movie, driving a familiar route on autopilot, or deep in a conversation and lose track of time."</div>
+<div class="say">"Deep Sleep is a trigger word I'll use. It is not actual sleep. It is a deeply relaxed state with your eyes closed. You will not go unconscious. You will not lose control. You will be aware the entire time &mdash; possibly more aware than usual."</div>
+<div class="say">"You would not do or say anything you wouldn't in your wide-awake state. This is not a truth serum. You may wonder if you are in hypnosis &mdash; and that is usually when you know you are."</div>
+<div class="say">"You will hear everything. Your mind may wander. That is normal. Your subconscious will know when to return to my voice."</div>
+<div class="say">"Some people feel light and tingly. Some feel heavy. Some just feel relaxed and calm. Whatever you experience is right for you."</div>
+<div class="say">"This is a 'do with' process, not a 'do to' process. It is cooperative. It requires your active participation. Today we start the process of positive change."</div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 8: Theory of Mind <span class="step-time">5 min</span></div>
+<div class="do">Draw or show the circle diagram as you talk.</div>
+<div class="say">"Let me draw you a picture of how your mind works."</div>
+<div class="say">"At the bottom: the primitive area. Fight or flight. Your basic survival instinct. It makes decisions in milliseconds."</div>
+<div class="say">"From birth to about age eight, everything goes in as absolute truth. Positive and negative. These become your known associations &mdash; your programming."</div>
+<div class="say">"These associations make up your subconscious mind &mdash; about 88 percent of your total mind power."</div>
+<div class="say">"As you get older, you develop the critical mind &mdash; a filter that protects those known associations."</div>
+<div class="say">"Then you develop logic, reasoning, decision-making, and willpower &mdash; the one that doesn't work when you want it to. This is your conscious mind. Only about 12 percent."</div>
+<div class="say">"When you decide to change something, the thought goes from your conscious mind down through the critical mind. If your subconscious programming resists, the critical mind blocks it. Same behavior continues."</div>
+<div class="say">"What hypnosis does is bypass the critical mind. We get direct access to the subconscious and use positive suggestions to make the changes you want."</div>
+<div class="say">"I work with the 88 percent. You work with the 12 percent. Together, we have 100 percent."</div>
+<div class="say">"The patterns you described &mdash; the hypervigilance, the trust issues, the anxiety running the show &mdash; those live in the 88 percent. Your conscious mind knows better. The subconscious hasn't caught up. That is what we update."</div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 9: Suggestibility Test <span class="step-time">5-10 min</span></div>
+<div class="say">"I am going to test your suggestibility to see how you take information in. This is one test you cannot pass or fail, so please don't help me in any way."</div>
+<div class="say">"You don't need to talk. If the answer is yes, nod. If no, shake your head. If you don't know, just stare at me."</div>
+<div class="do">Administer all 36 questions. Score Physical/Emotional split.</div>
+<div class="do">Finger-spread demo: "Raise your arm. Palm in front of your face, fingers above eye level. Stare at your middle finger. Deep breath &mdash; and on the exhale, your fingers begin to separate. Separating, wider and wider, farther apart."</div>
+<div class="do">Repeat 3-8 times. Note speed and spread. Test other arm. Compare.</div>
+<div class="record">EP Result: Physical ____% / Emotional ____%</div>
+
+<div class="branch">
+<b>IF PHYSICAL:</b> "You scored [X]% Physical. Your subconscious responds best to direct, specific language. When I say 'your hand IS rising,' it rises. Literal, concrete, no ambiguity."<br>
+<b>IF EMOTIONAL:</b> "You scored [X]% Emotional. Your subconscious works through inference. Instead of telling you what to experience, I suggest possibilities and your mind fills in what's right."<br>
+<b>IF BALANCED:</b> "You scored roughly balanced. That gives us flexibility. We'll find the right mix."
 </div>
 </div>
 
-<h2>Clinical Reminders</h2>
-<div class="cols">
-<div class="box">
-<h3>Melton</h3>
-<ul>
-<li>Check expectations: "What do you think hypnotherapy will do?"</li>
-<li>Focus on BEHAVIOR: "What specific behavior do you want to change?"</li>
-<li>Re-parenting foundations laid via safe space (becomes THE ROOM in S2)</li>
-</ul>
-</div>
-<div class="box">
-<h3>Kappas</h3>
-<ul>
-<li>Visit past briefly. Recode. Move forward. Don't loop.</li>
-<li>Preparation of Critical Mind: What's the problem? Why? What needs to change? How?</li>
-<li>"Building pillars" &mdash; cognitive supports that open Critical Mind for suggestions.</li>
-</ul>
-</div>
-</div>
-<div class="cols">
-<div class="box">
-<h3>Nasir (Neuroscience)</h3>
-<ul>
-<li>Limbic system holds survival maps &mdash; insight alone can't reach it</li>
-<li>Amygdala (threat detection), hippocampus (memory context), vagus nerve (safety state)</li>
-<li>Hypnotherapy adds experiential layer to psychotherapy insight</li>
-</ul>
-</div>
-<div class="box">
-<h3>Evidence-Based Safeguards</h3>
-<ul>
-<li>Don't dismiss prior psychotherapy &mdash; build on it</li>
-<li>EP informs style, does NOT determine trauma readiness</li>
-<li>Images in trance may be symbolic, not factual</li>
-<li>Agency language: "you can evaluate", "you decide"</li>
-</ul>
-</div>
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 10: Physiological Changes + Consent <span class="step-time">2 min</span></div>
+<div class="say">"As you enter the hypnotic state, you will notice changes in your body. I will notice them before you do."</div>
+<div class="say">"Are you comfortable proceeding with the relaxation exercise? There is no pressure."</div>
+<div class="if">He hesitates: "We can absolutely wait. There is no timeline."</div>
+<div class="say">"If at any point you want to pause, raise your right index finger. I will bring you back immediately."</div>
+<div class="say">"Take a deep breath in through your nose. Hold it. And exhale slowly through your mouth. One more."</div>
 </div>
 
-<h2>Red Flags During Session</h2>
-<ul>
-<li><b>Abreaction:</b> Visible distress in trance &rarr; deepen, guide to safe space, grounding language. Do NOT count out abruptly.</li>
-<li><b>Dissociation:</b> Blank stare, unresponsive &rarr; ground with "feel your feet, feel the chair." Bring back slowly.</li>
-<li><b>Abuse disclosure:</b> If minor/elder abuse disclosed &rarr; mandatory reporting. Document. Follow CA procedures.</li>
-<li><b>Suicidal ideation:</b> Stop session. 988 Lifeline. Refer to licensed MHP. Do not continue hypnosis.</li>
-<li><b>Psychosis signs:</b> Disordered thinking, hallucinations &rarr; refer immediately. Hypnosis contraindicated.</li>
-</ul>
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 11: Arm-Raising Induction <span class="step-time">5-8 min</span></div>
+<div class="do">Start timer now.</div>
 
-<div class="ok">
-<b>FRAME:</b> "The therapy you've done gave you understanding and coping tools. Those are real gains. What we do here is add an experiential layer &mdash; in a deeply relaxed state, your mind becomes more open to experiencing things differently. We're building on what you've already accomplished."
+<div class="branch">
+<b>PHYSICAL EP:</b><br>
+SAY: "Raise your arm. Elbow on the table. Palm facing your face. Fingers straight up, above eye level. Stare at your middle finger."<br>
+SAY: "Deep breath. As your elbow presses down, the muscles in your upper arm tighten and pull. From your elbow to your fingertips, your hand begins to lift. Higher and higher. Lighter and lighter. Light as a feather."<br>
+SAY: "Lifting, rising, pulling, jerking. With every breath, higher. Lighter. Moving up."<br>
+SAY: "Your hand starts to twist and turn inward. A magnetic pull &mdash; hand toward face, head toward hand."<br>
+SAY: "When your hand touches your face, nod your head. At that moment you reach the peak of your suggestibility."<br>
+WAIT for touch + nod. SNAP: "DEEP SLEEP."
+</div>
+
+<div class="branch">
+<b>EMOTIONAL EP:</b><br>
+SAY: "Place your arm on the table. Close your eyes. Imagine your hand becoming lighter. Very light. As light as a feather. And then even lighter."<br>
+SAY: "At the same time, your other hand feels heavier against your leg. Feel your feet on the floor. Your back against the chair."<br>
+SAY: "The light hand is lifting, rising, twisting, turning upward. I wonder if you'd say the hand is being drawn to the head, or the head to the hand. I'll let you decide."<br>
+SAY: "When your hand touches your face, nod. You will reach your peak of suggestibility."<br>
+WAIT for touch + nod. SNAP: "DEEP SLEEP."
+</div>
+
+<div class="say"><b>PHS:</b> "Each and every time I suggest the words Deep Sleep to you, for the purpose of hypnosis and with your permission, you will enter this state very quickly, calmly, safely and comfortably, and deeply, and the physical body will relax."</div>
+<div class="record">Induction time: ___ min ___ sec</div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 12: 5-0 Count <span class="step-time">2 min</span></div>
+<div class="say">"Hand down gently. Five &mdash; we are going down now, deeper into the state of hypnosis. Four &mdash; physically releasing, relaxing. Three &mdash; an emotional calmness. Two &mdash; mentally relaxing now. One &mdash; going deeper. And zero &mdash; Deep Sleep."</div>
+<div class="say"><b>PHS:</b> "Each and every time... safely and comfortably... physical body relaxes."</div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 13: Hand-to-Forehead Challenge <span class="step-time">2 min</span></div>
+<div class="if">PHYSICAL EP ONLY. Skip for Emotional.</div>
+<div class="say">"Your hand is still connected to your forehead. Solid. Like two magnets pressed together. Try to pull it away &mdash; and notice it will not move."</div>
+<div class="do">Brief test, 3-5 seconds.</div>
+<div class="say">"Stop trying. 5-4-3-2-1-0. Deep Sleep. Twice as deep."</div>
+<div class="say"><b>PHS.</b></div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 14: Reactional Deepener <span class="step-time">2 min</span></div>
+<div class="say">"Open your eyes."</div>
+<div class="do">Wait 2 seconds.</div>
+<div class="say">"Deep Sleep. Twice as deep."</div>
+<div class="say">"Open your eyes."</div>
+<div class="do">Wait 2 seconds.</div>
+<div class="say">"Deep Sleep. Twice as deep. Comfortable. Safe."</div>
+<div class="say"><b>PHS.</b></div>
+<div class="note">Only 2 cycles for trauma client. Do not overload.</div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 15: Heavy/Light (OPTIONAL) <span class="step-time">2 min</span></div>
+<div class="if">Physical EP only. Skip if running long or client is fatiguing.</div>
+<div class="say">"Arms out. One palm up. Other thumb to ceiling. Close your eyes. Heavy bag of sand on the open palm, pressing down. Helium balloons on the thumb, pulling up."</div>
+<div class="do">Pause 10 seconds. Observe differential movement.</div>
+<div class="say">"Release. Arms down. Deep Sleep. Twice as deep."</div>
+<div class="say"><b>PHS.</b></div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 16: Progressive Relaxation <span class="step-time">5 min</span></div>
+<div class="crit"><b>START RECORDING HERE.</b></div>
+<div class="say">"Now as you relax, you feel the rhythm of your breath. You feel connected inside. You are giving yourself permission to allow me to guide you."</div>
+<div class="say">"Bring your attention to the top of your head. [Pause.] A sense of relaxation washing down over your scalp. [Pause.] Forehead. [Pause.] Temples. [Pause.] Eyelids. [Pause.] Cheeks. [Pause.] Relaxing your jaw. [Pause.]"</div>
+<div class="say">"Pay no attention to any outside sounds, except my voice. These outside sounds are everyday sounds and cannot disturb you but will tend to relax you even deeper."</div>
+<div class="say">"Neck muscles release. [Pause.] Shoulders soften. [Pause.] Upper arms. [Pause.] Elbows. [Pause.] Forearms. [Pause.] Wrists. [Pause.] Hands. [Pause.] All the way to the tips of your fingers. [Pause.]"</div>
+<div class="say">"Chest opens. [Pause.] Solar plexus. [Pause.] Belly area unwinding. [Pause.] Breathing becomes deep, gentle, rhythmic. [Pause.] The drowsy, relaxed feeling takes over. [Pause.]"</div>
+<div class="say">"Hips. [Pause.] Pelvis releasing. [Pause.] Thighs. [Pause.] Knees. [Pause.] Shins. [Pause.] Calves. [Pause.] Ankles. [Pause.] Heels. [Pause.] Arches. [Pause.] Every single toe. [Pause.]"</div>
+<div class="say">"5. [Long pause.] 4. [Long pause.] 3. [Long pause.] 2. [Long pause.] 1. [Long pause.] 0. Deep Sleep."</div>
+<div class="say"><b>PHS.</b></div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 17: Staircase (20 Steps) <span class="step-time">3 min</span></div>
+<div class="say">"You are standing at the top of a beautiful staircase. Well-lit. Sturdy handrails. Twenty steps leading down. With each step, deeper and more relaxed."</div>
+<div class="say">"Left foot 19, right foot 18. Twice as deep at 17. 16. 15. 14. 13. Twice as deep at 12. 11. 10. Letting go at 9. 8. Twice as deep at 7. 6. 5. Deeper still at 4. 3. 2. 1. 0. Deep Sleep."</div>
+<div class="say">"At the bottom, a door. Open it. Step through. Close it behind you. You are in a warm, open, sunlit space. No walls. No ceiling. Just safety and openness."</div>
+<div class="say"><b>PHS.</b></div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 18: Safe Space Building <span class="step-time">5 min</span></div>
+<div class="say">"Now create a room. This room belongs entirely to you. No one else has been here. Not a memory. Not a place from your past. Something new."</div>
+
+<div class="branch">
+<b>PHYSICAL:</b> "What color are the walls? What's on the floor? Is there a window? What do you see through it?"<br>
+<b>EMOTIONAL:</b> "Allow the space to take shape on its own. Notice colors... textures... the feeling of the space."
+</div>
+
+<div class="ask">"What does the temperature feel like? Any sounds? Any scent? Is there a place to sit?"</div>
+<div class="say">"Settle in. You decide what enters this space and what stays outside. This is your room."</div>
+<div class="say">"Subconscious mind, when this room is fully established and you feel completely safe, let a nod happen."</div>
+<div class="do">Wait for nod. If none after 30 sec: "Take your time. When it feels ready, let it happen."</div>
+<div class="record">Safe room description: ______________________________________</div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 19: Grounding Anchor (Triple-Fire) <span class="step-time">2 min</span></div>
+<div class="say">"Press your thumb and index finger together on your left hand. Feel that pressure. That sensation is now linked to this safety. This room. This calm."</div>
+<div class="do">Fire 1. Pause.</div>
+<div class="say">"Release. Press again. The calm deepens. The room becomes more vivid."</div>
+<div class="do">Fire 2. Pause.</div>
+<div class="say">"Release. One more. Press. Breathe in. As you exhale, all tension drains out through your feet."</div>
+<div class="do">Fire 3.</div>
+<div class="say">"Subconscious mind, when this anchor is installed, let a nod happen."</div>
+<div class="do">Wait for nod.</div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 20: Post-Hypnotic Suggestion <span class="step-time">1 min</span></div>
+<div class="say">"Between now and our next session, you may notice moments of unexpected calm. Moments where the anxiety is just a little lower. When those happen, notice them. Each one is evidence that this work is active."</div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 21: Count Out <span class="step-time">2 min</span></div>
+<div class="say"><b>PHS seal:</b> "Each and every time... safely and comfortably... sealed now."</div>
+<div class="say">"Zero &mdash; let us close the door to the subconscious mind now, blocking all negatives."</div>
+<div class="say">"One &mdash; slowly coming up. Feeling your feet on the floor."</div>
+<div class="say">"Two &mdash; physically aware. Mentally alert."</div>
+<div class="say">"Three &mdash; coming up higher now."</div>
+<div class="say">"Four &mdash; eyes beginning to open."</div>
+<div class="say">"Five &mdash; EYES OPEN. WIDE AWAKE. 1-2-3-4-5 EYES OPEN AND WIDE AWAKE."</div>
+<div class="say">"Take a moment. There is no rush."</div>
+<div class="crit">STOP RECORDING.</div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 22: Debrief + PHS Verify <span class="step-time">5 min</span></div>
+<div class="ask">"How do you feel?"</div>
+<div class="do">Give him 30-60 seconds. Do not rush.</div>
+<div class="ask">"What did you notice? Any images, sensations, feelings that stood out?"</div>
+<div class="ask">"How deep would you say you went? Zero is wide awake, ten is the deepest possible."</div>
+<div class="record">Self-reported depth: ___/10</div>
+
+<div class="say"><b>PHS Verify:</b> "Raise your arm. Palm facing you. Middle finger. Breathe. Fingers separating. Hand toward face. When it touches, nod. Deep Sleep."</div>
+<div class="do">SNAP. Time the response.</div>
+<div class="record">PHS verify time: ___ seconds (compare to induction)</div>
+<div class="do">Count out 0-1-2-3-4-5 (gentle).</div>
+<div class="say">"Good. The suggestion is installed and working."</div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 23: SMART Baselines <span class="step-time">3 min</span></div>
+<div class="say">"Before we wrap up, I want baseline numbers. Subjective. No wrong answers."</div>
+<div class="ask">"How comfortable do you feel being yourself right now? 1 to 10."</div>
+<div class="record">Self-esteem: ___/10</div>
+<div class="ask">"How easy is it to set boundaries or say no? 1 to 10."</div>
+<div class="record">Assertiveness: ___/10</div>
+<div class="ask">"How much does anxiety affect your decisions? 1 is barely, 10 is everything."</div>
+<div class="record">Anxiety: ___/10</div>
+<div class="ask">"How much do you trust the people closest to you? 1 to 10."</div>
+<div class="record">Trust: ___/10</div>
+<div class="ask">"How often do you feel at ease without being on guard? 1 to 10."</div>
+<div class="record">Comfort: ___/10</div>
+<div class="ask">"How much does the past shape how you react? 1 is barely, 10 is everything."</div>
+<div class="record">Past influence: ___/10</div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step">
+<div class="step-hdr">Step 24: Homework + Close <span class="step-time">3 min</span></div>
+<div class="say">"Two things for homework. Just two."</div>
+<div class="say">"First: the grounding anchor. Thumb and finger, one deep breath. Use it whenever anxiety shows up. The more you use it, the stronger it gets."</div>
+<div class="say">"Second: at some point this week, sit quietly for two minutes, close your eyes, and visit the room you built tonight. Walk around it. Add a detail. Strengthen it."</div>
+<div class="say">"That's it. No journals, no tracking sheets. Just the anchor and the room."</div>
+<div class="ask">"How are you feeling about everything we covered tonight?"</div>
+<div class="do">Let him respond fully.</div>
+<div class="say">"You did really well. Your subconscious accepted the safe space and the anchor on the first session. That tells me your mind is ready for this work."</div>
+<div class="say">"Let's schedule session two. I'd suggest one to two weeks. What works?"</div>
+<div class="record">Session 2 scheduled: ____/____/____ at ______ PM</div>
+<div class="say">"Last thing. If anything feels overwhelming between now and then, use the anchor. And if it's urgent, call or text 988. That's the crisis line. You are not alone in this."</div>
+<div class="say">"Thank you for trusting me with this, T.M. See you at session two."</div>
+</div>
+
+<!-- ============================================================ -->
+<div class="step" style="border-left-color:#6a1b9a">
+<div class="step-hdr" style="color:#6a1b9a">Post-Session: Therapist Checklist</div>
+<div class="record">EP: Physical ___% / Emotional ___%</div>
+<div class="record">Induction time: ___m ___s. PHS verify: ___s</div>
+<div class="record">Depth (self-reported): ___/10</div>
+<div class="record">Safe room: ________________________________________</div>
+<div class="record">Triggers: _________________________________________</div>
+<div class="record">Medications: ______________________________________</div>
+<div class="record">Trauma scope: _____________________________________</div>
+<div class="record">Active care: ______________________________________</div>
+<div class="record">6 SMART baselines: SE___/A___/Anx___/Tr___/C___/PI___</div>
+<div class="do">Write SOAP notes (Subjective, Objective, Assessment, Plan)</div>
+<div class="do">Update TM-002.json with EP, SOAP, session data</div>
+<div class="do">Generate AVS: <span style="font-family:Consolas;font-size:8px">python scripts/generate_client_docs.py data/clients/TM-002.json</span></div>
+<div class="do">Log CCH hours to HMI</div>
+<div class="do">Reflect: what went well? What to adjust for S2?</div>
 </div>
 
 <div class="ft">
-TM-002 Session 1 Prep Sheet (24-Step) | THERAPIST ONLY | Generated: 2026-10-07 | VRishi Hypnotherapy
+TM-002 Session 1 Runbook | THERAPIST ONLY | Follow step by step | VRishi Hypnotherapy | 2026-10-07
 </div>
 </body></html>
