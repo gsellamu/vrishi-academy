@@ -223,14 +223,7 @@ const SEED_CLIENTS = [
     status: "intake",
     startDate: "2026-10-08",
     sessions: [],
-    nextPlan: "Session 1: Assessment + first induction + safe space.
-1. L.O.V.E. intake (presenting problem, expectations)
-2. Critical screening (6 mandatory questions)
-3. Suggestibility test (36 questions, determine EP)
-4. Theory of Mind + education
-5. First induction (EP-branched) + safe space + grounding anchor
-6. PHS verify + SMART baselines (6 measures)
-7. Homework: anchor practice + safe room visit",
+    nextPlan: "Session 1: Assessment + first induction + safe space.\n1. L.O.V.E. intake (presenting problem, expectations)\n2. Critical screening (6 mandatory questions)\n3. Suggestibility test (36 questions, determine EP)\n4. Theory of Mind + education\n5. First induction (EP-branched) + safe space + grounding anchor\n6. PHS verify + SMART baselines (6 measures)\n7. Homework: anchor practice + safe room visit",
   },
 ];
 
