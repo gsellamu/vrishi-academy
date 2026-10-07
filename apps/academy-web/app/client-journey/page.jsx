@@ -209,6 +209,28 @@ const SEED_CLIENTS = [
       },
     ],
     nextPlan: "Session 2 Plan (based on Oct 2 feedback):\n1. Review watch/sleep tracker data (he offered to send readings)\n2. Celebrate: 8.5-hour sleep block (11 PM \u2192 7:33 AM) with only 1 bathroom wake = strong result\n3. Address: 'took awhile to fall asleep' \u2014 strengthen pillow trigger + 4-7-8 anchor. Add progressive muscle tension-release as a Physical-lane sleep onset technique\n4. Heart rate: 72 \u2192 63 bpm post-session = significant parasympathetic activation. Track this as objective progress marker across sessions\n5. Session arc: set expectation for 6-8 sessions (he flagged fatigue at 4-5). Front-load the most impactful techniques, build self-hypnosis independence by session 4\n6. Check dream journal \u2014 any venting dreams? If yes, reinforce as convincer\n7. Reinforce Depth Dial + Settling Pond\n8. Test PHS re-hypnosis speed (finger-spread should be faster than session 1)\n9. Send hypnotherapy website link (action item still open)",
+  },,
+  {
+    id: "TM-002",
+    name: "T.M.",
+    initials: "TM",
+    age: 22,
+    occupation: "",
+    ep: "",
+    vak: "",
+    presenting: "Unresolved childhood trauma affecting self-esteem, confidence, assertiveness, and trust. Anxiety-driven hypervigilance.",
+    caseRef: "TRAUMA-001",
+    status: "intake",
+    startDate: "2026-10-08",
+    sessions: [],
+    nextPlan: "Session 1: Assessment + first induction + safe space.
+1. L.O.V.E. intake (presenting problem, expectations)
+2. Critical screening (6 mandatory questions)
+3. Suggestibility test (36 questions, determine EP)
+4. Theory of Mind + education
+5. First induction (EP-branched) + safe space + grounding anchor
+6. PHS verify + SMART baselines (6 measures)
+7. Homework: anchor practice + safe room visit",
   },
 ];
 
