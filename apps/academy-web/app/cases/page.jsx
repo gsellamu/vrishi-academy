@@ -124,7 +124,7 @@ export default function Cases() {
               {/* Dialogue */}
               <div className="panel" style={{ padding: "18px 22px" }}>
                 <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--iris)", marginBottom: 14 }}>Intake Conversation</div>
-                {c.intake_dialogue.map((line, i) => (
+                {(c.intake_dialogue || []).map((line, i) => (
                   <div key={i} style={{ display: "flex", gap: 10, marginBottom: 14 }}>
                     <span style={{ fontFamily: "var(--mono)", fontSize: 10, textTransform: "uppercase", color: line.role === "therapist" ? "var(--teal)" : cat?.color, minWidth: 65, paddingTop: 2 }}>
                       {line.role === "therapist" ? "You" : "Client"}

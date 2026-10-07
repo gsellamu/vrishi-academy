@@ -3413,6 +3413,36 @@
         "countout",
         "fingerspread",
         "homework"
+      ],
+      "intake_dialogue": [
+        {
+          "role": "therapist",
+          "text": "Tell me what brought you here. In your own words."
+        },
+        {
+          "role": "client",
+          "text": "I have some issues with letting go of past traumatic experiences and the feelings surrounding them from when I was a young kid. I have tried traditional psychotherapy, which has helped a ton, but I am still looking to resolve complicated feelings around self-esteem, confidence, assertiveness, and generally to feel comfortable in my own skin."
+        },
+        {
+          "role": "therapist",
+          "text": "Thank you for sharing that. So the psychotherapy helped significantly, but there are pieces still running in the background."
+        },
+        {
+          "role": "client",
+          "text": "Yeah. I have issues letting go and trusting people that are close to me. It still feels like my anxiety still runs the show sometimes, and I want to become more open and less hypervigilant."
+        },
+        {
+          "role": "therapist",
+          "text": "When you say the anxiety runs the show, can you give me a recent example?"
+        },
+        {
+          "role": "client",
+          "text": "It is hard to explain. I just feel like I am always on guard. Even when things are fine, I am waiting for something to go wrong. It is exhausting."
+        },
+        {
+          "role": "therapist",
+          "text": "That makes complete sense. Your nervous system learned to stay alert because it needed to. What you are describing is a protective program that did its job and has not received the update that the situation has changed."
+        }
       ]
     }
   ]
