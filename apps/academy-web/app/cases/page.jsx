@@ -198,7 +198,7 @@ export default function Cases() {
                     <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>S2 Target</div>
                     <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>S4 Target</div>
                     <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Graduation</div>
-                    {Object.entries(jp.smart_goals).map(([key, vals]) => (
+                    {Object.entries(jp.smart_goals || {}).map(([key, vals]) => (
                       <React.Fragment key={key}>
                         <div style={{ color: "#cfc9dd" }}>{key.replace(/_/g, " ")}</div>
                         <div style={{ color: "var(--red)" }}>{vals.baseline}</div>
