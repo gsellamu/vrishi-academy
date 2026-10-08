@@ -1,52 +1,124 @@
 {
   "id": "TM-002",
   "name": "T.M.",
-  "full_name": "",
+  "full_name": "Tristan M.",
   "initials": "TM",
   "age": 22,
-  "occupation": "",
-  "ep": "",
-  "vak": "",
+  "occupation": "Student (App State, NC), recreation management + park ranger experience",
+  "ep": "69% Emotional",
+  "vak": "TBD",
   "presenting": "Unresolved childhood trauma affecting self-esteem, confidence, assertiveness, and trust. Anxiety-driven hypervigilance. Difficulty letting go and feeling comfortable in own skin.",
   "presenting_quote": "I have some issues with letting go of past traumatic experiences and the feelings surrounding them from when I was a young kid. I've tried traditional psychotherapy, which has helped a ton, but I am still looking to resolve complicated feelings around self-esteem, confidence, assertiveness, and generally to feel comfortable in my own skin. I have issues letting go and trusting people that are close to me. It still feels like my anxiety still runs the show sometimes, and I want to become more open and less hypervigilant.",
   "case_ref": "TRAUMA-001",
-  "status": "intake",
+  "status": "active",
   "start_date": "2026-10-08",
   "fee": "pro_bono",
   "referral": "HMI Community Service Program (CSP)",
   "prior_therapy": "Traditional psychotherapy (client reports significant progress but unresolved feelings remain)",
-  "history": "22-year-old, childhood trauma (details TBD in session). Has done traditional psychotherapy which helped significantly. Remaining issues: self-esteem, confidence, assertiveness, comfort in own skin, letting go, trust, anxiety-driven hypervigilance. Wants to become more open and less guarded. Requested male therapist for comfort discussing men's issues. CSP pro bono client via HMI.",
+  "history": "22-year-old student at Appalachian State University, North Carolina. Living with grandfather. Support system: few childhood friends + sister. Childhood abuse from family members including mother. Feelings: abandoned, alone, betrayed, angry, ashamed. Difficulty forming close relationships due to trust issues and fear of vulnerability. Prior psychotherapy helped significantly. Triggers: men yelling (causes fear and anxiety), past trauma discussions. Wants: emotional stability, assertiveness, awareness of past without current anxiety. Forgiveness not fully achieved on past events. CSP pro bono client via HMI. Requested male therapist.",
   "contraindications": [
-    "SCREEN: childhood trauma history requires careful approach",
-    "SCREEN: anxiety level and any panic disorder",
-    "SCREEN: current medications (anti-anxiety, anti-depressant)",
-    "SCREEN: suicidal ideation history",
-    "SCREEN: active psychiatric care (if yes, must coordinate or refer)"
+    "Childhood abuse (family members, mother) - ongoing emotional impact",
+    "Trigger: men yelling - causes fear/anxiety response",
+    "Trigger: past trauma discussions - exacerbates symptoms",
+    "Abandonment/betrayal pattern - affects trust in close relationships",
+    "Fear of vulnerability - guard stays up"
   ],
   "medications": [],
   "tracker": {},
-  "sessions": [],
+  "sessions": [
+    {
+      "num": 1,
+      "date": "2026-10-08",
+      "status": "completed",
+      "duration_min": 90,
+      "techniques": "L.O.V.E. intake, 36-question suggestibility test (31% Physical / 69% Emotional), Theory of Mind, EFT tapping (introduction), guided relaxation + deep breathing, self-acceptance affirmations",
+      "soap": {
+        "subjective": "Client reports anxiety stemming from childhood abuse by family members including mother. Describes feelings of abandonment, being alone, betrayal, anger, and shame. Has difficulty forming close relationships due to trust issues and fear of vulnerability. Maintains few childhood friends and sister as support system. Lives with grandfather. Student at App State (recreation management, park ranger experience). Specific trigger: men yelling causes fear and anxiety. Prior psychotherapy helped significantly but unresolved feelings remain. Wants emotional stability, assertiveness, and to be aware of past without it causing current anxiety. Forgiveness regarding past events not fully achieved. Describes ideal self as emotionally stable and assertive.",
+        "objective": "36-question suggestibility test: 31% Physical / 69% Emotional. Client responds to indirect imagery and metaphors rather than direct commands. Engaged well with EFT tapping exercise - accepted affirmations about shame, fear, anger, betrayal. Participated in guided relaxation and deep breathing. Appeared to relax during breathing exercises. Open and forthcoming about trauma history during intake. Emotional responses visible when discussing mother and abandonment.",
+        "assessment": "Anxiety and hypervigilance secondary to childhood abuse and abandonment by family members. Core wounds: abandonment, betrayal, shame. 69% Emotional suggestibility - delivery must use imagery, metaphors, permissive language. Client has psychotherapy foundation providing conscious insight. Subconscious patterns (trust, hypervigilance, self-esteem) remain active. EFT well-received - can be integrated into future sessions as grounding tool. Prognosis: good - client is motivated, open to process, and has existing therapeutic gains to build on.",
+        "plan": "1. Client to email examples of positive experiences, feelings, and imagery. 2. Session 2: formal hypnotic induction (Emotional lane - eye-closure/inferential arm-raise), safe space construction, grounding anchor installation, PHS. 3. Use client-provided positive imagery in therapeutic suggestions. 4. Introduce self-hypnosis anchoring techniques. 5. Address specific triggers (men yelling) with desensitization in trance. 6. Consider hypnodrama and cord cutting for abandonment/betrayal processing."
+      },
+      "feedback": ""
+    }
+  ],
   "smart_goals": [
-    {"measure": "Self-esteem", "baseline": "TBD (Session 1)", "target": "7-8/10 (confident in own worth)"},
-    {"measure": "Assertiveness", "baseline": "TBD (Session 1)", "target": "Comfortable setting boundaries"},
-    {"measure": "Anxiety level", "baseline": "TBD (Session 1)", "target": "Manageable, not running the show"},
-    {"measure": "Trust in close relationships", "baseline": "TBD (Session 1)", "target": "Open, less hypervigilant"},
-    {"measure": "Comfort in own skin", "baseline": "TBD (Session 1)", "target": "8+/10 (at ease being self)"},
-    {"measure": "Letting go of past", "baseline": "TBD (Session 1)", "target": "Past acknowledged, no longer controls present"}
+    {
+      "measure": "Self-esteem",
+      "baseline": "TBD (Session 1)",
+      "target": "7-8/10 (confident in own worth)"
+    },
+    {
+      "measure": "Assertiveness",
+      "baseline": "TBD (Session 1)",
+      "target": "Comfortable setting boundaries"
+    },
+    {
+      "measure": "Anxiety level",
+      "baseline": "TBD (Session 1)",
+      "target": "Manageable, not running the show"
+    },
+    {
+      "measure": "Trust in close relationships",
+      "baseline": "TBD (Session 1)",
+      "target": "Open, less hypervigilant"
+    },
+    {
+      "measure": "Comfort in own skin",
+      "baseline": "TBD (Session 1)",
+      "target": "8+/10 (at ease being self)"
+    },
+    {
+      "measure": "Letting go of past",
+      "baseline": "TBD (Session 1)",
+      "target": "Past acknowledged, no longer controls present"
+    }
   ],
   "treatment_plan": {
     "total_sessions": "6-8",
     "frequency": "Every 1-2 weeks",
     "approach": "Clinical hypnotherapy (EP lane TBD after suggestibility test)",
     "sessions": [
-      {"num": 1, "focus": "Assessment + Intake + Suggestibility Test + First Induction", "status": "scheduled", "date": "2026-10-08"},
-      {"num": 2, "focus": "Inner Child Work + Core Belief Reframe", "status": "upcoming"},
-      {"num": 3, "focus": "Self-Esteem + Confidence Installation", "status": "upcoming"},
-      {"num": 4, "focus": "Trust + Assertiveness + Boundaries", "status": "upcoming"},
-      {"num": 5, "focus": "Anxiety Reduction + Hypervigilance Release", "status": "upcoming"},
-      {"num": 6, "focus": "Integration + Self-Hypnosis Independence", "status": "upcoming"},
-      {"num": 7, "focus": "Contingency (if needed)", "status": "upcoming"},
-      {"num": 8, "focus": "Contingency (if needed)", "status": "upcoming"}
+      {
+        "num": 1,
+        "focus": "Assessment + Intake + Suggestibility Test + First Induction",
+        "status": "completed",
+        "date": "2026-10-08"
+      },
+      {
+        "num": 2,
+        "focus": "Formal Induction + Safe Space + Grounding Anchor + PHS (deferred from S1)",
+        "status": "upcoming"
+      },
+      {
+        "num": 3,
+        "focus": "Self-Esteem + Confidence Installation",
+        "status": "upcoming"
+      },
+      {
+        "num": 4,
+        "focus": "Trust + Assertiveness + Boundaries",
+        "status": "upcoming"
+      },
+      {
+        "num": 5,
+        "focus": "Anxiety Reduction + Hypervigilance Release",
+        "status": "upcoming"
+      },
+      {
+        "num": 6,
+        "focus": "Integration + Self-Hypnosis Independence",
+        "status": "upcoming"
+      },
+      {
+        "num": 7,
+        "focus": "Contingency (if needed)",
+        "status": "upcoming"
+      },
+      {
+        "num": 8,
+        "focus": "Contingency (if needed)",
+        "status": "upcoming"
+      }
     ]
   },
   "phs": [],
