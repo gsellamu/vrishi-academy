@@ -40,6 +40,22 @@
         "plan": "1. Sleep ceremony homework. 2. Settling practice nightly. 3. Dream journal. 4. Follow-up in 1-2 weeks. 5. Session 2: reinforce Depth Dial, test PHS re-hypnosis speed."
       },
       "feedback": "Post-session (Oct 2, 6:12 AM): Sleep 11 PM to 7:33 AM with only 1 bathroom wake. Heart rate dropped 72 to 63 bpm. Reports tendency to fatigue after 4-5 sessions."
+    },
+    {
+      "num": 2,
+      "date": "2026-10-09",
+      "status": "completed",
+      "duration_min": 90,
+      "techniques": "Physical tension release ritual (fists/shoulders), Depth Dial anchor (brass dial to Delta Lock 0.5 Hz), cellular regeneration visualization (pituitary/growth hormone/glymphatic flush), progressive relaxation, nasal breathing education, vagus nerve stimulation techniques (ice water, humming/OM), journaling protocol (3-stage: analysis/prediction/plan of record)",
+      "sleep_score": 0,
+      "homework_done": [],
+      "soap": {
+        "subjective": "Client reports averaging 1.5 hours deep sleep daily. Sleep apnea identified as complicating factor. Dietary trigger discovered: sugar after 4:30-5:00 PM worsens sleep. Room temperature fluctuations wake him. Has implemented daily journaling to clear mental clutter. Nasal breathing vs mouth breathing discussed.",
+        "objective": "76% Physical confirmed from S1. Client highly reactive to physical sensations and body signaling. Physical tension release ritual practiced successfully. Depth Dial visualization installed with Delta Lock anchor (0.5 Hz). Cellular regeneration guided imagery delivered (pituitary, growth hormone, glymphatic flush). Client responded well to kinesthetic anchors. Session ran 90 minutes - could not complete all 10 installations.",
+        "assessment": "Session 2a completed: Depth Dial anchor installed, cellular regeneration visualization delivered, tension release ritual taught. Remaining installations (Sorting Room, Settling Pond, Island Cabin, Pillow Trigger, Night-Waking Reset, Time Anchor, Venting Dreams, Tracker Convincer) deferred to Session 2b. Environmental desensitization (temperature, fan noise) identified as new target. Sleep apnea complicates the picture - nasal breathing and jaw headband recommended as adjuncts. Client physically suggestible - massage/body contact releases oxytocin, lowers cortisol.",
+        "plan": "1. Session 2b: complete remaining installations (priority: Pillow Trigger, Night-Waking Reset, Island Cabin). 2. Environmental desensitization (temperature, fan noise disturbances). 3. Self-hypnosis training with provided scripts/recordings. 4. Provide summary transcript of rituals. 5. Provide self-hypnosis recording to reduce therapist dependence."
+      },
+      "feedback": ""
     }
   ],
   "smart_goals": [
@@ -86,9 +102,14 @@
       },
       {
         "num": 2,
-        "focus": "THE INSTALLATION — 10 PHS anchored in deep trance",
-        "status": "scheduled",
+        "focus": "THE INSTALLATION (partial) - Depth Dial + cellular regeneration + tension release",
+        "status": "completed",
         "date": "2026-10-09"
+      },
+      {
+        "num": "2b",
+        "focus": "Complete remaining installations + environmental desensitization + self-hypnosis intro",
+        "status": "upcoming"
       },
       {
         "num": 3,
@@ -141,5 +162,15 @@
     "Close the journal",
     "Breathing + self progressive relaxation",
     "Dream of deep peaceful sleep + self-hypnosis"
-  ]
+  ],
+  "notes": {
+    "sleep_apnea": "Sleep apnea identified. Nasal breathing recommended. Jaw headband from Amazon to prevent mouth breathing/snoring.",
+    "dietary_trigger": "No sugar after 4:30-5:00 PM. Temperature fluctuations wake him.",
+    "vagus_nerve": "Techniques: ice-cold water behind ears, humming/OM vibrations.",
+    "physical_recovery": "76% Physical - massage and body contact release oxytocin, lower cortisol.",
+    "journaling": "3-stage method: (1) analysis of what happened, (2) prediction/disposition for tomorrow, (3) plan of record.",
+    "installations_completed_s2": "Depth Dial (Delta Lock 0.5 Hz), cellular regeneration (pituitary/growth hormone/glymphatic)",
+    "installations_remaining": "Sorting Room, Delta Floor, Settling Pond, Island Cabin, Pillow Trigger, Night-Waking Reset, 10:30 PM Time Anchor, Venting Dreams, Tracker Convincer",
+    "action_items": "Provide summary transcript of rituals. Provide self-hypnosis recording/script."
+  }
 }
