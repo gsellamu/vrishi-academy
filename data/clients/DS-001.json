@@ -15,11 +15,12 @@
   "fee": "pro_bono",
   "history": "No prior hypnosis. Recently relocated internationally. Socially thriving. Paradox: sleeping MORE hours (6-7, up from 5-6) but waking exhausted. Vivid work-related dreams. Not anxiety-related.",
   "contraindications": [
-    "Diagnosed insomnia (long-standing, predates relocation)",
-    "Diagnosed sleep apnea (physical airway obstruction)",
-    "Snoring (partial obstruction, jaw headband recommended)",
-    "SCREEN: Is he using CPAP or oral appliance? If untreated, refer to sleep specialist.",
-    "Hypnotherapy addresses behavioral/cognitive components ONLY. Cannot fix physical obstruction."
+    "Diagnosed sleep apnea (confirmed). Tried CPAP - made situation WORSE. Currently untreated.",
+    "Diagnosed insomnia (3-4 years). Multiple sleep specialists consulted.",
+    "Snoring (partial obstruction). Jaw headband recommended.",
+    "Weight loss recommended by specialists but client unable to achieve.",
+    "Hypnotherapy scope: behavioral/cognitive ONLY. Cannot treat physical obstruction.",
+    "NO CPAP currently. No oral appliance. Medical pathway exhausted by client choice."
   ],
   "medications": [],
   "tracker": {
@@ -170,7 +171,7 @@
     "Dream of deep peaceful sleep + self-hypnosis"
   ],
   "notes": {
-    "sleep_apnea": "Diagnosed insomnia + sleep apnea + snoring. Long-standing (years, not just relocation). Physical airway obstruction means even if Depth Dial reaches delta brainwave state, body may not get full restorative benefit due to micro-arousals from apnea events. Jaw headband recommended but may be insufficient. CPAP or oral appliance may be needed. Must ask in S2b: current treatment status for apnea.",
+    "sleep_apnea": "CONFIRMED: diagnosed sleep apnea, 3-4 years. Tried CPAP - made it worse (discontinued). Multiple sleep specialists consulted. Recommended weight loss but unable to achieve. Currently NO medical treatment for apnea. This means every night his airway obstructs, brain micro-wakes, and restorative delta is disrupted. This explains: (1) sleeping longer but unrefreshing, (2) 1.5 hrs deep sleep avg, (3) morning restedness 3-4/10, (4) persistent fatigue despite Depth Dial. Our work helps the behavioral layer (onset, routine, cognitive quieting, relaxation response). We cannot promise morning restedness improvement if apnea remains untreated. HONEST with client: both layers needed. Explore: oral appliance, positional therapy, weight management hypnotherapy as adjunct.",
     "dietary_trigger": "No sugar after 4:30-5:00 PM. Temperature fluctuations wake him.",
     "vagus_nerve": "Techniques: ice-cold water behind ears, humming/OM vibrations.",
     "physical_recovery": "76% Physical - massage and body contact release oxytocin, lower cortisol.",
@@ -178,6 +179,6 @@
     "installations_completed_s2": "Depth Dial (Delta Lock 0.5 Hz), cellular regeneration (pituitary/growth hormone/glymphatic)",
     "installations_remaining": "Sorting Room, Delta Floor, Settling Pond, Island Cabin, Pillow Trigger, Night-Waking Reset, 10:30 PM Time Anchor, Venting Dreams, Tracker Convincer",
     "action_items": "Provide summary transcript of rituals. Provide self-hypnosis recording/script.",
-    "clinical_limitation": "Morning restedness 3/10 despite Depth Dial and no night-waking may be explained by untreated sleep apnea. Brain reaches delta but airway collapses cause micro-arousals that prevent restorative benefit. Honest disclosure to client required."
+    "clinical_limitation": "Client has exhausted traditional medical options (CPAP failed, weight loss unsuccessful). This makes our behavioral work MORE important, not less - it is the only active intervention. But we must set realistic expectations: full morning restedness may require addressing the apnea. Consider: (1) hypnotherapy for weight management as parallel track, (2) oral appliance referral (different from CPAP), (3) positional therapy (sleeping on side vs back), (4) nasal breathing + jaw headband as partial mitigation."
   }
 }
