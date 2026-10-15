@@ -14,7 +14,13 @@
   "start_date": "2026-10-01",
   "fee": "pro_bono",
   "history": "No prior hypnosis. Recently relocated internationally. Socially thriving. Paradox: sleeping MORE hours (6-7, up from 5-6) but waking exhausted. Vivid work-related dreams. Not anxiety-related.",
-  "contraindications": [],
+  "contraindications": [
+    "Diagnosed insomnia (long-standing, predates relocation)",
+    "Diagnosed sleep apnea (physical airway obstruction)",
+    "Snoring (partial obstruction, jaw headband recommended)",
+    "SCREEN: Is he using CPAP or oral appliance? If untreated, refer to sleep specialist.",
+    "Hypnotherapy addresses behavioral/cognitive components ONLY. Cannot fix physical obstruction."
+  ],
   "medications": [],
   "tracker": {
     "type": "wearable",
@@ -164,13 +170,14 @@
     "Dream of deep peaceful sleep + self-hypnosis"
   ],
   "notes": {
-    "sleep_apnea": "Sleep apnea identified. Nasal breathing recommended. Jaw headband from Amazon to prevent mouth breathing/snoring.",
+    "sleep_apnea": "Diagnosed insomnia + sleep apnea + snoring. Long-standing (years, not just relocation). Physical airway obstruction means even if Depth Dial reaches delta brainwave state, body may not get full restorative benefit due to micro-arousals from apnea events. Jaw headband recommended but may be insufficient. CPAP or oral appliance may be needed. Must ask in S2b: current treatment status for apnea.",
     "dietary_trigger": "No sugar after 4:30-5:00 PM. Temperature fluctuations wake him.",
     "vagus_nerve": "Techniques: ice-cold water behind ears, humming/OM vibrations.",
     "physical_recovery": "76% Physical - massage and body contact release oxytocin, lower cortisol.",
     "journaling": "3-stage method: (1) analysis of what happened, (2) prediction/disposition for tomorrow, (3) plan of record.",
     "installations_completed_s2": "Depth Dial (Delta Lock 0.5 Hz), cellular regeneration (pituitary/growth hormone/glymphatic)",
     "installations_remaining": "Sorting Room, Delta Floor, Settling Pond, Island Cabin, Pillow Trigger, Night-Waking Reset, 10:30 PM Time Anchor, Venting Dreams, Tracker Convincer",
-    "action_items": "Provide summary transcript of rituals. Provide self-hypnosis recording/script."
+    "action_items": "Provide summary transcript of rituals. Provide self-hypnosis recording/script.",
+    "clinical_limitation": "Morning restedness 3/10 despite Depth Dial and no night-waking may be explained by untreated sleep apnea. Brain reaches delta but airway collapses cause micro-arousals that prevent restorative benefit. Honest disclosure to client required."
   }
 }
