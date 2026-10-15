@@ -308,11 +308,11 @@ export default function Cases() {
                     <div style={{ fontWeight: 600, color: "var(--mist)", fontSize: 9 }}>Metric</div>
                     <div style={{ fontWeight: 600, color: "var(--red)", fontSize: 9 }}>Baseline</div>
                     <div style={{ fontWeight: 600, color: "var(--ok)", fontSize: 9 }}>Graduation</div>
-                    {Object.entries(c.client_plan.measurement.your_baseline).map(([key, val]) => (
+                    {Object.entries(c.client_plan?.measurement?.your_baseline || {}).map(([key, val]) => (
                       <React.Fragment key={key}>
                         <div style={{ color: "#cfc9dd" }}>{key.replace(/_/g, " ")}</div>
                         <div style={{ color: "var(--red)" }}>{val}</div>
-                        <div style={{ color: "var(--ok)" }}>{c.client_plan.measurement.graduation_targets[key]}</div>
+                        <div style={{ color: "var(--ok)" }}>{(c.client_plan?.measurement?.graduation_targets || {})[key] || "—"}</div>
                       </React.Fragment>
                     ))}
                   </div>
