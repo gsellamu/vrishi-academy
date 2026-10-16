@@ -63,6 +63,22 @@
         "plan": "1. Session 2b: complete remaining installations (priority: Pillow Trigger, Night-Waking Reset, Island Cabin). 2. Environmental desensitization (temperature, fan noise disturbances). 3. Self-hypnosis training with provided scripts/recordings. 4. Provide summary transcript of rituals. 5. Provide self-hypnosis recording to reduce therapist dependence."
       },
       "feedback": "Oct 15 update: Followed full ritual step by step. (1) Exercised. (2) No eating after 7 PM. (3) Showered. (4) Closed journal and sealed it. (5) 4-7-8 breathing. (6) Room temp set to 67F. (7) Fell asleep within 15 min (was ~35 min baseline). (8) Woke once during night. (9) Net sleep 6:24, total bed time 7:45. (10) FEELS REFRESHED IN THE MORNING. (11) ECG correct, SpO2 98%. (12) Morning routine: warm water with lemon. KEY IMPROVEMENTS: onset 35 min -> 15 min. Morning restedness 3/10 -> REFRESHED. Homework compliance: FULL (all steps followed). This is the first time client reported feeling refreshed since starting treatment."
+    },
+    {
+      "num": "2b",
+      "date": "2026-10-15",
+      "status": "completed",
+      "duration_min": 60,
+      "techniques": "PHS re-entry, 5-0 count, reactional x2, progressive relaxation, Depth Dial reinforcement (Delta Lock 0.5 Hz), Sorting Room installation, Settling Pond installation, Island Cabin installation (airway holds open, nasal breathing, wave-breath sync), Pillow Trigger installation, Night-Waking Reset installation. Education: mouth breathing as root cause of snoring, nasal breathing intervention, left-side sleeping, body safety reprogramming (deep sleep is safe), heart rate vs blood pressure distinction, emotional eating identification, CPAP desensitization discussed (deferred), weight management next session.",
+      "sleep_score": 0,
+      "homework_done": [],
+      "soap": {
+        "subjective": "Client reports breakthrough night (Oct 14): full ritual compliance, onset 15 min, refreshed morning, SpO2 98%. Sleep 10:30 PM to 6:45 AM, woke once for bathroom, returned immediately. Watch reported 3-4 wake-ups (vs sleep study showing higher). Resting HR still elevated 72-77 (expected 57). Post-tennis BP spiked 172 then recovered to 116 within 1 hour. Confirms snoring from wife observation. Difficulty with weight loss despite 3 hrs exercise/day, 12K steps. Overeats consistently. CPAP uncomfortable (parallels scuba/snorkel discomfort). Traveling to San Jose first week Nov.",
+        "objective": "Depth Dial reinforced to Delta Lock. 5 installations delivered with ideomotor checks. Mouth breathing identified as primary snoring contributor through clinical discussion. Nasal breathing demonstrated (close mouth, bite teeth gently, breathe through nose). Left-side sleeping recommended. Safety reprogramming: body trained to fear deep sleep (choking risk) needs recalibration via nasal breathing + position + hypnotic reassurance. HR elevation attributed to chronic cortisol (amygdala hijack, defensive mode), distinct from BP which is vascular. Weight loss identified as emotional eating (dopamine/serotonin trigger).",
+        "assessment": "Behavioral layer producing breakthrough results. Client demonstrated full compliance and best sleep since treatment began. Mouth breathing confirmed as primary snoring mechanism. Three-track approach solidified: (1) physical/structural (nasal breathing, left-side, chin strap if needed), (2) behavioral reprogramming (Depth Dial, installations, ritual), (3) weight management via hypnotherapy (next session). CPAP deferred pending other interventions. HR elevation is chronic stress response, not cardiac pathology (good BP recovery). Emotional eating is the weight loss barrier, not lack of exercise.",
+        "plan": "1. NEXT SESSION: weight management hypnotherapy (emotional eating triggers). 2. Client to confirm mouth breathing during sleep with wife. 3. Trial nasal breathing + left-side sleeping this week. 4. Consider chin strap if mouth breathing confirmed. 5. Schedule sleep apnea reassessment (3P) with sleep doctor. 6. Practice Depth Dial nightly. Pillow Trigger now automatic. 7. Client traveling to San Jose first week Nov - schedule around that. 8. Continue full ritual stack."
+      },
+      "feedback": ""
     }
   ],
   "smart_goals": [
@@ -116,7 +132,8 @@
       {
         "num": "2b",
         "focus": "Complete remaining installations + environmental desensitization + self-hypnosis intro",
-        "status": "upcoming"
+        "status": "completed",
+        "date": "2026-10-15"
       },
       {
         "num": 3,
@@ -181,6 +198,7 @@
     "action_items": "Provide summary transcript of rituals. Provide self-hypnosis recording/script.",
     "clinical_limitation": "Client has exhausted traditional medical options (CPAP failed, weight loss unsuccessful). This makes our behavioral work MORE important, not less - it is the only active intervention. But we must set realistic expectations: full morning restedness may require addressing the apnea. Consider: (1) hypnotherapy for weight management as parallel track, (2) oral appliance referral (different from CPAP), (3) positional therapy (sleeping on side vs back), (4) nasal breathing + jaw headband as partial mitigation.",
     "catch22_framework": "THE CATCH-22: Sleep apnea deprives body of oxygen, causes micro-arousals 100s of times/night. This spikes cortisol, disrupts ghrelin/leptin (hunger/fullness hormones). Makes weight loss near-impossible by willpower alone. Specialists say lose weight to fix apnea, but apnea makes weight loss biologically harder. CPAP would break the cycle but client tried it and it made things worse. THREE-TRACK APPROACH: (1) Hypnotherapy for sleep behavior (current - Depth Dial, installations, ritual). (2) Hypnotherapy for CPAP retry/desensitization (new - address anxiety/discomfort that caused CPAP failure). (3) Hypnotherapy for weight management (future - emotional eating, stress snacking, late-night cravings, exercise motivation). PLUS: discuss medical weight management options (GLP-1 medications etc) with his physician.",
-    "apnea_hypnotherapy_scope": "What hypnotherapy CAN do: (1) calm sleep anxiety/dread that keeps nervous system revved up, (2) manage behavioral eating habits (emotional eating, stress snacking, late-night cravings), (3) desensitize CPAP anxiety to enable retry, (4) improve sleep onset and cognitive quieting, (5) airway visualization suggestions (throat muscles hold tone, nasal breathing). What hypnotherapy CANNOT do: physically open the airway, replace CPAP, cause significant weight loss alone. EVIDENCE: Oxford trial (Stradling 1998) - hypnotherapy + stress reduction maintained 3.8kg loss at 18 months. Active RCT (NCT06397365, 2025) testing hypnosis for CPAP adherence. HypnoticWorld scripts available: Sleep Apnea Disorder Relaxation, Snoring Relaxation, Breathe Easy Visualization."
+    "apnea_hypnotherapy_scope": "What hypnotherapy CAN do: (1) calm sleep anxiety/dread that keeps nervous system revved up, (2) manage behavioral eating habits (emotional eating, stress snacking, late-night cravings), (3) desensitize CPAP anxiety to enable retry, (4) improve sleep onset and cognitive quieting, (5) airway visualization suggestions (throat muscles hold tone, nasal breathing). What hypnotherapy CANNOT do: physically open the airway, replace CPAP, cause significant weight loss alone. EVIDENCE: Oxford trial (Stradling 1998) - hypnotherapy + stress reduction maintained 3.8kg loss at 18 months. Active RCT (NCT06397365, 2025) testing hypnosis for CPAP adherence. HypnoticWorld scripts available: Sleep Apnea Disorder Relaxation, Snoring Relaxation, Breathe Easy Visualization.",
+    "s2b_findings": "Mouth breathing = primary snoring cause. Nasal breathing = primary intervention. Left-side sleeping preferred (airway + acid reflux). Back sleeping worst for apnea. Body fears deep sleep (choking association) = must reprogram safety signal. HR elevated (72-77 vs 57 baseline) = chronic cortisol, amygdala hijack. BP recovery good (172->116 in 1hr) = vascular health OK. Emotional eating = dopamine/serotonin substitution. 3 hrs exercise/day but overeats. CPAP discomfort parallels scuba/snorkel = claustrophobia component. Next session: weight management hypnotherapy. Traveling San Jose first week Nov."
   }
 }
