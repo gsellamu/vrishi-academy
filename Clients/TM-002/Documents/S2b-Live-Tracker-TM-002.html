@@ -1,0 +1,849 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<title>S2b LIVE SESSION TRACKER - TM-002</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d1117;color:#e6edf3;padding:16px 20px 60px;font-size:13px;line-height:1.5}
+h1{font-size:16px;color:#58a6ff;border-bottom:2px solid #30363d;padding-bottom:6px;margin-bottom:4px}
+.meta{font-size:11px;color:#8b949e;margin-bottom:12px}
+.meta b{color:#f0883e}
+
+/* Sections */
+.sec{margin:12px 0;border:1px solid #30363d;border-radius:8px;overflow:hidden}
+.sec-hdr{background:#161b22;padding:8px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.sec-hdr:hover{background:#1c2333}
+.sec-hdr .step-num{color:#58a6ff;margin-right:8px}
+.sec-hdr .time{font-size:10px;color:#8b949e;font-family:'Consolas',monospace}
+.sec-hdr::after{content:"\25BC";font-size:9px;color:#484f58;transition:transform .2s}
+.sec-hdr.collapsed::after{transform:rotate(-90deg)}
+.sec-body{padding:10px 14px;background:#0d1117}
+.sec-body.hidden{display:none}
+
+/* Inputs */
+input[type="text"],input[type="number"],textarea{background:#161b22;border:1px solid #30363d;color:#e6edf3;border-radius:4px;padding:5px 8px;font-size:12px;font-family:inherit;width:100%}
+input[type="number"]{width:60px;text-align:center}
+textarea{min-height:60px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:#58a6ff;box-shadow:0 0 0 2px rgba(88,166,255,.15)}
+select{background:#161b22;border:1px solid #30363d;color:#e6edf3;border-radius:4px;padding:3px 8px;font-size:12px}
+
+/* Grid for baselines */
+.baseline-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
+.baseline-item{display:flex;align-items:center;gap:6px;padding:4px 8px;background:#161b22;border-radius:4px;border:1px solid #30363d}
+.baseline-item label{font-size:11px;font-weight:600;color:#8b949e;min-width:24px}
+.baseline-item .anchors{font-size:9px;color:#484f58;margin-left:4px}
+
+/* Checkboxes */
+.check-row{display:flex;align-items:center;gap:8px;padding:4px 0}
+.check-row input[type="checkbox"]{width:16px;height:16px;accent-color:#58a6ff;flex-shrink:0}
+.check-row label{font-size:12px;color:#c9d1d9}
+
+/* Timer */
+.timer-bar{position:fixed;top:0;left:0;right:0;background:#161b22;border-bottom:1px solid #30363d;padding:6px 20px;display:flex;align-items:center;gap:16px;z-index:100}
+.timer-display{font-family:'Consolas',monospace;font-size:20px;color:#58a6ff;min-width:80px}
+.timer-btn{padding:4px 12px;border:1px solid #30363d;border-radius:4px;background:#161b22;color:#c9d1d9;cursor:pointer;font-size:11px}
+.timer-btn:hover{border-color:#58a6ff}
+.current-step{font-size:12px;color:#f0883e;font-weight:600}
+.recording-badge{font-size:11px;color:#f85149;font-weight:700;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+body{padding-top:50px}
+
+/* Inline cues */
+.cue{margin:4px 0;padding:4px 8px;border-radius:4px;font-size:11px;line-height:1.45}
+.cue-say{background:#0d2d0d;border-left:3px solid #3fb950}
+.cue-say::before{content:"SAY: ";font-weight:700;color:#3fb950;font-size:9px}
+.cue-ask{background:rgba(12,45,107,.15);border-left:3px solid #58a6ff}
+.cue-ask::before{content:"ASK: ";font-weight:700;color:#58a6ff;font-size:9px}
+.cue-do{background:rgba(61,34,0,.15);border-left:3px solid #f0883e}
+.cue-do::before{content:"DO: ";font-weight:700;color:#f0883e;font-size:9px}
+.cue-crit{background:#3d1117;border-left:3px solid #f85149;color:#f85149;font-weight:600}
+.cue-crit::before{content:"!! ";font-weight:700;color:#f85149;font-size:9px}
+.cue-note{background:rgba(139,148,158,.08);border-left:3px solid #484f58;color:#8b949e;font-style:italic}
+.cue-note::before{content:"NOTE: ";font-weight:700;color:#484f58;font-size:9px;font-style:normal}
+.cue-phs{background:rgba(40,53,147,.15);border-left:3px solid #7c4dff;color:#b388ff}
+.cue-phs::before{content:"PHS: ";font-weight:700;color:#7c4dff;font-size:9px}
+
+/* Expandable guide blocks */
+.guide{margin:6px 0;border:1px solid #21262d;border-radius:4px;overflow:hidden}
+.guide-hdr{padding:4px 8px;background:#161b22;font-size:10px;font-weight:700;color:#58a6ff;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;user-select:none;display:flex;justify-content:space-between;align-items:center}
+.guide-hdr::after{content:"\25B6";font-size:8px;color:#484f58;transition:transform .2s}
+.guide-hdr.open::after{transform:rotate(90deg)}
+.guide-body{padding:6px 8px;display:none}
+.guide-body.show{display:block}
+
+.field-row{display:flex;align-items:center;gap:8px;margin:4px 0}
+.field-row label{font-size:11px;color:#8b949e;min-width:100px;font-weight:600;flex-shrink:0}
+
+/* S2a context */
+.context-box{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:10px 14px;margin:8px 0 14px;font-size:11px;color:#8b949e;line-height:1.55}
+.context-box b{color:#c9d1d9}
+.context-box .tag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:9px;font-weight:600;margin:0 2px}
+.tag-ep{background:#3d2200;color:#f0883e}
+.tag-csp{background:#0c2d6b;color:#58a6ff}
+.tag-trauma{background:#3d1117;color:#f85149}
+
+/* Divider */
+.divider{height:1px;background:#21262d;margin:8px 0}
+
+/* Gate banner */
+.gate-banner{background:#3d1117;border:2px solid #f85149;border-radius:6px;padding:8px 12px;margin:6px 0;font-size:11px;color:#f85149;font-weight:700}
+
+/* Print */
+@media print{
+  .timer-bar{display:none}body{background:#fff;color:#222;padding-top:0}
+  .sec{border-color:#ccc}.sec-hdr{background:#f5f5f5;color:#222}
+  .sec-body{background:#fff}input,textarea{border-color:#ccc;background:#fafafa;color:#222}
+  .guide-body{display:block!important}.cue{border-left-width:2px}
+}
+.save-indicator{position:fixed;bottom:12px;right:16px;font-size:10px;color:#3fb950;opacity:0;transition:opacity .3s}
+.save-indicator.show{opacity:1}
+</style>
+</head><body>
+
+<!-- TIMER BAR -->
+<div class="timer-bar">
+  <button class="timer-btn" onclick="toggleTimer()" id="timerBtn">START</button>
+  <div class="timer-display" id="timerDisplay">00:00</div>
+  <div class="current-step" id="currentStep">PRE-SESSION</div>
+  <div id="recBadge" style="display:none" class="recording-badge">REC</div>
+  <div style="flex:1"></div>
+  <button class="timer-btn" onclick="expandAll()">EXPAND ALL</button>
+  <button class="timer-btn" onclick="collapseAll()">COLLAPSE</button>
+  <button class="timer-btn" onclick="saveAll()">SAVE</button>
+  <button class="timer-btn" onclick="exportNotes()">EXPORT</button>
+</div>
+
+<h1>S2b LIVE SESSION TRACKER &mdash; CIRCLE THERAPY</h1>
+<div class="meta">TM-002 | <b>T.M., 22, 69% Emotional</b> | TRAUMA-001 | CSP Pro Bono | Zoom</div>
+
+<!-- S2a CONTEXT -->
+<div class="context-box">
+  <b>S2a RECAP (Oct 16)</b> &mdash;
+  <span class="tag tag-ep">69% Emotional</span>
+  <span class="tag tag-csp">CSP Pro Bono</span>
+  <span class="tag tag-trauma">TRAUMA-001</span><br>
+  <b>Key techniques:</b> Tribe Circle visualization (11 members), wound identification, desensitization from adult perspective, safe space, PHS (Deep Sleep) installed, EFT reinforcement.<br>
+  <b>Anchor:</b> Thumb + forefinger (RIGHT hand). Triple-fired. Linked to safe space + target emotions.<br>
+  <b>Rescuer-helper identity:</b> Emerged during trance. He sees himself as protector/helper in tribe.<br>
+  <b>Debrief quote:</b> "more steady", "armor or shield" &mdash; felt protected, grounded.<br>
+  <b>S2a homework:</b> (1) Listen to recording, (2) Daily breathing anchor, (3) Tap when triggered, (4) Notice the gap, (5) Notice self-talk.<br>
+  <b>Triggers identified:</b> Disrespect, group vulnerability, trust issues, men yelling.<br>
+  <b>Follow-up for S2b:</b> Were SMART baselines collected? Anchor practiced? Rescuer-helper activated? Dreams? Triggering incidents? Observer-stance continuing?
+</div>
+
+<!-- ============================================== -->
+<!-- PRE-SESSION CHECKLIST                          -->
+<!-- ============================================== -->
+<div class="sec">
+  <div class="sec-hdr" onclick="toggleSec(this)"><span><span class="step-num">PRE</span> Pre-Session Checklist</span></div>
+  <div class="sec-body">
+    <div class="check-row"><input type="checkbox" id="pre1"><label for="pre1">Zoom open + recording tested (test record > stop > delete)</label></div>
+    <div class="check-row"><input type="checkbox" id="pre2"><label for="pre2">Backup recording ready (OBS or phone)</label></div>
+    <div class="check-row"><input type="checkbox" id="pre3"><label for="pre3">Notifications off, phone silent, close Slack/email/Teams</label></div>
+    <div class="check-row"><input type="checkbox" id="pre4"><label for="pre4">Runbook + full script open on second screen/tab</label></div>
+    <div class="check-row"><input type="checkbox" id="pre5"><label for="pre5">Water nearby (suggest he grabs one too)</label></div>
+    <div class="check-row"><input type="checkbox" id="pre6"><label for="pre6">3 slow breaths: in nose, out mouth</label></div>
+    <div class="check-row"><input type="checkbox" id="pre7"><label for="pre7">Intention: "I hold space. I trust the pauses. His subconscious does the work."</label></div>
+    <div class="check-row"><input type="checkbox" id="pre8"><label for="pre8">Camera on, good lighting on face</label></div>
+    <div class="check-row"><input type="checkbox" id="pre9"><label for="pre9">Session rules loaded: Emotional lane, permissive, no commands, exit = right index finger</label></div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 1: CHECK-IN + S2a REVIEW                  -->
+<!-- ============================================== -->
+<div class="sec">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 1: CHECK-IN')">
+    <span><span class="step-num">01</span> Check-In + S2a Review</span><span class="time">5 min</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: S2a follow-up questions</div>
+      <div class="guide-body">
+        <div class="cue cue-say">"Hey Tristan, welcome back. How have you been since our last session?"</div>
+        <div class="cue cue-do">Let him talk 2-3 min. Watch energy, posture, eye contact vs S2a. Is he calmer? More guarded? Match his vibe.</div>
+        <div class="cue cue-ask">"Did you practice the Tribe Circle visualization since we last met? Even briefly?"</div>
+        <div class="cue cue-ask">"Did you use the anchor -- thumb and forefinger, one breath? When and where?"</div>
+        <div class="cue cue-ask">"Did the rescuer-helper identity show up for you at all? Any moments where you felt that protector energy?"</div>
+        <div class="cue cue-ask">"Any dreams or nightmares since 2a?"</div>
+        <div class="cue cue-ask">"Any triggering incidents? Moments where the old pattern fired?"</div>
+        <div class="cue cue-ask">"Has the observer stance continued? Are you noticing the gap?"</div>
+        <div class="cue cue-note">If homework was not done: "What made the practice difficult?" Reveals barriers, NOT resistance. Do NOT frame as failure.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="field-row"><label>Tribe visualized?</label>
+      <select id="s1_tribe"><option>--</option><option>Yes</option><option>No</option><option>Partial</option></select>
+    </div>
+    <div class="field-row"><label>Anchor used?</label>
+      <select id="s1_anchor"><option>--</option><option>Yes</option><option>No</option></select>
+    </div>
+    <div class="field-row"><label>When/where:</label><input type="text" id="s1_anchor_detail" placeholder="context of anchor use"></div>
+    <div class="field-row"><label>Rescuer-helper?</label>
+      <select id="s1_rescuer"><option>--</option><option>Yes</option><option>No</option></select>
+    </div>
+    <div class="field-row"><label>Rescuer details:</label><input type="text" id="s1_rescuer_detail" placeholder="what happened, how it showed up"></div>
+    <div class="field-row"><label>Dreams/nightmares?</label><input type="text" id="s1_dreams" placeholder="content (note, don't interpret)"></div>
+    <div class="field-row"><label>Triggering incidents?</label><input type="text" id="s1_triggers" placeholder="what happened, old pattern fire?"></div>
+    <div class="field-row"><label>Observer-stance?</label>
+      <select id="s1_observer"><option>--</option><option>Yes</option><option>No</option><option>Partial</option></select>
+    </div>
+    <div class="field-row"><label>Energy/mood vs S2a:</label><input type="text" id="s1_energy" placeholder="observed energy, posture, eye contact vs last session"></div>
+    <textarea id="s1_notes" placeholder="Check-in notes, observations, anything notable..."></textarea>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 2: SMART BASELINES                        -->
+<!-- ============================================== -->
+<div class="sec" style="border-color:#f8514950">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 2: SMART BASELINES')" style="background:#1a0a0a">
+    <span><span class="step-num" style="color:#f85149">02</span> SMART Baselines</span><span class="time">5 min</span>
+  </div>
+  <div class="sec-body">
+    <div class="cue cue-crit">FIRST TIME COLLECTING. DO NOT SKIP. These are the anchor numbers for the entire treatment arc.</div>
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: baselines transition + exact scale anchors</div>
+      <div class="guide-body">
+        <div class="cue cue-say">"Now I need to collect some baseline numbers. Six areas, scale of 1 to 10. No right or wrong answers. Just how you feel right now."</div>
+        <div class="cue cue-do">Read each with BOTH anchors. Write number. Neutral nod, next. Don't react to lows.</div>
+        <div class="cue cue-ask"><b>Self-esteem (SE):</b> "1 = no value in who I am, 10 = confident and worthy. Where are you?"</div>
+        <div class="cue cue-ask"><b>Assertiveness (AS):</b> "1 = cannot speak up or set boundaries, 10 = comfortably express needs. Where are you?"</div>
+        <div class="cue cue-ask"><b>Anxiety (AX):</b> "1 = anxiety runs the show constantly, 10 = calm and in control. Where are you?"</div>
+        <div class="cue cue-note">INVERTED: 10 = calm, low anxiety. Clarify if he looks confused.</div>
+        <div class="cue cue-ask"><b>Trust (TR):</b> "1 = cannot trust anyone, guard always up, 10 = open and safe with people I choose. Where are you?"</div>
+        <div class="cue cue-ask"><b>Comfort (CO):</b> "1 = deeply uncomfortable being me, 10 = at ease and at home. Where are you?"</div>
+        <div class="cue cue-ask"><b>Past influence (PI):</b> "1 = my past controls everything, 10 = aware of past but it does not run my life. Where are you?"</div>
+      </div>
+    </div>
+
+    <div style="margin:8px 0 4px;font-size:11px;font-weight:700;color:#58a6ff;text-transform:uppercase">SMART Baselines (1-10)</div>
+    <div class="baseline-grid">
+      <div class="baseline-item"><label>SE</label><input type="number" id="b_se" min="1" max="10" placeholder="-"><span class="anchors">1=no value, 10=confident+worthy</span></div>
+      <div class="baseline-item"><label>AS</label><input type="number" id="b_as" min="1" max="10" placeholder="-"><span class="anchors">1=can't speak up, 10=express needs</span></div>
+      <div class="baseline-item"><label>AX</label><input type="number" id="b_ax" min="1" max="10" placeholder="-"><span class="anchors">1=anxiety runs show, 10=calm</span></div>
+      <div class="baseline-item"><label>TR</label><input type="number" id="b_tr" min="1" max="10" placeholder="-"><span class="anchors">1=guard always up, 10=open+safe</span></div>
+      <div class="baseline-item"><label>CO</label><input type="number" id="b_co" min="1" max="10" placeholder="-"><span class="anchors">1=uncomfortable, 10=at ease</span></div>
+      <div class="baseline-item"><label>PI</label><input type="number" id="b_pi" min="1" max="10" placeholder="-"><span class="anchors">1=past controls, 10=past doesn't run life</span></div>
+    </div>
+    <textarea id="s2_notes" placeholder="Baseline observations, reactions, clarifications needed..."></textarea>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 3: PRE-TALK -- CIRCLE THERAPY             -->
+<!-- ============================================== -->
+<div class="sec">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 3: PRE-TALK')">
+    <span><span class="step-num">03</span> Pre-Talk: Circle Therapy</span><span class="time">3 min</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: explain the circle mechanism</div>
+      <div class="guide-body">
+        <div class="cue cue-say">"Today we are going to use something called Circle Therapy. You remember the Tribe Circle from 2a -- the 11 members, the golden aura, the sense of being surrounded by people who have your back?"</div>
+        <div class="cue cue-say">"Today we take that circle and we put it to work. We are going to bring specific triggers into your awareness -- starting small and building up -- and your circle stands with you through each one."</div>
+        <div class="cue cue-say">"The circle is your protection. It is not a wall. It does not block things out. It stands WITH you while you face them. The fear fires, your circle holds, and your body learns a new response."</div>
+        <div class="cue cue-say">"Same trigger, new environment, different result. That is how desensitization works at the subconscious level."</div>
+        <div class="cue cue-do">Check understanding: "Does that make sense? Any questions before we begin?"</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="check-row"><input type="checkbox" id="s3_mechanism"><label for="s3_mechanism">Circle mechanism explained</label></div>
+    <div class="check-row"><input type="checkbox" id="s3_linked"><label for="s3_linked">Linked to S2a Tribe Circle (11 members, golden aura)</label></div>
+    <div class="check-row"><input type="checkbox" id="s3_understands"><label for="s3_understands">Client understands circle = protection (not wall, stands WITH)</label></div>
+    <textarea id="s3_notes" placeholder="Pre-talk notes, his reaction, questions asked..."></textarea>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 4: RECORDING                              -->
+<!-- ============================================== -->
+<div class="sec" style="border-color:#f8514950">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 4: RECORDING');document.getElementById('recBadge').style.display='inline'" style="background:#1a0a0a">
+    <span><span class="step-num" style="color:#f85149">04</span> Recording Notice</span><span class="time">1 min</span>
+  </div>
+  <div class="sec-body">
+    <div class="cue cue-crit">START RECORDING NOW. Do not forget. The recording is the client's primary between-session tool.</div>
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: recording notice</div>
+      <div class="guide-body">
+        <div class="cue cue-say">"We are about to move into the relaxation and therapeutic portion. I am starting the recording now. You signed the consent in advance -- you are comfortable with me recording this portion?"</div>
+        <div class="cue cue-do">Wait for verbal confirmation. If he declines: proceed without recording, note below.</div>
+        <div class="cue cue-say">"This is a hypnotherapy session recording for T.M. Listen between sessions. Find a quiet place. Do not listen while driving. Close your eyes and follow my voice."</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="check-row"><input type="checkbox" id="s4_rec"><label for="s4_rec">Recording started</label></div>
+    <div class="check-row"><input type="checkbox" id="s4_consent"><label for="s4_consent">Verbal consent confirmed</label></div>
+    <div class="field-row"><label>Notes:</label><input type="text" id="s4_notes" placeholder="if declined, details..."></div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 5: INDUCTION + DEEPENING                  -->
+<!-- ============================================== -->
+<div class="sec">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 5: INDUCTION')">
+    <span><span class="step-num">05</span> Induction + Deepening</span><span class="time">12 min</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: affirmations + eye closure + PHS re-entry + deepening</div>
+      <div class="guide-body">
+        <div class="cue cue-say">"Get comfortable. Adjust anything you need. When you are ready, place your hand on your chest. Feel your heartbeat. Feel that rhythm. That is yours. It has been beating for you since before you had a name."</div>
+        <div class="cue cue-say">"Repeat after me: I am safe. I am strong. I am choosing to be here. I trust myself."</div>
+        <div class="cue cue-do">Wait for him to repeat each line. Hand on chest grounds the affirmations somatically.</div>
+        <div class="divider"></div>
+        <div class="cue cue-say">"Now find a spot on the wall or ceiling. Focus your eyes on that spot. Let everything else blur."</div>
+        <div class="cue cue-note">Wait for eyes to close naturally. If 15 sec: "You can allow those eyelids to grow heavy." Do NOT say "close your eyes."</div>
+        <div class="divider"></div>
+        <div class="cue cue-say">"Deep Sleep."</div>
+        <div class="cue cue-phs">"Each and every time I say the words Deep Sleep, for the purpose of hypnosis and with your permission, you will enter this state safely and comfortably, quickly, calmly, and deeply, and the body and mind will settle."</div>
+        <div class="divider"></div>
+        <div class="cue cue-say"><b>5-0 COUNT:</b> "Five (settling)... Four (outside quieter)... Three (body heavy, mind calm)... Two (so deep, so safe)... One (deeper still)... Zero -- Deep Sleep. All the way down."</div>
+        <div class="divider"></div>
+        <div class="cue cue-say"><b>10-0 STAIRCASE:</b> "See a staircase. Solid, well-lit, handrails on both sides. Ten steps down. Each step, deeper." Count 10 to 0. "Twice as deep" at 7, 4. At 0: "Step off. Warm. Bright. Safe."</div>
+        <div class="divider"></div>
+        <div class="cue cue-say"><b>BODY SCAN:</b> Warm wave, delta-paced. Crown > forehead > eyes > jaw > neck > shoulders ("weight that was never yours to carry, let it melt") > arms/hands > chest > stomach ("the part that tightens when you feel unsafe -- you are safe here") > hips > legs > feet > toes.</div>
+        <div class="cue cue-phs">"Deep Sleep. For the purpose of hypnosis and with your permission, body and mind settled. Safe. Comfortable. Ready."</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="check-row"><input type="checkbox" id="s5_affirm"><label for="s5_affirm">Affirmations delivered (hand on chest)</label></div>
+    <div class="check-row"><input type="checkbox" id="s5_handchest"><label for="s5_handchest">Hand on chest (somatic grounding)</label></div>
+    <div class="check-row"><input type="checkbox" id="s5_visual"><label for="s5_visual">Visual anchor (focus on spot)</label></div>
+    <div class="field-row"><label>Eye closure:</label>
+      <select id="s5_eyes"><option>--</option><option>Immediate</option><option>Gradual (10-15s)</option><option>Needed prompt</option></select>
+    </div>
+    <div class="check-row"><input type="checkbox" id="s5_deepsleep"><label for="s5_deepsleep">Deep Sleep keyword used (PHS re-entry)</label></div>
+    <div class="check-row"><input type="checkbox" id="s5_count50"><label for="s5_count50">5-0 countdown done</label></div>
+    <div class="check-row"><input type="checkbox" id="s5_staircase"><label for="s5_staircase">10-0 staircase done</label></div>
+    <div class="check-row"><input type="checkbox" id="s5_bodyscan"><label for="s5_bodyscan">Body scan done (crown to toes)</label></div>
+    <div class="check-row"><input type="checkbox" id="s5_phs"><label for="s5_phs">PHS reinforced</label></div>
+    <div class="field-row"><label>Trance signs:</label><input type="text" id="s5_signs" placeholder="body sinking, facial smoothing, REM, slowed breathing, jaw slack..."></div>
+    <div class="field-row"><label>Depth estimate:</label>
+      <select id="s5_depth"><option>--</option><option>Light</option><option>Medium</option><option>Deep</option><option>Somnambulistic</option></select>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 6: BUILD PROTECTIVE CIRCLE                -->
+<!-- ============================================== -->
+<div class="sec">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 6: BUILD CIRCLE')">
+    <span><span class="step-num">06</span> Build Protective Circle</span><span class="time">2 min</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: activate circle + link to tribe + golden aura</div>
+      <div class="guide-body">
+        <div class="cue cue-say">"Now, from this deep place of calm, I want you to feel the circle forming around you. The same circle from 2a. Your tribe. All 11 of them. Standing shoulder to shoulder. Surrounding you."</div>
+        <div class="cue cue-say">"Feel the golden aura. The warmth. The presence. They are not blocking the world out. They are standing WITH you. Their energy adds to yours. Their presence makes you stronger."</div>
+        <div class="cue cue-say">"This circle goes where you go. It moves with you. It is always there. You are never alone in what we are about to do."</div>
+        <div class="cue cue-do">Wait for ideomotor nod: "When you can feel them around you, let a small nod happen."</div>
+        <div class="cue cue-note">Do NOT proceed without the nod. The circle must be active before the cycles begin.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="check-row"><input type="checkbox" id="s6_built"><label for="s6_built">Circle built (11 members activated)</label></div>
+    <div class="check-row"><input type="checkbox" id="s6_aura"><label for="s6_aura">Linked to tribe / golden aura from S2a</label></div>
+    <div class="check-row"><input type="checkbox" id="s6_nod"><label for="s6_nod">Ideomotor nod received (circle felt)</label></div>
+    <textarea id="s6_notes" placeholder="Circle activation notes, visible response..."></textarea>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 7: CYCLE 1 -- DISRESPECT LOW              -->
+<!-- ============================================== -->
+<div class="sec">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 7: CYCLE 1 LOW')">
+    <span><span class="step-num">07</span> Cycle 1 &mdash; Disrespect LOW</span><span class="time">4 min</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: introduce low-intensity trigger + observe body + circle holds</div>
+      <div class="guide-body">
+        <div class="cue cue-say">"From inside your circle, I want you to imagine a situation. A mild one. Someone at a distance -- not close, not important -- says something dismissive. Disrespectful. A small slight."</div>
+        <div class="cue cue-say">"Notice what happens in your body. Where does it show up? Shoulders? Chest? Stomach? Jaw? Just observe. You are safe. Your circle is around you."</div>
+        <div class="cue cue-do">Pause 10-15 sec. Let the body response surface. Watch his face, breathing, hands.</div>
+        <div class="cue cue-say">"Good. You noticed it. That is the old pattern firing. And notice -- your circle is still here. They did not leave. The golden aura is still warm. The fear fires, but the circle holds."</div>
+        <div class="cue cue-say">"Let the fear run its course. Do not fight it. Just watch it. It fires, it peaks, and it fades. Like a wave. The circle stays."</div>
+        <div class="cue cue-do">Wait for the body to settle. Watch for breathing to slow, face to smooth, shoulders to drop.</div>
+        <div class="cue cue-phs">"Deep Sleep. Deeper now. The circle holds. For the purpose of hypnosis, with your permission. Settled."</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="field-row"><label>Body response:</label><input type="text" id="s7_body" placeholder="where it showed up, what he felt"></div>
+    <div class="field-row"><label>Fear fired?</label>
+      <select id="s7_fear"><option>--</option><option>Strong</option><option>Moderate</option><option>Mild</option><option>None</option></select>
+    </div>
+    <div class="field-row"><label>Time to dissipate:</label>
+      <select id="s7_dissipate"><option>--</option><option>&lt;10s</option><option>10-30s</option><option>30-60s</option><option>&gt;60s</option></select>
+    </div>
+    <div class="check-row"><input type="checkbox" id="s7_circle"><label for="s7_circle">Circle held</label></div>
+    <div class="check-row"><input type="checkbox" id="s7_deepen"><label for="s7_deepen">Deepening after cycle</label></div>
+    <textarea id="s7_notes" placeholder="Cycle 1 observations, breathing pattern, facial response..."></textarea>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 8: CYCLE 2 -- DISRESPECT MEDIUM           -->
+<!-- ============================================== -->
+<div class="sec">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 8: CYCLE 2 MED')">
+    <span><span class="step-num">08</span> Cycle 2 &mdash; Disrespect MEDIUM</span><span class="time">4 min</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="gate-banner">
+      <div class="check-row"><input type="checkbox" id="s8_gate"><label for="s8_gate" style="color:#f85149">GATE: Body settled from Cycle 1 (must check to proceed)</label></div>
+    </div>
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: increase intensity + rescuer reframe + circle holds</div>
+      <div class="guide-body">
+        <div class="cue cue-say">"Good. Now we turn it up. This time, the person is closer. Someone who matters more. The disrespect is louder, more direct. They are challenging you. In front of others."</div>
+        <div class="cue cue-say">"Notice the body response. It may be stronger this time. That is expected. Your circle is still here."</div>
+        <div class="cue cue-do">Pause 10-15 sec. Watch for escalation in breathing, tension, facial expression.</div>
+        <div class="cue cue-say">"And now notice something. You are not just the person being disrespected. You are also the rescuer. The helper. The one who stands up. Not with fists. With presence. With calm. With the strength that comes from knowing who you are."</div>
+        <div class="cue cue-say">"The rescuer in you sees this situation clearly. This is about THEM, not about you. Their disrespect is their limitation. Not your worth."</div>
+        <div class="cue cue-say">"Let the fear fire. Let it dissipate. Faster this time. The circle holds. The rescuer stands."</div>
+        <div class="cue cue-do">Wait for body to settle. Compare speed to Cycle 1.</div>
+        <div class="cue cue-phs">"Deep Sleep. Deeper. The new pattern is wiring in. For the purpose of hypnosis, with your permission."</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="field-row"><label>Body response:</label><input type="text" id="s8_body" placeholder="where it showed up, intensity vs Cycle 1"></div>
+    <div class="field-row"><label>Fear fired faster?</label>
+      <select id="s8_faster"><option>--</option><option>Yes</option><option>No</option><option>Same</option></select>
+    </div>
+    <div class="field-row"><label>Dissipated faster?</label>
+      <select id="s8_dissipated"><option>--</option><option>Yes</option><option>No</option><option>Same</option></select>
+    </div>
+    <div class="check-row"><input type="checkbox" id="s8_rescuer"><label for="s8_rescuer">Rescuer reframe landed</label></div>
+    <div class="check-row"><input type="checkbox" id="s8_circle"><label for="s8_circle">Circle held</label></div>
+    <div class="check-row"><input type="checkbox" id="s8_deepen"><label for="s8_deepen">Deepening after cycle</label></div>
+    <textarea id="s8_notes" placeholder="Cycle 2 observations, rescuer response, comparison to Cycle 1..."></textarea>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 9: CYCLE 3 -- GROUP VULNERABILITY         -->
+<!-- ============================================== -->
+<div class="sec" style="border-color:#f85149">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 9: CYCLE 3 GROUP')" style="background:#1a0a0a;border-bottom:2px solid #f85149">
+    <span><span class="step-num" style="color:#f85149">09</span> Cycle 3 &mdash; Group Vulnerability (MOST IMPORTANT)</span><span class="time">5 min</span>
+  </div>
+  <div class="sec-body">
+    <div class="cue cue-crit">THIS IS THE HARDEST CYCLE. Group vulnerability is his deepest trigger. Watch closely. Abreaction possible. The circle MOVES WITH HIM.</div>
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: group appears + circle moves + he speaks one real thing</div>
+      <div class="guide-body">
+        <div class="cue cue-say">"Now. Something different. A group of people appears. Not hostile. Just... present. Watching. Waiting. A room full of people who can see you."</div>
+        <div class="cue cue-say">"This is the hard one. Group vulnerability. Being seen. Being exposed. The old pattern says: guard up. Do not let them in. Do not let them see you."</div>
+        <div class="cue cue-say">"But your circle is still with you. And here is the important part -- the circle MOVES WITH YOU. They are not back at the safe space. They are right here. Right now. Standing with you in this room full of people."</div>
+        <div class="cue cue-do">Pause. Let the scene develop. Watch for body response -- this may be the biggest activation yet.</div>
+        <div class="cue cue-say">"From inside your circle, with your tribe beside you, I want you to do something brave. You do not have to shout. You do not have to perform. Just say one real thing. One true thing. To the group. Out loud or inside your mind."</div>
+        <div class="cue cue-note">IF HE SPEAKS: Write it VERBATIM. This is clinical gold. IF HE IS SILENT: "It can be silent. The subconscious speaks even when the mouth does not. Whatever you did just now, that counted."</div>
+        <div class="cue cue-do">Wait for ideomotor nod: "When something has shifted, let a nod happen." Time the nod.</div>
+        <div class="cue cue-phs">"Deep Sleep. Deeper now. The circle held. You were seen. And you survived. For the purpose of hypnosis, with your permission."</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="field-row"><label>Body response:</label><input type="text" id="s9_body" placeholder="when the group appeared -- what happened in his body?"></div>
+    <div class="check-row"><input type="checkbox" id="s9_circle_moved"><label for="s9_circle_moved">Circle moved with him (confirmed present in group scene)</label></div>
+    <div class="field-row"><label>Spoke "one real thing"?</label>
+      <select id="s9_spoke"><option>--</option><option>Yes</option><option>No</option><option>Silent process</option></select>
+    </div>
+    <div style="margin:6px 0 2px;font-size:11px;font-weight:700;color:#f85149">WHAT HE SAID/DID (verbatim if possible):</div>
+    <textarea id="s9_words" placeholder="Write EXACTLY what he said or describe what you observed -- these are gold for SOAP notes..." style="min-height:80px;font-size:14px;border-color:#f8514950"></textarea>
+    <div class="check-row"><input type="checkbox" id="s9_nod"><label for="s9_nod">Ideomotor nod received</label></div>
+    <div class="field-row"><label>Nod timing:</label>
+      <select id="s9_nod_time"><option>--</option><option>&lt;15s</option><option>15-45s</option><option>45-90s</option><option>No nod</option></select>
+    </div>
+    <div class="field-row"><label>Fear vs Cycles 1-2:</label>
+      <select id="s9_fear_compare"><option>--</option><option>Harder</option><option>Same</option><option>Easier</option></select>
+    </div>
+    <textarea id="s9_notes" placeholder="Cycle 3 observations: emotional responses, tears, breathing changes, body shifts, abreaction risk..."></textarea>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 10: CYCLE 4 -- TRUST (OPTIONAL)           -->
+<!-- ============================================== -->
+<div class="sec">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 10: CYCLE 4 TRUST')">
+    <span><span class="step-num">10</span> Cycle 4 &mdash; Trust (OPTIONAL)</span><span class="time">5 min</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="gate-banner">
+      <div class="check-row"><input type="checkbox" id="s10_proceed"><label for="s10_proceed" style="color:#f85149">GATE: Cycles 1-3 landed well -- proceeding</label></div>
+      <div style="text-align:center;font-size:10px;color:#f85149;font-weight:700;margin:4px 0">OR</div>
+      <div class="check-row"><input type="checkbox" id="s10_skip"><label for="s10_skip" style="color:#f85149">SKIPPED -- client at capacity</label></div>
+    </div>
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: trust figure appears + wall disrupted + dimmer + clinical gate rules</div>
+      <div class="guide-body">
+        <div class="cue cue-note"><b>CLINICAL GATE:</b> Only proceed if Cycles 1-3 landed cleanly. If Cycle 3 caused significant distress, abreaction, or the body has not settled: SKIP. Deepen to safe space and move to Step 11. There is no failure in skipping. This cycle can be done in S3.</div>
+        <div class="cue cue-say">"One more. This one is about trust. From inside your circle, I want you to see someone. Someone from your life. Someone where trust is complicated."</div>
+        <div class="cue cue-ask">"Who appears? You do not have to say the name. Just notice who your subconscious brings forward."</div>
+        <div class="cue cue-do">Pause. Let the figure appear. Do NOT suggest who it should be.</div>
+        <div class="cue cue-say">"Notice the wall. The wall you built between you and this person. It served you. It kept you safe when you needed safety. But notice -- your circle is still here. The protection comes from your tribe now, not from the wall."</div>
+        <div class="cue cue-say">"Imagine a dimmer switch on that wall. You do not have to tear it down. Just turn the dimmer. Even one notch. Let a tiny bit of light through. Just enough to see the person on the other side as they actually are right now. Not who they were. Who they are."</div>
+        <div class="cue cue-note">Do NOT push for full trust restoration. One notch on the dimmer is enough. The subconscious will do the rest between sessions.</div>
+        <div class="cue cue-do">Wait for any response -- nod, body shift, breathing change.</div>
+        <div class="cue cue-phs">"Deep Sleep. Deeper. The dimmer is yours. You control it. For the purpose of hypnosis, with your permission."</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="field-row"><label>Who appeared?</label><input type="text" id="s10_who" placeholder="(do NOT name -- describe relationship: mother, friend, etc.)"></div>
+    <div class="field-row"><label>Wall disrupted?</label>
+      <select id="s10_wall"><option>--</option><option>Yes</option><option>Partially</option><option>No</option></select>
+    </div>
+    <div class="field-row"><label>Trust dimmer:</label><input type="text" id="s10_dimmer" placeholder="what happened when he turned the dimmer"></div>
+    <textarea id="s10_notes" placeholder="Cycle 4 observations or reason for skipping..."></textarea>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 11: REVERSAL                              -->
+<!-- ============================================== -->
+<div class="sec">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 11: REVERSAL')">
+    <span><span class="step-num">11</span> Reversal</span><span class="time">2 min</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: attempt to re-summon the fear</div>
+      <div class="guide-body">
+        <div class="cue cue-say">"Now. One more thing. I want you to try something. Try to bring back the fear. The old response. The tightness. The guard. Try to summon it."</div>
+        <div class="cue cue-do">Pause 10-15 sec. Watch carefully. The reversal tests whether the desensitization held.</div>
+        <div class="cue cue-note"><b>IF HE CANNOT:</b> "Good. That is the work. The old response is losing its grip. The circle holds. The new pattern is stronger."</div>
+        <div class="cue cue-note"><b>IF PARTIAL:</b> "There is an echo. That is normal. Each session, the echo gets quieter. The circle gets stronger. The old pattern fades."</div>
+        <div class="cue cue-note"><b>IF HE CAN (fully):</b> "That tells us there is more work to do on this specific trigger. That is useful information. We will come back to it in S3 with even more support."</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="field-row"><label>Could summon fear?</label>
+      <select id="s11_reversal"><option>--</option><option>No</option><option>Partially</option><option>Yes with difficulty</option></select>
+    </div>
+    <textarea id="s11_notes" placeholder="Reversal observations..."></textarea>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 12: COMPOUND ANCHOR + SEAL + DEBRIEF      -->
+<!-- ============================================== -->
+<div class="sec">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 12: ANCHOR+SEAL');document.getElementById('recBadge').style.display='none'">
+    <span><span class="step-num">12</span> Compound Anchor + Seal + Debrief</span><span class="time">5 min</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: anchor press + circle activation + PHS seal + count out + debrief questions</div>
+      <div class="guide-body">
+        <div class="cue cue-say">"Now. Press your thumb and forefinger together. Your anchor. Feel that point of contact."</div>
+        <div class="cue cue-say">"As you press, feel the circle activate. All 11 members. The golden aura. The protection. The calm. Everything we built today flows into that single point."</div>
+        <div class="cue cue-do">Watch for visible relaxation response when he presses. Note if it is immediate or gradual.</div>
+        <div class="divider"></div>
+        <div class="cue cue-say"><b>POST-HYPNOTIC:</b> "From this moment forward, any time you press your thumb and forefinger together and take one breath, the circle returns. The calm returns. The new response activates. Automatically. Anywhere. Any time. It is yours."</div>
+        <div class="cue cue-phs">"For the purpose of hypnosis and with your permission, this anchor is sealed. The circle is sealed. Every positive suggestion from today grows stronger by the day, by the hour, by the minute."</div>
+        <div class="divider"></div>
+        <div class="cue cue-say"><b>ZERO SEAL:</b> "Zero -- closing the door. Every positive suggestion sealed. The circle sealed. The new response sealed. Only the positive enters. Only the positive remains."</div>
+        <div class="divider"></div>
+        <div class="cue cue-say"><b>0-5 COUNT:</b> "Zero (feel your body)... One (fingers move, toes wiggle)... Two (stretch)... Three (halfway, refreshed, rested)... Four (more alert, sounds returning)... Five -- Eyes open. Wide awake. Fully alert. Welcome back."</div>
+        <div class="divider"></div>
+        <div class="cue cue-crit">STOP RECORDING.</div>
+        <div class="divider"></div>
+        <div class="cue cue-ask">"How do you feel?"</div>
+        <div class="cue cue-do">Give time. Do not prompt with specific emotions. Let him describe.</div>
+        <div class="cue cue-ask">"What stood out to you?"</div>
+        <div class="cue cue-ask">"Which cycle was the hardest?"</div>
+        <div class="cue cue-ask">"Did anything shift? Even something small?"</div>
+        <div class="cue cue-ask">"How does this compare to the 'armor or shield' feeling from 2a?"</div>
+        <div class="cue cue-ask">"Any surprises?"</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="check-row"><input type="checkbox" id="s12_press"><label for="s12_press">Thumb + forefinger pressed</label></div>
+    <div class="check-row"><input type="checkbox" id="s12_circle_activate"><label for="s12_circle_activate">Circle activated on press (visible relaxation response)</label></div>
+    <div class="check-row"><input type="checkbox" id="s12_posthypnotic"><label for="s12_posthypnotic">Post-hypnotic suggestion delivered</label></div>
+    <div class="check-row"><input type="checkbox" id="s12_seal"><label for="s12_seal">PHS seal delivered</label></div>
+    <div class="check-row"><input type="checkbox" id="s12_countout"><label for="s12_countout">Count out 0-5 done</label></div>
+    <div class="check-row"><input type="checkbox" id="s12_stoprec"><label for="s12_stoprec">RECORDING STOPPED</label></div>
+
+    <div class="divider"></div>
+    <div class="field-row"><label>Depth estimate:</label><input type="number" id="s12_depth" min="1" max="10" style="width:60px" placeholder="-"><span style="font-size:11px;color:#8b949e">/10</span></div>
+    <div class="field-row"><label>Reorientation:</label>
+      <select id="s12_reorient"><option>--</option><option>Smooth, alert quickly</option><option>Slow to reorient (deep trance)</option><option>Groggy, needed extra time</option></select>
+    </div>
+    <div class="field-row"><label>"How do you feel?"</label><input type="text" id="s12_feel" placeholder="his exact words"></div>
+    <div class="field-row"><label>"What stood out?"</label><input type="text" id="s12_standout" placeholder="his response"></div>
+    <div class="field-row"><label>"Hardest cycle?"</label><input type="text" id="s12_hardest" placeholder="which cycle and why"></div>
+    <div class="field-row"><label>Shifts noticed:</label><input type="text" id="s12_shifts" placeholder="any reported shifts, body language changes"></div>
+    <div class="field-row"><label>Compare to S2a:</label><input type="text" id="s12_compare" placeholder="compare to 'armor or shield' from S2a"></div>
+    <div class="field-row"><label>Surprises:</label><input type="text" id="s12_surprises" placeholder="anything unexpected for you or him"></div>
+    <textarea id="s12_notes" placeholder="Debrief notes, emotional state post-trance, voice quality, eye contact change..."></textarea>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- STEP 13: HOMEWORK + SAFETY                     -->
+<!-- ============================================== -->
+<div class="sec">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('STEP 13: HOMEWORK')">
+    <span><span class="step-num">13</span> Homework + Safety</span><span class="time">5 min</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="guide">
+      <div class="guide-hdr" onclick="toggleGuide(this)">Script: 5 homework items + safety net + closing</div>
+      <div class="guide-body">
+        <div class="cue cue-say">"Five things between now and next session."</div>
+        <div class="cue cue-say">"1. Listen to the session recording at least once. Quiet place. Let your subconscious do the work."</div>
+        <div class="cue cue-say">"2. Practice the anchor daily. Thumb and forefinger, one breath. Morning and before bed. Feel the circle return."</div>
+        <div class="cue cue-say">"3. When triggered, tap. EFT -- 8 points. I am [word 1] and I am [word 2]. The circle holds."</div>
+        <div class="cue cue-say">"4. Notice the gap. The space between trigger and response. When you see it: acknowledge it. That gap is growing."</div>
+        <div class="cue cue-say">"5. Practice being seen. One small moment of vulnerability. It does not have to be big. Share one real thing with someone you trust."</div>
+        <div class="divider"></div>
+        <div class="cue cue-say"><b>SAFETY:</b> "If anything feels overwhelming between now and next session -- first, use the anchor. Press, breathe, circle returns. Second, email me (24-hour response). Third, if urgent or thoughts of self-harm: call or text 988. Suicide and Crisis Lifeline. 24/7. You are not alone."</div>
+        <div class="divider"></div>
+        <div class="cue cue-say">"Thank you for trusting this process. The work you did today was real work. Four cycles. The circle held. Something shifted. See you next session."</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div style="font-size:11px;font-weight:700;color:#58a6ff;margin:4px 0">HOMEWORK ASSIGNED:</div>
+    <div class="check-row"><input type="checkbox" id="s13_hw1"><label for="s13_hw1">1. Listen to recording (quiet place, 1+ times)</label></div>
+    <div class="check-row"><input type="checkbox" id="s13_hw2"><label for="s13_hw2">2. Daily anchor practice (thumb+forefinger, morning + bedtime)</label></div>
+    <div class="check-row"><input type="checkbox" id="s13_hw3"><label for="s13_hw3">3. Tap when triggered (EFT 8 points + affirmation)</label></div>
+    <div class="check-row"><input type="checkbox" id="s13_hw4"><label for="s13_hw4">4. Notice the gap (trigger > response space)</label></div>
+    <div class="check-row"><input type="checkbox" id="s13_hw5"><label for="s13_hw5">5. Practice being seen (one small vulnerability)</label></div>
+    <div class="divider"></div>
+    <div class="check-row"><input type="checkbox" id="s13_safety"><label for="s13_safety">Safety net given: anchor > email (24h) > 988 hotline</label></div>
+    <div class="field-row"><label>Next session:</label><input type="text" id="s13_next" placeholder="date + time (1-2 weeks out)"></div>
+    <div class="field-row"><label>His closing mood:</label><input type="text" id="s13_mood" placeholder="how did he seem leaving?"></div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- POST-SESSION CHECKLIST                          -->
+<!-- ============================================== -->
+<div class="sec" style="border-color:#f85149">
+  <div class="sec-hdr" onclick="toggleSec(this);setStep('POST-SESSION')" style="background:#1a0a0a;border-bottom:2px solid #f85149">
+    <span><span class="step-num" style="color:#f85149">POST</span> Post-Session Therapist Checklist</span><span class="time">IMMEDIATELY AFTER</span>
+  </div>
+  <div class="sec-body">
+    <div class="cue cue-crit">Do this TONIGHT. Memory fades fast. Verbatim quotes are clinical gold.</div>
+    <div class="divider"></div>
+
+    <div style="font-size:11px;font-weight:700;color:#8b949e;margin:4px 0">DOCUMENTATION:</div>
+    <div class="check-row"><input type="checkbox" id="post1"><label for="post1">1. SOAP notes written (S: his words, O: your observations, A: assessment, P: next plan)</label></div>
+    <div class="check-row"><input type="checkbox" id="post2"><label for="post2">2. SMART baselines recorded in TM-002.json (SE/AS/AX/TR/CO/PI)</label></div>
+    <div class="check-row"><input type="checkbox" id="post3"><label for="post3">3. Cycle data documented (body responses, dissipation times, fear levels for all 4 cycles)</label></div>
+    <div class="check-row"><input type="checkbox" id="post4"><label for="post4">4. Reversal result noted</label></div>
+    <div class="check-row"><input type="checkbox" id="post5"><label for="post5">5. Anchor compound confirmed (thumb+forefinger + circle activation)</label></div>
+    <div class="check-row"><input type="checkbox" id="post6"><label for="post6">6. Debrief responses recorded ("how do you feel", "what stood out", "hardest cycle")</label></div>
+    <div class="check-row"><input type="checkbox" id="post7"><label for="post7">7. Group vulnerability cycle details saved (verbatim words, nod timing, fear comparison)</label></div>
+    <div class="check-row"><input type="checkbox" id="post8"><label for="post8">8. Trust cycle details (if done) or note: SKIPPED</label></div>
+    <div class="check-row"><input type="checkbox" id="post9"><label for="post9">9. Update TM-002.json (session 2b data: date, duration, techniques, SOAP, SMART, cycle data)</label></div>
+
+    <div class="divider"></div>
+    <div style="font-size:11px;font-weight:700;color:#8b949e;margin:4px 0">DELIVERABLES:</div>
+    <div class="check-row"><input type="checkbox" id="post10"><label for="post10">10. Recording saved + sent to client with listening instructions</label></div>
+    <div class="check-row"><input type="checkbox" id="post11"><label for="post11">11. CCH hours logged to HMI (date, 90 min, S2b, initials T.M.)</label></div>
+    <div class="check-row"><input type="checkbox" id="post12"><label for="post12">12. Feedback form sent to client</label></div>
+
+    <div class="divider"></div>
+    <div style="font-size:11px;font-weight:700;color:#8b949e;margin:4px 0">PLANNING:</div>
+    <div class="check-row"><input type="checkbox" id="post13"><label for="post13">13. S3 decision: Advance to Circle of Trust? Or repeat at higher intensity?</label></div>
+    <div class="field-row"><label>S3 focus:</label><input type="text" id="post_s3_focus" placeholder="what will S3 target based on tonight?"></div>
+
+    <div class="divider"></div>
+    <div style="font-size:11px;font-weight:700;color:#8b949e;margin:4px 0">MONITORING:</div>
+    <div class="check-row"><input type="checkbox" id="post15"><label for="post15">15. Nightmare pattern update (any changes in dream content/frequency?)</label></div>
+
+    <div class="divider"></div>
+    <div style="font-size:11px;font-weight:700;color:#8b949e;margin:4px 0">REFLECTION:</div>
+    <textarea id="post_reflection" placeholder="What went well? What to adjust? Did the circle hold through all cycles? Where was he at capacity? What surprised me? What would Lisa say? Was the reversal clean? Does he need more desensitization or is he ready for Circle of Trust?"></textarea>
+  </div>
+</div>
+
+<div class="save-indicator" id="saveIndicator">Auto-saved</div>
+
+<script>
+// Timer
+let timerRunning=false,timerStart=0,timerElapsed=0,timerInterval;
+function toggleTimer(){
+  if(!timerRunning){timerStart=Date.now()-timerElapsed;timerInterval=setInterval(updateTimer,1000);document.getElementById('timerBtn').textContent='PAUSE';timerRunning=true}
+  else{clearInterval(timerInterval);timerElapsed=Date.now()-timerStart;document.getElementById('timerBtn').textContent='RESUME';timerRunning=false}
+}
+function updateTimer(){
+  let d=Date.now()-timerStart,m=Math.floor(d/60000),s=Math.floor((d%60000)/1000);
+  document.getElementById('timerDisplay').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+function setStep(s){document.getElementById('currentStep').textContent=s}
+
+// Toggle sections (collapse/expand)
+function toggleSec(hdr){
+  let body=hdr.nextElementSibling;
+  let collapsed=!body.classList.contains('hidden');
+  if(collapsed){body.classList.add('hidden');hdr.classList.add('collapsed')}
+  else{body.classList.remove('hidden');hdr.classList.remove('collapsed')}
+}
+
+// Toggle guide blocks
+function toggleGuide(hdr){
+  let body=hdr.nextElementSibling;
+  let isOpen=body.classList.contains('show');
+  if(isOpen){body.classList.remove('show');hdr.classList.remove('open')}
+  else{body.classList.add('show');hdr.classList.add('open')}
+}
+
+// Expand/collapse all
+function expandAll(){
+  document.querySelectorAll('.sec-body').forEach(b=>b.classList.remove('hidden'));
+  document.querySelectorAll('.sec-hdr').forEach(h=>h.classList.remove('collapsed'));
+  document.querySelectorAll('.guide-body').forEach(b=>b.classList.add('show'));
+  document.querySelectorAll('.guide-hdr').forEach(h=>h.classList.add('open'));
+}
+function collapseAll(){
+  document.querySelectorAll('.sec-body').forEach(b=>b.classList.add('hidden'));
+  document.querySelectorAll('.sec-hdr').forEach(h=>h.classList.add('collapsed'));
+  document.querySelectorAll('.guide-body').forEach(b=>b.classList.remove('show'));
+  document.querySelectorAll('.guide-hdr').forEach(h=>h.classList.remove('open'));
+}
+
+// Auto-save to localStorage
+const STORAGE_KEY='tm002_s2b_tracker';
+function autoSave(){
+  let data={timestamp:new Date().toISOString()};
+  document.querySelectorAll('input,textarea,select').forEach(el=>{
+    if(el.id) data[el.id]=el.type==='checkbox'?el.checked:el.value;
+  });
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+  let si=document.getElementById('saveIndicator');si.classList.add('show');setTimeout(()=>si.classList.remove('show'),1200);
+}
+function loadSaved(){
+  let raw=localStorage.getItem(STORAGE_KEY);if(!raw)return;
+  let data=JSON.parse(raw);
+  document.querySelectorAll('input,textarea,select').forEach(el=>{
+    if(el.id&&data[el.id]!==undefined){
+      if(el.type==='checkbox') el.checked=data[el.id];
+      else el.value=data[el.id];
+    }
+  });
+}
+function saveAll(){autoSave();alert('All data saved to browser storage!')}
+
+// Export
+function exportNotes(){
+  let L=['TM-002 S2b SESSION NOTES','Date: '+new Date().toISOString(),''];
+
+  L.push('=== BASELINES ===');
+  L.push('SE='+v('b_se')+' AS='+v('b_as')+' AX='+v('b_ax')+' TR='+v('b_tr')+' CO='+v('b_co')+' PI='+v('b_pi'));
+  L.push('');
+
+  L.push('=== CYCLE DATA ===');
+  L.push('Cycle 1 (disrespect LOW): body='+v('s7_body')+', fear='+v('s7_fear')+', dissipation='+v('s7_dissipate'));
+  L.push('Cycle 2 (disrespect MED): body='+v('s8_body')+', fear faster?='+v('s8_faster')+', dissipated faster?='+v('s8_dissipated')+', rescuer reframe='+(c('s8_rescuer')?'YES':'NO'));
+  L.push('Cycle 3 (group vulnerability): body='+v('s9_body')+', spoke?='+v('s9_spoke')+', nod='+v('s9_nod_time')+', fear level vs 1-2='+v('s9_fear_compare'));
+  if(c('s10_skip')){
+    L.push('Cycle 4 (trust): SKIPPED');
+  }else{
+    L.push('Cycle 4 (trust): who='+v('s10_who')+', wall disrupted?='+v('s10_wall'));
+  }
+  L.push('');
+
+  L.push('=== REVERSAL ===');
+  L.push('Could summon fear: '+v('s11_reversal'));
+  L.push('');
+
+  L.push('=== DEBRIEF ===');
+  L.push('Depth: '+v('s12_depth')+'/10');
+  L.push('Reorientation: '+v('s12_reorient'));
+  L.push('"How do you feel?": '+v('s12_feel'));
+  L.push('"What stood out?": '+v('s12_standout'));
+  L.push('"Hardest cycle": '+v('s12_hardest'));
+  L.push('Shifts: '+v('s12_shifts'));
+  L.push('Compare to S2a: '+v('s12_compare'));
+  L.push('Surprises: '+v('s12_surprises'));
+  L.push('');
+
+  L.push('=== CYCLE 3 VERBATIM ===');
+  L.push(v('s9_words'));
+  L.push('');
+
+  L.push('=== HOMEWORK + NEXT ===');
+  L.push('S3 scheduled: '+v('s13_next'));
+  L.push('S3 focus: '+v('post_s3_focus'));
+  L.push('Closing mood: '+v('s13_mood'));
+  L.push('');
+
+  L.push('=== CHECK-IN DATA ===');
+  L.push('Tribe visualized: '+v('s1_tribe'));
+  L.push('Anchor used: '+v('s1_anchor')+' ('+v('s1_anchor_detail')+')');
+  L.push('Rescuer-helper: '+v('s1_rescuer')+' ('+v('s1_rescuer_detail')+')');
+  L.push('Dreams: '+v('s1_dreams'));
+  L.push('Triggers: '+v('s1_triggers'));
+  L.push('Observer-stance: '+v('s1_observer'));
+  L.push('Energy vs S2a: '+v('s1_energy'));
+  L.push('');
+
+  L.push('=== INDUCTION ===');
+  L.push('Eye closure: '+v('s5_eyes'));
+  L.push('Trance signs: '+v('s5_signs'));
+  L.push('Depth estimate: '+v('s5_depth'));
+  L.push('');
+
+  L.push('=== TRUST CYCLE DETAIL ===');
+  L.push('Who appeared: '+v('s10_who'));
+  L.push('Wall disrupted: '+v('s10_wall'));
+  L.push('Trust dimmer: '+v('s10_dimmer'));
+  L.push('');
+
+  L.push('=== ALL NOTES ===');
+  document.querySelectorAll('textarea').forEach(el=>{
+    if(el.value.trim()) L.push(el.id+': '+el.value);
+  });
+
+  L.push('');
+  L.push('=== POST-SESSION ===');
+  L.push('S3 focus: '+v('post_s3_focus'));
+  L.push('Reflection: '+v('post_reflection'));
+
+  let blob=new Blob([L.join('\n')],{type:'text/plain'});
+  let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='TM-002-S2b-notes-'+new Date().toISOString().slice(0,10)+'.txt';a.click();
+}
+function v(id){let el=document.getElementById(id);return el?(el.type==='checkbox'?(el.checked?'YES':'NO'):el.value):'';}
+function c(id){let el=document.getElementById(id);return el?el.checked:false;}
+
+// Auto-save on every input
+document.addEventListener('input',()=>autoSave());
+document.addEventListener('change',()=>autoSave());
+window.addEventListener('load',loadSaved);
+</script>
+</body></html>

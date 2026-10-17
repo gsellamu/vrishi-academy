@@ -20,8 +20,11 @@
     "Childhood abuse (family members, mother) - ongoing emotional impact",
     "Trigger: men yelling - causes fear/anxiety response",
     "Trigger: past trauma discussions - exacerbates symptoms",
+    "Trigger: feeling disrespected/demeaned/undermined - activates anger + shame cycle",
     "Abandonment/betrayal pattern - affects trust in close relationships",
-    "Fear of vulnerability - guard stays up"
+    "Fear of vulnerability - guard stays up, especially in group settings",
+    "Self-labeling pattern - binds behavior to identity (calls self 'asshole' when judgmental)",
+    "Recurring nightmares - fighting, being attacked, revenge, lost friendship"
   ],
   "medications": [],
   "tracker": {},
@@ -39,96 +42,137 @@
         "plan": "1. Client to email examples of positive experiences, feelings, and imagery. 2. Session 2: formal hypnotic induction (Emotional lane - eye-closure/inferential arm-raise), safe space construction, grounding anchor installation, PHS. 3. Use client-provided positive imagery in therapeutic suggestions. 4. Future techniques discussed with client: hypnodrama (process/release), cord cutting (closure on traumatic relationships), self-hypnosis (independent regulation), anchoring (positive emotional states on demand). 5. Address specific triggers (men yelling) with desensitization in trance. 6. Forgiveness work: for client's own peace, not condoning actions. Proper closure to prevent past controlling present."
       },
       "feedback": ""
+    },
+    {
+      "num": "2a",
+      "date": "2026-10-16",
+      "status": "completed",
+      "duration_min": 90,
+      "techniques": "Identity vs behavior separation, Jungian projection/shadow work, desensitization of emotional triggers (workplace incident), Snake and Saint parable, breathing + spoken affirmations induction, hand-on-chest somatic anchoring, eyes-open visual anchoring, Deep Sleep keyword PHS, 5-0 countdown + 10-0 staircase deepening, progressive body scan (crown to toes with reframe), hypnodrama Tribe Circle (11 soul tribe members with specific qualities, sequential integration, golden light seal), thumb-forefinger anchor (RIGHT hand), victim-to-healer identity reframe, rescuer-helper archetype installation",
+      "s2a_data": {
+        "session_adapted": true,
+        "adaptation_reason": "Client brought live triggering workplace incident. Session organically addressed present-day trigger + vulnerability patterns rather than following scripted wound-identification protocol. Clinically appropriate.",
+        "triggering_incident": {
+          "situation": "Customer at parks job arrived without knowing rules/costs, became angry when informed, glared with dismissive attitude, expected discount Tristan could not provide",
+          "client_internal": "Perceived disrespect, internally judged customer as 'bad person who doesn't care about other people'. Remained calm outwardly but judgment troubled him. Triggered broader feeling of 'being a bad person'.",
+          "clinical_significance": "Pre-existing negative self-image activated by external event. Cycle: trigger (disrespect) > anger > guilt about anger > self-labeling > shame."
+        },
+        "patterns_identified": {
+          "anger_primary": "Feeling disrespected, demeaned, undermined -- being made to feel lesser",
+          "anger_secondary": "Objects/situations associated with people he is angry at (associative anger)",
+          "anger_root": "Early life experiences created core belief of being incapable, incompetent, or undeserving",
+          "self_labeling": "Calls himself 'asshole' or 'judgmental' -- binds behavior to identity, damages self-esteem",
+          "guilt_friendship": "Lost female friend (had romantic feelings). Mutual stress-venting through critical exchanges. She moved on, he withdrew. Carries guilt about perceived abandonment.",
+          "nightmares": "Recurring: fighting, being attacked, revenge. Also dreams about lost friend.",
+          "group_vulnerability": "Difficulty being open in therapy circle. Fears judgment, being made to feel less than or attacked."
+        },
+        "positive_memories": {
+          "beach_vacation": {"felt": "Safe, content, vulnerable in a good way"},
+          "river_rescue": {"what": "Freed friend's wrist caught in rope during rapids while river tubing", "felt": "Genuine gratitude and pride. Synthesized into rescuer-helper archetype."}
+        },
+        "hypnodrama": {
+          "type": "Tribe Circle",
+          "members": 11,
+          "qualities": "Bravery, motherly care, self-esteem, belonging, and others (11 total)",
+          "process": "Safe room, 11 seated in circle. Invited one by one. Each radiates distinct quality. All integrated into body sequentially. Sealed with golden light forming protective aura.",
+          "therapeutic_target": "Fear of vulnerability in group settings, trust, being seen"
+        },
+        "induction": {
+          "type": "Breathing + spoken affirmations + eyes-open visual anchor + Deep Sleep",
+          "affirmations": ["I am great", "I am a wonderful person", "Everybody genuinely likes me", "I am being loved"],
+          "visual_anchor": "Focused on spot on wall, visualized own face expressing pride/bravery/fulfillment, stored image",
+          "deepening": "5-0 countdown + 10-0 staircase",
+          "body_scan": "Crown downward. Negative experiences reframed as purposeful learning to build empathy."
+        },
+        "anchor": {
+          "type": "Thumb + forefinger press",
+          "hand": "RIGHT",
+          "state": "Integrated, protected, self-assured (tribe circle + rescuer-helper identity)",
+          "reinforced": "2x during session"
+        },
+        "debrief": {
+          "how_do_you_feel": "More steady",
+          "what_stood_out": "Almost like an armor or a shield",
+          "shifts_reported": "Protected, integrated, steady"
+        },
+        "key_reframes": [
+          "Others' anger = a call for help. Elevate to healer-rescuer state.",
+          "Past wounds = empathy training. Necessary curriculum for helping others.",
+          "Victim to healer identity transition.",
+          "Behavior is not identity. 'You are not an AH. Contextually, that behavior, those emotions -- but we don't label yourself.'",
+          "Emotional reactions are survival mechanisms, not character flaws."
+        ],
+        "s1_progress_reported": "Easier to observe thoughts and emotions without immediately reacting. Watching them arise and letting them be, even when negative."
+      },
+      "soap": {
+        "subjective": "Client returns 8 days after S1. Reports observable progress: 'It was easier to pick apart different thoughts and emotions... even if they're negative, just kind of observing them and then letting them be.' Describes critical self-talk: calls himself 'asshole' or 'stop being so judgmental' when he has negative thoughts about others. Presents triggering incident from parks job: customer became angry about rules/costs, glared dismissively. Tristan remained calm outwardly but internally judged customer, then felt guilt about judgment, activating core belief of being a bad person. Discloses recurring nightmares (fighting, being attacked, revenge) and dreams about lost female friend. Carries guilt about withdrawing from friendship with romantic undercurrent. Expresses difficulty being open in therapy circle -- fears judgment, being made to feel less than. Hobbies: hiking (going tomorrow with friend). Works weekends at parks.",
+        "objective": "69% Emotional suggestibility confirmed in delivery responsiveness. Session adapted from scripted protocol to address client-presented triggering incident and vulnerability patterns. Induction: breathing + spoken affirmations ('I am great', 'I am a wonderful person', 'Everybody genuinely likes me', 'I am being loved') + hand on chest + eyes-open visual anchoring (own face expressing pride/bravery) + Deep Sleep keyword. Deepened: 5-0 countdown + 10-0 staircase + full body scan (crown to toes, negative experiences reframed as empathy training). Hypnodrama Tribe Circle: 11 soul tribe members in circle, each radiating specific quality (bravery, motherly care, self-esteem, belonging). Members invited one by one, all 11 integrated into body sequentially, sealed with golden light protective aura. Anchor installed: thumb + forefinger (RIGHT hand) = integrated/protected/self-assured state, reinforced 2x. Post-trance: client reported feeling 'more steady', described sensation as 'almost like an armor or a shield'. Engaged authentically with identity-vs-behavior reframe, projection/shadow work, Snake and Saint parable.",
+        "assessment": "First formal trance session. Client demonstrates meaningful S1-to-S2 progress: spontaneous observer-stance toward negative thoughts. Core behavioral loop identified: perceived disrespect > defensive anger > guilt about anger > self-labeling as bad person > shame. Self-labeling pattern (behavior = identity) is damaging self-esteem and must be interrupted. Fear of vulnerability in groups directly connected to betrayal/abandonment wounds. Hypnodrama tribe circle created corrective group experience in trance -- client experienced being surrounded by supportive figures without threat. Rescuer-helper identity reframe provides new behavioral framework (victim > healer arc). Anchor (thumb + forefinger, RIGHT hand) reported as effective ('armor/shield'). Prognosis: good. Client responsive to trance, engages authentically, shows between-session progress. NOTE: SMART baselines not yet collected (deferred -- collect at S2b start). Formal 3-wound identification (Lisa method) not completed -- wound material addressed organically through presenting incident.",
+        "plan": "1. Homework: practice tribe-integration visualization + thumb-forefinger anchor nightly before sleep. Report real-life trigger responses mid-week. 2. Session 2b: Circle Therapy (Kappasinian fear extinction) -- 4 confrontation cycles targeting disrespect/demeaning triggers, men yelling, vulnerability in groups, trusting someone close. Reversal suggestion + compound anchor. 3. COLLECT SMART BASELINES at S2b start (deferred from S1 and S2a). 4. Circle of Trust (graduated trust ring visualization) for S3. 5. Address guilt/friendship loss in future session (cord cutting or hypnodrama). 6. Monitor nightmare pattern. 7. S2b scheduling: client to contact mid-week with progress update."
+      },
+      "feedback": ""
     }
   ],
   "smart_goals": [
-    {
-      "measure": "Self-esteem",
-      "baseline": "TBD (Session 1)",
-      "target": "7-8/10 (confident in own worth)"
-    },
-    {
-      "measure": "Assertiveness",
-      "baseline": "TBD (Session 1)",
-      "target": "Comfortable setting boundaries"
-    },
-    {
-      "measure": "Anxiety level",
-      "baseline": "TBD (Session 1)",
-      "target": "Manageable, not running the show"
-    },
-    {
-      "measure": "Trust in close relationships",
-      "baseline": "TBD (Session 1)",
-      "target": "Open, less hypervigilant"
-    },
-    {
-      "measure": "Comfort in own skin",
-      "baseline": "TBD (Session 1)",
-      "target": "8+/10 (at ease being self)"
-    },
-    {
-      "measure": "Letting go of past",
-      "baseline": "TBD (Session 1)",
-      "target": "Past acknowledged, no longer controls present"
-    }
+    {"measure": "Self-esteem", "baseline_s2a": "DEFERRED (collect S2b)", "target": "7-8/10 (confident in own worth)"},
+    {"measure": "Assertiveness", "baseline_s2a": "DEFERRED (collect S2b)", "target": "Comfortable setting boundaries"},
+    {"measure": "Anxiety level", "baseline_s2a": "DEFERRED (collect S2b, inverted: 10=calm)", "target": "Manageable, not running the show"},
+    {"measure": "Trust in close relationships", "baseline_s2a": "DEFERRED (collect S2b)", "target": "Open, less hypervigilant"},
+    {"measure": "Comfort in own skin", "baseline_s2a": "DEFERRED (collect S2b)", "target": "8+/10 (at ease being self)"},
+    {"measure": "Letting go of past", "baseline_s2a": "DEFERRED (collect S2b)", "target": "Past acknowledged, no longer controls present"}
   ],
   "treatment_plan": {
     "total_sessions": "6-8",
     "frequency": "Every 1-2 weeks",
-    "approach": "Clinical hypnotherapy (EP lane TBD after suggestibility test)",
+    "approach": "Clinical hypnotherapy, Emotional lane (69%). Adaptive session design. Hypnodrama, Circle Therapy (Kappasinian fear extinction), identity reframing. Anchoring: thumb+forefinger (RIGHT hand, tribe circle state) + future compound anchors.",
     "sessions": [
-      {
-        "num": 1,
-        "focus": "Assessment + Intake + Suggestibility Test + First Induction",
-        "status": "completed",
-        "date": "2026-10-08"
-      },
-      {
-        "num": 2,
-        "focus": "Formal Induction + Safe Space + Grounding Anchor + PHS (deferred from S1)",
-        "status": "upcoming"
-      },
-      {
-        "num": 3,
-        "focus": "Self-Esteem + Confidence Installation",
-        "status": "upcoming"
-      },
-      {
-        "num": 4,
-        "focus": "Trust + Assertiveness + Boundaries",
-        "status": "upcoming"
-      },
-      {
-        "num": 5,
-        "focus": "Anxiety Reduction + Hypervigilance Release",
-        "status": "upcoming"
-      },
-      {
-        "num": 6,
-        "focus": "Integration + Self-Hypnosis Independence",
-        "status": "upcoming"
-      },
-      {
-        "num": 7,
-        "focus": "Contingency (if needed)",
-        "status": "upcoming"
-      },
-      {
-        "num": 8,
-        "focus": "Contingency (if needed)",
-        "status": "upcoming"
-      }
+      {"num": 1, "focus": "Assessment + Intake + Suggestibility Test + EFT Introduction", "status": "completed", "date": "2026-10-08"},
+      {"num": "2a", "focus": "Identity/Behavior Separation + Trigger Desensitization + Hypnodrama Tribe Circle (11 members) + Rescuer-Helper Identity + Anchor Installation", "status": "completed", "date": "2026-10-16"},
+      {"num": "2b", "focus": "Circle Therapy (fear extinction: disrespect, yelling, vulnerability, trust) + SMART Baselines + Compound Anchor", "status": "upcoming"},
+      {"num": 3, "focus": "Circle of Trust (graduated trust rings) + Assertiveness Installation", "status": "upcoming"},
+      {"num": 4, "focus": "Guilt/Friendship Processing (cord cutting or hypnodrama) + Advanced Desensitization", "status": "upcoming"},
+      {"num": 5, "focus": "Integration + Self-Hypnosis Independence", "status": "upcoming"},
+      {"num": 6, "focus": "Contingency / Reinforcement", "status": "upcoming"}
     ]
   },
-  "phs": [],
-  "homework": [],
+  "phs": [
+    {
+      "session": "2a",
+      "date": "2026-10-16",
+      "text": "Deep Sleep keyword established with client's permission. Used with 5-0 countdown and 10-0 staircase deepening.",
+      "reinforced": true
+    }
+  ],
+  "homework": [
+    {
+      "session": "2a",
+      "assigned": "2026-10-16",
+      "items": [
+        "Practice tribe-integration visualization every night before sleep",
+        "Use thumb-forefinger anchor (RIGHT hand) when feeling doubt or disturbed",
+        "In triggering situations (e.g., difficult park visitors): use anchor + shift to rescuer-helper frame",
+        "Report mid-week feedback to therapist on technique effectiveness in daily life"
+      ]
+    }
+  ],
+  "anchors": {
+    "thumb_forefinger": {
+      "hand": "RIGHT",
+      "state": "Integrated, protected, self-assured (tribe circle + rescuer-helper identity + golden light aura)",
+      "installed": "S2a (2026-10-16)",
+      "reinforced": "2x during session",
+      "client_report": "More steady. Almost like an armor or a shield."
+    },
+    "affirmations": ["I am great", "I am a wonderful person", "Everybody genuinely likes me", "I am being loved"]
+  },
   "notes": {
-    "client_preference": "Requested male therapist for comfort discussing men's issues. Accommodate this throughout.",
-    "therapeutic_approach": "Client has psychotherapy foundation. Hypnotherapy complements by accessing subconscious patterns that talk therapy has not fully resolved. Inner child work likely central. Approach with sensitivity given trauma history.",
+    "client_preference": "Requested male therapist for comfort discussing men's issues.",
+    "therapeutic_approach": "Client has psychotherapy foundation. Hypnotherapy complements by accessing subconscious patterns that talk therapy has not fully resolved. Adaptive session design: follow client's presenting material rather than rigid protocol when clinically appropriate. Hypnodrama + identity reframing primary modalities.",
     "csp_compliance": "HMI Community Service Program. Pro bono. Log all hours to CCH. Use initials T.M. only in CCH logs and shared documents.",
-    "eft_session1": "EFT well-received. Worked through: shame about past, fear of letting guard down, anger from betrayal. River metaphor: feelings flow over the riverbed (inner core) without eroding it. Wallpaper metaphor: removing/replacing negative patterns while protecting inner structure of peace. Client engaged with tapping and acceptance statements.",
-    "forgiveness": "Discussed forgiveness as tool for client's own peace, not condoning others' actions. Mental closure not fully achieved on past events. Cord cutting and hypnodrama mentioned as future techniques for processing.",
-    "future_techniques": "Hypnodrama, cord cutting, self-hypnosis teaching, anchoring, desensitization for yelling trigger"
+    "eft_session1": "EFT well-received. Worked through: shame about past, fear of letting guard down, anger from betrayal. River metaphor, wallpaper metaphor.",
+    "forgiveness": "Not yet addressed directly. Guilt about lost friendship adds complexity. Cord cutting or hypnodrama planned for S4.",
+    "future_techniques": "Circle Therapy (Kappasinian fear extinction), Circle of Trust (graduated trust visualization), cord cutting (friendship/guilt), self-hypnosis teaching, advanced desensitization",
+    "s2a_clinical_notes": "Session deviated from scripted wound-identification protocol to address what client brought. This is good clinical practice -- adaptive, client-centered. The tribe circle hypnodrama was a natural precursor to formal Circle Therapy in S2b. Key insight: Tristan's core loop is trigger > anger > guilt > self-labeling > shame. Breaking the self-labeling link (behavior != identity) is high-priority. His group vulnerability fear is a direct therapeutic target for Circle Therapy. The rescuer-helper identity reframe gives him a positive archetype to inhabit instead of the victim pattern.",
+    "smart_baselines_status": "NOT YET COLLECTED. Deferred from S1 (session ran long with EFT), deferred from S2a (session adapted to client material). MUST collect at start of S2b."
   }
 }
