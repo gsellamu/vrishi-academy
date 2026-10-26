@@ -1441,9 +1441,10 @@
           },
           {
             "num": "2b",
-            "title": "S2b: Core Installations (Sorting Room, Settling Pond, Island Cabin, Pillow Trigger, Night-Waking Reset)",
-            "status": "script_ready",
-            "focus": "Complete core 5 installations in deep trance with ideomotor checks"
+            "title": "S2b: Deep Sleep + Installations + Mouth Breathing + Weight Track",
+            "status": "completed",
+            "date": "2026-10-15",
+            "focus": "5 installations (Depth Dial reinforcement, cellular regeneration, sorting room, settling pond, island cabin) + mouth breathing correction + weight management track introduction. Bedside card delivered."
           },
           {
             "num": "2c",
@@ -3281,10 +3282,10 @@
       "client": {
         "name": "T.M.",
         "age": 22,
-        "occupation": "",
-        "ep": "TBD",
+        "occupation": "Student, Appalachian State University",
+        "ep": "31/69 Emotional",
         "vak": "TBD",
-        "history": "22-year-old with childhood trauma. Prior psychotherapy helped significantly but unresolved patterns remain. 6 presenting themes: self-esteem, confidence, assertiveness, trust, anxiety/hypervigilance, letting go. Requested male therapist for comfort. CSP pro bono via HMI."
+        "history": "22-year-old with childhood trauma rooted in parental absence (mother imprisoned for methamphetamine, father incarcerated for heroin). Raised by grandfather (stable but emotionally unavailable) and three uncles (verbally/physically abusive). Passed between foster situations involving neglect. Core wound: abandonment and alienation. Prior psychotherapy provided cognitive insight but subconscious patterns persist. 6 presenting themes: self-esteem, confidence, assertiveness, trust, anxiety/hypervigilance, letting go. Participates in Mankind Project peer group. CSP pro bono via HMI."
       },
       "clinical_notes": {
         "theory_of_mind": "Client's subconscious encoded survival patterns during childhood trauma. Hypervigilance, distrust, and suppressed assertiveness are protective programs that were adaptive then but maladaptive now. The critical mind has been partially updated through psychotherapy (conscious insight) but the 88% still runs the childhood programming.",
@@ -3317,49 +3318,51 @@
         "sessions": [
           {
             "num": 1,
-            "title": "Assessment + First Induction",
-            "status": "script_ready",
-            "focus": "Screen, EP, rapport, safe space, grounding anchor"
+            "title": "Assessment + Intake + EFT Introduction",
+            "status": "completed",
+            "date": "2026-10-08",
+            "focus": "L.O.V.E. intake, 36-Q suggestibility (31P/69E), Theory of Mind, EFT tapping (shame/fear/anger), deep breathing, body scanning. Session adapted: EFT instead of formal induction.",
+            "techniques": ["L.O.V.E. intake", "36-Q Suggestibility Test", "Theory of Mind (88/12)", "EFT Tapping", "Deep Breathing", "Body Scanning", "Self-Acceptance Affirmations"]
           },
           {
-            "num": "2a",
-            "title": "Desensitize + Heal + Create New Images",
-            "status": "script_ready",
-            "focus": "Room Technique phases 1-3, meet younger self"
-          },
-          {
-            "num": "2b",
-            "title": "Retrigger + Rewire + Anchor + Reinforce",
-            "status": "script_ready"
+            "num": 2,
+            "title": "Identity Reframing + Tribe Circle + Anchor",
+            "status": "completed",
+            "date": "2026-10-16",
+            "focus": "Identity vs behavior separation, trigger pattern identification (disrespect->anger->guilt->self-labeling->shame), desensitization framework. Emotional-lane induction (affirmations, visual anchor, Deep Sleep). Tribe circle hypnodrama (11 members, golden light seal). Thumb-forefinger anchor installed. Rescuer-helper identity reframe. Client reported 'more steady' and 'almost like an armor or a shield.'",
+            "techniques": ["Identity vs Behavior Reframe", "Emotional Induction (Affirmations + Visual Anchor)", "5-0 Count + Staircase", "Progressive Relaxation", "Hypnodrama: Tribe Circle (11 members)", "Anchor Installation (thumb+forefinger)", "Rescuer-Helper Reframe", "PHS: Deep Sleep"]
           },
           {
             "num": 3,
-            "title": "Re-Parenting + Core Belief",
-            "status": "planned",
-            "focus": "Room Technique phases 4-5, belief reframe"
+            "title": "Deep Check-In + Root Wound + Phased Plan",
+            "status": "completed",
+            "date": "2026-10-24",
+            "focus": "No trance work. Psychoeducation + planning session. Major childhood history disclosed (absent parents, abusive uncles, foster neglect). Root wound refined: abandonment + alienation. Protector energy validated (workplace test). Phased plan agreed: behavioral skills first, then inner child. Self-esteem reframed via esteemable acts. Listener/helper strategy for Mankind Project group.",
+            "techniques": ["Protector Energy Validation", "Root Wound Refinement (Socratic)", "Known vs Unknown Principle", "Identity vs Mimicry", "Dopamine + Goal Psychoeducation", "Boundary Maintenance Framework", "Phased Therapy Plan", "Inner Child Preview"]
           },
           {
             "num": 4,
-            "title": "Integration + Anxiety Reduction",
+            "title": "Inner Child: Abandonment Wound + Uncle Trauma",
             "status": "planned",
-            "focus": "Phase 6, anxiety dial-down, vagal toning"
+            "focus": "Adult self observes younger self from safe space. Re-parenting: safety, validation, 'it was not your fault.' Uncle-related trauma reframe. Script designed from client's MKP journal. Circle Therapy available as backup."
           },
           {
             "num": 5,
-            "title": "Trust + Assertiveness",
-            "status": "planned",
-            "focus": "Circle of trust, assertive voice, boundaries"
+            "title": "Circle Therapy: Fear Extinction",
+            "status": "script_ready",
+            "focus": "Systematic desensitization: 4 confrontation cycles (men yelling, vulnerability, trust). Reversal suggestion. Compound anchor."
           },
           {
             "num": 6,
-            "title": "Self-Hypnosis + Graduation",
+            "title": "Trust + Vulnerability + Graduated Openness",
             "status": "planned",
-            "focus": "Independence, relapse prevention, future-pace"
+            "focus": "Circle of Trust visualization, assertive voice, boundaries"
           },
           {
             "num": 7,
-            "title": "Contingency",
-            "status": "not_built"
+            "title": "Self-Hypnosis + Integration",
+            "status": "planned",
+            "focus": "Independence, self-regulation, relapse prevention, future-pace"
           },
           {
             "num": 8,
