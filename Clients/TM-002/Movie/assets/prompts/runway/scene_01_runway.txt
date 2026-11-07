@@ -1,0 +1,7 @@
+SCENE 1: Title Card + Safety Framing
+TIMECODE: 0:00-0:45
+DURATION: 45s
+VISUAL DESCRIPTION: Black screen fading to deep navy. Soft golden particles drift slowly upward. Title text: 'The Room You Build'. Subtitle: 'A Guided Visualization'.
+
+PROMPT:
+Golden particles rising slowly against dark blue background, warm light from below, bokeh, meditative, 4K cinematic, abstract, no text

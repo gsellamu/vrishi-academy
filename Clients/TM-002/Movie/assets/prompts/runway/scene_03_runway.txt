@@ -1,0 +1,7 @@
+SCENE 3: The Staircase Descent
+TIMECODE: 2:30-5:30
+DURATION: 180s
+VISUAL DESCRIPTION: POV descending elegant stone staircase. Warm amber lighting from below. Each step reveals more golden light. At bottom: bright sunlit open space.
+
+PROMPT:
+First person perspective descending beautiful ancient stone staircase into golden light, warm amber atmosphere, soft particles of dust in light beams, slow deliberate movement, sacred temple aesthetic, peaceful, cinematic 24fps

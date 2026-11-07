@@ -1,0 +1,23 @@
+SUNO AI MUSIC GENERATION PROMPT
+================================
+Title: The Room You Build - Therapeutic Score
+Duration: 22 minutes
+
+PROMPT:
+Therapeutic hypnotherapy ambient music, warm emotional cello melody, gentle sustained string pads, binaural theta waves 4-6 Hz undertone throughout, slow evolving warm analog pads, key of C major, 70 BPM, quiet meditative opening building slowly, emotional string swell climax at 14:00 mark with major key resolution, gentle playful pizzicato section at 19:00, ascending hopeful strings from 20:00 to end, no vocals, no drums, no percussion, no guitar, total duration 22 minutes, inspired by Max Richter, Olafur Arnalds, Nils Frahm therapeutic ambient
+
+SCENE-BY-SCENE MUSIC NOTES:
+Scene 1: Silence 3 sec, then single sustained pad note C3, warm analog. Binaural theta 6Hz undertone fades in. Volume -20dB.
+Scene 2: Ocean ambience fades in beneath pad. Wave rhythm matching 4-count breathing (4s in, 4s hold, 6s out). Binaural deepens to 5Hz.
+Scene 3: Ocean fades out 10s. Warm reverberant space acoustic. Single cello G2 sustained. Binaural 4Hz. Gentle chime on each step count.
+Scene 4: Cello continues. Add low frequency pulse 60 BPM (heartbeat). Binaural 4Hz sustained.
+Scene 5: Cello drops to pianissimo. Distant gentle wind (sighing, not harsh). Binaural 3.5Hz. Heartbeat pulse slows.
+Scene 6: SWELL: cello rises mezzo-forte. Warm string pad joins (Am to C major resolution). Mist parts = harmonic resolution. Golden bell tone. Binaural 7Hz briefly then back to 4Hz.
+Scene 7: Strings settle warm sustained bed. Add gentle crackling fire. Room acoustic reverb. Binaural 4Hz steady.
+Scene 8: Cello solo. Simple melodic emotional. Major/minor ambiguity. Fire crackling continues.
+Scene 9: CLIMAX: String swell full ensemble. Major key resolution. Contact = harmonic climax. Warm tender not dramatic. Golden bell tone. Binaural 7.83Hz Schumann resonance.
+Scene 10: Walking pizzicato cello. Gentle forward-moving. String pad underneath. Nature: birdsong, gentle wind. Binaural 6Hz.
+Scene 11: Full orchestral swell warm. Major key. Merge = crescendo. Then settle single cello note. Binaural 7.83Hz Schumann. 5 SECONDS SILENCE after merge before anchor instruction.
+Scene 12: Gentle pizzicato playful. Each pop = soft chime. Binaural rising toward 10Hz alpha.
+Scene 13: Ascending string line, semitone per step. Binaural 10-12-14Hz toward beta. Nature returns: birdsong, wind.
+Scene 14: Single cello resolving to tonic. Binaural fades out. Nature ambience 5s past fade-to-black. Silence.

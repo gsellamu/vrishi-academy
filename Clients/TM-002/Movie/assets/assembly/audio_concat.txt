@@ -1,0 +1,19 @@
+# Scene 1: Title Card + Safety Framing (0:00-0:45)
+file 'D:\ChatGPT Projects\genai-portfolio\projects\Jeeth.ai\Business\VRishiHypno\PrepPractices\Clients\TM-002\Movie\assets\narration\scene_01_Title_Card_+_Safety_Framing.mp3'
+# Scene 2: Breathing Induction (0:45-2:30)
+file 'D:\ChatGPT Projects\genai-portfolio\projects\Jeeth.ai\Business\VRishiHypno\PrepPractices\Clients\TM-002\Movie\assets\narration\scene_02_Breathing_Induction.mp3'
+# Scene 3: The Staircase Descent (2:30-5:30)
+file 'D:\ChatGPT Projects\genai-portfolio\projects\Jeeth.ai\Business\VRishiHypno\PrepPractices\Clients\TM-002\Movie\assets\narration\scene_03_The_Staircase_Descent.mp3'
+# Scene 4: Body Awareness - Where Does It Live? (5:30-7:00)
+file 'D:\ChatGPT Projects\genai-portfolio\projects\Jeeth.ai\Business\VRishiHypno\PrepPractices\Clients\TM-002\Movie\assets\narration\scene_04_Body_Awareness__Where_Does_It_.mp3'
+# Scene 5: Arriving in the Mist (7:00-8:30)
+file 'D:\ChatGPT Projects\genai-portfolio\projects\Jeeth.ai\Business\VRishiHypno\PrepPractices\Clients\TM-002\Movie\assets\narration\scene_05_Arriving_in_the_Mist.mp3'
+# Scene 6: The Adult Arrives (8:30-10:00)
+# Scene 7: Building the Safe Room (10:00-11:30)
+# Scene 8: Understanding What the Child Carries (11:30-13:30)
+# Scene 9: Speaking to the Child - The Correction (13:30-15:00)
+# Scene 10: Walking the Life Path Together (15:00-17:00)
+# Scene 11: Integration - The Child Comes Home (17:00-19:00)
+# Scene 12: The Bubbles - Old Fears Released (19:00-20:00)
+# Scene 13: Ascending - Count Out (20:00-21:15)
+# Scene 14: Closing Card + Post-Hypnotic (21:15-22:00)

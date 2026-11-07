@@ -1,0 +1,7 @@
+SCENE 13: Ascending - Count Out
+TIMECODE: 20:00-21:15
+DURATION: 75s
+VISUAL DESCRIPTION: Reverse of Scene 3. POV ascending stone staircase. Each step brighter. Golden underground gives way to natural daylight. At top: bright clear sky, vivid saturated world.
+
+PROMPT:
+POV ascending elegant stone staircase, each step brighter, warm golden light transitioning to bright natural daylight, emerging into clear blue sky and fresh air, vivid saturated colors at the top, cinematic, hopeful, uplifting, 4K

@@ -1,0 +1,7 @@
+SCENE 5: Arriving in the Mist
+TIMECODE: 7:00-8:30
+DURATION: 90s
+VISUAL DESCRIPTION: Sunlit space gradually fills with dense soft white-gray mist. Golden light diffuses. A small child silhouette appears in the fog. Alone. Still.
+
+PROMPT:
+Dense soft morning mist in a golden-lit space, ethereal atmosphere, a small child silhouette barely visible through the fog, standing alone, backlit by warm diffused golden light, cinematic, emotional, dreamlike, 16:9 aspect ratio, no face visible

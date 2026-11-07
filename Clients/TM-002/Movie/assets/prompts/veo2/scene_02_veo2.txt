@@ -1,0 +1,7 @@
+SCENE 2: Breathing Induction
+TIMECODE: 0:45-2:30
+DURATION: 105s
+VISUAL DESCRIPTION: Slow aerial shot drifting over calm ocean at golden hour. Waves rolling gently. Horizon at center. Light refracting through water.
+
+PROMPT:
+Aerial cinematic shot slowly moving over a calm turquoise ocean at golden hour, gentle rolling waves, sun low on horizon creating golden light path on water, dreamy soft focus, slow camera drift, peaceful meditative, no people, no boats, 16:9

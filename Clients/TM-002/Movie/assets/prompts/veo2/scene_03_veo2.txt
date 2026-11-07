@@ -1,0 +1,7 @@
+SCENE 3: The Staircase Descent
+TIMECODE: 2:30-5:30
+DURATION: 180s
+VISUAL DESCRIPTION: POV descending elegant stone staircase. Warm amber lighting from below. Each step reveals more golden light. At bottom: bright sunlit open space.
+
+PROMPT:
+POV walking slowly down an elegant wide stone staircase, warm amber lighting from below, soft shadows, smooth stone walls with gentle golden glow, each step reveals more light, cinematic depth, meditative pace, no people visible, warm color palette, 4K
