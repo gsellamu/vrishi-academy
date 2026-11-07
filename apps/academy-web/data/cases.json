@@ -3291,9 +3291,11 @@
         "theory_of_mind": "Client's subconscious encoded survival patterns during childhood trauma. Hypervigilance, distrust, and suppressed assertiveness are protective programs that were adaptive then but maladaptive now. The critical mind has been partially updated through psychotherapy (conscious insight) but the 88% still runs the childhood programming.",
         "ep_approach": "EP TBD. If Physical: direct reframe, kinesthetic anchors, literal language. If Emotional: permissive inference, metaphor, safe-space discovery. Inner child/younger-self work approach determined by EP result.",
         "key_reframe": "The nervous system's threat detection was set to maximum during childhood because it needed to be. It did its job. Now it needs recalibration, not elimination. The alarm is still at 10. We bring it to 2-3. Appropriate awareness, not hypervigilance.",
+        "root_wound": "ABANDONMENT + ALIENATION (refined S3). Mother imprisoned (meth), father incarcerated (heroin), both absent. Foster neglect. Grandfather stable but emotionally unavailable. 3 uncles: verbally/physically abusive. Client internalized blame. Two core beliefs: 'People I care about don't actually care about me' and 'I'm not a good person.' Behavioral tools (anchor, protector energy, helper role) work at conscious level but subconscious beliefs persist (88/12 split).",
+        "therapeutic_model": "Gemini 3-Phase: (1) Desensitization + Resource Building (Observer Canvas, affect bridge, IMS gated), (2) Circle Therapy Alignment (Shield-to-Filter, Mesh Filter PHA, Trojan Horse group protocol), (3) Inner Child Integration (reparenting 2 beliefs, voice replacement, watchtower stepdown, forgiveness, self-compassion).",
         "contraindications": "SCREEN: childhood trauma scope, active psychiatric care, medications, suicidal ideation history, triggers, panic/dissociation. If anti-psychotic or active psychosis: REFER.",
-        "inner_child_approach": "Optional younger-self component (Sessions 2-3). Room Technique: adult meets younger self in NEW safe room (not childhood place). Re-parenting with agency language. Integration is behavioral (not compulsory merging). Memory accuracy caution: images may be symbolic.",
-        "clinical_safeguards": "Do not dismiss prior psychotherapy. EP informs style, does not determine readiness. Do not interpret missed homework as sabotage. Agency language: client decides, evaluates, chooses. If PTSD criteria met, consider referral to CPT/PE/EMDR specialist."
+        "inner_child_approach": "Room Technique (Melton): adult meets younger self in NEW safe room. Affect bridge to ISE via body location. Mist metaphor for arrival. Re-parenting with agency language (client discovers words). Critical voice identification + screen replacement. Life path walk. Integration is behavioral (not compulsory merging). Memory accuracy caution: images may be symbolic. Secondary gain acknowledgment before reparenting.",
+        "clinical_safeguards": "Do not dismiss prior psychotherapy. EP informs style, does not determine readiness. Do not interpret missed homework as sabotage. Agency language: client decides, evaluates, chooses. If PTSD criteria met, consider referral to CPT/PE/EMDR specialist. Desensitize BEFORE inner child work (Observer Canvas to IMS < 2/10). Gate Phase 2 reparenting on capacity."
       },
       "session_plan": {
         "pretalk_focus": "Theory of Mind (88/12 model). Nervous system fight-flight-freeze. Hypnotherapy as experiential complement to psychotherapy insight. AI disclosure.",
@@ -3342,27 +3344,31 @@
           },
           {
             "num": 4,
-            "title": "Inner Child: Abandonment Wound + Uncle Trauma",
-            "status": "planned",
-            "focus": "Adult self observes younger self from safe space. Re-parenting: safety, validation, 'it was not your fault.' Uncle-related trauma reframe. Script designed from client's MKP journal. Circle Therapy available as backup."
+            "title": "Inner Child: Abandonment + Self-Worth + Voice Replacement",
+            "status": "script_ready",
+            "focus": "19-phase enriched readout. Observer Canvas desensitization (IMS gated). Affect bridge (body location of abandonment). Mist metaphor (adult parts fog to reach child). Safe room construction. Reparenting #1: 'Nobody cares about me' (abandonment belief). Reparenting #2: 'I'm not a good person' (uncle blame, GATED). Critical voice identification + screen replacement (uncle voice -> adult voice). Life path walk hand-in-hand. Integration (optional embrace). Compound anchor (tribe+circle+workshop+child). Mesh Filter PHA (LEFT hand for Tuesday group). Beach ball callback seal.",
+            "techniques": ["Observer Canvas Desensitization", "IMS (Ideomotor Signaling)", "Affect Bridge (Body Location)", "Mist Metaphor", "Safe Room Construction", "Inner Child Reparenting x2", "Critical Voice Identification + Screen Replacement", "Life Path Walk", "Adult-Child Integration", "Compound Anchor (5 layers)", "Mesh Filter PHA (LEFT hand)", "Bubble Pop Metaphor", "Beach Ball Seal", "Secondary Gain Acknowledgment"],
+            "sources": ["Kappasinian (Melton Room Technique, Machenberg Wound Model, Kappas Reprogram-Not-Story, Nasir Memory Reconsolidation)", "HypnoticWorld (FearOfAbandonment, InnerChild, SelfCriticism)", "Gemini AI Mode (3-Phase Model, Observer Canvas, Mesh Filter PHA, Secondary Gain)", "Original TM-002 (Flip Theory, Tribe Circle, Protector Energy, Evidence Chain)"]
           },
           {
             "num": 5,
-            "title": "Circle Therapy: Fear Extinction",
+            "title": "Circle Therapy + Self-Criticism Voice + Shield-to-Filter",
             "status": "script_ready",
-            "focus": "Systematic desensitization: 4 confrontation cycles (men yelling, vulnerability, trust). Reversal suggestion. Compound anchor."
+            "focus": "Phase 2 of Gemini 3-phase model. Circle Therapy fear extinction (4 confrontation cycles: men yelling low/medium, vulnerability/being seen, trusting someone close). Reversal suggestion. Self-Criticism voice replacement deepening (from SelfCriticism.pdf). Circle of Confidence anchor installation ('my circle' conditioned response with 3-breath protocol). Shield-to-Filter metaphor (opaque wall -> selective mesh). Trojan Horse group protocol (MKP as deployment zone, not trial). Compound anchor: tribe + circle therapy + voice replacement + 'my circle'.",
+            "techniques": ["Circle Therapy (Kappasinian Fear Extinction)", "4 Confrontation Cycles", "Reversal Suggestion", "Self-Criticism Voice Deepening", "Circle of Confidence Anchor", "Shield-to-Filter Metaphor", "Trojan Horse Group Protocol", "Compound Anchor"]
           },
           {
             "num": 6,
-            "title": "Trust + Vulnerability + Graduated Openness",
+            "title": "Forgiveness + Self-Compassion + Watchtower Stepdown",
             "status": "planned",
-            "focus": "Circle of Trust visualization, assertive voice, boundaries"
+            "focus": "Phase 3 completion. Counter-evidence search (3 memories of being accepted, ideomotor nods). Forgiveness circle (adapted from Forgiveness.pdf: symbols for parents/uncles in sand, forgiveness affirmation, tide washes away). Self-compassion breathing (from DevelopSelfCompassion.pdf: breathe in compassion for self, out for others). Inner child integration pass 2 (watchtower stepdown: child steps down because adult is at the gate). Life path walk forward (past experiences -> future with graduated openness). Self-hypnosis introduction. Graduation readiness assessment.",
+            "techniques": ["Counter-Evidence Search (3 Acceptance Memories)", "Forgiveness Circle (Sand Symbols + Tide)", "Self-Compassion Breathing (Kristin Neff)", "Watchtower Stepdown", "Integration Pass 2", "Forward Life Path", "Self-Hypnosis Introduction", "Graduation Assessment"]
           },
           {
             "num": 7,
-            "title": "Self-Hypnosis + Integration",
+            "title": "Integration + Self-Regulation Independence",
             "status": "planned",
-            "focus": "Independence, self-regulation, relapse prevention, future-pace"
+            "focus": "Full anchor stack test. Self-hypnosis practice (client-led induction). Relapse prevention plan. Future-pace: Tuesday group with full openness. SMART baselines final measurement. Graduation if targets met."
           },
           {
             "num": 8,

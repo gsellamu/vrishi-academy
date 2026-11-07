@@ -1,16 +1,20 @@
 ﻿{
-    "asOf":  "2026-10-24",
+    "asOf":  "2026-11-06",
     "hardStop":  "2026-12-10",
+    "daysRemaining": 34,
     "cspStatus":  "approved",
     "cspApprovedDate":  "2026-09-01",
     "contacts":  {
                      "done":  6,
                      "need":  24,
-                     "unit":  "sessions"
+                     "remaining": 18,
+                     "unit":  "sessions",
+                     "breakdown": "DS-001: 3 (S1+S2a+S2b) | TM-002: 3 (S1+S2+S3)"
                  },
     "conferences":  {
                         "done":  20,
                         "need":  24,
+                        "remaining": 4,
                         "unit":  "conferences"
                     },
     "electives":  {
