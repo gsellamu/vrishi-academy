@@ -5,11 +5,11 @@
     "cspStatus":  "approved",
     "cspApprovedDate":  "2026-09-01",
     "contacts":  {
-                     "done":  6,
+                     "done":  7,
                      "need":  24,
-                     "remaining": 18,
+                     "remaining": 17,
                      "unit":  "sessions",
-                     "breakdown": "DS-001: 3 (S1+S2a+S2b) | TM-002: 3 (S1+S2+S3)"
+                     "breakdown": "DS-001: 3 (S1+S2a+S2b) | TM-002: 4 (S1+S2+S3+S4)"
                  },
     "conferences":  {
                         "done":  20,

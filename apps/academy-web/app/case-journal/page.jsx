@@ -124,7 +124,7 @@ function saveJournal(d) {
 
 export default function CaseJournal() {
   const [data, setData] = useState({});
-  const [clientId, setClientId] = useState(null);
+  const [clientId, setClientId] = useState("DS-001");
   const [tab, setTab] = useState("journal");
   const [addOpen, setAddOpen] = useState(false);
   /* add entry form */
