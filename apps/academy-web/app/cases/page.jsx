@@ -5,6 +5,29 @@ import caseData from "../../data/cases.json";
 
 const CATS = Object.fromEntries(caseData.categories.map((c) => [c.id, c]));
 
+/* ── AI-generated category art (GPT-4o cinematic) ───────────── */
+const CAT_IMAGES = {
+  sleep:         "/images/cases/sleep.png",
+  anxiety:       "/images/cases/anxiety.png",
+  confidence:    "/images/cases/confidence.png",
+  habits:        "/images/cases/habits.png",
+  pain:          "/images/cases/pain.png",
+  relationships: "/images/cases/relationships.png",
+};
+
+/* ── difficulty badge colors ────────────────────────────────── */
+const DIFF_COLORS = {
+  beginner:     { bg: "rgba(91,184,154,.12)", color: "var(--ok)" },
+  intermediate: { bg: "rgba(224,164,88,.12)",  color: "var(--amber)" },
+  advanced:     { bg: "rgba(224,104,94,.12)",  color: "var(--red)" },
+};
+
+/* ── category icons (unicode) ───────────────────────────────── */
+const CAT_ICONS = {
+  sleep: "\u263E", anxiety: "\u25C8", confidence: "\u2605",
+  habits: "\u21BB", pain: "\u2661", relationships: "\u2764",
+};
+
 function openSessionWindow(cs, cat) {
   const w = window.open("", "_blank", "width=700,height=900,scrollbars=yes,resizable=yes");
   if (!w) return;
@@ -39,12 +62,26 @@ export default function Cases() {
 
   return (
     <article>
-      <div className="studio-head">
-        <div>
-          <span className="eyebrow">Case Practice Sessions</span>
-          <h1 style={{ margin: "8px 0 0" }}>Case <em>Library</em></h1>
+      {/* ── header (index vs detail) ─────────────────────────── */}
+      {!c && (
+        <div className="deck-hero" style={{ marginBottom: 24 }}>
+          <img className="deck-hero__bg" src="/images/scenes/theory_of_mind.png" alt="" />
+          <div className="deck-hero__overlay" />
+          <div className="deck-hero__content">
+            <span className="eyebrow">Case Practice Sessions</span>
+            <h1 style={{ marginBottom: 8 }}>Case <em>Library</em></h1>
+            <p className="note" style={{ maxWidth: "58ch" }}>
+              Realistic client scenarios with presenting issues, intake dialogues, session plans, and full delivery scripts. Practice the entire therapeutic arc.
+            </p>
+          </div>
         </div>
-        {c && (
+      )}
+      {c && (
+        <div className="studio-head">
+          <div>
+            <span className="eyebrow">{c.id} &middot; {cat?.label}</span>
+            <h1 style={{ margin: "8px 0 0" }}>{c.title}</h1>
+          </div>
           <div className="seg">
             <button type="button" className={tab === "intake" ? "on" : ""} onClick={() => setTab("intake")}>Intake</button>
             <button type="button" className={tab === "plan" ? "on" : ""} onClick={() => setTab("plan")}>Session Plan</button>
@@ -53,39 +90,92 @@ export default function Cases() {
             {c.client_plan && <button type="button" className={tab === "clientplan" ? "on" : ""} onClick={() => setTab("clientplan")}>Client Plan</button>}
             {c.therapist_runbook && <button type="button" className={tab === "runbook" ? "on" : ""} onClick={() => setTab("runbook")}>Runbook</button>}
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* ═══════ CASE INDEX ═══════ */}
       {!c && (
-        <div style={{ display: "flex", flexDirection: "column", gap: 22, maxWidth: 960 }}>
-          <p className="note">Realistic client scenarios with presenting issues, intake dialogues, session plans, and full delivery scripts. Practice the entire therapeutic arc from first contact to homework assignment.</p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 28, maxWidth: 1000 }}>
+          {/* stats bar */}
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+            <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--mist)", background: "var(--panel)", border: "1px solid var(--line)", borderRadius: "var(--r-pill)", padding: "6px 14px" }}>
+              {caseData.cases.length} cases
+            </span>
+            <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--mist)", background: "var(--panel)", border: "1px solid var(--line)", borderRadius: "var(--r-pill)", padding: "6px 14px" }}>
+              {caseData.categories.filter(ct => caseData.cases.some(x => x.category === ct.id)).length} categories
+            </span>
+            {["beginner", "intermediate", "advanced"].map(d => {
+              const n = caseData.cases.filter(x => x.difficulty === d).length;
+              if (!n) return null;
+              const dc = DIFF_COLORS[d];
+              return (
+                <span key={d} style={{ fontFamily: "var(--mono)", fontSize: 11, color: dc.color, background: dc.bg, borderRadius: "var(--r-pill)", padding: "6px 14px" }}>
+                  {n} {d}
+                </span>
+              );
+            })}
+          </div>
 
           {caseData.categories.map((cat) => {
             const cases = caseData.cases.filter((x) => x.category === cat.id);
+            const catImg = CAT_IMAGES[cat.id];
+            const catIcon = CAT_ICONS[cat.id];
             if (!cases.length) return (
               <div key={cat.id} className="panel" style={{ padding: "18px 22px", opacity: 0.5 }}>
-                <div style={{ font: "560 15px var(--body)", color: cat.color }}>{cat.label}</div>
+                <div style={{ font: "560 15px var(--body)", color: cat.color }}>{catIcon} {cat.label}</div>
                 <p className="note" style={{ margin: "8px 0 0" }}>Coming soon</p>
               </div>
             );
             return (
               <div key={cat.id}>
-                <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".14em", textTransform: "uppercase", color: cat.color, marginBottom: 8 }}>{cat.label}</div>
+                {/* category header with image */}
+                <div style={{ position: "relative", borderRadius: "var(--r-md)", overflow: "hidden", padding: "16px 20px", marginBottom: 10 }}>
+                  {catImg && (
+                    <>
+                      <img src={catImg} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.1, filter: "blur(1px)", pointerEvents: "none" }} />
+                      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, var(--void) 0%, rgba(18,17,24,.7) 100%)", pointerEvents: "none" }} />
+                    </>
+                  )}
+                  <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 10 }}>
+                    <span style={{ fontSize: 20, color: cat.color }}>{catIcon}</span>
+                    <span style={{ font: "560 16px var(--body)", color: cat.color }}>{cat.label}</span>
+                    <span style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--mist)", marginLeft: "auto" }}>{cases.length} case{cases.length > 1 ? "s" : ""}</span>
+                  </div>
+                </div>
+                {/* case cards */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  {cases.map((cs) => (
-                    <button key={cs.id} className="panel" style={{ padding: "16px 22px", cursor: "pointer", textAlign: "left", border: "none", borderLeft: `3px solid ${cat.color}` }}
-                      onClick={() => { setActiveCase(cs.id); setTab("intake"); }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
-                        <div>
-                          <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: cat.color, marginRight: 10 }}>{cs.id}</span>
-                          <span style={{ font: "560 15px var(--body)", color: "#e9e4f2" }}>{cs.title}</span>
+                  {cases.map((cs) => {
+                    const dc = DIFF_COLORS[cs.difficulty] || DIFF_COLORS.beginner;
+                    return (
+                      <button key={cs.id} className="panel" style={{ position: "relative", overflow: "hidden", padding: "18px 22px", cursor: "pointer", textAlign: "left", border: "none", borderLeft: "3px solid " + cat.color }}
+                        onClick={() => { setActiveCase(cs.id); setTab("intake"); }}>
+                        {catImg && <img className="card-scene-bg" src={catImg} alt="" style={{ opacity: 0.04 }} />}
+                        <div style={{ position: "relative", zIndex: 1 }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, marginBottom: 6 }}>
+                            <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+                              <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: cat.color }}>{cs.id}</span>
+                              <span style={{ font: "560 15px var(--body)", color: "#e9e4f2" }}>{cs.title}</span>
+                            </div>
+                            <span style={{ fontFamily: "var(--mono)", fontSize: 9, textTransform: "uppercase", letterSpacing: ".08em", color: dc.color, background: dc.bg, padding: "3px 10px", borderRadius: "var(--r-pill)", whiteSpace: "nowrap" }}>
+                              {cs.difficulty}
+                            </span>
+                          </div>
+                          <p style={{ fontSize: 13, color: "#8b85a0", margin: 0, lineHeight: 1.55 }}>&ldquo;{cs.presenting.length > 160 ? cs.presenting.substring(0, 157) + "..." : cs.presenting}&rdquo;</p>
+                          <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
+                            <span style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--mist)", background: "var(--raise)", padding: "2px 8px", borderRadius: 4 }}>
+                              {cs.client.ep}
+                            </span>
+                            <span style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--mist)", background: "var(--raise)", padding: "2px 8px", borderRadius: 4 }}>
+                              {cs.client.vak}
+                            </span>
+                            <span style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--mist)", background: "var(--raise)", padding: "2px 8px", borderRadius: 4 }}>
+                              {cs.client.age}y
+                            </span>
+                          </div>
                         </div>
-                        <span style={{ fontFamily: "var(--mono)", fontSize: 10, textTransform: "uppercase", color: "var(--mist)", whiteSpace: "nowrap" }}>{cs.difficulty}</span>
-                      </div>
-                      <p style={{ fontSize: 13, color: "#8b85a0", margin: "8px 0 0", lineHeight: 1.5 }}>&ldquo;{cs.presenting}&rdquo;</p>
-                    </button>
-                  ))}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             );

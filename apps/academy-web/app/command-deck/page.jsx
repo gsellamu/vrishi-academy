@@ -42,13 +42,22 @@ const FOCUS = {
   },
 };
 
+/* ── hero images per role ────────────────────────────────────── */
+const HERO_IMAGES = {
+  student: "/images/scenes/blueprint_room.png",
+  client:  "/images/scenes/settle_comfort.png",
+  grad:    "/images/scenes/intake_welcome.png",
+  pro:     "/images/scenes/magic_chamber.png",
+  faculty: "/images/scenes/theory_of_mind.png",
+};
+
 /* ── quick-launch cards (status is computed at render time) ──── */
 const CARDS_BASE = [
-  { icon: "\u25C9", label: "Session Studio",  href: "/studio",     border: "var(--amber)" },
-  { icon: ">_",     label: "Practice Lab",    href: "/lab",        border: "var(--line)" },
-  { icon: "\u25CE", label: "The Room",         href: "/room",       border: "var(--teal)" },
-  { icon: "\u2726", label: "Skill Tree",       href: "/skill-tree", border: "var(--line)" },
-  { icon: "\u25C7", label: "Faculty",          href: "/faculty",    border: "var(--line)" },
+  { icon: "\u25C9", label: "Session Studio",  href: "/studio",     border: "var(--amber)", bg: "/images/scenes/magic_chamber.png" },
+  { icon: ">_",     label: "Practice Lab",    href: "/lab",        border: "var(--line)",  bg: "/images/scenes/blueprint_room.png" },
+  { icon: "\u25CE", label: "The Room",         href: "/room",       border: "var(--teal)",  bg: "/images/scenes/healing_paradise.png" },
+  { icon: "\u2726", label: "Skill Tree",       href: "/skill-tree", border: "var(--line)",  bg: "/images/scenes/wonderland.png" },
+  { icon: "\u25C7", label: "Faculty",          href: "/faculty",    border: "var(--line)",  bg: "/images/scenes/neuro_staircase.png" },
 ];
 
 /* ── season-pass categories ───────────────────────────────────── */
@@ -109,10 +118,16 @@ export default function CommandDeck() {
         ))}
       </div>
 
-      {/* ── welcome ─────────────────────────────────────────── */}
-      <span className="eyebrow">{r.eyebrow}</span>
-      <h1>{r.title} <em>{r.accent}</em></h1>
-      <p className="note" style={{ marginBottom: 32 }}>{r.sub}</p>
+      {/* ── welcome hero ────────────────────────────────────── */}
+      <div className="deck-hero">
+        <img className="deck-hero__bg" src={HERO_IMAGES[role]} alt="" />
+        <div className="deck-hero__overlay" />
+        <div className="deck-hero__content">
+          <span className="eyebrow">{r.eyebrow}</span>
+          <h1 style={{ marginBottom: 8 }}>{r.title} <em>{r.accent}</em></h1>
+          <p className="note">{r.sub}</p>
+        </div>
+      </div>
 
       {/* ── focus card ──────────────────────────────────────── */}
       <Link href={focus.href} style={{ textDecoration: "none", display: "block" }}>
@@ -171,24 +186,29 @@ export default function CommandDeck() {
             <div
               className="panel"
               style={{
+                position: "relative",
+                overflow: "hidden",
                 padding: "20px 18px",
                 borderTop: `3px solid ${c.border}`,
-                transition: "transform .18s var(--ease), border-color .18s var(--ease)",
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
                 gap: 8,
               }}
-              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}
             >
-              <span style={{ fontFamily: "var(--mono)", fontSize: 22, color: "var(--iris)", lineHeight: 1 }}>
+              {c.bg && (
+                <>
+                  <img className="card-scene-bg" src={c.bg} alt="" />
+                  <div className="card-scene-overlay" />
+                </>
+              )}
+              <span style={{ fontFamily: "var(--mono)", fontSize: 22, color: "var(--iris)", lineHeight: 1, position: "relative", zIndex: 1 }}>
                 {c.icon}
               </span>
-              <span style={{ font: "560 15px var(--body)", color: "var(--ink)" }}>
+              <span style={{ font: "560 15px var(--body)", color: "var(--ink)", position: "relative", zIndex: 1 }}>
                 {c.label}
               </span>
-              <span style={{ fontSize: 13, color: "var(--mist)", marginTop: "auto" }}>
+              <span style={{ fontSize: 13, color: "var(--mist)", marginTop: "auto", position: "relative", zIndex: 1 }}>
                 {c.status}
               </span>
             </div>

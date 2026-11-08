@@ -1,6 +1,6 @@
 import gap from "../../data/gap.json";
 
-function Dial({ label, done, need, unit }) {
+function Dial({ label, done, need, unit, index = 0 }) {
   const r = 54, c = 2 * Math.PI * r;
   const frac = Math.min(1, done / need);
   return (
@@ -8,6 +8,7 @@ function Dial({ label, done, need, unit }) {
       <svg width="140" height="140" viewBox="0 0 140 140" role="img" aria-label={`${label}: ${done} of ${need}`}>
         <circle cx="70" cy="70" r={r} fill="none" stroke="var(--line)" strokeWidth="10" />
         <circle cx="70" cy="70" r={r} fill="none" stroke="var(--amber)" strokeWidth="10"
+          className="dial-arc" style={{ "--dial-index": index }}
           strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - frac)}
           transform="rotate(-90 70 70)" />
         <circle cx="70" cy="70" r="34" fill="none" stroke="var(--iris)" strokeWidth="2" opacity="0.5" />
@@ -57,10 +58,10 @@ export default function Dojo() {
       </div>
 
       <div className="dials">
-        <Dial label="Client contacts" {...gap.contacts} />
-        <Dial label="Case conferences" {...gap.conferences} />
-        <Dial label="401 electives" {...gap.electives} />
-        <Dial label="Practicum workshops" {...gap.workshops} />
+        <Dial label="Client contacts" {...gap.contacts} index={0} />
+        <Dial label="Case conferences" {...gap.conferences} index={1} />
+        <Dial label="401 electives" {...gap.electives} index={2} />
+        <Dial label="Practicum workshops" {...gap.workshops} index={3} />
       </div>
 
       <div className="rhythm">
