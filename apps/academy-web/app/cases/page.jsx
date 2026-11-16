@@ -28,6 +28,21 @@ const CAT_ICONS = {
   habits: "\u21BB", pain: "\u2661", relationships: "\u2764",
 };
 
+/* ── per-case story images (3 per case: presenting, therapeutic, resolution) */
+const CASE_STORY = {
+  "SLEEP-001":  { presenting: "/images/cases/SLEEP-001_presenting.png",  therapeutic: "/images/cases/SLEEP-001_therapeutic.png",  resolution: "/images/cases/SLEEP-001_resolution.png" },
+  "SLEEP-002":  { presenting: "/images/cases/SLEEP-002_presenting.png",  therapeutic: "/images/cases/SLEEP-002_therapeutic.png",  resolution: "/images/cases/SLEEP-002_resolution.png" },
+  "SLEEP-003":  { presenting: "/images/cases/SLEEP-003_presenting.png",  therapeutic: "/images/cases/SLEEP-003_therapeutic.png",  resolution: "/images/cases/SLEEP-003_resolution.png" },
+  "SLEEP-004":  { presenting: "/images/cases/SLEEP-004_presenting.png",  therapeutic: "/images/cases/SLEEP-004_therapeutic.png",  resolution: "/images/cases/SLEEP-004_resolution.png" },
+  "TRAUMA-001": { presenting: "/images/cases/TRAUMA-001_presenting.png", therapeutic: "/images/cases/TRAUMA-001_therapeutic.png", resolution: "/images/cases/TRAUMA-001_resolution.png" },
+  "WEIGHT-001": { presenting: "/images/cases/WEIGHT-001_presenting.png", therapeutic: "/images/cases/WEIGHT-001_therapeutic.png", resolution: "/images/cases/WEIGHT-001_resolution.png" },
+  "WEIGHT-002": { presenting: "/images/cases/WEIGHT-002_presenting.png", therapeutic: "/images/cases/WEIGHT-002_therapeutic.png", resolution: "/images/cases/WEIGHT-002_resolution.png" },
+  "WEIGHT-003": { presenting: "/images/cases/WEIGHT-003_presenting.png", therapeutic: "/images/cases/WEIGHT-003_therapeutic.png", resolution: "/images/cases/WEIGHT-003_resolution.png" },
+  "WEIGHT-004": { presenting: "/images/cases/WEIGHT-004_presenting.png", therapeutic: "/images/cases/WEIGHT-004_therapeutic.png", resolution: "/images/cases/WEIGHT-004_resolution.png" },
+  "WEIGHT-005": { presenting: "/images/cases/WEIGHT-005_presenting.png", therapeutic: "/images/cases/WEIGHT-005_therapeutic.png", resolution: "/images/cases/WEIGHT-005_resolution.png" },
+  "WEIGHT-006": { presenting: "/images/cases/WEIGHT-006_presenting.png", therapeutic: "/images/cases/WEIGHT-006_therapeutic.png", resolution: "/images/cases/WEIGHT-006_resolution.png" },
+};
+
 function openSessionWindow(cs, cat) {
   const w = window.open("", "_blank", "width=700,height=900,scrollbars=yes,resizable=yes");
   if (!w) return;
@@ -77,12 +92,24 @@ export default function Cases() {
         </div>
       )}
       {c && (
-        <div className="studio-head">
-          <div>
-            <span className="eyebrow">{c.id} &middot; {cat?.label}</span>
-            <h1 style={{ margin: "8px 0 0" }}>{c.title}</h1>
+        <>
+          {/* case hero with presenting story image */}
+          <div className="deck-hero" style={{ marginBottom: 18, minHeight: 200 }}>
+            {CASE_STORY[c.id]?.presenting && (
+              <img className="deck-hero__bg" src={CASE_STORY[c.id].presenting} alt="" />
+            )}
+            {!CASE_STORY[c.id]?.presenting && CAT_IMAGES[c.category] && (
+              <img className="deck-hero__bg" src={CAT_IMAGES[c.category]} alt="" />
+            )}
+            <div className="deck-hero__overlay" />
+            <div className="deck-hero__content">
+              <button type="button" className="ghost" style={{ marginBottom: 10, fontSize: 12, background: "rgba(0,0,0,.3)", borderColor: "rgba(255,255,255,.15)" }} onClick={() => setActiveCase(null)}>&larr; Back to cases</button>
+              <span className="eyebrow">{c.id} &middot; {cat?.label}</span>
+              <h1 style={{ marginBottom: 6 }}>{c.title}</h1>
+              <p className="note" style={{ maxWidth: "58ch", margin: 0 }}>&ldquo;{c.presenting.length > 180 ? c.presenting.substring(0, 177) + "..." : c.presenting}&rdquo;</p>
+            </div>
           </div>
-          <div className="seg">
+          <div className="seg" style={{ marginBottom: 18 }}>
             <button type="button" className={tab === "intake" ? "on" : ""} onClick={() => setTab("intake")}>Intake</button>
             <button type="button" className={tab === "plan" ? "on" : ""} onClick={() => setTab("plan")}>Session Plan</button>
             <button type="button" className={tab === "script" ? "on" : ""} onClick={() => setTab("script")}>Full Script</button>
@@ -90,7 +117,7 @@ export default function Cases() {
             {c.client_plan && <button type="button" className={tab === "clientplan" ? "on" : ""} onClick={() => setTab("clientplan")}>Client Plan</button>}
             {c.therapist_runbook && <button type="button" className={tab === "runbook" ? "on" : ""} onClick={() => setTab("runbook")}>Runbook</button>}
           </div>
-        </div>
+        </>
       )}
 
       {/* ═══════ CASE INDEX ═══════ */}
@@ -132,8 +159,8 @@ export default function Cases() {
                 <div style={{ position: "relative", borderRadius: "var(--r-md)", overflow: "hidden", padding: "16px 20px", marginBottom: 10 }}>
                   {catImg && (
                     <>
-                      <img src={catImg} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.1, filter: "blur(1px)", pointerEvents: "none" }} />
-                      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, var(--void) 0%, rgba(18,17,24,.7) 100%)", pointerEvents: "none" }} />
+                      <img src={catImg} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.35, pointerEvents: "none" }} />
+                      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(18,17,24,.75) 0%, rgba(18,17,24,.4) 100%)", pointerEvents: "none" }} />
                     </>
                   )}
                   <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 10 }}>
@@ -149,7 +176,7 @@ export default function Cases() {
                     return (
                       <button key={cs.id} className="panel" style={{ position: "relative", overflow: "hidden", padding: "18px 22px", cursor: "pointer", textAlign: "left", border: "none", borderLeft: "3px solid " + cat.color }}
                         onClick={() => { setActiveCase(cs.id); setTab("intake"); }}>
-                        {catImg && <img className="card-scene-bg" src={catImg} alt="" style={{ opacity: 0.04 }} />}
+                        {catImg && <img className="card-scene-bg" src={catImg} alt="" />}
                         <div style={{ position: "relative", zIndex: 1 }}>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, marginBottom: 6 }}>
                             <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
@@ -223,10 +250,21 @@ export default function Cases() {
                   </div>
                 ))}
               </div>
-              {/* Client history sidebar */}
-              <div className="panel" style={{ padding: "16px 18px" }}>
-                <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--mist)", marginBottom: 10 }}>History</div>
-                <p style={{ fontSize: 13, lineHeight: 1.65, color: "#8b85a0", margin: 0 }}>{c.client.history}</p>
+              {/* Client history sidebar + story image */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                {CASE_STORY[c.id]?.presenting && (
+                  <div className="case-story-panel">
+                    <img src={CASE_STORY[c.id].presenting} alt={c.title} />
+                    <div className="case-story-caption">
+                      <span className="case-story-label">The presenting world</span>
+                      &ldquo;{c.presenting.length > 120 ? c.presenting.substring(0, 117) + "..." : c.presenting}&rdquo;
+                    </div>
+                  </div>
+                )}
+                <div className="panel" style={{ padding: "16px 18px" }}>
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--mist)", marginBottom: 10 }}>History</div>
+                  <p style={{ fontSize: 13, lineHeight: 1.65, color: "#8b85a0", margin: 0 }}>{c.client.history}</p>
+                </div>
               </div>
             </div>
           )}
@@ -262,6 +300,17 @@ export default function Cases() {
                 <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--ok)", marginBottom: 10 }}>Count Out</div>
                 <p style={{ fontSize: 14, color: "#cfc9dd", margin: 0 }}>{c.session_plan.countout}</p>
               </div>
+              {/* therapeutic story image */}
+              {CASE_STORY[c.id]?.therapeutic && (
+                <div className="case-story-panel">
+                  <img src={CASE_STORY[c.id].therapeutic} alt="Therapeutic moment" />
+                  <div className="case-story-caption">
+                    <span className="case-story-label">The therapeutic moment</span>
+                    {(c.session_plan.therapy[0] || "").substring(0, 120)}
+                  </div>
+                </div>
+              )}
+
               {/* Journey Plan Overview */}
               {jp && (
                 <div className="panel" style={{ padding: "18px 22px" }}>
@@ -356,6 +405,16 @@ export default function Cases() {
                   <p style={{ fontSize: 14, lineHeight: 1.65, color: "#cfc9dd", margin: 0 }}>{value}</p>
                 </div>
               ))}
+              {/* resolution story image */}
+              {CASE_STORY[c.id]?.resolution && (
+                <div className="case-story-panel">
+                  <img src={CASE_STORY[c.id].resolution} alt="Resolution" />
+                  <div className="case-story-caption">
+                    <span className="case-story-label">The resolution</span>
+                    Freedom, integration, and a new way forward
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
